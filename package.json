@@ -2,7 +2,7 @@
   "name": "react-query-test",
   "version": "0.1.0",
   "description": "An expressive testing library for React",
-  "main": "index.js",
+  "main": "index.min.js",
   "scripts": {
     "start": "jest --coverage --watch",
     "build": "webpack -c",

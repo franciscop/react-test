@@ -9,6 +9,7 @@ const $ = function(obj, options) {
   }
   // If it's already rendered
   this.inst = create(obj);
+  console.log(this.inst.toTree());
   return this;
 };
 

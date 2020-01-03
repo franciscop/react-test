@@ -8,6 +8,9 @@ const toAttr = (props, opts) => {
           return props;
         }
       }
+      if (key === "className") {
+        return `${props} class="${name}"`;
+      }
       return `${props} ${key}=${name}`;
     }, "")
     .trim();
