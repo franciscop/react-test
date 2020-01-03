@@ -1,6 +1,6 @@
 {
   "name": "react-query-test",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An expressive testing library for React",
   "main": "index.min.js",
   "scripts": {
