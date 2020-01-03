@@ -1,0 +1,38 @@
+{
+  "name": "react-query-test",
+  "version": "0.1.0",
+  "description": "An expressive testing library for React",
+  "main": "index.js",
+  "scripts": {
+    "start": "jest --coverage --watch",
+    "build": "webpack -c",
+    "test": "jest --coverage --forceExit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MITT",
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "jest": "^24.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": []
+  }
+}
