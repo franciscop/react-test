@@ -1,67 +1,51 @@
 // In React 16.9 - https://github.com/facebook/react/issues/15379
-import { create, act } from "react-test-renderer";
-
 import toHtml from "./json-to-html.js";
+import render from "./render";
 
-const $ = function(obj, options) {
-  if (!(this instanceof $)) {
-    return new $(obj, options);
-  }
-  // If it's already rendered
-  this.inst = create(obj);
-  console.log(this.inst.toTree());
+const $ = function(obj) {
+  if (!(this instanceof $)) return new $(obj);
+  this.nodes = render(obj);
   return this;
 };
 
+$.prototype.first = function() {
+  return this.nodes[0];
+};
+
+$.prototype.last = function() {
+  return this.nodes[this.nodes.length - 1];
+};
+
 $.prototype.attr = function(key) {
-  return this.inst.toTree().props[key];
+  return this.first().getAttribute(key);
 };
 
-$.prototype.html = function(options = {}) {
-  return toHtml(this.json(options), options);
+$.prototype.html = function() {
+  return this.first().outerHTML;
 };
 
-const toJson = (json, options) => {
-  const props = {};
-  for (let key in json.props) {
-    if (!/^on/.test(key)) {
-      props[key] = json.props[key];
-    }
-  }
-  json.props = props;
-  return json;
+$.prototype.text = function() {
+  return this.first().textContent;
 };
 
-const dotGet = (obj, sel = "") => {
-  if (typeof sel === "function") return sel(obj);
-  return sel.split(".").reduce((obj, i) => obj[i], obj);
+$.prototype.find = function(selector) {
+  if (!selector) return this;
+  const nodes = this.nodes
+    .map(node => [...node.querySelectorAll(selector)])
+    .flatten();
+  return $(nodes);
 };
 
-$.prototype.json = function(options = {}) {
-  return toJson(this.inst.toJSON(), options);
+$.prototype.map = function(callback) {
+  return this.nodes.map(callback);
 };
 
-$.prototype.bubble = function(selector) {
-  const json = this.inst.toJSON();
-
-  const getChild = (_, i, all) => {
-    const childSelector = all.slice(0, all.length - i).join(".");
-    return dotGet(json, childSelector);
-  };
-
-  // The root one is also a target
-  return [...selector.split(".").map(getChild), json].filter(Boolean);
+$.prototype.trigger = function(type) {
+  return this.map(node => node[type]());
 };
 
-$.prototype.click = function(selector = "") {
-  return act(async () => {
-    for (let target of this.bubble(selector)) {
-      if (!target.props) continue;
-      if (!target.props.onClick) continue;
-      await target.props.onClick({});
-    }
-    return;
-  });
+$.prototype.click = function(selector) {
+  return this.find(selector).trigger("click");
 };
 
 export default $;

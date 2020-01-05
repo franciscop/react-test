@@ -2,19 +2,23 @@
   "name": "react-query-test",
   "version": "0.1.1",
   "description": "An expressive testing library for React",
+  "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "main": "index.min.js",
   "scripts": {
     "start": "jest --coverage --watch",
-    "build": "webpack -c",
+    "build": "rollup -c",
     "test": "jest --coverage --forceExit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "MITT",
-  "peerDependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
-  },
+  "keywords": [
+    "react",
+    "test",
+    "testing",
+    "jquery",
+    "expressive"
+  ],
+  "homepage": "https://github.com/franciscop/react-query-test",
+  "repository": "git@github.com:franciscop/react-query-test.git",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
@@ -24,9 +28,11 @@
     "jest": "^24.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-test-renderer": "^16.12.0",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10"
+    "react-jsdom": "^3.0.0",
+    "rollup": "^1.28.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "babel": {
     "presets": [
