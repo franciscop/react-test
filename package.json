@@ -1,6 +1,6 @@
 {
   "name": "react-query-test",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "An expressive testing library for React",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "main": "index.min.js",
