@@ -4,6 +4,7 @@
   "description": "An expressive testing library for React",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "main": "index.min.js",
+  "type": "module",
   "scripts": {
     "start": "jest --coverage --watch",
     "build": "rollup -c",
