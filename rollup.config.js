@@ -8,9 +8,6 @@ export default {
     file: "index.min.js",
     format: "esm"
   },
-  plugins: [
-    nodeResolve({ preferBuiltins: true }),
-    commonjs({ namedExports: { lru_map: ["LRUMap"] } }),
-    json()
-  ]
+  external: ["react-jsdom"],
+  plugins: [nodeResolve({ preferBuiltins: true }), commonjs(), json()]
 };

@@ -1,5 +1,4 @@
 // In React 16.9 - https://github.com/facebook/react/issues/15379
-import toHtml from "./json-to-html.js";
 import render from "./render";
 
 const $ = function(obj) {
