@@ -1,7 +1,5 @@
 # react-query-test [![npm install react-query-test](https://img.shields.io/badge/npm%20install-react--query--test-blue.svg)](https://www.npmjs.com/package/react-query-test)
 
-> Warning: this is an early/experimental release
-
 An expressive testing library for React:
 
 ```js
