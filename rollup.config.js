@@ -10,5 +10,13 @@ export default {
     format: "umd"
   },
   external: ["react-jsdom"],
-  plugins: [nodeResolve({ preferBuiltins: true }), commonjs(), json()]
+  plugins: [
+    nodeResolve({ preferBuiltins: true }),
+    commonjs({
+      namedExports: {
+        "react-dom/test-utils": ["act"]
+      }
+    }),
+    json()
+  ]
 };

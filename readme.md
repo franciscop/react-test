@@ -31,7 +31,7 @@ const Counter = () => {
   return <div><button onClick={increment}>{counter}</button></div>;
 };
 
-it('Also works with nested events', () => {
+it('Also works with nested events', async () => {
   const $dom = $(<Counter />);
   expect($dom.text()).toEqual("0");
   await $dom.click();   // No event on the root <div />
@@ -40,6 +40,28 @@ it('Also works with nested events', () => {
   expect($dom.text()).toEqual("1");
 });
 ```
+
+If a click method is async, you can wait for it to be fully finished with normal `async`/`await`:
+
+```js
+const Counter = () => {
+  const [counter, setCounter] = useState(0);
+  const increment = async () => {
+    await delay(100);
+    setCounter(counter + 1);
+  };
+  return <button onClick={increment}>{counter}</button>;
+};
+
+it('Also works with nested events', async () => {
+  const $button = $(<Counter />);
+  expect($button.text()).toEqual("0");
+  // Needs the await here:
+  await $button.click();
+  expect($button.text()).toEqual("1");
+});
+```
+
 
 
 ## API

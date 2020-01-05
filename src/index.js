@@ -1,5 +1,6 @@
 // In React 16.9 - https://github.com/facebook/react/issues/15379
 import render from "./render";
+import { act } from "react-dom/test-utils";
 
 const $ = function(obj) {
   if (!(this instanceof $)) return new $(obj);
@@ -43,7 +44,10 @@ $.prototype.map = function(callback) {
 };
 
 $.prototype.trigger = function(type) {
-  return this.map(node => node[type]());
+  act(() => {
+    this.map(node => node[type]());
+  });
+  return this;
 };
 
 $.prototype.click = function(selector) {
