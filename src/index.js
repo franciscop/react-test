@@ -8,30 +8,33 @@ const $ = function(obj) {
 };
 
 $.prototype.first = function() {
-  return this.nodes[0];
+  return this.nodes[0] || null;
 };
 
 $.prototype.last = function() {
-  return this.nodes[this.nodes.length - 1];
+  return this.nodes[this.nodes.length - 1] || null;
 };
 
 $.prototype.attr = function(key) {
-  return this.first().getAttribute(key);
+  const node = this.first();
+  return node && node.getAttribute(key);
 };
 
 $.prototype.html = function() {
-  return this.first().outerHTML;
+  const node = this.first();
+  return node ? node.outerHTML : "";
 };
 
 $.prototype.text = function() {
-  return this.first().textContent;
+  const node = this.first();
+  return node ? node.textContent : "";
 };
 
 $.prototype.find = function(selector) {
   if (!selector) return this;
   const nodes = this.nodes
     .map(node => [...node.querySelectorAll(selector)])
-    .flatten();
+    .flatten(); // So nice :)
   return $(nodes);
 };
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import $ from "./";
 import "babel-polyfill";
 
-describe("click", () => {
+describe(".click()", () => {
   it("can attach and click on children", () => {
     const mock = jest.fn();
     const $test = $(

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import $ from "./";
 import "babel-polyfill";
 
-describe("html", () => {
+describe(".html()", () => {
   it("can attach and click on children", () => {
     const $hello = $(
       <div className="hello">

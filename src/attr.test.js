@@ -2,18 +2,26 @@ import React, { useState } from "react";
 import $ from "./";
 import "babel-polyfill";
 
-describe("attr", () => {
+const $base = $(
+  <div className="test" disabled>
+    Hello
+  </div>
+);
+
+describe(".attr()", () => {
+  it("should be a function", function() {
+    expect(typeof $(<div />).attr).toBe("function");
+  });
+
   it("Has the correct html", async () => {
-    const Hello = () => (
-      <div className="test" disabled>
-        Hello
-      </div>
-    );
-    const $hello = $(<Hello />);
-    expect($hello.attr("class")).toBe("test");
-    expect($hello.attr("disabled")).toBe("");
+    expect($base.attr("class")).toBe("test");
+    expect($base.attr("disabled")).toBe("");
 
     // We test attributes, not properties
-    expect($hello.attr("className")).toBe(null);
+    expect($base.attr("className")).toBe(null);
+  });
+
+  it("works with no matched elements", () => {
+    expect($base.find("button").attr("title")).toBe(null);
   });
 });

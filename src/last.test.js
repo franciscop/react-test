@@ -10,7 +10,7 @@ const $list = $(
   </ul>
 );
 
-describe("first", () => {
+describe(".last()", () => {
   it("can render to HTML", async () => {
     expect($list.last().nodeName).toBe("UL");
   });

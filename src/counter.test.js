@@ -8,7 +8,7 @@ const Counter = () => {
   return <div onClick={increment}>{counter}</div>;
 };
 
-describe("counter", () => {
+describe("<Counter />", () => {
   it("can render to HTML", async () => {
     const $test = $(<Counter />);
     expect($test.text()).toEqual("0");

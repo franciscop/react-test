@@ -46,6 +46,8 @@ it('Also works with nested events', () => {
 
 ## API
 
+Unknown: `.size()`, `.value()`, `.checked`
+
 ### $() ✅
 
 ### .attr() ✅
@@ -78,8 +80,17 @@ it('Also works with nested events', () => {
 
 ### .siblings() ❌
 
-### .size() ?
-
 ### .text() ✅
 
 ### .trigger() ✅
+
+
+## Open Questions
+
+Can we/should we do the readers as plain properties?
+
+```js
+const str = $(<Counter />).html;
+// vs
+const str = $(<Counter />).html();
+```
