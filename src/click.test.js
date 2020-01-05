@@ -11,7 +11,26 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    $test.click("div");
+    const ret = $test.click("div");
+    expect(mock).toBeCalled();
+  });
+
+  it("returns a promise", async () => {
+    const mock = jest.fn();
+    const $test = $(
+      <div>
+        <div
+          onClick={async e => {
+            await Promise.resolve();
+            mock();
+          }}
+        />
+      </div>
+    );
+    expect(mock).not.toBeCalled();
+    const ret = $test.click("div");
+    expect(mock).not.toBeCalled();
+    await ret;
     expect(mock).toBeCalled();
   });
 

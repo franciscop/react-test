@@ -44,9 +44,10 @@ $.prototype.map = function(callback) {
 };
 
 $.prototype.trigger = function(type) {
-  return act(async () => {
-    await Promise.all(this.map(node => node[type]()));
+  act(() => {
+    this.map(node => node[type]());
   });
+  return this;
 };
 
 $.prototype.click = function(selector) {
