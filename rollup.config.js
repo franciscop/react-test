@@ -6,7 +6,8 @@ export default {
   input: "src/index.js",
   output: {
     file: "index.min.js",
-    format: "esm"
+    name: "$",
+    format: "umd"
   },
   external: ["react-jsdom"],
   plugins: [nodeResolve({ preferBuiltins: true }), commonjs(), json()]
