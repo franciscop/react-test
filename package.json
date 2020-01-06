@@ -22,6 +22,7 @@
   "repository": "git@github.com:franciscop/react-query-test.git",
   "license": "MIT",
   "dependencies": {
+    "react-dom": "^16.9.0",
     "react-jsdom": "^3.0.0"
   },
   "devDependencies": {
@@ -32,6 +33,8 @@
     "babel-polyfill": "^6.26.0",
     "jest": "^24.9.0",
     "react": "^16.8.0",
+    "react-dom": "^16.9.0",
+    "react-jsdom": "^3.0.0",
     "rollup": "^1.28.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",

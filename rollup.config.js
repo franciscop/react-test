@@ -9,7 +9,7 @@ export default {
     name: "$",
     format: "umd"
   },
-  external: ["react-jsdom"],
+  external: ["react-jsdom", "react-dom/test-utils"],
   plugins: [
     nodeResolve({ preferBuiltins: true }),
     commonjs({
