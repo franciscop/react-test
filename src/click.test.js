@@ -3,7 +3,7 @@ import $ from "./";
 import "babel-polyfill";
 
 describe(".click()", () => {
-  it("can attach and click on children", () => {
+  it("can attach and click on children", async () => {
     const mock = jest.fn();
     const $test = $(
       <div>
@@ -11,7 +11,7 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    const ret = $test.click("div");
+    await $test.click("div");
     expect(mock).toBeCalled();
   });
 
@@ -21,20 +21,18 @@ describe(".click()", () => {
       <div>
         <div
           onClick={async e => {
-            await Promise.resolve();
+            await new Promise(done => setTimeout(done, 100));
             mock();
           }}
         />
       </div>
     );
     expect(mock).not.toBeCalled();
-    const ret = $test.click("div");
-    expect(mock).not.toBeCalled();
-    await ret;
+    await $test.click("div", 200);
     expect(mock).toBeCalled();
   });
 
-  it("can click two children", () => {
+  it("can click two children", async () => {
     const mock1 = jest.fn();
     const mock2 = jest.fn();
     const $test = $(
@@ -45,12 +43,12 @@ describe(".click()", () => {
     );
     expect(mock1).not.toBeCalled();
     expect(mock2).not.toBeCalled();
-    $test.click("div");
+    await $test.click("div");
     expect(mock1).toBeCalled();
     expect(mock2).toBeCalled();
   });
 
-  it("can click only on the first one", () => {
+  it("can click only on the first one", async () => {
     const mock = jest.fn();
     const badmock = jest.fn();
     const $test = $(
@@ -60,7 +58,7 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    $test.click("span");
+    await $test.click("span");
     expect(mock).toBeCalled();
     expect(badmock).not.toBeCalled();
   });
@@ -77,7 +75,7 @@ describe(".click()", () => {
     expect(mock).toBeCalled();
   });
 
-  it("will bubble up", () => {
+  it("will bubble up", async () => {
     const mock = jest.fn();
     const $test = $(
       <div onClick={mock}>
@@ -85,11 +83,11 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    $test.click("div");
+    await $test.click("div");
     expect(mock).toBeCalled();
   });
 
-  it("won't throw when clicking on unfound children", () => {
+  it("won't throw when clicking on unfound children", async () => {
     const mock = jest.fn();
     const $test = $(
       <div>
@@ -97,13 +95,13 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    $test.click("a");
+    await $test.click("a");
     expect(mock).not.toBeCalled();
-    $test.click("div");
+    await $test.click("div");
     expect(mock).toBeCalled();
   });
 
-  it("won't throw when clicking on children with no props", () => {
+  it("won't throw when clicking on children with no props", async () => {
     const mock = jest.fn();
     const $test = $(
       <div>
@@ -111,19 +109,19 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    $test.click();
+    await $test.click();
     expect(mock).not.toBeCalled();
-    $test.click("div");
+    await $test.click("div");
     expect(mock).toBeCalled();
   });
 
-  it("won't throw when clicking on children with no onClick", () => {
+  it("won't throw when clicking on children with no onClick", async () => {
     const $test = $(
       <div>
         <div>Hi</div>
       </div>
     );
-    $test.click();
-    $test.click("div");
+    await $test.click();
+    await $test.click("div");
   });
 });

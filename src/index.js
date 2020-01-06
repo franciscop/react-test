@@ -43,15 +43,17 @@ $.prototype.map = function(callback) {
   return this.nodes.map(callback);
 };
 
-$.prototype.trigger = function(type) {
-  act(() => {
+$.prototype.trigger = function(type, time = 0) {
+  return act(async () => {
     this.map(node => node[type]());
+    await new Promise(done => setTimeout(done, time));
   });
-  return this;
 };
 
-$.prototype.click = function(selector) {
-  return this.find(selector).trigger("click");
+$.prototype.click = function(...args) {
+  const selector = args.find(a => typeof a === "string");
+  const time = args.find(a => typeof a === "number");
+  return this.find(selector).trigger("click", time);
 };
 
 export default $;
