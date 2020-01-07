@@ -34,31 +34,26 @@ const Counter = () => {
 it('Also works with nested events', async () => {
   const $dom = $(<Counter />);
   expect($dom.text()).toEqual("0");
-  await $dom.click();   // No event on the root <div />
+  await $dom.click();
   expect($dom.text()).toEqual("0");
-  await $dom.find('button').click();  // Now it works
+  await $dom.click('button');
+  // Same as: await $dom.find('button').click();
   expect($dom.text()).toEqual("1");
 });
 ```
 
-If a click method is async, you can wait for it to be fully finished with normal `async`/`await`:
+For `.click()`, you can pass a selector and/or a running time:
+- `.click('button')` (string): the child element that receives the click. Leave it empty to click the current element. This is a shorthand of `.find(selector).click()` for convenience.
+- `.click(100)` (number): the time to *wait* after the click for the effect to be settled. If they are not immediate (API call, timeouts, transitions, etc) make sure that the time is longer than the effect. Internally this will wrap the effect with an [act()](https://reactjs.org/docs/test-utils.html#act) that works for the specified time.
+
+You can combine them as well:
 
 ```js
-const Counter = () => {
-  const [counter, setCounter] = useState(0);
-  const increment = async () => {
-    await delay(100);
-    setCounter(counter + 1);
-  };
-  return <button onClick={increment}>{counter}</button>;
-};
-
-it('Also works with nested events', async () => {
-  const $button = $(<Counter />);
-  expect($button.text()).toEqual("0");
-  // Needs the await here:
-  await $button.click();
-  expect($button.text()).toEqual("1");
+it('clicks all buttons inside and wait 200ms', async () => {
+  const $dom = $(<Counter />);
+  expect($dom.text()).toEqual("0");
+  await $dom.click('button', 200);
+  expect($dom.text()).toEqual("1");
 });
 ```
 
@@ -103,14 +98,3 @@ Unknown: `.size()`, `.value()`, `.checked`
 ### .text() ✅
 
 ### .trigger() ✅
-
-
-## Open Questions
-
-Can we/should we do the readers as plain properties?
-
-```js
-const str = $(<Counter />).html;
-// vs
-const str = $(<Counter />).html();
-```
