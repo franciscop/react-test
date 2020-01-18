@@ -1,10 +1,10 @@
-# react-query-test [![npm install react-query-test](https://img.shields.io/badge/npm%20install-react--query--test-blue.svg)](https://www.npmjs.com/package/react-query-test)
+# react-test [![npm install react-test](https://img.shields.io/badge/npm%20install-react--query--test-blue.svg)](https://www.npmjs.com/package/react-test)
 
 An expressive testing library for React:
 
 ```js
 import React, { useState } from "react";
-import $ from "react-query-test";
+import $ from "react-test";
 
 const Counter = () => {
   const [counter, setCounter] = useState(0);

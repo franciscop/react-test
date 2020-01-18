@@ -1,6 +1,6 @@
 {
-  "name": "react-query-test",
-  "version": "0.2.11",
+  "name": "react-test",
+  "version": "0.2.0",
   "description": "An expressive testing library for React",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "main": "index.min.js",
@@ -18,8 +18,8 @@
     "expressive"
   ],
   "files": [],
-  "homepage": "https://github.com/franciscop/react-query-test",
-  "repository": "git@github.com:franciscop/react-query-test.git",
+  "homepage": "https://github.com/franciscop/react-test",
+  "repository": "git@github.com:franciscop/react-test.git",
   "license": "MIT",
   "dependencies": {
     "react-dom": "^16.9.0",
