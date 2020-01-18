@@ -2,12 +2,16 @@
   "name": "react-test",
   "version": "0.2.0",
   "description": "An expressive testing library for React",
+  "homepage": "https://github.com/franciscop/react-test#readme",
+  "repository": "https://github.com/franciscop/react-test.git",
+  "bugs": "https://github.com/franciscop/react-test/issues",
+  "funding": "https://www.paypal.me/franciscopresencia/19",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
-  "main": "index.min.js",
-  "type": "module",
+  "license": "MIT",
   "scripts": {
-    "start": "jest --coverage --watch",
     "build": "rollup -c",
+    "size": "echo $(gzip -c index.min.js | wc -c) bytes",
+    "start": "jest --coverage --watch",
     "test": "jest --coverage --detectOpenHandles"
   },
   "keywords": [
@@ -15,12 +19,13 @@
     "test",
     "testing",
     "jquery",
-    "expressive"
+    "expressive",
+    "act",
+    "jest",
+    "runner"
   ],
+  "main": "index.min.js",
   "files": [],
-  "homepage": "https://github.com/franciscop/react-test",
-  "repository": "git@github.com:franciscop/react-test.git",
-  "license": "MIT",
   "dependencies": {
     "react-dom": "^16.9.0",
     "react-jsdom": "^3.0.0"
