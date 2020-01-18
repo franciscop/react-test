@@ -1,5 +1,7 @@
 # react-test [![npm install react-test](https://img.shields.io/badge/npm%20install-react--query--test-blue.svg)](https://www.npmjs.com/package/react-test) [![test badge](https://github.com/franciscop/react-test/workflows/tests/badge.svg)](https://github.com/franciscop/react-test/blob/master/.github/workflows/tests.yml)
 
+> Early package! Please [watch it in Github](https://github.com/franciscop/react-test/watchers) for updates and [feel free to open issues](https://github.com/franciscop/react-test/issues) ❤️
+
 An expressive testing library for React:
 
 ```js
