@@ -4,7 +4,9 @@ import { act } from "react-dom/test-utils";
 
 const $ = function(obj) {
   if (!(this instanceof $)) return new $(obj);
-  this.nodes = render(obj);
+  act(() => {
+    this.nodes = render(obj);
+  });
   return this;
 };
 
