@@ -8,9 +8,14 @@ describe("render", () => {
     expect(html).toEqual([]);
   });
 
-  it("will skip plain strings", () => {
+  it.skip("will render plain strings", () => {
     const html = render("Hello");
-    expect(html).toEqual([]);
+    expect(html).toEqual(["Hello"]);
+  });
+
+  it.skip("will render a string fragment", () => {
+    const html = render(<>Hello</>);
+    expect(html).toEqual(["Hello"]);
   });
 
   it("can render a plain Div", () => {
