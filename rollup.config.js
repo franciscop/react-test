@@ -1,6 +1,7 @@
 import commonjs from "rollup-plugin-commonjs";
 import nodeResolve from "rollup-plugin-node-resolve";
 import json from "rollup-plugin-json";
+import { terser } from "rollup-plugin-terser";
 
 export default {
   input: "src/index.js",
@@ -17,6 +18,7 @@ export default {
         "react-dom/test-utils": ["act"]
       }
     }),
-    json()
+    json(),
+    terser()
   ]
 };
