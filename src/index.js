@@ -58,15 +58,14 @@ $.prototype.click = function(...args) {
   return this.find(selector).trigger("click", time);
 };
 
-$.prototype.children = function (selector = '') {
-  const node = this.first();
-  // Return early if possible
-  if (!node) return this;
+$.prototype.children = function (selector = "") {
   const children = [];
-  node.childNodes.forEach(childNode => {
-    if (!selector || childNode.matches(selector)) {
-      children.push(childNode);
-    }
+  this.nodes.forEach(node => {
+    node.childNodes.forEach(childNode => {
+      if (!selector || childNode.matches(selector)) {
+        children.push(childNode);
+      }
+    })
   })
   return $(children);
 };
