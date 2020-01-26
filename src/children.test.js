@@ -67,4 +67,25 @@ describe(".children()", () => {
     const names = $hello.children("a").find('button').map(node => node.nodeName);
     expect(names).toEqual(["BUTTON"]);
   });
+
+  it("Can get children of multiple nodes", async () => {
+    const $hello = $(
+      <div>
+        <p>
+          <a>
+            <button>Hello</button>
+            <span>World</span>
+          </a>
+        </p>
+        <p>
+          <a>
+            <button>Hello</button>
+            <span>World</span>
+          </a>
+        </p>
+      </div>
+    );
+    const names = $hello.find("p").children("a").find("button").map(node => node.nodeName);
+    expect(names).toEqual(["BUTTON", "BUTTON"]);
+  });
 });
