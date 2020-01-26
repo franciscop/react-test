@@ -58,4 +58,19 @@ $.prototype.click = function(...args) {
   return this.find(selector).trigger("click", time);
 };
 
+$.prototype.children = function (selector = '') {
+  const node = this.first();
+  // Return early if possible
+  if (!node) return this;
+  if (!selector) return node.childNodes;
+  // Will proceed only if there is a selector provided
+  const children = [];
+  node.childNodes.forEach(childNode => {
+    if (childNode.matches(selector)) {
+      children.push(childNode);
+    }
+  })
+  return children;
+};
+
 export default $;
