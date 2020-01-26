@@ -54,4 +54,17 @@ describe(".children()", () => {
     const names = $hello.children("ul").map(node => node.nodeName);
     expect(names).toEqual(["UL"]);
   });
+
+  it("Can be chained", async () => {
+    const $hello = $(
+      <div>
+        <a>
+          <button>Hello</button>
+          <span>World</span>
+        </a>
+      </div>
+    );
+    const names = $hello.children("a").find('button').map(node => node.nodeName);
+    expect(names).toEqual(["BUTTON"]);
+  });
 });
