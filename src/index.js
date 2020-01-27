@@ -10,6 +10,7 @@ import "./last";
 import "./map";
 import "./text";
 import "./trigger";
+import "./children";
 
 // Export the whole thing
 export default $;
