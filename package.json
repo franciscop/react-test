@@ -1,6 +1,6 @@
 {
   "name": "react-test",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "An expressive testing library for React",
   "homepage": "https://github.com/franciscop/react-test#readme",
   "repository": "https://github.com/franciscop/react-test.git",
@@ -43,7 +43,8 @@
     "rollup": "^1.28.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.2.0"
   },
   "babel": {
     "presets": [
