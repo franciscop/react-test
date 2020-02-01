@@ -11,6 +11,7 @@ import "./map";
 import "./text";
 import "./trigger";
 import "./children";
+import "./closest";
 
 // Export the whole thing
 export default $;
