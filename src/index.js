@@ -7,6 +7,7 @@ import "./find";
 import "./first";
 import "./html";
 import "./last";
+import "./unique";
 import "./map";
 import "./text";
 import "./trigger";
