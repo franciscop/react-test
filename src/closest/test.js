@@ -37,4 +37,32 @@ describe(".closest()", () => {
     const names = $hello.find("li").closest("ul").first().nodeName;
     expect(names).toBe("UL");
   });
+
+  it("Has the correct html when match multiple parents from multiple children", async () => {
+    const List = () => (
+      <ul>
+        <li><a>Hello</a></li>
+        <li><a>World</a></li>
+      </ul>
+    );
+
+    // This should return both of the <li>s
+    const names = $(<List />).find('a').closest('li').map(node => node.nodeName);
+    expect(names).toEqual(["LI", "LI"]);
+  });
+
+  it("Has the correct html when match single parent from multiple children", async () => {
+    const List = () => (
+      <div>
+        <ul>
+          <li><a>Hello</a></li>
+          <li><a>World</a></li>
+        </ul>
+      </div>
+    );
+
+    // This should return both of the <li>s
+    const names = $(<List />).find('a').closest('ul').map(node => node.nodeName);
+    expect(names).toEqual(["UL"]);
+  });
 });
