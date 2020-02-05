@@ -1,0 +1,21 @@
+body {
+  background: #eee;
+  font-size: 18px;
+}
+
+main {
+  background: white;
+  margin: 50px auto;
+  max-width: 1200px;
+  padding: 50px;
+  box-shadow: 2px 2px 8px -8px;
+}
+
+code {
+  font-size: 16px;
+}
+
+h1 {
+  padding: 0;
+  line-height: 1;
+}
