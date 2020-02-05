@@ -2,9 +2,11 @@
 import $ from "../constructor";
 
 // Removed duplicated nodes, used for some specific methods
-$.prototype.unique = function () {
-    return $(this.nodes.reduce(function (clean, node) {
-        var istruthy = node !== null && node !== undefined && node !== false;
-        return (istruthy && clean.indexOf(node) === -1) ? clean.concat(node) : clean;
-    }, []));
+$.prototype.unique = function() {
+  const nodes = [];
+  this.nodes.forEach(node => {
+    if (nodes.includes(node)) return;
+    nodes.push(node);
+  });
+  return $(nodes);
 };
