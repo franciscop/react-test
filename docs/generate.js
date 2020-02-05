@@ -13,6 +13,7 @@ const build = async (req, res, next) => {
   try {
     const content = await walk("../src")
       .filter(/\.md$/)
+      .sort((a, b) => a.localeCompare(b))
       .sort((a, b) => depth(a) - depth(b))
       .map(read)
       .map(page => marked(page)) // Because it breaks with 2nd arg as the index
