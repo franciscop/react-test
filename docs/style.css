@@ -75,6 +75,8 @@ h1 {
 
 h2 {
   font-size: 1.4em;
+  padding-top: 1.5em;
+  margin-top: 2em;
 }
 
 @media (min-width: 900px) {

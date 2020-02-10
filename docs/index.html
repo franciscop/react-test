@@ -26,8 +26,24 @@ describe(&#39;Counter.js&#39;, () =&gt; {
 
 
 <h2 id="attr">.attr()</h2>
-<p>Read the attributes for the matched elements</p>
-<pre><code class="language-js">.attr(&#39;name&#39;)</code></pre>
+<p>Read the attributes for the first matched element:</p>
+<pre><code class="language-js">.attr(&quot;name&quot;)</code></pre>
+<p>It will read the attributes of the matched elements:</p>
+<pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
+expect($input.attr(&quot;name&quot;)).toBe(&quot;email&quot;);
+expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</code></pre>
+<h3 id="examples">Examples</h3>
+<h4 id="ensure-external-links-have-noopener-noreferrer">Ensure external links have &quot;noopener noreferrer&quot;</h4>
+<pre><code class="language-js">// Find all of the external links first
+const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
+
+// Get an array witth the rel= attributes
+const rels = $links.map(link =&gt; $(link).attr(&quot;rel&quot;));
+
+// Make sure they follow the schema
+for (let rel of rels) {
+  expect(rel).toBe(&quot;noopener noreferrer&quot;);
+}</code></pre>
 
 
 <h2 id="children">.children()</h2>
@@ -52,15 +68,18 @@ describe(&#39;Counter.js&#39;, () =&gt; {
 
 <h2 id="html">.html()</h2>
 <p>Retrieve the html of the elements:</p>
-<pre><code>.html()</code></pre>
+<pre><code class="language-js">.html()</code></pre>
+
 
 <h2 id="text">.text()</h2>
 <p>Retrieve the textContent of the elements:</p>
-<pre><code>.text()</code></pre>
+<pre><code class="language-js">.text()</code></pre>
+
 
 <h2 id="trigger">.trigger()</h2>
 <p>Trigger an event. Right now it only accepts &#39;click&#39;.</p>
-<pre><code>.trigger()</code></pre></main>
+<pre><code class="language-js">.trigger()</code></pre>
+</main>
     <script src="/prism.min.js" charset="utf-8"></script>
   </body>
 </html>
