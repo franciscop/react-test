@@ -1,6 +1,6 @@
 # React Test
 
-To get started, import it and use it:
+To get started, import it, render your component inside of it and assert on the output:
 
 ```js
 import $ from 'react-test';

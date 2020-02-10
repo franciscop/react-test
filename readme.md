@@ -71,11 +71,11 @@ Unknown: `.size()`, `.value()`, `.checked`
 
 ### .attr() ✅
 
-### .children() ❌
+### .children() ✅
 
 ### .click() ✅
 
-### .closest() ❌
+### .closest() ✅
 
 ### .data() ❌
 
