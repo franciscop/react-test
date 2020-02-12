@@ -16,9 +16,7 @@ expect($input.attr("placeholder")).toBe("me@example.com");
 
 
 
-### Examples
-
-#### Ensure external links have "noopener noreferrer"
+### Example: external links have "noopener noreferrer"
 
 ```js
 // Find all of the external links first

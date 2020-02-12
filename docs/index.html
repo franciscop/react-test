@@ -9,18 +9,90 @@
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <main><h1 id="react-test">React Test</h1>
-<p>To get started, import it, render your component inside of it and assert on the output:</p>
-<pre><code class="language-js">import $ from &#39;react-test&#39;;
+    <div class="flex">
+      <div>
+        <aside>
+          <h2>Documentation</h2>
+          <div><a href="#getting-started">Getting Started</a>
+<a href="#attr">.attr()</a>
+<a href="#children">.children()</a>
+<a href="#click">.click()</a>
+<a href="#closest">.closest()</a>
+<a href="#find">.find()</a>
+<a href="#html">.html()</a>
+<a href="#text">.text()</a>
+<a href="#trigger">.trigger()</a></div>
+        </aside>
+      </div>
+      <div>
+        <main><h1 id="react-test-npm-install-react-test-test-badge">React Test <a href="https://www.npmjs.com/package/react-test"><img src="https://img.shields.io/badge/npm%20install-react--test-blue.svg" alt="npm install react-test"></a> <a href="https://github.com/franciscop/react-test/blob/master/.github/workflows/tests.yml"><img src="https://github.com/franciscop/react-test/workflows/tests/badge.svg" alt="test badge"></a></h1>
+<blockquote>
+<p>Early package! Please <a href="https://github.com/franciscop/react-test/watchers">watch it in Github</a> for updates and <a href="https://github.com/franciscop/react-test/issues">feel free to open issues</a>.</p>
+</blockquote>
+<blockquote>
+<p>This project is <a href="./Contributing.md">looking for beginner Open Source contributors</a>! ❤️</p>
+</blockquote>
+<p>A complete and expressive testing library for React:</p>
+<pre><code class="language-js">import $ from &quot;react-test&quot;;
 
-const Counter = () =&gt; {
-  const [count, setCounter] = useState(0);
-  return &lt;div onClick={e =&gt; setCounter(count + 1)}&gt;{count}&lt;div&gt;;
+it(&quot;increments the counter when clicked&quot;, async () =&gt; {
+  const counter = $(&lt;Counter /&gt;);
+  expect(counter.text()).toEqual(&quot;0&quot;);
+  await counter.click();
+  expect(counter.text()).toEqual(&quot;1&quot;);
+});</code></pre>
+<p>The interface is a subset of jQuery so you can navigate the DOM as usual:</p>
+<pre><code class="language-js">const Counter = () =&gt; {
+  const [counter, setCounter] = useState(0);
+  const increment = () =&gt; setCounter(counter + 1);
+  return &lt;div&gt;&lt;button onClick={increment}&gt;{counter}&lt;/button&gt;&lt;/div&gt;;
 };
 
-describe(&#39;Counter.js&#39;, () =&gt; {
-  it(&#39;starts on 0&#39;, () =&gt; {
-    expect($(&lt;Counter /&gt;).text()).toBe(&#39;0&#39;);
+it(&quot;Also works with nested events&quot;, async () =&gt; {
+  const dom = $(&lt;Counter /&gt;);
+  expect(dom.text()).toEqual(&quot;0&quot;);
+  await dom.find(&quot;button&quot;).click();
+  expect(dom.text()).toEqual(&quot;1&quot;);
+});</code></pre>
+<h2 id="getting-started">Getting Started</h2>
+<p>You need a React project already working. That&#39;s on you, but we recommend <a href="https://create-react-app.dev/">Create React App</a>:</p>
+<pre><code class="language-bash">npx create-react-app my-app
+cd my-app</code></pre>
+<p>Then you install <code>react-test</code>, only for development:</p>
+<pre><code class="language-bash">npm install react-test --save-dev</code></pre>
+<p>Now you can write tests, let&#39;s say you have this component:</p>
+<pre><code class="language-js">// src/Counter.js
+import React, { useState } from &quot;react&quot;;
+
+export default function Counter () {
+  const [count, setCount] = useState(0);
+  const increment = () =&gt; setCount(count + 1);
+  return &lt;button onClick={increment}&gt;{count}&lt;/button&gt;;
+};</code></pre>
+<p>You can write the following test to make sure it&#39;s working:</p>
+<pre><code class="language-js">// src/Counter.test.js
+import React from &quot;react&quot;;
+import $ from &quot;react-test&quot;;
+import Counter from &quot;./Counter&quot;;
+
+describe(&quot;Counter.js&quot;, () =&gt; {
+  it(&quot;is initialized to 0&quot;, () =&gt; {
+    const counter = $(&lt;Counter /&gt;);
+    expect(counter.text()).toBe(&quot;0&quot;);
+  });
+
+  it(&quot;can be incremented with a click&quot;, async () =&gt; {
+    const counter = $(&lt;Counter /&gt;);
+    await counter.click();
+    expect(counter.text()).toBe(&quot;1&quot;);
+  });
+
+  it(&quot;can be incremented multiple times&quot;, async () =&gt; {
+    const counter = $(&lt;Counter /&gt;);
+    await counter.click();
+    await counter.click();
+    await counter.click();
+    expect(counter.text()).toBe(&quot;3&quot;);
   });
 });</code></pre>
 
@@ -32,8 +104,7 @@ describe(&#39;Counter.js&#39;, () =&gt; {
 <pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
 expect($input.attr(&quot;name&quot;)).toBe(&quot;email&quot;);
 expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</code></pre>
-<h3 id="examples">Examples</h3>
-<h4 id="ensure-external-links-have-noopener-noreferrer">Ensure external links have &quot;noopener noreferrer&quot;</h4>
+<h3 id="example-external-links-have-noopener-noreferrer">Example: external links have &quot;noopener noreferrer&quot;</h3>
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 
@@ -54,6 +125,18 @@ for (let rel of rels) {
 <h2 id="click">.click()</h2>
 <p>Calls a click event on all of the matched nodes</p>
 <pre><code class="language-js">.click()</code></pre>
+<p>For <code>.click()</code>, you can pass a selector and/or a running time:</p>
+<ul>
+<li><code>.click(&#39;button&#39;)</code> (string): the child element that receives the click. Leave it empty to click the current element. This is a shorthand of <code>.find(selector).click()</code> for convenience.</li>
+<li><code>.click(100)</code> (number): the time to <em>wait</em> after the click for the effect to be settled. If they are not immediate (API call, timeouts, transitions, etc) make sure that the time is longer than the effect. Internally this will wrap the effect with an <a href="https://reactjs.org/docs/test-utils.html#act">act()</a> that works for the specified time.</li>
+</ul>
+<p>You can combine them as well:</p>
+<pre><code class="language-js">it(&#39;clicks all buttons inside and wait 200ms&#39;, async () =&gt; {
+  const $dom = $(&lt;Counter /&gt;);
+  expect($dom.text()).toEqual(&quot;0&quot;);
+  await $dom.click(&#39;button&#39;, 200);
+  expect($dom.text()).toEqual(&quot;1&quot;);
+});</code></pre>
 
 
 <h2 id="closest">.closest()</h2>
@@ -80,6 +163,8 @@ for (let rel of rels) {
 <p>Trigger an event. Right now it only accepts &#39;click&#39;.</p>
 <pre><code class="language-js">.trigger()</code></pre>
 </main>
+      </div>
+    </div>
     <script src="/prism.min.js" charset="utf-8"></script>
   </body>
 </html>
