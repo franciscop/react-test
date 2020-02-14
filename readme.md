@@ -91,3 +91,15 @@ describe("Counter.js", () => {
   });
 });
 ```
+
+
+
+### Frequently Asked Questions
+
+**Is this an official React library?**
+
+No, it's not. This follows the community convention of calling a library related to React as `react-NAME`. It is made [by these contributors](https://github.com/franciscop/react-test/graphs/contributors) without any involvement of Facebook or [React](https://reactjs.org/).
+
+**How can I contribute?**
+
+Please read the [Contributing Guide](./Contributing.md) where we explain how to get started with the project. Right now there are [some issues labelled for beginners](https://github.com/franciscop/react-test/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) so please feel free to implement those!
