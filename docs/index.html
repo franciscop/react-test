@@ -137,10 +137,10 @@ for (let rel of rels) {
 <li><code>.click(100)</code> (number): the time to <em>wait</em> after the click for the effect to be settled. If they are not immediate (API call, timeouts, transitions, etc) make sure that the time is longer than the effect. Internally this will wrap the effect with an <a href="https://reactjs.org/docs/test-utils.html#act">act()</a> that works for the specified time.</li>
 </ul>
 <p>You can combine them as well:</p>
-<pre><code class="language-js">it(&#39;clicks all buttons inside and wait 200ms&#39;, async () =&gt; {
+<pre><code class="language-js">it(&#39;clicks all buttons inside&#39;, async () =&gt; {
   const $dom = $(&lt;Counter /&gt;);
   expect($dom.text()).toEqual(&quot;0&quot;);
-  await $dom.click(&#39;button&#39;, 200);
+  await $dom.click(&#39;button&#39;);
   expect($dom.text()).toEqual(&quot;1&quot;);
 });</code></pre>
 

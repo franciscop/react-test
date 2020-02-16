@@ -1,3 +1,5 @@
+import jest from "./jest";
+
 import $ from "./constructor";
 
 // Import all of the methods which will modify the $.prototype straight away

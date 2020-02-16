@@ -16,10 +16,10 @@ For `.click()`, you can pass a selector and/or a running time:
 You can combine them as well:
 
 ```js
-it('clicks all buttons inside and wait 200ms', async () => {
+it('clicks all buttons inside', async () => {
   const $dom = $(<Counter />);
   expect($dom.text()).toEqual("0");
-  await $dom.click('button', 200);
+  await $dom.click('button');
   expect($dom.text()).toEqual("1");
 });
 ```
