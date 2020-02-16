@@ -53,14 +53,16 @@
     "rollup-plugin-terser": "^5.2.0"
   },
   "babel": {
-
     "presets": [
-      "@babel/preset-env",
+      ["@babel/preset-env", {
+        "targets": {
+          "node": 4
+        },
+        "useBuiltIns": "usage",
+        "corejs": 3
+      }],
       "@babel/preset-react"
     ],
     "plugins": []
-  },
-  "setupFiles": [
-    "core-js"
-  ]
+  }
 }
