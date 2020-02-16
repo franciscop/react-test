@@ -26,7 +26,7 @@ describe("toHaveClass", () => {
     const message = withError(() => {
       expect(null).toHaveClass("banana");
     });
-    console.log(message);
+    expect(message).toBe("expect() should receive an HTMLElement");
   });
 
   it("requires a class if it's not found", () => {

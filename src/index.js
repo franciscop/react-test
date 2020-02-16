@@ -1,4 +1,4 @@
-import jest from "./jest";
+import "./jest";
 
 import $ from "./constructor";
 
