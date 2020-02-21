@@ -20,6 +20,8 @@ aside {
   flex-basis: 280px;
   max-height: 100vh;
   overflow: scroll;
+  box-shadow: 2px 2px 8px -8px;
+  border-radius: 0 0 8px 8px;
 }
 
 aside h2 {
@@ -44,6 +46,14 @@ aside a:hover {
   margin: 5px 0;
   display: flex;
   align-items: center;
+}
+
+.entry:first-child {
+  margin-top: 0;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
 }
 
 .more {
@@ -110,6 +120,7 @@ main {
   max-width: 900px;
   padding: 20px;
   box-shadow: 2px 2px 8px -8px;
+  border-radius: 0 0 8px 8px;
 }
 
 @media (min-width: 600px) {
@@ -127,6 +138,7 @@ main {
 /* For mobile */
 #docs {
   max-width: 100%;
+  margin-bottom: 300px;
 }
 
 pre[class*="language-"] {

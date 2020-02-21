@@ -47,7 +47,13 @@ const build = async (req, res, next = () => {}) => {
         title,
         level: level === "2" ? "primary" : "secondary"
       }));
-    let toc = "<section>";
+    let toc = `
+      <div class="entry primary">
+        <label class="more"></label>
+        <a href="#docs"><h2>React Test</h2></a>
+      </div>
+      <section>
+    `;
     sections.forEach((sec, i, secs) => {
       // Start new section
       if (sec.level === "secondary" && i && secs[i - 1].level === "primary") {
