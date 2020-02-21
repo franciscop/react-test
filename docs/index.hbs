@@ -41,14 +41,16 @@
     <div class="flex">
       <div>
         <aside>
-          <h2>Documentation</h2>
+          <h2><a href="#docs">Documentation</a></h2>
           <div>{{{toc}}}</div>
         </aside>
       </div>
-      <div>
+      <div id="docs">
         <main>{{{content}}}</main>
       </div>
     </div>
-    <script src="/prism.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+    <script src="/prism.min.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>

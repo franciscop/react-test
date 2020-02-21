@@ -41,7 +41,7 @@
     <div class="flex">
       <div>
         <aside>
-          <h2>Documentation</h2>
+          <h2><a href="#docs">Documentation</a></h2>
           <div><a href="#getting-started">Getting Started</a>
 <a href="#attr">.attr()</a>
 <a href="#children">.children()</a>
@@ -54,7 +54,7 @@
 <a href="#trigger">.trigger()</a></div>
         </aside>
       </div>
-      <div>
+      <div id="docs">
         <main><h1 id="react-test-npm-install-react-test-test-badge">React Test <a href="https://www.npmjs.com/package/react-test"><img src="https://img.shields.io/badge/npm%20install-react--test-blue.svg" alt="npm install react-test"></a> <a href="https://github.com/franciscop/react-test/actions"><img src="https://github.com/franciscop/react-test/workflows/tests/badge.svg" alt="test badge"></a></h1>
 <blockquote>
 <p>Early package! Please <a href="https://github.com/franciscop/react-test/watchers">watch it in Github</a> for updates and <a href="https://github.com/franciscop/react-test/issues">feel free to open issues</a>.</p>
@@ -71,19 +71,7 @@ it(&quot;increments the counter when clicked&quot;, async () =&gt; {
   await counter.click();
   expect(counter.text()).toEqual(&quot;1&quot;);
 });</code></pre>
-<p>The interface is a subset of jQuery so you can navigate the DOM as usual:</p>
-<pre><code class="language-js">const Counter = () =&gt; {
-  const [counter, setCounter] = useState(0);
-  const increment = () =&gt; setCounter(counter + 1);
-  return &lt;div&gt;&lt;button onClick={increment}&gt;{counter}&lt;/button&gt;&lt;/div&gt;;
-};
-
-it(&quot;Also works with nested events&quot;, async () =&gt; {
-  const dom = $(&lt;Counter /&gt;);
-  expect(dom.text()).toEqual(&quot;0&quot;);
-  await dom.find(&quot;button&quot;).click();
-  expect(dom.text()).toEqual(&quot;1&quot;);
-});</code></pre>
+<p>Its syntax follows a similar schema to jQuery so it&#39;s very easy to write expressive tests. The best way to test declarative code is with an imperative library.</p>
 <h2 id="getting-started">Getting Started</h2>
 <p>You need a React project already working. That&#39;s on you, but we recommend <a href="https://create-react-app.dev/">Create React App</a>:</p>
 <pre><code class="language-bash">npx create-react-app my-app
@@ -206,6 +194,8 @@ for (let rel of rels) {
 </main>
       </div>
     </div>
-    <script src="/prism.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+    <script src="/prism.min.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>

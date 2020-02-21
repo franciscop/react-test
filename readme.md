@@ -17,22 +17,8 @@ it("increments the counter when clicked", async () => {
 });
 ```
 
-The interface is a subset of jQuery so you can navigate the DOM as usual:
+Its syntax follows a similar schema to jQuery so it's very easy to write expressive tests. The best way to test declarative code is with an imperative library.
 
-```js
-const Counter = () => {
-  const [counter, setCounter] = useState(0);
-  const increment = () => setCounter(counter + 1);
-  return <div><button onClick={increment}>{counter}</button></div>;
-};
-
-it("Also works with nested events", async () => {
-  const dom = $(<Counter />);
-  expect(dom.text()).toEqual("0");
-  await dom.find("button").click();
-  expect(dom.text()).toEqual("1");
-});
-```
 
 ## Getting Started
 
