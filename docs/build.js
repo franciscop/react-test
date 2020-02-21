@@ -20,11 +20,15 @@ const build = async (req, res, next = () => {}) => {
       .join("\n\n");
     const sections = content
       .split("\n")
-      .map(a => a.match(/<h2 id=\"([a-z\-]+)\">([^\<]+)<\/h2>/))
+      .map(a => a.match(/<h(2|3) id=\"([a-z\-]+)\">([^\<]+)<\/h(2|3)>/))
       .filter(Boolean)
-      .map(([, hash, title]) => ({ hash, title }));
+      .map(([, level, hash, title]) => ({
+        hash,
+        title,
+        level: level === "2" ? "primary" : "secondary"
+      }));
     const toc = sections
-      .map(link => `<a href="#${link.hash}">${link.title}</a>`)
+      .map(sc => `<a class="${sc.level}" href="#${sc.hash}">${sc.title}</a>`)
       .join("\n");
     const page = await read("./docs/index.hbs");
     const html = hbs(page, { content, toc });

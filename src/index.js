@@ -1,23 +1,23 @@
-import "./jest";
+import "./jest-matchers";
 
-import $ from "./constructor";
+import $ from "./methods/constructor";
 
 // Import all of the methods which will modify the $.prototype straight away
-import "./attr";
-import "./click";
-import "./find";
-import "./first";
-import "./html";
-import "./is";
-import "./last";
-import "./unique";
-import "./map";
-import "./text";
-import "./trigger";
-import "./children";
-import "./closest";
+import "./methods/attr";
+import "./methods/click";
+import "./methods/find";
+import "./methods/first";
+import "./methods/html";
+import "./methods/is";
+import "./methods/last";
+import "./methods/unique";
+import "./methods/map";
+import "./methods/text";
+import "./methods/trigger";
+import "./methods/children";
+import "./methods/closest";
 
-export { default as until } from "./until";
+export { default as until } from "./helpers/until";
 
 // Export the whole thing
 export default $;

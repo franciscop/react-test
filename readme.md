@@ -1,4 +1,4 @@
-# React Test [![npm install react-test](https://img.shields.io/badge/npm%20install-react--test-blue.svg)](https://www.npmjs.com/package/react-test) [![test badge](https://github.com/franciscop/react-test/workflows/tests/badge.svg)](https://github.com/franciscop/react-test/actions)
+# React Test [![npm install react-test](https://img.shields.io/badge/npm%20install-react--test-blue.svg)](https://www.npmjs.com/package/react-test) [![test badge](https://github.com/franciscop/react-test/workflows/tests/badge.svg)](https://github.com/franciscop/react-test/actions) [![gzip size](https://img.badgesize.io/franciscop/react-test/master/index.min.js.svg?compression=gzip)](https://github.com/franciscop/react-test/blob/master/index.min.js)
 
 > Early package! We are [looking for **beginner Open Source contributors**](https://github.com/franciscop/react-test/blob/master/Contributing.md)! ❤️
 
@@ -74,6 +74,12 @@ describe("Counter.js", () => {
     expect(counter.text()).toBe("3");
   });
 });
+```
+
+Finally run the tests with Jest:
+
+```bash
+npm run test
 ```
 
 

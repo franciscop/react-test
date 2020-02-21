@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import $, { until } from "./index.js";
+import $, { until } from "../";
 import "babel-polyfill";
 
 const delay = time => new Promise(done => setTimeout(done, time));

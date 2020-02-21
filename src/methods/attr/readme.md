@@ -1,4 +1,4 @@
-## .attr()
+### .attr()
 
 Read the attributes for the first matched element:
 
@@ -16,7 +16,7 @@ expect($input.attr("placeholder")).toBe("me@example.com");
 
 
 
-### Example: external links have "noopener noreferrer"
+#### Example: external links have "noopener noreferrer"
 
 ```js
 // Find all of the external links first

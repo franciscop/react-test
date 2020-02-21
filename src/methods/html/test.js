@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import $ from "../";
+import $ from "../../";
 import "babel-polyfill";
 
 describe(".html()", () => {
   it("can get the plain html", () => {
     const $hello = $(<button>Hello</button>);
-    expect($hello.text()).toBe(`Hello`);
+    expect($hello.html()).toBe(`<button>Hello</button>`);
   });
 
   it("can get nested children", () => {
@@ -14,7 +14,9 @@ describe(".html()", () => {
         <button>Hello</button>
       </div>
     );
-    expect($hello.text()).toBe(`Hello`);
+    expect($hello.html()).toBe(
+      `<div class="hello"><button>Hello</button></div>`
+    );
   });
 
   it("only gets the first child", () => {
@@ -24,6 +26,11 @@ describe(".html()", () => {
         <button>World</button>
       </div>
     );
-    expect($hello.find("button").text()).toBe(`Hello`);
+    expect($hello.find("button").html()).toBe(`<button>Hello</button>`);
+  });
+
+  it.skip("can get a string", () => {
+    const $hello = $(<>Hello</>);
+    expect($hello.html()).toBe(`Hello`);
   });
 });

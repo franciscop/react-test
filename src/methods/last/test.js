@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import $ from "../";
+import $ from "../../";
 import "babel-polyfill";
 
 const $list = $(
@@ -10,12 +10,12 @@ const $list = $(
   </ul>
 );
 
-describe(".first()", () => {
+describe(".last()", () => {
   it("can render to HTML", async () => {
-    expect($list.first().nodeName).toBe("UL");
+    expect($list.last().nodeName).toBe("UL");
   });
 
   it("can render to HTML", async () => {
-    expect($list.find("li").first().textContent).toEqual("A");
+    expect($list.find("li").last().textContent).toEqual("C");
   });
 });

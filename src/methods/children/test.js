@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import $ from "../";
+import $ from "../../";
 import "babel-polyfill";
 
 describe(".children()", () => {
@@ -64,7 +64,10 @@ describe(".children()", () => {
         </a>
       </div>
     );
-    const names = $hello.children("a").find('button').map(node => node.nodeName);
+    const names = $hello
+      .children("a")
+      .find("button")
+      .map(node => node.nodeName);
     expect(names).toEqual(["BUTTON"]);
   });
 
@@ -85,7 +88,11 @@ describe(".children()", () => {
         </p>
       </div>
     );
-    const names = $hello.find("p").children("a").find("button").map(node => node.nodeName);
+    const names = $hello
+      .find("p")
+      .children("a")
+      .find("button")
+      .map(node => node.nodeName);
     expect(names).toEqual(["BUTTON", "BUTTON"]);
   });
 });

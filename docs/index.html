@@ -42,20 +42,22 @@
       <div>
         <aside>
           <h2><a href="#docs">Documentation</a></h2>
-          <div><a href="#getting-started">Getting Started</a>
-<a href="#attr">.attr()</a>
-<a href="#children">.children()</a>
-<a href="#click">.click()</a>
-<a href="#closest">.closest()</a>
-<a href="#find">.find()</a>
-<a href="#html">.html()</a>
-<a href="#is">.is()</a>
-<a href="#text">.text()</a>
-<a href="#trigger">.trigger()</a></div>
+          <div><a class="primary" href="#getting-started">Getting Started</a>
+<a class="secondary" href="#frequently-asked-questions">Frequently Asked Questions</a>
+<a class="primary" href="#library-api">Library API</a>
+<a class="secondary" href="#attr">.attr()</a>
+<a class="primary" href="#children">.children()</a>
+<a class="primary" href="#click">.click()</a>
+<a class="primary" href="#closest">.closest()</a>
+<a class="primary" href="#find">.find()</a>
+<a class="primary" href="#html">.html()</a>
+<a class="primary" href="#is">.is()</a>
+<a class="primary" href="#text">.text()</a>
+<a class="primary" href="#trigger">.trigger()</a></div>
         </aside>
       </div>
       <div id="docs">
-        <main><h1 id="react-test-npm-install-react-test-test-badge">React Test <a href="https://www.npmjs.com/package/react-test"><img src="https://img.shields.io/badge/npm%20install-react--test-blue.svg" alt="npm install react-test"></a> <a href="https://github.com/franciscop/react-test/actions"><img src="https://github.com/franciscop/react-test/workflows/tests/badge.svg" alt="test badge"></a></h1>
+        <main><h1 id="react-test-npm-install-react-test-test-badge-gzip-size">React Test <a href="https://www.npmjs.com/package/react-test"><img src="https://img.shields.io/badge/npm%20install-react--test-blue.svg" alt="npm install react-test"></a> <a href="https://github.com/franciscop/react-test/actions"><img src="https://github.com/franciscop/react-test/workflows/tests/badge.svg" alt="test badge"></a> <a href="https://github.com/franciscop/react-test/blob/master/index.min.js"><img src="https://img.badgesize.io/franciscop/react-test/master/index.min.js.svg?compression=gzip" alt="gzip size"></a></h1>
 <blockquote>
 <p>Early package! We are <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md">looking for <strong>beginner Open Source contributors</strong></a>! ❤️</p>
 </blockquote>
@@ -110,6 +112,8 @@ describe(&quot;Counter.js&quot;, () =&gt; {
     expect(counter.text()).toBe(&quot;3&quot;);
   });
 });</code></pre>
+<p>Finally run the tests with Jest:</p>
+<pre><code class="language-bash">npm run test</code></pre>
 <h3 id="frequently-asked-questions">Frequently Asked Questions</h3>
 <p><strong>Is this an official React library?</strong></p>
 <p>No, it&#39;s not. This follows the community convention of calling a library related to React as <code>react-NAME</code>. It is made <a href="https://github.com/franciscop/react-test/graphs/contributors">by these contributors</a> without any involvement of Facebook or <a href="https://reactjs.org/">React</a>.</p>
@@ -117,14 +121,17 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 <p>Please read the <a href="./Contributing.md">Contributing Guide</a> where we explain how to get started with the project. Right now there are <a href="https://github.com/franciscop/react-test/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">some issues labelled for beginners</a> so please feel free to implement those!</p>
 
 
-<h2 id="attr">.attr()</h2>
+<h2 id="library-api">Library API</h2>
+
+
+<h3 id="attr">.attr()</h3>
 <p>Read the attributes for the first matched element:</p>
 <pre><code class="language-js">.attr(&quot;name&quot;)</code></pre>
 <p>It will read the attributes of the matched elements:</p>
 <pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
 expect($input.attr(&quot;name&quot;)).toBe(&quot;email&quot;);
 expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</code></pre>
-<h3 id="example-external-links-have-noopener-noreferrer">Example: external links have &quot;noopener noreferrer&quot;</h3>
+<h4 id="example-external-links-have-noopener-noreferrer">Example: external links have &quot;noopener noreferrer&quot;</h4>
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 

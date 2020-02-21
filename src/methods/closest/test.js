@@ -1,5 +1,5 @@
 import React from "react";
-import $ from "../";
+import $ from "../../";
 import "babel-polyfill";
 
 describe(".closest()", () => {
