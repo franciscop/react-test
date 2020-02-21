@@ -4,9 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1">
     <title>React Test</title>
-    <link rel="stylesheet" href="https://unpkg.com/picnic">
-    <link rel="stylesheet" href="/prism.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.min.css">
 
     <link
       rel="icon"
@@ -41,19 +39,86 @@
     <div class="flex">
       <div>
         <aside>
-          <h2><a href="#docs">Documentation</a></h2>
-          <div><a class="primary" href="#getting-started">Getting Started</a>
-<a class="secondary" href="#frequently-asked-questions">Frequently Asked Questions</a>
-<a class="primary" href="#library-api">Library API</a>
-<a class="secondary" href="#attr">.attr()</a>
-<a class="primary" href="#children">.children()</a>
-<a class="primary" href="#click">.click()</a>
-<a class="primary" href="#closest">.closest()</a>
-<a class="primary" href="#find">.find()</a>
-<a class="primary" href="#html">.html()</a>
-<a class="primary" href="#is">.is()</a>
-<a class="primary" href="#text">.text()</a>
-<a class="primary" href="#trigger">.trigger()</a></div>
+          <div class="entry primary">
+            <label class="more"></label>
+            <h2><a href="#docs">React Test</a></h2>
+          </div>
+          <section>
+        <div class="entry secondary">
+          
+          <a href="#getting-started">Getting Started</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#basics-of-testing">Basics of testing</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#frequent-questions">Frequent Questions</a>
+        </div>
+      </section>
+        <div class="entry primary">
+          <label class="more"></label>
+          <a href="#library-api">Library API</a>
+        </div>
+      <section>
+        <div class="entry secondary">
+          
+          <a href="#attr">.attr()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#children">.children()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#click">.click()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#closest">.closest()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#find">.find()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#html">.html()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#is">.is()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#text">.text()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#trigger">.trigger()</a>
+        </div>
+      </section>
+        <div class="entry primary">
+          <label class="more"></label>
+          <a href="#jest-matchers">Jest Matchers</a>
+        </div>
+      <section>
+        <div class="entry secondary">
+          
+          <a href="#tohaveclass">.toHaveClass()</a>
+        </div>
+      
         </aside>
       </div>
       <div id="docs">
@@ -71,7 +136,7 @@ it(&quot;increments the counter when clicked&quot;, async () =&gt; {
   expect(counter.text()).toEqual(&quot;1&quot;);
 });</code></pre>
 <p>Its syntax follows a similar schema to jQuery so it&#39;s very easy to write expressive tests. The best way to test declarative code is with an imperative library.</p>
-<h2 id="getting-started">Getting Started</h2>
+<h3 id="getting-started">Getting Started</h3>
 <p>You need a React project already working. That&#39;s on you, but we recommend <a href="https://create-react-app.dev/">Create React App</a>:</p>
 <pre><code class="language-bash">npx create-react-app my-app
 cd my-app</code></pre>
@@ -114,10 +179,11 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 });</code></pre>
 <p>Finally run the tests with Jest:</p>
 <pre><code class="language-bash">npm run test</code></pre>
-<h3 id="frequently-asked-questions">Frequently Asked Questions</h3>
-<p><strong>Is this an official React library?</strong></p>
+<h3 id="basics-of-testing">Basics of testing</h3>
+<h3 id="frequent-questions">Frequent Questions</h3>
+<h4 id="is-this-an-official-react-library">Is this an official React library?</h4>
 <p>No, it&#39;s not. This follows the community convention of calling a library related to React as <code>react-NAME</code>. It is made <a href="https://github.com/franciscop/react-test/graphs/contributors">by these contributors</a> without any involvement of Facebook or <a href="https://reactjs.org/">React</a>.</p>
-<p><strong>How can I contribute?</strong></p>
+<h4 id="how-can-i-contribute">How can I contribute?</h4>
 <p>Please read the <a href="./Contributing.md">Contributing Guide</a> where we explain how to get started with the project. Right now there are <a href="https://github.com/franciscop/react-test/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">some issues labelled for beginners</a> so please feel free to implement those!</p>
 
 
@@ -142,14 +208,20 @@ const rels = $links.map(link =&gt; $(link).attr(&quot;rel&quot;));
 for (let rel of rels) {
   expect(rel).toBe(&quot;noopener noreferrer&quot;);
 }</code></pre>
+<p>TODO: with shortname:</p>
+<pre><code class="language-js">// Find all of the external links first
+const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
+
+// Make sure they *all* have rel=&quot;noopener noreferrer&quot;
+expect($links).toHaveAttribute(&#39;rel&#39;, &#39;noopener noreferrer&#39;);</code></pre>
 
 
-<h2 id="children">.children()</h2>
+<h3 id="children">.children()</h3>
 <p>Get the direct children of all of the nodes with an optional filter</p>
 <pre><code class="language-js">.children(filter)</code></pre>
 
 
-<h2 id="click">.click()</h2>
+<h3 id="click">.click()</h3>
 <p>Calls a click event on all of the matched nodes</p>
 <pre><code class="language-js">.click()</code></pre>
 <p>For <code>.click()</code>, you can pass a selector and/or a running time:</p>
@@ -166,35 +238,39 @@ for (let rel of rels) {
 });</code></pre>
 
 
-<h2 id="closest">.closest()</h2>
+<h3 id="closest">.closest()</h3>
 <p>Find the first ancestor that matches the selector for each node</p>
 <pre><code class="language-js">.closest(filter)</code></pre>
 
 
-<h2 id="find">.find()</h2>
+<h3 id="find">.find()</h3>
 <p>Get all of the descendants of the nodes with an optional filter</p>
 <pre><code class="language-js">.find(filter)</code></pre>
 
 
-<h2 id="html">.html()</h2>
+<h3 id="html">.html()</h3>
 <p>Retrieve the html of the elements:</p>
 <pre><code class="language-js">.html()</code></pre>
 
 
-<h2 id="is">.is()</h2>
+<h3 id="is">.is()</h3>
 <p>Check whether any of the nodes matches the selector:</p>
 <pre><code class="language-js">.is(&#39;a&#39;)
 .is(&#39;.active&#39;)</code></pre>
 
 
-<h2 id="text">.text()</h2>
+<h3 id="text">.text()</h3>
 <p>Retrieve the textContent of the elements:</p>
 <pre><code class="language-js">.text()</code></pre>
 
 
-<h2 id="trigger">.trigger()</h2>
+<h3 id="trigger">.trigger()</h3>
 <p>Trigger an event. Right now it only accepts &#39;click&#39;.</p>
 <pre><code class="language-js">.trigger()</code></pre>
+
+
+<h2 id="jest-matchers">Jest Matchers</h2>
+<h3 id="tohaveclass">.toHaveClass()</h3>
 </main>
       </div>
     </div>

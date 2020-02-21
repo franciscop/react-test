@@ -1,4 +1,4 @@
-## .html()
+### .html()
 
 Retrieve the html of the elements:
 

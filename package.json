@@ -43,6 +43,8 @@
     "jest": "^24.9.0",
     "live-server": "^1.2.1",
     "marked": "^0.8.0",
+    "node-sass": "^4.13.1",
+    "picnic": "^6.5.2",
     "react": "^16.8.0",
     "react-dom": "^16.9.0",
     "react-jsdom": "^3.0.0",

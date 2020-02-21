@@ -1,3 +1,8 @@
+$picnic-separation: 20px !default;
+
+@import "./prism.scss";
+@import "../node_modules/picnic/src/picnic.scss";
+
 body {
   background: #f1f1ff;
   font-size: 18px;
@@ -10,14 +15,23 @@ aside {
   background: #fff;
   position: sticky;
   top: 0;
-  padding: 20px;
+  padding: 10px;
+  flex-grow: 0;
+  flex-basis: 280px;
+  max-height: 100vh;
+  overflow: scroll;
+}
+
+aside h2 {
+  line-height: 1;
+  font-size: 20px;
 }
 
 aside a {
   display: block;
   width: 100%;
-  padding: 5px 10px;
-  margin: 5px 0;
+  padding: 5px 8px;
+  line-height: 20px;
   border-radius: 5px;
   color: inherit;
 }
@@ -26,9 +40,70 @@ aside a:hover {
   background: #eee;
 }
 
-aside h2 {
-  line-height: 1;
+.entry {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
 }
+
+.more {
+  flex: 0 0 30px;
+  display: block;
+  transition: all 0.3s ease;
+  font-size: 30px;
+  line-height: 24px;
+  height: 30px;
+  text-align: center;
+  width: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  user-select: none;
+  margin-right: 2px;
+}
+
+.more::before {
+  display: block;
+  content: "";
+  border: 10px solid #333;
+  width: 0;
+  height: 0;
+  margin: 9px 7px 9px 11px;
+  border-width: 6px 0 6px 12px;
+  border-color: transparent transparent transparent #333;
+}
+
+.more:hover {
+  background-color: #eee;
+}
+
+.active .more {
+  transform: rotateZ(90deg);
+}
+
+.secondary {
+  padding-left: 40px;
+}
+
+aside section {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+aside .active + section {
+  max-height: 1000px;
+  opacity: 1;
+  margin: 5px 0;
+}
+
+@media (min-width: 900px) {
+  aside {
+    padding: 20px;
+  }
+}
+
 main {
   background: white;
   width: 100%;
@@ -54,7 +129,6 @@ main {
   max-width: 100%;
 }
 
-
 pre[class*="language-"] {
   margin: 0 -20px 20px;
   border-radius: 0;
@@ -76,6 +150,7 @@ pre[class*="language-"] {
 
 code {
   font-size: 16px;
+  padding: 5px 10px;
 }
 
 h1,

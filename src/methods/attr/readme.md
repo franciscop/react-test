@@ -30,3 +30,13 @@ for (let rel of rels) {
   expect(rel).toBe("noopener noreferrer");
 }
 ```
+
+TODO: with shortname:
+
+```js
+// Find all of the external links first
+const $links = $(<Page />).find("a[target=_blank]");
+
+// Make sure they *all* have rel="noopener noreferrer"
+expect($links).toHaveAttribute('rel', 'noopener noreferrer');
+```

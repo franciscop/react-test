@@ -18,7 +18,7 @@ it("increments the counter when clicked", async () => {
 Its syntax follows a similar schema to jQuery so it's very easy to write expressive tests. The best way to test declarative code is with an imperative library.
 
 
-## Getting Started
+### Getting Started
 
 You need a React project already working. That's on you, but we recommend [Create React App](https://create-react-app.dev/):
 
@@ -84,12 +84,16 @@ npm run test
 
 
 
-### Frequently Asked Questions
+### Basics of testing
 
-**Is this an official React library?**
+
+
+### Frequent Questions
+
+#### Is this an official React library?
 
 No, it's not. This follows the community convention of calling a library related to React as `react-NAME`. It is made [by these contributors](https://github.com/franciscop/react-test/graphs/contributors) without any involvement of Facebook or [React](https://reactjs.org/).
 
-**How can I contribute?**
+#### How can I contribute?
 
 Please read the [Contributing Guide](./Contributing.md) where we explain how to get started with the project. Right now there are [some issues labelled for beginners](https://github.com/franciscop/react-test/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) so please feel free to implement those!
