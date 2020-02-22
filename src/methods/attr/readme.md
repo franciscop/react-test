@@ -23,7 +23,7 @@ expect($input.attr("placeholder")).toBe("me@example.com");
 const $links = $(<Page />).find("a[target=_blank]");
 
 // Get an array witth the rel= attributes
-const rels = $links.map(link => $(link).attr("rel"));
+const rels = $links.toArray().map(link => $(link).attr("rel"));
 
 // Make sure they follow the schema
 for (let rel of rels) {

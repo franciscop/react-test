@@ -19,7 +19,7 @@ describe(".closest()", () => {
 
   it("Will have no nodes when no match is found", async () => {
     const $hello = $(<button>Hello</button>);
-    expect($hello.closest("a").nodes).toEqual([]);
+    expect($hello.closest("a").toArray()).toEqual([]);
   });
 
   it("Has the correct html when match parent", async () => {
@@ -70,7 +70,8 @@ describe(".closest()", () => {
     const names = $(<List />)
       .find("a")
       .closest("li")
-      .nodes.map(node => node.nodeName);
+      .toArray()
+      .map(node => node.nodeName);
     expect(names).toEqual(["LI", "LI"]);
   });
 
@@ -92,7 +93,8 @@ describe(".closest()", () => {
     const names = $(<List />)
       .find("a")
       .closest("ul")
-      .nodes.map(node => node.nodeName);
+      .toArray()
+      .map(node => node.nodeName);
     expect(names).toEqual(["UL"]);
   });
 });

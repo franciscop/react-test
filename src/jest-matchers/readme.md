@@ -1,4 +1,1 @@
 ## Jest Matchers
-
-
-### .toHaveClass()

@@ -11,7 +11,7 @@ export default function(frag, ...expectedClasses) {
     );
 
   // For now get the first one, consider looping later
-  if (frag.nodes) frag = frag.nodes;
+  if (frag.toArray) frag = frag.toArray();
 
   if (!Array.isArray(frag)) frag = [frag];
 

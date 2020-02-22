@@ -25,7 +25,10 @@ describe(".children()", () => {
         </ul>
       </div>
     );
-    const names = $hello.children().nodes.map(node => node.nodeName);
+    const names = $hello
+      .children()
+      .toArray()
+      .map(node => node.nodeName);
     expect(names).toEqual(["A", "UL"]);
   });
 
@@ -51,7 +54,10 @@ describe(".children()", () => {
         </ul>
       </div>
     );
-    const names = $hello.children("ul").nodes.map(node => node.nodeName);
+    const names = $hello
+      .children("ul")
+      .toArray()
+      .map(node => node.nodeName);
     expect(names).toEqual(["UL"]);
   });
 
@@ -67,7 +73,8 @@ describe(".children()", () => {
     const names = $hello
       .children("a")
       .find("button")
-      .nodes.map(node => node.nodeName);
+      .toArray()
+      .map(node => node.nodeName);
     expect(names).toEqual(["BUTTON"]);
   });
 
@@ -92,7 +99,8 @@ describe(".children()", () => {
       .find("p")
       .children("a")
       .find("button")
-      .nodes.map(node => node.nodeName);
+      .toArray()
+      .map(node => node.nodeName);
     expect(names).toEqual(["BUTTON", "BUTTON"]);
   });
 });

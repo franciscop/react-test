@@ -211,7 +211,7 @@ expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 
 // Get an array witth the rel= attributes
-const rels = $links.map(link =&gt; $(link).attr(&quot;rel&quot;));
+const rels = $links.toArray().map(link =&gt; $(link).attr(&quot;rel&quot;));
 
 // Make sure they follow the schema
 for (let rel of rels) {
@@ -279,7 +279,39 @@ expect($links).toHaveAttribute(&#39;rel&#39;, &#39;noopener noreferrer&#39;);</c
 
 
 <h2 id="jest-matchers">Jest Matchers</h2>
+
+
 <h3 id="tohaveclass">.toHaveClass()</h3>
+<p>Check whether all of the matched elements have the expected class name:</p>
+<pre><code class="language-js">const $button = $(
+  &lt;button className=&quot;primary&quot;&gt;
+    Click me
+  &lt;/button&gt;
+);
+
+expect($button).toHaveClass(&#39;primary&#39;);
+expect($button).not.toHaveClass(&#39;secondary&#39;);</code></pre>
+<p>For list of items, it checks whether <strong>all of them match</strong> or <strong>none of them match</strong>:</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li className=&quot;item main&quot;&gt;a&lt;/li&gt;
+    &lt;li className=&quot;item secondary&quot;&gt;b&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+// All of them have the class item
+expect($list.find(&#39;li&#39;)).toHaveClass(&#39;item&#39;);
+
+// None of them has the class &quot;primary&quot;
+expect($list.find(&#39;li&#39;)).not.toHaveClass(&#39;primary&#39;);</code></pre>
+<p>For the same React code, these <strong>do not pass</strong>:</p>
+<pre><code class="language-js">// ERROR! Only one of them has the class &quot;main&quot;
+expect($list.find(&#39;li&#39;)).toHaveClass(&#39;main&#39;);
+// Expected &lt;li class=&quot;item secondary&quot;&gt; to include class &quot;main&quot;
+
+// ERROR! At least one of them has the class &quot;main&quot;
+expect($list.find(&#39;li&#39;)).not.toHaveClass(&#39;main&#39;);
+// Expected &lt;li class=&quot;item main&quot;&gt; not to include class &quot;main&quot;</code></pre>
 </main>
       </div>
     </div>

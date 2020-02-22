@@ -4,7 +4,7 @@ import $ from "../constructor";
 // Removed duplicated nodes, used for some specific methods
 $.prototype.unique = function() {
   const nodes = [];
-  this.nodes.forEach(node => {
+  this.toArray().forEach(node => {
     if (nodes.includes(node)) return;
     nodes.push(node);
   });
