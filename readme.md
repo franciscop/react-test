@@ -15,8 +15,7 @@ it("increments the counter when clicked", async () => {
 });
 ```
 
-Its syntax follows a similar schema to jQuery so it's very easy to write expressive tests. The best way to test declarative code is with an imperative library.
-
+The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. The best way to test declarative code is with an imperative library.
 
 ### Getting Started
 
