@@ -14,6 +14,10 @@ u("aside .more").handle("click", e => {
     .toggleClass("active");
 });
 
-u("aside .more")
-  .first()
-  .click();
+// Timeout to direct the attention here
+setTimeout(() => {
+  // Show the first one
+  u("aside .more")
+    .first()
+    .click();
+}, 1000);

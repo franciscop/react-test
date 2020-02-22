@@ -86,14 +86,24 @@ npm run test
 
 ### Basics of testing
 
+> TODO: add some intro to testing and best practices here
 
 
-### Frequent Questions
+### FAQ
 
-#### Is this an official React library?
+#### Is this an official Facebook/React library?
 
-No, it's not. This follows the community convention of calling a library related to React as `react-NAME`. It is made [by these contributors](https://github.com/franciscop/react-test/graphs/contributors) without any involvement of Facebook or [React](https://reactjs.org/).
+No. This follows the community convention of calling a library related to React as `react-NAME`. It is made [by these contributors](https://github.com/franciscop/react-test/graphs/contributors) without any involvement of Facebook or [React](https://reactjs.org/).
 
 #### How can I contribute?
 
-Please read the [Contributing Guide](./Contributing.md) where we explain how to get started with the project. Right now there are [some issues labelled for beginners](https://github.com/franciscop/react-test/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) so please feel free to implement those!
+Thanks! Please read the [Contributing Guide](./Contributing.md) where we explain how to get started with the project. Right now there are [some beginner-friendly issues](https://github.com/franciscop/react-test/labels/good%20first%20issue) so please feel free to implement those!
+
+I will try to help as much as possible on the PRs.
+
+
+#### I have a problem, how do I fix it?
+
+Don't sweat it, [just open an issue](https://github.com/franciscop/react-test/issues/new). React Test is in an early phase with incomplete documentation so feel free to read the code or ask directly in the issues.
+
+This will change once the library is more stable, there's more documentation and if the community grows (maybe a chat, or reddit group, or ...).

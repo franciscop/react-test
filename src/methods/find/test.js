@@ -21,7 +21,7 @@ describe(".find()", () => {
         </a>
       </div>
     );
-    const names = $hello.find("*").map(node => node.nodeName);
+    const names = $hello.find("*").nodes.map(node => node.nodeName);
     expect(names).toEqual(["A", "BUTTON", "SPAN"]);
   });
 });

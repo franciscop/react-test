@@ -12,6 +12,16 @@ describe(".closest()", () => {
     expect($hello.closest("div").first().nodeName).toBe("DIV");
   });
 
+  it("Will default to self", async () => {
+    const $hello = $(<button>Hello</button>);
+    expect($hello.closest().first().nodeName).toBe("BUTTON");
+  });
+
+  it("Will have no nodes when no match is found", async () => {
+    const $hello = $(<button>Hello</button>);
+    expect($hello.closest("a").nodes).toEqual([]);
+  });
+
   it("Has the correct html when match parent", async () => {
     const $hello = $(
       <div>
@@ -60,7 +70,7 @@ describe(".closest()", () => {
     const names = $(<List />)
       .find("a")
       .closest("li")
-      .map(node => node.nodeName);
+      .nodes.map(node => node.nodeName);
     expect(names).toEqual(["LI", "LI"]);
   });
 
@@ -82,7 +92,7 @@ describe(".closest()", () => {
     const names = $(<List />)
       .find("a")
       .closest("ul")
-      .map(node => node.nodeName);
+      .nodes.map(node => node.nodeName);
     expect(names).toEqual(["UL"]);
   });
 });

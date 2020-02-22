@@ -1,5 +1,5 @@
 import React from "react";
-import $ from "../../";
+import $ from "../";
 import "./index.js";
 
 const $div = $(<div className="hello world" />);
@@ -11,10 +11,10 @@ const withError = cb => {
   } catch (error) {
     return error.message;
   }
-  throw new Error("Did not throw");
+  throw new Error(`Code was expected to throw but didn't:\n ${cb.toString()}`);
 };
 
-describe("toHaveClass", () => {
+describe(".toHaveClass()", () => {
   it("works for a simple case", () => {
     expect(div).toHaveClass("hello");
     expect(div).not.toHaveClass("banana");
@@ -26,7 +26,18 @@ describe("toHaveClass", () => {
     const message = withError(() => {
       expect(null).toHaveClass("banana");
     });
-    expect(message).toBe("expect() should receive an HTMLElement");
+    expect(message).toBe(
+      "expect() should receive an HTMLElement or React Test instance"
+    );
+  });
+
+  it("requires a valid instance", () => {
+    const message = withError(() => {
+      expect(true).toHaveClass("banana");
+    });
+    expect(message).toBe(
+      "expect() should receive an HTMLElement or React Test instance"
+    );
   });
 
   it("requires a class if it's not found", () => {
@@ -81,5 +92,37 @@ describe("toHaveClass", () => {
     expect(message).toBe(
       'Expected <div class="hello world"> not to include classes "hello", "world"'
     );
+  });
+
+  describe("multiple elements", () => {
+    const $list = $(
+      <ul>
+        <li className="item main">a</li>
+        <li className="item secondary">b</li>
+      </ul>
+    );
+
+    it("requires all the elements to have the class", () => {
+      expect($list.find("li")).toHaveClass("item");
+      const error = withError(() => {
+        expect($list.find("li")).toHaveClass("main");
+      });
+      expect(error).toBe(
+        'Expected <li class="item secondary"> to include class "main"'
+      );
+    });
+
+    it("requires no element to have the class", () => {
+      expect($list.find("li")).not.toHaveClass("demo");
+      const msg = withError(() => {
+        expect($list.find("li")).not.toHaveClass("item");
+      });
+      expect(() => {
+        expect($list.find("li")).not.toHaveClass("main");
+      }).toThrow();
+      expect(() => {
+        expect($list.find("li")).not.toHaveClass("secondary");
+      }).toThrow();
+    });
   });
 });
