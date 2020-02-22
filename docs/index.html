@@ -108,6 +108,11 @@
       
         <div class="entry secondary">
           
+          <a href="#toarray">.toArray()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
           <a href="#trigger">.trigger()</a>
         </div>
       </section>
@@ -118,7 +123,32 @@
       <section>
         <div class="entry secondary">
           
+          <a href="#tobeenabled">.toBeEnabled()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
           <a href="#tohaveclass">.toHaveClass()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#tohavehtml">.toHaveHtml()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#tohavestyle">.toHaveStyle()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#tohavetext">.toHaveText()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#tohavevalue">.toHaveValue()</a>
         </div>
       
         </aside>
@@ -273,12 +303,34 @@ expect($links).toHaveAttribute(&#39;rel&#39;, &#39;noopener noreferrer&#39;);</c
 <pre><code class="language-js">.text()</code></pre>
 
 
+<h3 id="toarray">.toArray()</h3>
+<p>Get all of the currently matched nodes as a plain array:</p>
+<pre><code class="language-js">const List = () =&gt; (
+  &lt;ul&gt;
+    &lt;li&gt;A&lt;/li&gt;
+    &lt;li&gt;B&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+// Find the text of each node
+const text = $(&lt;List /&gt;)
+  .children()
+  .toArray()
+  .map(item =&gt; $(item).text());
+
+expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
+
+
 <h3 id="trigger">.trigger()</h3>
 <p>Trigger an event. Right now it only accepts &#39;click&#39;.</p>
 <pre><code class="language-js">.trigger()</code></pre>
 
 
 <h2 id="jest-matchers">Jest Matchers</h2>
+
+
+<h3 id="tobeenabled">.toBeEnabled()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
 
 
 <h3 id="tohaveclass">.toHaveClass()</h3>
@@ -312,6 +364,22 @@ expect($list.find(&#39;li&#39;)).toHaveClass(&#39;main&#39;);
 // ERROR! At least one of them has the class &quot;main&quot;
 expect($list.find(&#39;li&#39;)).not.toHaveClass(&#39;main&#39;);
 // Expected &lt;li class=&quot;item main&quot;&gt; not to include class &quot;main&quot;</code></pre>
+
+
+<h3 id="tohavehtml">.toHaveHtml()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+
+
+<h3 id="tohavestyle">.toHaveStyle()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+
+
+<h3 id="tohavetext">.toHaveText()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+
+
+<h3 id="tohavevalue">.toHaveValue()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
 </main>
       </div>
     </div>
