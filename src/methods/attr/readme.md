@@ -1,6 +1,6 @@
 ### .attr()
 
-Read the attributes for the first matched element:
+Read the attributes of the first matched element:
 
 ```js
 .attr("name")
@@ -12,6 +12,12 @@ It will read the attributes of the matched elements:
 const $input = $(<input name="email" placeholder="me@example.com" />);
 expect($input.attr("name")).toBe("email");
 expect($input.attr("placeholder")).toBe("me@example.com");
+```
+
+If you are asserting things, you might prefer [`.toHaveAttribute()`](#tohaveattribute) instead of this:
+
+```js
+
 ```
 
 

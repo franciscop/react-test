@@ -7,15 +7,20 @@ const $div = $(<div className="hello world" />);
 
 describe(".toHaveClass()", () => {
   it("works for a simple case", () => {
-    const div = $div.get(0);
-    expect(div).toHaveClass("hello");
-    expect(div).not.toHaveClass("banana");
+    expect(<div className="hello world" />).toHaveClass("hello");
+    expect(<div className="hello world" />).not.toHaveClass("banana");
+    expect($div.get(0)).toHaveClass("hello");
+    expect($div.get(0)).not.toHaveClass("banana");
     expect($div).toHaveClass("hello");
     expect($div).not.toHaveClass("banana");
   });
 
   it("requires an HTML element", () => {
     expect(() => expect(null).toHaveClass("banana")).toThrow(
+      "expect() should receive an HTMLElement or React Test instance"
+    );
+
+    expect(() => expect("abc").toHaveClass("banana")).toThrow(
       "expect() should receive an HTMLElement or React Test instance"
     );
   });

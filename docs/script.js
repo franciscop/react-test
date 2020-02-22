@@ -1,6 +1,10 @@
-u("aside a").on("click", e => {
-  e.preventDefault();
+u("a").on("click", e => {
   const href = u(e.currentTarget).attr("href");
+  if (!/^#/.test(href)) return;
+
+  e.preventDefault();
+
+  history.replaceState(null, null, href);
   u(href).scroll();
   u(e.currentTarget)
     .closest(".entry")

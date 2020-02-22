@@ -128,6 +128,11 @@
       
         <div class="entry secondary">
           
+          <a href="#tohaveattribute">.toHaveAttribute()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
           <a href="#tohaveclass">.toHaveClass()</a>
         </div>
       
@@ -149,6 +154,11 @@
         <div class="entry secondary">
           
           <a href="#tohavevalue">.toHaveValue()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#tomatchselector">.toMatchSelector()</a>
         </div>
       
         </aside>
@@ -230,12 +240,14 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 
 
 <h3 id="attr">.attr()</h3>
-<p>Read the attributes for the first matched element:</p>
+<p>Read the attributes of the first matched element:</p>
 <pre><code class="language-js">.attr(&quot;name&quot;)</code></pre>
 <p>It will read the attributes of the matched elements:</p>
 <pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
 expect($input.attr(&quot;name&quot;)).toBe(&quot;email&quot;);
 expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</code></pre>
+<p>If you are asserting things, you might prefer <a href="#tohaveattribute"><code>.toHaveAttribute()</code></a> instead of this:</p>
+<pre><code class="language-js"></code></pre>
 <h4 id="example-external-links-have-noopener-noreferrer">Example: external links have &quot;noopener noreferrer&quot;</h4>
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
@@ -327,9 +339,27 @@ expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
 
 
 <h2 id="jest-matchers">Jest Matchers</h2>
+<p>These are helpers for that are automatically available if you are using <a href="https://jestjs.io/"><strong>jest</strong></a>:</p>
+<pre><code class="language-js">const $button = $(&lt;button className=&quot;primary&quot;&gt;Click me!&lt;/button&gt;);
+
+expect($button).toMatchSelector(&#39;button&#39;);
+expect($button).toHaveClass(&#39;primary&#39;);
+expect($button).toHaveText(&#39;Click me!&#39;);</code></pre>
+<p>This will give much more meaningful errors when failing compared to doing things manually:</p>
+<pre><code class="language-js">// With the Jest Helpers:
+expect($button).toHaveClass(&#39;secondary&#39;);
+// Expected &lt;button class=&quot;primary&quot;&gt; to include class &quot;secondary&quot;
+
+// Without the helpers:
+expect($button.attr(&#39;class&#39;)).toBe(&#39;secondary&#39;);
+// Expected &quot;primary&quot; to be &quot;secondary&quot;</code></pre>
 
 
 <h3 id="tobeenabled">.toBeEnabled()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+
+
+<h3 id="tohaveattribute">.toHaveAttribute()</h3>
 <p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
 
 
@@ -379,6 +409,10 @@ expect($list.find(&#39;li&#39;)).not.toHaveClass(&#39;main&#39;);
 
 
 <h3 id="tohavevalue">.toHaveValue()</h3>
+<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+
+
+<h3 id="tomatchselector">.toMatchSelector()</h3>
 <p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
 </main>
       </div>
