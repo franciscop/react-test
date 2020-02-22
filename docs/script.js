@@ -24,4 +24,18 @@ setTimeout(() => {
   u("aside .more")
     .first()
     .click();
+
+  // Show the menu of the one in the URL (if any)
+  const hash = window.location.hash;
+  if (hash) {
+    const link = u("aside a").filter(node => u(node).attr("href") === hash);
+    if (link.is(".primary")) {
+      link.closest(".entry").addClass("active");
+    } else {
+      link
+        .closest("section")
+        .map(node => node.previousElementSibling)
+        .addClass("active");
+    }
+  }
 }, 1000);

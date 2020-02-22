@@ -237,6 +237,29 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 
 
 <h2 id="library-api">Library API</h2>
+<p>The main export is a function which we call <code>$</code> and accepts a React element or fragment:</p>
+<pre><code class="language-js">import $ from &#39;react-test&#39;;
+const $button = $(&lt;button&gt;Hello world&lt;/button&gt;);
+expect($button).toHaveText(&#39;Hello world&#39;);</code></pre>
+<p>You can call it <code>render</code> or anything you prefer. We like <code>$</code> because it reminds us to jQuery, on which this API was inspired. We are also following the convention of prefixing the instance of react-test with <code>$</code> to differentiate it from other variables.</p>
+<p>You <em>cannot</em> modify the DOM directly with this library, but you <em>can</em> trigger events that, depending on your React components, might modify the DOM:</p>
+<pre><code class="language-js">const Greeter = () =&gt; {
+  const [name, setName] = useState();
+  return (
+    &lt;div&gt;
+      Hello {name || &#39;Anonymous&#39;}
+      &lt;input onChange={e =&gt; setName(e.target.value)} /&gt;
+    &lt;/div&gt;
+  );
+};
+
+// TODO: .type() is not available yet
+it(&#39;can type&#39;, async () =&gt; {
+  const $greet = $(&lt;Greeter /&gt;);
+  exect($greet.text()).toBe(&#39;Hello Anonymous&#39;);
+  await $greet.find(&#39;input&#39;).type(&#39;Francisco&#39;);
+  expect($greet.text()).toBe(&#39;Hello Francisco&#39;);
+});</code></pre>
 
 
 <h3 id="attr">.attr()</h3>
