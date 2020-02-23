@@ -177,7 +177,7 @@ it(&quot;increments the counter when clicked&quot;, async () =&gt; {
   await counter.click();
   expect(counter.text()).toEqual(&quot;1&quot;);
 });</code></pre>
-<p>Its syntax follows a similar schema to jQuery so it&#39;s very easy to write expressive tests. The best way to test declarative code is with an imperative library.</p>
+<p>The <code>react-test</code> syntax follows a similar schema to jQuery so it&#39;s very easy to write expressive tests. The best way to test declarative code is with an imperative library.</p>
 <h3 id="getting-started">Getting Started</h3>
 <p>You need a React project already working. That&#39;s on you, but we recommend <a href="https://create-react-app.dev/">Create React App</a>:</p>
 <pre><code class="language-bash">npx create-react-app my-app
@@ -269,52 +269,103 @@ it(&#39;can type&#39;, async () =&gt; {
 <pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
 expect($input.attr(&quot;name&quot;)).toBe(&quot;email&quot;);
 expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</code></pre>
-<p>If you are asserting things, you might prefer <a href="#tohaveattribute"><code>.toHaveAttribute()</code></a> instead of this:</p>
-<pre><code class="language-js"></code></pre>
+<p>If you are asserting things, you might prefer <a href="#tohaveattribute"><code>.toHaveAttribute()</code></a> instead of the above:</p>
+<pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
+expect($input).toHaveAttribute(&quot;name&quot;, &quot;email&quot;);
+expect($input).toHaveAttribute(&quot;placeholder&quot;, &quot;me@example.com&quot;);</code></pre>
 <h4 id="example-external-links-have-noopener-noreferrer">Example: external links have &quot;noopener noreferrer&quot;</h4>
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 
-// Get an array witth the rel= attributes
+// Get an array with the rel= attributes
 const rels = $links.toArray().map(link =&gt; $(link).attr(&quot;rel&quot;));
 
 // Make sure they follow the schema
 for (let rel of rels) {
   expect(rel).toBe(&quot;noopener noreferrer&quot;);
 }</code></pre>
-<p>TODO: with shortname:</p>
+<p>When <a href="#tohaveattribute"><code>.toHaveAttribute()</code></a> is available, you can shorten it:</p>
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 
+// TODO: this should iterate through all nodes
 // Make sure they *all* have rel=&quot;noopener noreferrer&quot;
 expect($links).toHaveAttribute(&#39;rel&#39;, &#39;noopener noreferrer&#39;);</code></pre>
 
 
 <h3 id="children">.children()</h3>
-<p>Get the direct children of all of the nodes with an optional filter</p>
-<pre><code class="language-js">.children(filter)</code></pre>
+<p>Get the direct children of all of the nodes with an optional filter. Inspired by <a href="https://umbrellajs.com/documentation#children">UmbrellaJS&#39;s .children()</a></p>
+<pre><code class="language-js">.children(filter: string)</code></pre>
+<h4 id="parameters">Parameters</h4>
+<p><code>filter</code>: A selector expression to match elements against</p>
+<h4 id="returns">Returns</h4>
+<p>An instance of <code>react-test</code> with the new children as nodes</p>
+<h4 id="usage">Usage</h4>
+<p>Since we return an instance of <code>react-test</code>, we have to use <code>.toArray()</code> to convert it to an array so that we can iterate through them.</p>
+<pre><code class="language-js">import $ from &#39;react-test&#39;
+
+const List = () =&gt; (
+  &lt;ul&gt;
+    &lt;li&gt;A&lt;/li&gt;
+    &lt;li&gt;B&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+// Find the text of each node
+const text = $(&lt;List /&gt;)
+  .children()
+  .toArray()
+  .map(item =&gt; $(item).text());
+
+expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
 
 
 <h3 id="click">.click()</h3>
 <p>Calls a click event on all of the matched nodes</p>
-<pre><code class="language-js">.click()</code></pre>
+<pre><code class="language-js">.click(selector?: string, time?: number)</code></pre>
 <p>For <code>.click()</code>, you can pass a selector and/or a running time:</p>
-<ul>
-<li><code>.click(&#39;button&#39;)</code> (string): the child element that receives the click. Leave it empty to click the current element. This is a shorthand of <code>.find(selector).click()</code> for convenience.</li>
-<li><code>.click(100)</code> (number): the time to <em>wait</em> after the click for the effect to be settled. If they are not immediate (API call, timeouts, transitions, etc) make sure that the time is longer than the effect. Internally this will wrap the effect with an <a href="https://reactjs.org/docs/test-utils.html#act">act()</a> that works for the specified time.</li>
-</ul>
+<h4 id="string-clickbutton"><em>string</em> <code>.click(&#39;button&#39;)</code></h4>
+<p>The child element that receives the click. Leave it empty to click the current element. This is a shorthand of <code>.find(selector).click()</code> for convenience.</p>
+<h4 id="number-click100"><em>number</em> <code>.click(100)</code></h4>
+<p>The time to <em>wait</em> after the click for the effect to be settled. If they are not immediate (API call, timeouts, transitions, etc) make sure that the time is longer than the effect. Internally this will wrap the effect with an <a href="https://reactjs.org/docs/test-utils.html#act">act()</a> that works for the specified time.</p>
 <p>You can combine them as well:</p>
 <pre><code class="language-js">it(&#39;clicks all buttons inside&#39;, async () =&gt; {
   const $dom = $(&lt;Counter /&gt;);
   expect($dom.text()).toEqual(&quot;0&quot;);
-  await $dom.click(&#39;button&#39;);
+  await $dom.click(&#39;button&#39;, 100);
   expect($dom.text()).toEqual(&quot;1&quot;);
 });</code></pre>
 
 
 <h3 id="closest">.closest()</h3>
-<p>Find the first ancestor that matches the selector for each node</p>
-<pre><code class="language-js">.closest(filter)</code></pre>
+<p>Find the first ancestor that matches the selector for each node. Inspired by <a href="https://umbrellajs.com/documentation#closest">UmbrellaJS&#39;s .closest()</a></p>
+<pre><code class="language-js">.closest(selector: string)</code></pre>
+<h4 id="parameters">Parameters</h4>
+<p><code>selector</code>: Expression to match elements against</p>
+<h4 id="returns">Returns</h4>
+<p>An instance of <code>react-test</code> with the new elements as nodes</p>
+<h4 id="usage">Usage</h4>
+<p>Since we return an instance of <code>react-test</code>, we have to use <code>.toArray()</code> to convert it to an array so that we can iterate through them.</p>
+<pre><code class="language-js">import $ from &#39;react-test&#39;
+
+const List = () =&gt; (
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;a&gt;Hello&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a&gt;World&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+const names = $(&lt;List /&gt;)
+  .find(&quot;a&quot;)
+  .closest(&quot;li&quot;)
+  .toArray()
+  .map(node =&gt; node.nodeName);
+
+expect(names).toEqual([&quot;LI&quot;, &quot;LI&quot;]);</code></pre>
 
 
 <h3 id="find">.find()</h3>
