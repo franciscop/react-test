@@ -88,7 +88,27 @@
       
         <div class="entry secondary">
           
+          <a href="#data">.data()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#each">.each()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#filter">.filter()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
           <a href="#find">.find()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#first">.first()</a>
         </div>
       
         <div class="entry secondary">
@@ -99,6 +119,21 @@
         <div class="entry secondary">
           
           <a href="#is">.is()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#last">.last()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#parent">.parent()</a>
+        </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#siblings">.siblings()</a>
         </div>
       
         <div class="entry secondary">
@@ -368,9 +403,77 @@ const names = $(&lt;List /&gt;)
 expect(names).toEqual([&quot;LI&quot;, &quot;LI&quot;]);</code></pre>
 
 
+<h3 id="data">.data()</h3>
+<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method:</p>
+<ul>
+<li>Read <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>the Contributing guide</strong></a> to get started in your machine.</li>
+<li>See <a href="https://github.com/franciscop/react-test/issues/5"><strong>the related issue</strong></a> and feel free to ask anything.</li>
+<li>We will give you feedback on the implementation.</li>
+</ul>
+
+
+<h3 id="each">.each()</h3>
+<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method:</p>
+<ul>
+<li>Read <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>the Contributing guide</strong></a> to get started in your machine.</li>
+<li>See <a href="https://github.com/franciscop/react-test/issues/6"><strong>the related issue</strong></a> and feel free to ask anything.</li>
+<li>We will give you feedback on the implementation.</li>
+</ul>
+
+
+<h3 id="filter">.filter()</h3>
+<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method:</p>
+<ul>
+<li>Read <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>the Contributing guide</strong></a> to get started in your machine.</li>
+<li>See <a href="https://github.com/franciscop/react-test/issues/7"><strong>the related issue</strong></a> and feel free to ask anything.</li>
+<li>We will give you feedback on the implementation.</li>
+</ul>
+
+
 <h3 id="find">.find()</h3>
 <p>Get all of the descendants of the nodes with an optional filter</p>
-<pre><code class="language-js">.find(filter)</code></pre>
+<pre><code class="language-js">.find(filter);</code></pre>
+<h4 id="parameters">Parameters</h4>
+<p><code>filter</code>: a string containing a selector that nodes must pass or a function that return a boolean. See <a href="#filter">.filter()</a> for a better explanation</p>
+<h4 id="return">Return</h4>
+<p>An instance of React Test with the new children as nodes</p>
+<h4 id="examples">Examples</h4>
+<p>Find all the links in the contact page:</p>
+<pre><code class="language-js">$(&lt;ContactPage /&gt;).find(&#39;a&#39;);</code></pre>
+<p>Get the required fields within a submitting form:</p>
+<pre><code>u(&#39;form&#39;).on(&#39;submit&#39;, function(e){
+  var required = u(this).find(&#39;[required]&#39;);
+});</code></pre>
+
+<h3 id="first">.first()</h3>
+<p>Retrieve the first of the matched nodes:</p>
+<pre><code class="language-js">.first();</code></pre>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li&gt;Bananas&lt;/li&gt;
+    &lt;li&gt;Oranges&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+const item = $list.find(&#39;li&#39;).first();
+expect(item.textContent).toBe(&#39;Bananas&#39;);</code></pre>
+<h4 id="parameters">Parameters</h4>
+<p>This method doesn&#39;t accept any parameters</p>
+<h4 id="return">Return</h4>
+<p>The first html node or <code>null</code> if there is none.</p>
+<h4 id="examples">Examples</h4>
+<p>Retrieve the first element of a list:</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li&gt;Bananas&lt;/li&gt;
+    &lt;li&gt;Oranges&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+const item = $list.find(&#39;li&#39;).first();
+expect(item.textContent).toBe(&#39;Bananas&#39;);</code></pre>
+<h4 id="related">Related</h4>
+<p><a href="#last">.last()</a> retrieve the last matched element</p>
 
 
 <h3 id="html">.html()</h3>
@@ -382,6 +485,55 @@ expect(names).toEqual([&quot;LI&quot;, &quot;LI&quot;]);</code></pre>
 <p>Check whether any of the nodes matches the selector:</p>
 <pre><code class="language-js">.is(&#39;a&#39;)
 .is(&#39;.active&#39;)</code></pre>
+
+
+<h3 id="last">.last()</h3>
+<p>Retrieve the last of the matched nodes</p>
+<pre><code class="language-js">.last();</code></pre>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li&gt;Bananas&lt;/li&gt;
+    &lt;li&gt;Oranges&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+const item = $list.find(&#39;li&#39;).last();
+expect(item.textContent).toBe(&#39;Oranges&#39;);</code></pre>
+<h4 id="parameters">Parameters</h4>
+<p>This method doesn&#39;t accept any parameters</p>
+<h4 id="return">Return</h4>
+<p>The last html node or <code>null</code> if there is none.</p>
+<h4 id="examples">Examples</h4>
+<p>Retrieve the last element of a list:</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li&gt;Bananas&lt;/li&gt;
+    &lt;li&gt;Oranges&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+const item = $list.find(&#39;li&#39;).first();
+expect(item.textContent).toBe(&#39;Bananas&#39;);</code></pre>
+<h4 id="related">Related</h4>
+<p><a href="#first">.first()</a> retrieve the last matched element</p>
+
+
+<h3 id="parent">.parent()</h3>
+<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method:</p>
+<ul>
+<li>Read <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>the Contributing guide</strong></a> to get started in your machine.</li>
+<li>See <a href="https://github.com/franciscop/react-test/issues/9"><strong>the related issue</strong></a> and feel free to ask anything.</li>
+<li>We will give you feedback on the implementation.</li>
+</ul>
+
+
+<h3 id="siblings">.siblings()</h3>
+<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method:</p>
+<ul>
+<li>Read <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>the Contributing guide</strong></a> to get started in your machine.</li>
+<li>See <a href="https://github.com/franciscop/react-test/issues/10"><strong>the related issue</strong></a> and feel free to ask anything.</li>
+<li>We will give you feedback on the implementation.</li>
+</ul>
 
 
 <h3 id="text">.text()</h3>
