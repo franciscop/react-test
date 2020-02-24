@@ -15,13 +15,16 @@ aside {
   background: #fff;
   position: sticky;
   top: 0;
-  padding: 10px;
   flex-grow: 0;
   flex-basis: 280px;
   max-height: 100vh;
   overflow: scroll;
   box-shadow: 2px 2px 8px -8px;
   border-radius: 0 0 8px 8px;
+}
+
+aside .wrap {
+  padding: 10px;
 }
 
 aside h2 {
@@ -109,7 +112,7 @@ aside .active + section {
 }
 
 @media (min-width: 900px) {
-  aside {
+  aside .wrap {
     padding: 20px;
   }
 }

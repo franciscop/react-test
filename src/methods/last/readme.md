@@ -39,7 +39,7 @@ const $list = $(
 );
 
 const item = $list.find('li').first();
-expect(item.textContent).toBe('Bananas');
+expect(item.textContent).toBe('Oranges');
 ```
 
 #### Related
