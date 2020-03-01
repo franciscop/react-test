@@ -1,6 +1,6 @@
 ## Jest Matchers
 
-These are helpers for that are automatically available if you are using [**jest**](https://jestjs.io/):
+These helpers are automatically available if you are using [**jest**](https://jestjs.io/):
 
 ```js
 const $button = $(<button className="primary">Click me!</button>);
