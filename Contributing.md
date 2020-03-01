@@ -7,15 +7,21 @@ To get started contributing, first you have to get the repo working in your comp
 1. Clone the repository: `git clone git://github.com/franciscop/react-test.git && cd ./react-test`
 1. Install the dependencies: `npm install`
 1. Start watching the tests `npm start`
-1. Modify any file within `/src` (code, tests or documentation)
+1. Modify any file within `/src` (code or tests)
 
-After these steps, the library, tests and documentation will be automatically built each time a change is saved. Please try not to make a PR with broken tests.
+This will run the tests on any change, making sure nothing breaks. Please try not to make a PR with broken tests (but if you cannot make it work, it's okay).
+
+The documentation is a plain `readme.md` in the same folder as the code, and to see the websitet in the browser you can run:
+
+1. For editing the documentation: `npm run docs`
+
+This will run a local server, launch the browser page and rebuild+reload when any `readme.md` changes.
 
 ## New methods
 
-There are currently some new methods [suggested in the issues](https://github.com/franciscop/react-test/issues). Please contribute to any of those, on a first come first served basis.
+There are currently some new methods [suggested in the issues](https://github.com/franciscop/react-test/labels/good%20first%20issue). Please contribute to any of those, on a first come first served basis.
 
-To allow for more people to get started as contributors, please limit your contributions to **2 methods**. If you want more, please feel free to open an issue and I can give some slightly more difficult tasks.
+To allow for more people to get started as contributors, please limit your contributions to **2 methods** (one per Pull Request). If you want more, please feel free to open an issue and I can give some slightly more difficult tasks.
 
 You can follow some of the existing methods in src/[METHOD]. We'd recommended to copy one of the existing ones and modify the files to have a base to get started, like `.children()`.
 
@@ -44,8 +50,8 @@ it("Has the correct html without selector", async () => {
     </div>
   );
   const $button = $hello.children();
-  expect($button.children().first().nodeName).toBe("BUTTON");
-  expect($button.html()).toBe("<button>Hello</button>");
+  expect($button.first().nodeName).toBe("BUTTON");
+  expect($button.text()).toBe("Hello");
 });
 ```
 
