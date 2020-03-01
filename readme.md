@@ -115,24 +115,26 @@ I've [written a blog post about this](https://medium.com/server-for-node-js/gett
 
 #### How is this different from [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)?
 
-Oh boy this is a difficult one. First, that library, documentation and work from [@kentcdodds](https://github.com/kentcdodds) and other collaborators is amazing and I've learned a lot from it. There are some things that I've tried to improve:
+This is a difficult one. First, React Testing Library, the documentation and the work from [@kentcdodds](https://github.com/kentcdodds) and other collaborators is amazing and I've learned a lot from it. The main differences are:
 
-The syntax is simple, direct and follows jQuery-style chaining for ease of use:
+The syntax follows jQuery-style chaining:
 
 ```js
 // react-test
-import $ from 'react-test';
-test(() => {
+import $ from "react-test";
+test("Increments when clicked", async () => {
   const $counter = $(<Counter />);
-  expect($counter).toHaveText('0');
-  await $counter.find('button').click();
-  expect($counter).toHaveText('1');
+  expect($counter).toHaveText("0");
+  await $counter.click();
+  expect($counter).toHaveText("1");
 });
 
 // react testing library
-import { render, fireEvent } from '@testing-library/react'
-test(() => {
-  const { getByRole } = render(<Counter />);
-  fireEvent.click(getByRole('button'));
+import { render, fireEvent } from "@testing-library/react"
+test("Increments when clicked", () => {
+  const { getByRole, container } = render(<Counter />);
+  expect(container).toHaveTextContent("0");
+  fireEvent.click(getByRole("button"));
+  expect(container).toHaveTextContent("1");
 });
 ```
