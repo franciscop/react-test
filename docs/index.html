@@ -271,6 +271,26 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 <h4 id="i-have-a-problem-how-do-i-fix-it">I have a problem, how do I fix it?</h4>
 <p>Don&#39;t sweat it, <a href="https://github.com/franciscop/react-test/issues/new">just open an issue</a>. React Test is in an early phase with incomplete documentation so feel free to read the code or ask directly in the issues.</p>
 <p>This will change once the library is more stable, there&#39;s more documentation and if the community grows (maybe a chat, or reddit group, or ...).</p>
+<h4 id="how-did-you-get-react-test">How did you get <code>react-test</code>?</h4>
+<p>I&#39;ve <a href="https://medium.com/server-for-node-js/getting-a-great-npm-name-b0b2b27a0e1b">written a blog post about this</a>, but the gist of it is that the npm package was taken <a href="https://deepstream.io/">by Deepstream.io</a> before but not used. So I asked politely and they allowed me to use it.</p>
+<h4 id="how-is-this-different-from-react-testing-library">How is this different from <a href="https://testing-library.com/docs/react-testing-library/intro">React Testing Library</a>?</h4>
+<p>Oh boy this is a difficult one. First, that library, documentation and work from <a href="https://github.com/kentcdodds">@kentcdodds</a> and other collaborators is amazing and I&#39;ve learned a lot from it. There are some things that I&#39;ve tried to improve:</p>
+<p>The syntax is simple, direct and follows jQuery-style chaining for ease of use:</p>
+<pre><code class="language-js">// react-test
+import $ from &#39;react-test&#39;;
+test(() =&gt; {
+  const $counter = $(&lt;Counter /&gt;);
+  expect($counter).toHaveText(&#39;0&#39;);
+  await $counter.find(&#39;button&#39;).click();
+  expect($counter).toHaveText(&#39;1&#39;);
+});
+
+// react testing library
+import { render, fireEvent } from &#39;@testing-library/react&#39;
+test(() =&gt; {
+  const { getByRole } = render(&lt;Counter /&gt;);
+  fireEvent.click(getByRole(&#39;button&#39;));
+});</code></pre>
 
 
 <h2 id="library-api">Library API</h2>

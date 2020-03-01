@@ -106,3 +106,33 @@ I will try to help as much as possible on the PRs.
 Don't sweat it, [just open an issue](https://github.com/franciscop/react-test/issues/new). React Test is in an early phase with incomplete documentation so feel free to read the code or ask directly in the issues.
 
 This will change once the library is more stable, there's more documentation and if the community grows (maybe a chat, or reddit group, or ...).
+
+
+#### How did you get `react-test`?
+
+I've [written a blog post about this](https://medium.com/server-for-node-js/getting-a-great-npm-name-b0b2b27a0e1b), but the gist of it is that the npm package was taken [by Deepstream.io](https://deepstream.io/) before but not used. So I asked politely and they allowed me to use it.
+
+
+#### How is this different from [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)?
+
+Oh boy this is a difficult one. First, that library, documentation and work from [@kentcdodds](https://github.com/kentcdodds) and other collaborators is amazing and I've learned a lot from it. There are some things that I've tried to improve:
+
+The syntax is simple, direct and follows jQuery-style chaining for ease of use:
+
+```js
+// react-test
+import $ from 'react-test';
+test(() => {
+  const $counter = $(<Counter />);
+  expect($counter).toHaveText('0');
+  await $counter.find('button').click();
+  expect($counter).toHaveText('1');
+});
+
+// react testing library
+import { render, fireEvent } from '@testing-library/react'
+test(() => {
+  const { getByRole } = render(<Counter />);
+  fireEvent.click(getByRole('button'));
+});
+```
