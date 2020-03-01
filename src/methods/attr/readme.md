@@ -28,12 +28,9 @@ expect($input).toHaveAttribute("placeholder", "me@example.com");
 // Find all of the external links first
 const $links = $(<Page />).find("a[target=_blank]");
 
-// Get an array with the rel= attributes
-const rels = $links.toArray().map(link => $(link).attr("rel"));
-
 // Make sure they follow the schema
-for (let rel of rels) {
-  expect(rel).toBe("noopener noreferrer");
+for (let link of $links) {
+  expect($(link).attr('rel')).toBe("noopener noreferrer");
 }
 ```
 

@@ -336,12 +336,9 @@ expect($input).toHaveAttribute(&quot;placeholder&quot;, &quot;me@example.com&quo
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 
-// Get an array with the rel= attributes
-const rels = $links.toArray().map(link =&gt; $(link).attr(&quot;rel&quot;));
-
 // Make sure they follow the schema
-for (let rel of rels) {
-  expect(rel).toBe(&quot;noopener noreferrer&quot;);
+for (let link of $links) {
+  expect($(link).attr(&#39;rel&#39;)).toBe(&quot;noopener noreferrer&quot;);
 }</code></pre>
 <p>When <a href="#tohaveattribute"><code>.toHaveAttribute()</code></a> is available, you can shorten it:</p>
 <pre><code class="language-js">// Find all of the external links first
