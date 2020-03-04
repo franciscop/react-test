@@ -7,7 +7,7 @@ A complete and expressive testing library for React:
 ```js
 import $ from "react-test";
 
-it("increments the counter when clicked", async () => {
+it("increments when clicked", async () => {
   const counter = $(<Counter />);
   expect(counter.text()).toEqual("0");
   await counter.click();

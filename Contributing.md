@@ -2,9 +2,12 @@
 
 Thanks for contributing! We are actively looking for people who want to get started contributing to Open Source. Please feel free to open issues with questions or ask for clarification.
 
-To get started contributing, first you have to get the repo working in your computer:
+To get started contributing, first you have to get the repo working in your computer. We recommend following this guide:
 
-1. Clone the repository: `git clone git://github.com/franciscop/react-test.git && cd ./react-test`
+[**A Step by Step Guide to Making Your First GitHub Contribution**](https://codeburst.io/a-step-by-step-guide-to-making-your-first-github-contribution-5302260a2940).
+
+Once you have the repository locally and inside the repo folder with the terminal, you can install and test it with node.js/npm:
+
 1. Install the dependencies: `npm install`
 1. Start watching the tests `npm start`
 1. Modify any file within `/src` (code or tests)
@@ -20,6 +23,12 @@ This will run a local server, launch the browser page and rebuild+reload when an
 ## New methods
 
 There are currently some new methods [suggested in the issues](https://github.com/franciscop/react-test/labels/good%20first%20issue). Please contribute to any of those, on a first come first served basis.
+
+Every method is inside a single folder, and this folder contains 3 files:
+
+- `index.js`: the implementation of the method.
+- `test.js`: the javascript tests that will run with `npm start` and `npm test`.
+- `readme.md`: the documentation of the method including intro, parameters, examples, etc.
 
 To allow for more people to get started as contributors, please limit your contributions to **2 methods** (one per Pull Request). If you want more, please feel free to open an issue and I can give some slightly more difficult tasks.
 
