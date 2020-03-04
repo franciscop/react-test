@@ -208,7 +208,7 @@
 <p>A complete and expressive testing library for React:</p>
 <pre><code class="language-js">import $ from &quot;react-test&quot;;
 
-it(&quot;increments the counter when clicked&quot;, async () =&gt; {
+it(&quot;increments when clicked&quot;, async () =&gt; {
   const counter = $(&lt;Counter /&gt;);
   expect(counter.text()).toEqual(&quot;0&quot;);
   await counter.click();

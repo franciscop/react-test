@@ -9,11 +9,11 @@ const $base = $(
 );
 
 describe(".attr()", () => {
-  it("should be a function", function() {
+  it("should be a function", () => {
     expect(typeof $(<div />).attr).toBe("function");
   });
 
-  it("Has the correct html", async () => {
+  it("Has the correct html", () => {
     expect($base.attr("class")).toBe("test");
     expect($base.attr("disabled")).toBe("");
 
