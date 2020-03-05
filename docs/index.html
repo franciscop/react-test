@@ -425,12 +425,18 @@ expect(names).toEqual([&quot;LI&quot;, &quot;LI&quot;]);</code></pre>
 
 
 <h3 id="data">.data()</h3>
-<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method:</p>
-<ul>
-<li>Read <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>the Contributing guide</strong></a> to get started in your machine.</li>
-<li>See <a href="https://github.com/franciscop/react-test/issues/5"><strong>the related issue</strong></a> and feel free to ask anything.</li>
-<li>We will give you feedback on the implementation.</li>
-</ul>
+<p>Reads the data-attribute value for the matched element.</p>
+<pre><code class="language-js">.data(name);</code></pre>
+<h4 id="parameters">Parameters</h4>
+<p><code>name</code>: the data-* attribute that we want to get from the first matched element.</p>
+<h4 id="return">Return</h4>
+<p>A string containing the value stored in the targeted data-* attribute.</p>
+<h4 id="examples">Examples</h4>
+<p>Find the value of the attribute <code>data-id</code>:</p>
+<pre><code class="language-js">const Hello = () =&gt; &lt;div data-id=&quot;0&quot;&gt;Hello World!&lt;/div&gt;;</code></pre>
+<pre><code class="language-js">$(&lt;Hello /&gt;)
+  .first()
+  .data(&quot;id&quot;); //0</code></pre>
 
 
 <h3 id="each">.each()</h3>
