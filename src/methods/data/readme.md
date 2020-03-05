@@ -1,7 +1,29 @@
 ### .data()
 
-We are looking for **beginner Open Source Contributors** to implement this method:
+Reads the data-attribute value for the matched element.
 
-- Read [**the Contributing guide**](https://github.com/franciscop/react-test/blob/master/Contributing.md) to get started in your machine.
-- See [**the related issue**](https://github.com/franciscop/react-test/issues/5) and feel free to ask anything.
-- We will give you feedback on the implementation.
+```js
+.data(name);
+```
+
+#### Parameters
+
+`name`: the data-\* attribute that we want to get from the first matched element.
+
+#### Return
+
+A string containing the value stored in the targeted data-\* attribute.
+
+#### Examples
+
+Find the value of the attribute `data-id`:
+
+```js
+const Hello = () => <div data-id="0">Hello World!</div>;
+```
+
+```js
+$(<Hello />)
+  .first()
+  .data("id"); //0
+```

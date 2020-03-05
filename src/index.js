@@ -5,6 +5,7 @@ import $ from "./methods/constructor";
 // Import all of the methods which will modify the $.prototype straight away
 import "./methods/attr";
 import "./methods/click";
+import "./methods/data";
 import "./methods/find";
 import "./methods/get";
 import "./methods/first";
