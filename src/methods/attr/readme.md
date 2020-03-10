@@ -14,6 +14,16 @@ expect($input.attr("name")).toBe("email");
 expect($input.attr("placeholder")).toBe("me@example.com");
 ```
 
+You can select items with a CSS selector that matches attributes:
+
+```js
+const $form = $(<LoginForm />);
+const $firstName = $form.find('[name="firstname"]');
+expect($firstName).toHaveValue('');
+await $firstName.type('John');
+expect($firstName).toHaveValue('John');
+```
+
 If you are asserting things, you might prefer [`.toHaveAttribute()`](#tohaveattribute) instead of the above:
 
 ```js

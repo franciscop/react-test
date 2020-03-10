@@ -151,6 +151,11 @@
           
           <a href="#trigger">.trigger()</a>
         </div>
+      
+        <div class="entry secondary">
+          
+          <a href="#type">.type()</a>
+        </div>
       </section>
         <div class="entry primary">
           <label class="more"></label>
@@ -340,6 +345,12 @@ it(&#39;can type&#39;, async () =&gt; {
 <pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
 expect($input.attr(&quot;name&quot;)).toBe(&quot;email&quot;);
 expect($input.attr(&quot;placeholder&quot;)).toBe(&quot;me@example.com&quot;);</code></pre>
+<p>You can select items with a CSS selector that matches attributes:</p>
+<pre><code class="language-js">const $form = $(&lt;LoginForm /&gt;);
+const $firstName = $form.find(&#39;[name=&quot;firstname&quot;]&#39;);
+expect($firstName).toHaveValue(&#39;&#39;);
+await $firstName.type(&#39;John&#39;);
+expect($firstName).toHaveValue(&#39;John&#39;);</code></pre>
 <p>If you are asserting things, you might prefer <a href="#tohaveattribute"><code>.toHaveAttribute()</code></a> instead of the above:</p>
 <pre><code class="language-js">const $input = $(&lt;input name=&quot;email&quot; placeholder=&quot;me@example.com&quot; /&gt;);
 expect($input).toHaveAttribute(&quot;name&quot;, &quot;email&quot;);
@@ -390,19 +401,25 @@ expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
 
 <h3 id="click">.click()</h3>
 <p>Calls a click event on all of the matched nodes</p>
-<pre><code class="language-js">.click(selector?: string, time?: number)</code></pre>
-<p>For <code>.click()</code>, you can pass a selector and/or a running time:</p>
+<pre><code class="language-js">.click(selector?: string) -&gt; promise</code></pre>
+<p>For <code>.click()</code>, you can pass an optional css selector. It returns a promise that must be awaited to ensure it works.</p>
 <h4 id="string-clickbutton"><em>string</em> <code>.click(&#39;button&#39;)</code></h4>
 <p>The child element that receives the click. Leave it empty to click the current element. This is a shorthand of <code>.find(selector).click()</code> for convenience.</p>
-<h4 id="number-click100"><em>number</em> <code>.click(100)</code></h4>
-<p>The time to <em>wait</em> after the click for the effect to be settled. If they are not immediate (API call, timeouts, transitions, etc) make sure that the time is longer than the effect. Internally this will wrap the effect with an <a href="https://reactjs.org/docs/test-utils.html#act">act()</a> that works for the specified time.</p>
-<p>You can combine them as well:</p>
-<pre><code class="language-js">it(&#39;clicks all buttons inside&#39;, async () =&gt; {
-  const $dom = $(&lt;Counter /&gt;);
-  expect($dom.text()).toEqual(&quot;0&quot;);
-  await $dom.click(&#39;button&#39;, 100);
-  expect($dom.text()).toEqual(&quot;1&quot;);
+<pre><code class="language-js">it(&#39;clicks the current element&#39;, async () =&gt; {
+  const counter = $(&lt;Counter /&gt;);
+  expect(counter.text()).toEqual(&quot;0&quot;);
+  await counter.click();
+  expect(counter.text()).toEqual(&quot;1&quot;);
+});
+
+it(&#39;clicks all buttons inside&#39;, async () =&gt; {
+  const counter = $(&lt;Counter /&gt;);
+  expect(counter.text()).toEqual(&quot;0&quot;);
+  await counter.click(&#39;button&#39;);
+  expect(counter.text()).toEqual(&quot;1&quot;);
 });</code></pre>
+<h4 id="advanced">Advanced</h4>
+<p>It is internally wrapping the call with <a href="#act"><code>act()</code></a>, so there&#39;s no need for you to also wrap it. Just make sure to <code>await</code> for it.</p>
 
 
 <h3 id="closest">.closest()</h3>
@@ -601,6 +618,10 @@ expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
 <h3 id="trigger">.trigger()</h3>
 <p>Trigger an event. Right now it only accepts &#39;click&#39;.</p>
 <pre><code class="language-js">.trigger()</code></pre>
+
+
+<h3 id="type">.type()</h3>
+<p>We are looking for <strong>beginner Open Source Contributors</strong> to implement this method.</p>
 
 
 <h2 id="jest-matchers">Jest Matchers</h2>
