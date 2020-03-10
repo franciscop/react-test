@@ -138,3 +138,24 @@ test("Increments when clicked", () => {
   expect(container).toHaveTextContent("1");
 });
 ```
+
+React Test is a work in progress, so if you are writing tests for production right now please use one of the better known alternatives.
+
+
+
+#### jQuery syntax, ewwh
+
+That's not really a question! But if for some reason you deeply despise those dollars, perhaps because they remind you of PHP, you can avoid them altogether:
+
+```js
+import render from 'react-test';
+
+test("Increments when clicked", async () => {
+  const counter = render(<Counter />);
+  expect(counter).toHaveText("0");
+  await counter.click();
+  expect(counter).toHaveText("1");
+});
+```
+
+We obviously love React, but let's not forget that jQuery also has some great things as well. This library brings some of these nice things to react testing.

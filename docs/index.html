@@ -293,6 +293,18 @@ test(&quot;Increments when clicked&quot;, () =&gt; {
   fireEvent.click(getByRole(&quot;button&quot;));
   expect(container).toHaveTextContent(&quot;1&quot;);
 });</code></pre>
+<p>React Test is a work in progress, so if you are writing tests for production right now please use one of the better known alternatives.</p>
+<h4 id="jquery-syntax-ewwh">jQuery syntax, ewwh</h4>
+<p>That&#39;s not really a question! But if for some reason you deeply despise those dollars, perhaps because they remind you of PHP, you can avoid them altogether:</p>
+<pre><code class="language-js">import render from &#39;react-test&#39;;
+
+test(&quot;Increments when clicked&quot;, async () =&gt; {
+  const counter = render(&lt;Counter /&gt;);
+  expect(counter).toHaveText(&quot;0&quot;);
+  await counter.click();
+  expect(counter).toHaveText(&quot;1&quot;);
+});</code></pre>
+<p>We obviously love React, but let&#39;s not forget that jQuery also has some great things as well. This library brings some of these nice things to react testing.</p>
 
 
 <h2 id="library-api">Library API</h2>
