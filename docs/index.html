@@ -264,9 +264,60 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 <p>Finally run the tests with Jest:</p>
 <pre><code class="language-bash">npm run test</code></pre>
 <h3 id="basics-of-testing">Basics of testing</h3>
-<blockquote>
-<p>TODO: add some intro to testing and best practices here</p>
-</blockquote>
+<p>React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has only few dependencies, which incidentally also helps with debugging, documenting, etc.</p>
+<p>For example, a plain button can be defined with a callback function, and change colors depending on the <code>primary</code> attribute:</p>
+<pre><code class="language-js">// Button.js
+import React from &quot;react&quot;;
+
+export default function Button ({ primary, onClick, children }) {
+  const background = primary ? &quot;blue&quot; : &quot;gray&quot;;
+  return &lt;button onClick={onClick} style={{ background }}&gt;{children}&lt;/button&gt;;
+}</code></pre>
+<p>Then we can test it with <code>react-test</code> by creating a <code>Button.test.js</code> file and adding some assertions:</p>
+<pre><code class="language-js">import React from &quot;react&quot;;
+import $ from &quot;react-test&quot;;
+import Button from &quot;./Button&quot;;
+
+describe(&quot;Button.js&quot;, () =&gt; {
+  it(&quot;has different backgrounds depending on the props&quot;, () =&gt; {
+    const $button = $(&lt;Button&gt;Hello&lt;/Button&gt;);
+    expect($button).toHaveStyle(&quot;background&quot;, &quot;gray&quot;);
+    const $primary = $(&lt;Button primary&gt;Hello&lt;/Button&gt;);
+    expect($primary).toHaveStyle(&quot;background&quot;, &quot;blue&quot;);
+  });
+
+  it(&quot;can be clicked&quot;, async () =&gt; {
+    const fn = jest.fn();
+    const $button = $(&lt;Button onClick={fn}&gt;Hello&lt;/Button&gt;);
+    expect(fn).not.toBeCalled();
+    await $button.click();
+    expect(fn).toBeCalled();
+  });
+
+  // FAILS
+  it(&quot;cannot be clicked if it&#39;s disabled&quot;, async () =&gt; {
+    const fn = jest.fn();
+    const $button = $(
+      &lt;Button onClick={fn} disabled&gt;
+        Hello
+      &lt;/Button&gt;
+    );
+    await $button.click();
+    expect(fn).not.toBeCalled();   // ERROR!
+  });
+});</code></pre>
+<p>Great! All of our tests are working except for the last one. Now we can go back to our component and fix it:</p>
+<pre><code class="language-js">// Button.js
+import React from &quot;react&quot;;
+
+export default function Button ({ primary, onClick, children, ...props }) {
+  const background = primary ? &quot;blue&quot; : &quot;gray&quot;;
+  return (
+    &lt;button onClick={onClick} style={{ background }} {...props}&gt;
+      {children}
+    &lt;/button&gt;
+  );
+}</code></pre>
 <h3 id="faq">FAQ</h3>
 <h4 id="is-this-an-official-facebookreact-library">Is this an official Facebook/React library?</h4>
 <p>No. This follows the community convention of calling a library related to React as <code>react-NAME</code>. It is made <a href="https://github.com/franciscop/react-test/graphs/contributors">by these contributors</a> without any involvement of Facebook or <a href="https://reactjs.org/">React</a>.</p>
@@ -639,6 +690,20 @@ expect($button).toHaveClass(&#39;secondary&#39;);
 // Without the helpers:
 expect($button.attr(&#39;class&#39;)).toBe(&#39;secondary&#39;);
 // Expected &quot;primary&quot; to be &quot;secondary&quot;</code></pre>
+<p>These <code>expect()</code> matchers work with either a single element or multiple elements, but it&#39;s important that you understand the differences in behavior.</p>
+<p>When there&#39;s a single element in the expect(), then the <code>.not</code> Jest negation makes them a perfect opposite:</p>
+<pre><code class="language-js">// Make sure the button has the class &quot;primary&quot;
+expect($button).toHaveClass(&#39;primary&#39;);
+
+// Make sure the button does NOT have the class &quot;secondary&quot;
+expect($button).not.toHaveClass(&#39;secondary&#39;);</code></pre>
+<p>However when there are <strong>multiple</strong> elements in the <code>expect()</code>, the test follows the English meaning instead of plainly negating the affirmative statement:</p>
+<pre><code class="language-js">// All of them have this class
+expect($list.find(&#39;li&#39;)).toHaveClass(&#39;item&#39;);
+
+// NONE of the items have the given class
+expect($list.find(&#39;li&#39;)).not.toHaveClass(&#39;hidden&#39;);</code></pre>
+<p>React Test makes Jest&#39;s <code>not</code> behave as &quot;NONE&quot; instead of <del>not all</del>, since we found most of the times this is the desired behavior.</p>
 
 
 <h3 id="tobeenabled">.toBeEnabled()</h3>

@@ -17,6 +17,8 @@ it("increments when clicked", async () => {
 
 The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. The best way to test declarative code is with an imperative library.
 
+
+
 ### Getting Started
 
 You need a React project already working. That's on you, but we recommend [Create React App](https://create-react-app.dev/):
@@ -85,7 +87,73 @@ npm run test
 
 ### Basics of testing
 
-> TODO: add some intro to testing and best practices here
+React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has only few dependencies, which incidentally also helps with debugging, documenting, etc.
+
+For example, a plain button can be defined with a callback function, and change colors depending on the `primary` attribute:
+
+```js
+// Button.js
+import React from "react";
+
+export default function Button ({ primary, onClick, children }) {
+  const background = primary ? "blue" : "gray";
+  return <button onClick={onClick} style={{ background }}>{children}</button>;
+}
+```
+
+Then we can test it with `react-test` by creating a `Button.test.js` file and adding some assertions:
+
+```js
+import React from "react";
+import $ from "react-test";
+import Button from "./Button";
+
+describe("Button.js", () => {
+  it("has different backgrounds depending on the props", () => {
+    const $button = $(<Button>Hello</Button>);
+    expect($button).toHaveStyle("background", "gray");
+    const $primary = $(<Button primary>Hello</Button>);
+    expect($primary).toHaveStyle("background", "blue");
+  });
+
+  it("can be clicked", async () => {
+    const fn = jest.fn();
+    const $button = $(<Button onClick={fn}>Hello</Button>);
+    expect(fn).not.toBeCalled();
+    await $button.click();
+    expect(fn).toBeCalled();
+  });
+
+  // FAILS
+  it("cannot be clicked if it's disabled", async () => {
+    const fn = jest.fn();
+    const $button = $(
+      <Button onClick={fn} disabled>
+        Hello
+      </Button>
+    );
+    await $button.click();
+    expect(fn).not.toBeCalled();   // ERROR!
+  });
+});
+```
+
+Great! All of our tests are working except for the last one. Now we can go back to our component and fix it:
+
+```js
+// Button.js
+import React from "react";
+
+export default function Button ({ primary, onClick, children, ...props }) {
+  const background = primary ? "blue" : "gray";
+  return (
+    <button onClick={onClick} style={{ background }} {...props}>
+      {children}
+    </button>
+  );
+}
+```
+
 
 
 ### FAQ
@@ -93,6 +161,7 @@ npm run test
 #### Is this an official Facebook/React library?
 
 No. This follows the community convention of calling a library related to React as `react-NAME`. It is made [by these contributors](https://github.com/franciscop/react-test/graphs/contributors) without any involvement of Facebook or [React](https://reactjs.org/).
+
 
 #### How can I contribute?
 
