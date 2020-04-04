@@ -6,7 +6,7 @@ To get started contributing, first you have to get the repo working in your comp
 
 [**A Step by Step Guide to Making Your First GitHub Contribution**](https://codeburst.io/a-step-by-step-guide-to-making-your-first-github-contribution-5302260a2940).
 
-Once you have the repository locally and inside the repo folder with the terminal, you can install and test it with node.js/npm:
+Once you have the repository in your computer, access the folder from your terminal and finish the installation with Node.js:
 
 1. Install the dependencies: `npm install`
 1. Start watching the tests `npm start`
@@ -64,7 +64,7 @@ it("Has the correct html without selector", async () => {
 });
 ```
 
-## About "Up For Grabs"
+## About "up for grabs"
 
 I've been doing OSS for ~10 years and it has been immensely useful for me in many ways, so I'd love to help others get started. Reviewing the PRs is a bit more work than implementing the code myself, but that's not an issue as long as I can help others.
 
