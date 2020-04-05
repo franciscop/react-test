@@ -1,4 +1,4 @@
-import normalize from "../normalize";
+import { normalize } from "../../helpers";
 
 const toStr = list => {
   return `class${list.length > 1 ? "es" : ""} "${list.join('", "')}"`;
