@@ -1,4 +1,4 @@
-import normalize from "../normalize";
+import { normalize, getPlainTag } from "../../helpers";
 
 export default function(frag) {
   // To avoid double negations ¯\_(ツ)_/¯
@@ -9,13 +9,11 @@ export default function(frag) {
 
   for (let el of frag) {
     // Prepare the message if there's an error. It needs to build this string:
-    // <input disabled>
-    const name = el.nodeName.toLowerCase();
-    const received = [...el.attributes].map(each => each.name);
-    const base = `<${name} ${received.join(" ")}>`;
+    // <input disabled="">
+    const base = getPlainTag(el);
 
     // Boolean indicating if any of the received nodes have the attribute "disabled"
-    const isEnabled = !received.includes("disabled");
+    const isEnabled = !el.disabled;
 
     // expect(<input />).toBeEnabled();
     if (this.affirmative) {
