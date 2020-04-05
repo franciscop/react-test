@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import $ from "../../";
 import "babel-polyfill";
 
@@ -15,7 +15,7 @@ describe(".map()", () => {
     expect($list.map(node => node)).toBeInstanceOf($);
   });
 
-  it("returns an instance of itself", () => {
+  it("can perform a noop transformation", () => {
     expect($list.first().nodeName).toBe("UL");
     expect($list.map(node => node).first().nodeName).toBe("UL");
   });

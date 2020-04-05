@@ -1,4 +1,4 @@
-import { normalize } from "../../helpers";
+import { normalize, getPlainTag } from "../../helpers";
 
 const toStr = list => {
   return `class${list.length > 1 ? "es" : ""} "${list.join('", "')}"`;
@@ -17,9 +17,8 @@ export default function(frag, ...expectedClasses) {
   for (let el of frag) {
     // Prepare the message if there's an error. It needs to build this string:
     // <button class="primary button">
-    const name = el.nodeName.toLowerCase();
     const received = [...el.classList];
-    const base = `<${name} class="${received.join(" ")}">`;
+    const base = getPlainTag(el);
 
     // All the expected classes that have been received
     const found = expected.filter(name => received.includes(name));

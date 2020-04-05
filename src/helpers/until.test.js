@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import $, { until } from "../";
 import "babel-polyfill";
-
-const delay = time => new Promise(done => setTimeout(done, time));
 
 describe("until()", () => {
   it("passes fast with true", async () => {

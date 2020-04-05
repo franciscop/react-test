@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import $ from "../../";
 import "babel-polyfill";
 
 describe(".find()", () => {
-  it("Has the correct html", async () => {
+  it("will get tag that we want", async () => {
     const $hello = $(
       <div>
         <button>Hello</button>
@@ -12,7 +12,7 @@ describe(".find()", () => {
     expect($hello.find("button").first().nodeName).toBe("BUTTON");
   });
 
-  it("Has the correct html", async () => {
+  it("can match every successor", async () => {
     const $hello = $(
       <div>
         <a>
