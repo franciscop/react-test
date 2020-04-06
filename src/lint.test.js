@@ -1,8 +1,7 @@
 const CLIEngine = require("eslint").CLIEngine;
-const eslint = require("../.eslintrc.js");
 
 const getLinterErrors = files => {
-  const cli = new CLIEngine(eslint);
+  const cli = new CLIEngine();
   const { results } = cli.executeOnFiles(files);
   // Cleans the path to make it nice and readable
   const clean = path => path.replace(process.cwd(), "").replace(/^\//, "");
