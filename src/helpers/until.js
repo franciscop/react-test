@@ -1,17 +1,15 @@
 import { act } from "react-dom/test-utils";
 const delay = time => new Promise(done => setTimeout(done, time));
 
-const untilCallback = cb => {
-  return new Promise(async done => {
-    let value = await cb();
-    while (!value) {
-      await act(async () => {
-        await delay(50);
-        value = await cb();
-      });
-    }
-    done(value);
-  });
+const untilCallback = async cb => {
+  let value = await cb();
+  while (!value) {
+    await act(async () => {
+      await delay(50);
+      value = await cb();
+    });
+  }
+  return value;
 };
 
 const untilObject = obj => {

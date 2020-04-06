@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import $ from "../../";
 import "babel-polyfill";
 
@@ -11,11 +11,11 @@ const $list = $(
 );
 
 describe(".last()", () => {
-  it("can render to HTML", async () => {
+  it("will get the top-level tag", async () => {
     expect($list.last().nodeName).toBe("UL");
   });
 
-  it("can render to HTML", async () => {
+  it("will get the last of the children", async () => {
     expect($list.find("li").last().textContent).toEqual("C");
   });
 });

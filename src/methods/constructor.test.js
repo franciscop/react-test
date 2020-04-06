@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import $ from "../";
 import "babel-polyfill";
 
@@ -15,7 +15,7 @@ describe("Iterator", () => {
         <li>B</li>
       </ul>
     );
-    expect([...html.find("li")].length).toBe(2);
+    expect([...html.find("li")]).toHaveLength(2);
     expect([...html.find("li")].map(el => el.nodeName)).toEqual(["LI", "LI"]);
   });
 

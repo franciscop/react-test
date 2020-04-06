@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import render from "./render";
 import "babel-polyfill";
 
@@ -39,7 +39,7 @@ describe("render", () => {
     );
     expect(html[0].outerHTML).toEqual(`<ul><li>A</li><li>B</li></ul>`);
     expect(html[0].nodeName).toBe("UL");
-    expect(html[0].children.length).toBe(2);
+    expect(html[0].children).toHaveLength(2);
     expect(html[0].children[0].nodeName).toBe("LI");
   });
 });

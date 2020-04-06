@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import $ from "../../";
 import "babel-polyfill";
+
+const delay = time => new Promise(done => setTimeout(done, time));
 
 describe(".click()", () => {
   it("can attach and click on children", async () => {
@@ -20,8 +22,8 @@ describe(".click()", () => {
     const $test = $(
       <div>
         <div
-          onClick={async e => {
-            await new Promise(done => setTimeout(done, 100));
+          onClick={async () => {
+            await delay(100);
             mock();
           }}
         />
