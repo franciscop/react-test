@@ -13,7 +13,6 @@
     "docs": "node ./docs/server.js",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "jest --coverage --watch",
-    "lint": "eslint src",
     "test": "jest --coverage --detectOpenHandles"
   },
   "keywords": [
