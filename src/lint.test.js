@@ -1,34 +1,8 @@
 const CLIEngine = require("eslint").CLIEngine;
-
-const settings = {
-  env: {
-    node: true,
-    commonjs: true,
-    es6: true,
-    "jest/globals": true
-  },
-  globals: ["process"],
-  extends: ["eslint:recommended", "plugin:react/recommended"],
-  parserOptions: {
-    ecmaFeatures: { jsx: true },
-    ecmaVersion: 2018,
-    sourceType: "module"
-  },
-  plugins: ["react", "jest"],
-  settings: {
-    react: { version: "detect" }
-  },
-  rules: {
-    "jest/no-disabled-tests": "warn",
-    "jest/no-focused-tests": "error",
-    "jest/no-identical-title": "error",
-    "jest/prefer-to-have-length": "warn",
-    "jest/valid-expect": "error"
-  }
-};
+const eslint = require("../.eslintrc.js");
 
 const getLinterErrors = files => {
-  const cli = new CLIEngine(settings);
+  const cli = new CLIEngine(eslint);
   const { results } = cli.executeOnFiles(files);
   // Cleans the path to make it nice and readable
   const clean = path => path.replace(process.cwd(), "").replace(/^\//, "");
