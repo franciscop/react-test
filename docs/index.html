@@ -800,20 +800,47 @@ expect($list.find(&#39;li&#39;)).not.toHaveClass(&#39;main&#39;);
 <h3 id="tohavetext">.toHaveText()</h3>
 <p>Check whether the matched elements all contain the text (<a href="#counter">see the Counter example</a>):</p>
 <pre><code class="language-js">it(&#39;can be clicked&#39;, async () =&gt; {
-  const counter = &lt;Counter /&gt;;
-  expect(counter).toHaveText(&#39;0&#39;);
-  await counter.click();
-  expect(counter).toHaveText(&#39;1&#39;);
+  const $counter = &lt;Counter /&gt;;
+  expect($counter).toHaveText(&#39;0&#39;);
+  await $counter.click();
+  expect($counter).toHaveText(&#39;1&#39;);
 });</code></pre>
 <p>It normalizes whitespace so that multiple spaces or enters are collapsed into a single one:</p>
 <pre><code class="language-js">it(&#39;normalizes whitespace&#39;, () =&gt; {
-  const text = $(
+  const $text = $(
     &lt;div&gt;
       Hello &lt;br /&gt; world!
     &lt;/div&gt;
   );
-  expect(text).toHaveText(&#39;Hello world!&#39;);
+  expect($text).toHaveText(&#39;Hello world!&#39;);
 });</code></pre>
+<p>For list of items, it checks whether <strong>all of them match</strong> or <strong>none of them match</strong>:</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li&gt;apple&lt;/li&gt;
+    &lt;li&gt;apple&lt;/li&gt;
+  &lt;/ul&gt;
+);
+// Passes; all of them have the given text
+expect($list.find(&#39;li&#39;)).toHaveText(&#39;apple&#39;);
+
+// Passes; none of them has the given text
+expect($list.find(&#39;li&#39;)).not.toHaveText(&#39;banana&#39;);</code></pre>
+<p>These examples <strong>do not pass</strong>:</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li&gt;apple&lt;/li&gt;
+    &lt;li&gt;banana&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+// ERROR! Because only one of them has the text &quot;apple&quot;
+expect($list.find(&#39;li&#39;)).toHaveText(&#39;apple&#39;);
+// Expected &lt;li&gt; to have text &quot;apple&quot; but it received &quot;banana&quot;
+
+// ERROR! Because at least one of them has the text &quot;apple&quot;
+expect($list.find(&#39;li&#39;)).not.toHaveText(&#39;apple&#39;);
+// Expected &lt;li&gt; not to have the text &quot;apple&quot;</code></pre>
 
 
 <h3 id="tohavevalue">.toHaveValue()</h3>

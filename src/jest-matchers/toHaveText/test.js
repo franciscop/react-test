@@ -2,9 +2,6 @@ import React from "react";
 import $ from "../../";
 import "../index.js";
 
-// The base element that we will use to test
-const $div = $(<div className="hello world" />);
-
 describe(".toHaveText()", () => {
   it("requires an HTML element", () => {
     const msg = "expect() should receive an HTMLElement or React Test instance";
@@ -35,7 +32,7 @@ describe(".toHaveText()", () => {
     expect(<div>Hello</div>).not.toHaveText("Hi");
   });
 
-  it("rejects in the simple case", () => {
+  it("rejects with the negation", () => {
     expect(() => expect(<div>banana</div>).not.toHaveText("banana")).toThrow(
       'Expected <div> not to have the text "banana"'
     );
