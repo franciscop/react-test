@@ -725,31 +725,31 @@ expect($button).toBeEnabled();
 expect($input).not.toBeEnabled();</code></pre>
 <p>For a list of items, it checks whether <strong>all of them are enabled</strong> or <strong>all of them are disabled</strong>:</p>
 <pre><code class="language-js">const $form = $(
-    &lt;form&gt;
-      &lt;input id=&quot;banana&quot; /&gt;
-      &lt;input id=&quot;orange&quot; /&gt;
+  &lt;form&gt;
+    &lt;input id=&quot;banana&quot; /&gt;
+    &lt;input id=&quot;orange&quot; /&gt;
 
-      &lt;textarea id=&quot;apple&quot; /&gt;
-      &lt;textarea id=&quot;pear&quot; disabled /&gt;
+    &lt;textarea id=&quot;apple&quot; /&gt;
+    &lt;textarea id=&quot;pear&quot; disabled /&gt;
 
-      &lt;button id=&quot;mango&quot; disabled /&gt;
-      &lt;button id=&quot;coconut&quot; disabled /&gt;
-    &lt;/form&gt;
+    &lt;button id=&quot;mango&quot; disabled /&gt;
+    &lt;button id=&quot;coconut&quot; disabled /&gt;
+  &lt;/form&gt;
 );
 
 // All of them are enabled
-expect($form.find(&#39;input&#39;)).toBeEnabled();
+expect($form.find(&quot;input&quot;)).toBeEnabled();
 
 // All of them are disabled
-expect($form.find(&#39;button&#39;)).not.toBeEnabled();</code></pre>
+expect($form.find(&quot;button&quot;)).not.toBeEnabled();</code></pre>
 <p>For the same React code, these <strong>do not pass</strong>:</p>
 <pre><code class="language-js">// ERROR! Only one of them is enabled
-expect($form.find(&#39;textarea&#39;)).toBeEnabled();
-// Expected &lt;textarea disabled&gt; not to include the attribute &quot;disabled&quot;
+expect($form.find(&quot;textarea&quot;)).toBeEnabled();
+// Expected &lt;textarea id=&quot;pear&quot; disabled=&quot;&quot;&gt; not to include the attribute &quot;disabled&quot;
 
 // ERROR! At least one of them is enabled
-expect($form.find(&#39;textarea&#39;)).not.toBeEnabled();
-// Expected &lt;textarea&gt; to include the attribute &quot;disabled&quot;</code></pre>
+expect($form.find(&quot;textarea&quot;)).not.toBeEnabled();
+// Expected &lt;textarea id=&quot;apple&quot;&gt; to include the attribute &quot;disabled&quot;</code></pre>
 
 
 <h3 id="tohaveattribute">.toHaveAttribute()</h3>

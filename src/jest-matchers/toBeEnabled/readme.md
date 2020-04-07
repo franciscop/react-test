@@ -14,33 +14,33 @@ For a list of items, it checks whether **all of them are enabled** or **all of t
 
 ```js
 const $form = $(
-    <form>
-      <input id="banana" />
-      <input id="orange" />
+  <form>
+    <input id="banana" />
+    <input id="orange" />
 
-      <textarea id="apple" />
-      <textarea id="pear" disabled />
-      
-      <button id="mango" disabled />
-      <button id="coconut" disabled />
-    </form>
+    <textarea id="apple" />
+    <textarea id="pear" disabled />
+
+    <button id="mango" disabled />
+    <button id="coconut" disabled />
+  </form>
 );
 
 // All of them are enabled
-expect($form.find('input')).toBeEnabled();
+expect($form.find("input")).toBeEnabled();
 
 // All of them are disabled
-expect($form.find('button')).not.toBeEnabled();
+expect($form.find("button")).not.toBeEnabled();
 ```
 
 For the same React code, these **do not pass**:
 
 ```js
 // ERROR! Only one of them is enabled
-expect($form.find('textarea')).toBeEnabled();
-// Expected <textarea disabled> not to include the attribute "disabled"
+expect($form.find("textarea")).toBeEnabled();
+// Expected <textarea id="pear" disabled=""> not to include the attribute "disabled"
 
 // ERROR! At least one of them is enabled
-expect($form.find('textarea')).not.toBeEnabled();
-// Expected <textarea> to include the attribute "disabled"
+expect($form.find("textarea")).not.toBeEnabled();
+// Expected <textarea id="apple"> to include the attribute "disabled"
 ```
