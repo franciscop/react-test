@@ -5,22 +5,29 @@ const getLinterErrors = files => {
   const { results } = cli.executeOnFiles(files);
   // Cleans the path to make it nice and readable
   const clean = path => path.replace(process.cwd(), "").replace(/^\//, "");
-  return results
-    .filter(report => report.errorCount)
-    .map(rep => ({ file: clean(rep.filePath), messages: rep.messages }));
+  return results.map(rep => ({
+    file: clean(rep.filePath),
+    errors: rep.messages.filter(msg => msg.severity === 2),
+    warnings: rep.messages.filter(msg => msg.severity === 1)
+  }));
 };
 
 const formatErrors = err => `  [${err.line}:${err.column}] ${err.message}`;
-const formatFiles = ({ file, messages }) =>
-  `Linter error${messages.length > 1 ? "s" : ""} on "${file}":\n${messages
-    .map(formatErrors)
-    .join("\n")}`;
+const formatFiles = (file, messages, type = "error") =>
+  `Linter ${type}${
+    messages.length > 1 ? "s" : ""
+  } on "${file}":\n${messages.map(formatErrors).join("\n")}`;
 
 describe("Linter", () => {
-  it("has no errors", () => {
-    const files = getLinterErrors("src");
-    if (files.length) {
-      throw new Error(files.map(formatFiles).join("\n\n"));
-    }
+  getLinterErrors("src").forEach(report => {
+    it(report.file, () => {
+      if (report.warnings.length) {
+        console.warn(formatFiles(report.file, report.warnings, "warning"));
+      }
+
+      if (report.errors.length) {
+        throw new Error(formatFiles(report.file, report.errors, "error"));
+      }
+    });
   });
 });
