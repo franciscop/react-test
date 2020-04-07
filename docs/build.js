@@ -18,12 +18,18 @@ const scss = (file, to) => {
 // This is to sort the paths by their depth in the filesystem
 const depth = path => (path ? path.replace(/[^\/]/g, "").length : 0);
 
-const methodsBeforeMatchers = (a, b) =>
-  a.includes("methods") && b.includes("jest")
-    ? -1
-    : a.includes("jest") && b.includes("methods")
-    ? 1
-    : 0;
+const methodsBeforeMatchers = (a, b) => {
+  if (a.includes("methods") && b.includes("jest")) return -1;
+  if (a.includes("jest") && b.includes("methods")) return 1;
+
+  if (a.includes("methods") && b.includes("examples")) return -1;
+  if (a.includes("jest") && b.includes("examples")) return -1;
+
+  if (a.includes("examples") && b.includes("methods")) return 1;
+  if (a.includes("examples") && b.includes("jest")) return 1;
+
+  return 0;
+};
 
 // This builds the whole site from the readmes, using marked and handlebars
 const build = async (req, res, next = () => {}) => {
@@ -36,8 +42,12 @@ const build = async (req, res, next = () => {}) => {
       .sort((a, b) => depth(a) - depth(b))
       .sort(methodsBeforeMatchers)
       .map(read)
-      .map(page => marked(page)) // Because it breaks with 2nd arg as the index
+      // Because it breaks with 2nd arg as the index
+      .map(page => marked(page))
+      // We don't want the id="..." in the h4 levels
+      .map(html => html.replace(/<h4 id="\w+">/g, "<h4>"))
       .join("\n\n");
+
     const sections = content
       .split("\n")
       .map(a => a.match(/<h(2|3) id=\"([a-z\-]+)\">([^\<]+)<\/h(2|3)>/))
