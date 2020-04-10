@@ -180,6 +180,12 @@ h2 {
   margin-top: 2em;
 }
 
+h4 {
+  font-weight: normal;
+  margin-bottom: 0;
+  border-bottom: 1px solid #eee;
+}
+
 @media (min-width: 900px) {
   h1 {
     font-size: 2em;
