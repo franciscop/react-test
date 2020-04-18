@@ -21,33 +21,20 @@ The `react-test` syntax follows a similar schema to jQuery so it's very easy to 
 
 ### Getting Started
 
-You need a React project already working. We recommend using [Create React App](https://create-react-app.dev/):
+First you'll need a working React project. As an example you can start a working React project with [Create React App](https://create-react-app.dev/):
 
 ```bash
 npx create-react-app my-app
 cd my-app
 ```
 
-Then you install `react-test`, only for development:
+Then install `react-test`. It is only needed for development:
 
 ```bash
 npm install react-test --save-dev
 ```
 
-Now you can write tests, let's say you have this component:
-
-```js
-// src/Counter.js
-import React, { useState } from "react";
-
-export default function Counter () {
-  const [count, setCount] = useState(0);
-  const increment = () => setCount(count + 1);
-  return <button onClick={increment}>{count}</button>;
-};
-```
-
-You can write the following test to make sure it's working:
+Finally you can write tests, let's say you have [the `<Counter />` component from this example](#counter), let's test it to make sure it works as expected:
 
 ```js
 // src/Counter.test.js
@@ -87,7 +74,7 @@ npm run test
 
 ### Basics of testing
 
-React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has only few dependencies, which incidentally also helps with debugging, documenting, etc.
+React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has few dependencies, which also helps with debugging, documenting, etc.
 
 For example, a plain button can be defined with a callback function, and change colors depending on the `primary` attribute:
 

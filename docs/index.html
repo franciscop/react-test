@@ -234,21 +234,12 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
 });</code></pre>
 <p>The <code>react-test</code> syntax follows a similar schema to jQuery so it&#39;s very easy to write expressive tests. The best way to test declarative code is with an imperative library.</p>
 <h3 id="getting-started">Getting Started</h3>
-<p>You need a React project already working. We recommend using <a href="https://create-react-app.dev/">Create React App</a>:</p>
+<p>First you&#39;ll need a working React project. As an example you can start a working React project with <a href="https://create-react-app.dev/">Create React App</a>:</p>
 <pre><code class="language-bash">npx create-react-app my-app
 cd my-app</code></pre>
-<p>Then you install <code>react-test</code>, only for development:</p>
+<p>Then install <code>react-test</code>. It is only needed for development:</p>
 <pre><code class="language-bash">npm install react-test --save-dev</code></pre>
-<p>Now you can write tests, let&#39;s say you have this component:</p>
-<pre><code class="language-js">// src/Counter.js
-import React, { useState } from &quot;react&quot;;
-
-export default function Counter () {
-  const [count, setCount] = useState(0);
-  const increment = () =&gt; setCount(count + 1);
-  return &lt;button onClick={increment}&gt;{count}&lt;/button&gt;;
-};</code></pre>
-<p>You can write the following test to make sure it&#39;s working:</p>
+<p>Finally you can write tests, let&#39;s say you have <a href="#counter">the <code>&lt;Counter /&gt;</code> component from this example</a>, let&#39;s test it to make sure it works as expected:</p>
 <pre><code class="language-js">// src/Counter.test.js
 import React from &quot;react&quot;;
 import $ from &quot;react-test&quot;;
@@ -277,7 +268,7 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 <p>Finally run the tests with Jest:</p>
 <pre><code class="language-bash">npm run test</code></pre>
 <h3 id="basics-of-testing">Basics of testing</h3>
-<p>React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has only few dependencies, which incidentally also helps with debugging, documenting, etc.</p>
+<p>React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has few dependencies, which also helps with debugging, documenting, etc.</p>
 <p>For example, a plain button can be defined with a callback function, and change colors depending on the <code>primary</code> attribute:</p>
 <pre><code class="language-js">// Button.js
 import React from &quot;react&quot;;
@@ -381,7 +372,7 @@ test(&quot;Increments when clicked&quot;, async () =&gt; {
 <pre><code class="language-js">import $ from &#39;react-test&#39;;
 const $button = $(&lt;button&gt;Hello world&lt;/button&gt;);
 expect($button).toHaveText(&#39;Hello world&#39;);</code></pre>
-<p>You can call it <code>render</code> or anything you prefer. We like <code>$</code> because it reminds us to jQuery, on which this API was inspired. We are also following the convention of prefixing the instance of react-test with <code>$</code> to differentiate it from other variables.</p>
+<p>Since the API is inspired on jQuery we call React Test <code>$</code>, but you can call it <code>render</code> or anything you prefer.</p>
 <p>You <em>cannot</em> modify the DOM directly with this library, but you <em>can</em> trigger events that, depending on your React components, might modify the DOM:</p>
 <pre><code class="language-js">const Greeter = () =&gt; {
   const [name, setName] = useState();
@@ -396,7 +387,7 @@ expect($button).toHaveText(&#39;Hello world&#39;);</code></pre>
 // TODO: .type() is not available yet
 it(&#39;can type&#39;, async () =&gt; {
   const $greet = $(&lt;Greeter /&gt;);
-  exect($greet.text()).toBe(&#39;Hello Anonymous&#39;);
+  expect($greet.text()).toBe(&#39;Hello Anonymous&#39;);
   await $greet.find(&#39;input&#39;).type(&#39;Francisco&#39;);
   expect($greet.text()).toBe(&#39;Hello Francisco&#39;);
 });</code></pre>
@@ -420,6 +411,7 @@ expect($firstName).toHaveValue(&#39;John&#39;);</code></pre>
 expect($input).toHaveAttribute(&quot;name&quot;, &quot;email&quot;);
 expect($input).toHaveAttribute(&quot;placeholder&quot;, &quot;me@example.com&quot;);</code></pre>
 <h4 id="example-external-links-have-noopener-noreferrer">Example: external links have &quot;noopener noreferrer&quot;</h4>
+<p>This security feature makes sure no one can hijack your page&#39;s data:</p>
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 

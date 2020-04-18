@@ -1,7 +1,8 @@
-// [INTERNAL USE ONLY]
-// getPlainTag()
-// Get the full HTML tag without its contents
+// [INTERNAL USE ONLY
+// Retrieves a clear name for the passed element
+
 export default el => {
+  // Get the full HTML tag WITHOUT its contents
   const html = el.cloneNode(false).outerHTML;
 
   // Regex should NOT be used generally for HTML. We make an exception here

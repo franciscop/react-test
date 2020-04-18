@@ -34,6 +34,8 @@ expect($input).toHaveAttribute("placeholder", "me@example.com");
 
 #### Example: external links have "noopener noreferrer"
 
+This security feature makes sure no one can hijack your page's data:
+
 ```js
 // Find all of the external links first
 const $links = $(<Page />).find("a[target=_blank]");
