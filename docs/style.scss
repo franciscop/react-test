@@ -67,6 +67,8 @@ aside .wrap {
 aside h2 {
   line-height: 1;
   font-size: 20px;
+  margin: 10px;
+  padding: 0;
 }
 
 aside a {
@@ -230,11 +232,6 @@ h4 {
   h2 {
     font-size: 1.5em;
   }
-}
-
-aside h2 {
-  padding: 0;
-  margin: 0;
 }
 
 pre {

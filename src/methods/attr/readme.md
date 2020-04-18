@@ -52,7 +52,6 @@ When [`.toHaveAttribute()`](#tohaveattribute) is available, you can shorten it:
 // Find all of the external links first
 const $links = $(<Page />).find("a[target=_blank]");
 
-// TODO: this should iterate through all nodes
 // Make sure they *all* have rel="noopener noreferrer"
 expect($links).toHaveAttribute('rel', 'noopener noreferrer');
 ```

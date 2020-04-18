@@ -58,9 +58,10 @@ const build = async (req, res, next = () => {}) => {
         level: level === "2" ? "primary" : "secondary"
       }));
     let toc = `
+      <h2><a href="#docs">React Test</a></h2>
       <div class="entry primary">
         <label class="more"></label>
-        <a href="#docs"><h2>React Test</h2></a>
+        <a href="#docs">Introduction</a>
       </div>
       <section>
     `;

@@ -44,9 +44,10 @@
         <aside>
           <div class="wrap">
             
+      <h2><a href="#docs">React Test</a></h2>
       <div class="entry primary">
         <label class="more"></label>
-        <a href="#docs"><h2>React Test</h2></a>
+        <a href="#docs">Introduction</a>
       </div>
       <section>
     
@@ -423,18 +424,17 @@ for (let link of $links) {
 <pre><code class="language-js">// Find all of the external links first
 const $links = $(&lt;Page /&gt;).find(&quot;a[target=_blank]&quot;);
 
-// TODO: this should iterate through all nodes
 // Make sure they *all* have rel=&quot;noopener noreferrer&quot;
 expect($links).toHaveAttribute(&#39;rel&#39;, &#39;noopener noreferrer&#39;);</code></pre>
 
 
 <h3 id="children">.children()</h3>
-<p>Get the direct children of all of the nodes with an optional filter. Inspired by <a href="https://umbrellajs.com/documentation#children">UmbrellaJS&#39;s .children()</a></p>
+<p>Get the direct children of all of the elements with an optional filter:</p>
 <pre><code class="language-js">.children(filter: string)</code></pre>
 <h4>Parameters</h4>
 <p><code>filter</code>: A selector expression to match elements against</p>
 <h4>Returns</h4>
-<p>An instance of <code>react-test</code> with the new children as nodes</p>
+<p>An instance of <code>react-test</code> with the new children as itst elements.</p>
 <h4>Usage</h4>
 <p>Since we return an instance of <code>react-test</code>, we have to use <code>.toArray()</code> to convert it to an array so that we can iterate through them.</p>
 <pre><code class="language-js">import $ from &#39;react-test&#39;
@@ -446,7 +446,7 @@ const List = () =&gt; (
   &lt;/ul&gt;
 );
 
-// Find the text of each node
+// Find the text of each element
 const text = $(&lt;List /&gt;)
   .children()
   .toArray()
@@ -456,30 +456,34 @@ expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
 
 
 <h3 id="click">.click()</h3>
-<p>Calls a click event on all of the matched nodes</p>
-<pre><code class="language-js">.click(selector?: string) -&gt; promise</code></pre>
-<p>For <code>.click()</code>, you can pass an optional css selector. It returns a promise that must be awaited to ensure it works.</p>
-<h4 id="string-clickbutton"><em>string</em> <code>.click(&#39;button&#39;)</code></h4>
-<p>The child element that receives the click. Leave it empty to click the current element. This is a shorthand of <code>.find(selector).click()</code> for convenience.</p>
+<p>Simulates a click on all the matched elements and waits for them to resolve:</p>
+<pre><code class="language-js">.click() -&gt; promise</code></pre>
+<h4>Usage</h4>
+<p>It needs to be awaited to ensure the side effects are run and the component re-rendered:</p>
 <pre><code class="language-js">it(&#39;clicks the current element&#39;, async () =&gt; {
   const counter = $(&lt;Counter /&gt;);
   expect(counter.text()).toEqual(&quot;0&quot;);
   await counter.click();
   expect(counter.text()).toEqual(&quot;1&quot;);
-});
-
-it(&#39;clicks all buttons inside&#39;, async () =&gt; {
+});</code></pre>
+<h4>Parameters</h4>
+<p>None. Any parameters passed will be ignored.</p>
+<h4>Returns</h4>
+<p>A promise that must be awaited before doing any assertion.</p>
+<h4>Examples</h4>
+<p>We might want to click a child element and not the top-level one:</p>
+<pre><code class="language-js">it(&#39;clicks all buttons inside&#39;, async () =&gt; {
   const counter = $(&lt;Counter /&gt;);
   expect(counter.text()).toEqual(&quot;0&quot;);
-  await counter.click(&#39;button&#39;);
+  await counter.find(&#39;button&#39;).click();
   expect(counter.text()).toEqual(&quot;1&quot;);
 });</code></pre>
-<h4>Advanced</h4>
+<h4>Notes</h4>
 <p>It is internally wrapping the call with <a href="#act"><code>act()</code></a>, so there&#39;s no need for you to also wrap it. Just make sure to <code>await</code> for it.</p>
 
 
 <h3 id="closest">.closest()</h3>
-<p>Find the first ancestor that matches the selector for each node. Inspired by <a href="https://umbrellajs.com/documentation#closest">UmbrellaJS&#39;s .closest()</a></p>
+<p>Find the first ancestor that matches the selector for each element:</p>
 <pre><code class="language-js">.closest(selector: string)</code></pre>
 <h4>Parameters</h4>
 <p><code>selector</code>: Expression to match elements against</p>

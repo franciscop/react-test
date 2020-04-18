@@ -1,6 +1,6 @@
 ### .closest()
 
-Find the first ancestor that matches the selector for each node. Inspired by [UmbrellaJS's .closest()](https://umbrellajs.com/documentation#closest)
+Find the first ancestor that matches the selector for each element:
 
 ```js
 .closest(selector: string)

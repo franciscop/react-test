@@ -1,6 +1,6 @@
 ### .children()
 
-Get the direct children of all of the nodes with an optional filter. Inspired by [UmbrellaJS's .children()](https://umbrellajs.com/documentation#children)
+Get the direct children of all of the elements with an optional filter:
 
 ```js
 .children(filter: string)
@@ -12,7 +12,7 @@ Get the direct children of all of the nodes with an optional filter. Inspired by
 
 #### Returns
 
-An instance of `react-test` with the new children as nodes
+An instance of `react-test` with the new children as itst elements.
 
 #### Usage
 
@@ -28,7 +28,7 @@ const List = () => (
   </ul>
 );
 
-// Find the text of each node
+// Find the text of each element
 const text = $(<List />)
   .children()
   .toArray()
