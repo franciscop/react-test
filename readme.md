@@ -21,7 +21,7 @@ The `react-test` syntax follows a similar schema to jQuery so it's very easy to 
 
 ### Getting Started
 
-You need a React project already working. That's on you, but we recommend [Create React App](https://create-react-app.dev/):
+You need a React project already working. We recommend using [Create React App](https://create-react-app.dev/):
 
 ```bash
 npx create-react-app my-app
