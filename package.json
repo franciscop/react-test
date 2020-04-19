@@ -28,6 +28,7 @@
   "main": "index.min.js",
   "files": [],
   "dependencies": {
+    "array-flat-polyfill": "^1.0.1",
     "react-dom": "^16.9.0",
     "react-jsdom": "^3.0.0"
   },
