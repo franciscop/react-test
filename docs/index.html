@@ -847,7 +847,57 @@ expect($list.find(&#39;li&#39;)).not.toHaveText(&#39;apple&#39;);
 
 
 <h3 id="tomatchselector">.toMatchSelector()</h3>
-<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+<p>Checks whether the matched elements <strong>match the selector</strong></p>
+<pre><code class="language-js">const $button = $(
+  &lt;button id=&quot;the-button&quot; className=&quot;a-button&quot;&gt;
+    click
+  &lt;/button&gt;
+);
+
+expect($button).toMatchSelector(&quot;#the-button&quot;);
+expect($button).toMatchSelector(&quot;.a-button&quot;);</code></pre>
+<p>Checks whether the matched elements <strong>do not match the selector</strong></p>
+<pre><code class="language-js">const $button = $(
+  &lt;button id=&quot;the-button&quot; className=&quot;a-button&quot;&gt;
+    click
+  &lt;/button&gt;
+);
+
+expect($button).not.toMatchSelector(&quot;#hello&quot;);
+expect($button).not.toMatchSelector(&quot;.world&quot;);</code></pre>
+<p>For a list of items, it checks if *all the elements match the provided selector**</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li id=&quot;first-list-item&quot; className=&quot;list-item&quot;&gt;
+      apple
+    &lt;/li&gt;
+    &lt;li className=&quot;list-item&quot;&gt;apple&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;li&quot;);
+expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;.list-item&quot;);
+
+// DO NOT PASS
+expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;.item&quot;);
+expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;#first-list-item&quot;);</code></pre>
+<p>For a list of items, it checks if *all the elements do not match the provided selector**</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li id=&quot;first-list-item&quot; className=&quot;list-item&quot;&gt;
+      apple
+    &lt;/li&gt;
+    &lt;li className=&quot;list-item&quot;&gt;apple&lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;div&quot;);
+expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;.hello&quot;);
+expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;#first-list-item&quot;);
+
+// DO NOT PASS
+expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;li&quot;);
+expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;.list-item&quot;);</code></pre>
 
 
 <h2 id="examples">Examples</h2>
