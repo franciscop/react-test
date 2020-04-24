@@ -843,7 +843,47 @@ expect($list.find(&#39;li&#39;)).not.toHaveText(&#39;apple&#39;);
 
 
 <h3 id="tohavevalue">.toHaveValue()</h3>
-<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+<ul>
+<li>Checks whether the element has the given value.</li>
+<li>Only works for input, textarea, and select.</li>
+<li>For input types of checkbox and radio, please use .checked instead.</li>
+</ul>
+<p>Checks whether values are correct</p>
+<pre><code class="language-js">const $textInput = $(&lt;input type=&quot;text&quot; value=&quot;text&quot; onChange={} /&gt;);
+const $numberInput = $(&lt;input type=&quot;number&quot; value=&quot;10&quot; onChange={} /&gt;);
+const $textarea = $(&lt;textarea value=&quot;text description&quot; onChange={} /&gt;);
+const $select = $(
+  &lt;select value=&quot;second&quot; onChange={}&gt;
+    &lt;option value=&quot;first&quot;&gt;first&lt;/option&gt;
+    &lt;option value=&quot;second&quot;&gt;second&lt;/option&gt;
+    &lt;option value=&quot;third&quot;&gt;third&lt;/option&gt;
+  &lt;/select&gt;
+);
+
+expect($textInput).toHaveValue(&#39;text&#39;);
+expect($numberInput).toHaveValue(10);
+expect($textarea).toHaveValue(&#39;text description&#39;);
+expect($select).toHaveValue(&#39;second&#39;);
+
+// NEGATIVE ASSERTIONS
+expect($textInput).not.toHaveValue(10);
+expect($numberInput).not.toHaveValue(&#39;text&#39;);
+expect($textarea).not.toHaveValue(&#39;random&#39;);
+expect($select).not.toHaveValue(&#39;first&#39;);</code></pre>
+<p>Invalid elements will throw errors</p>
+<pre><code class="language-js">const $button = $(&lt;button&gt;click&lt;/button&gt;);
+const $link = $(&lt;a href=&quot;hello.com&quot;&gt;click&lt;/a&gt;);
+
+// Will throw: &#39;Not a valid element that has a value attribute. Please insert an element that has a value.&#39;
+expect($button).toHaveValue(&#39;button&#39;);
+expect($link).toHaveValue(&#39;link&#39;);</code></pre>
+<p>Checkbox and Radio input elements will throw errors</p>
+<pre><code class="language-js">const $checkbox = $(&lt;input type=&quot;checkbox&quot; checked readOnly /&gt;);
+const $radio = $(&lt;input type=&quot;radio&quot; value=&quot;something&quot; checked readOnly /&gt;);
+
+// Will throw: Cannot check .toHaveValue() for input type=&quot;checkbox&quot; or type=&quot;radio&quot;.
+expect($checkbox).toHaveValue(&#39;check&#39;);
+expect($radio).toHaveValue(&#39;radio&#39;);</code></pre>
 
 
 <h3 id="tomatchselector">.toMatchSelector()</h3>
