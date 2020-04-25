@@ -847,25 +847,25 @@ expect($list.find(&#39;li&#39;)).not.toHaveText(&#39;apple&#39;);
 
 
 <h3 id="tomatchselector">.toMatchSelector()</h3>
-<p>Checks whether the matched elements <strong>match the selector</strong></p>
+<p>Checks whether the matched elements <strong>match</strong> the selector</p>
 <pre><code class="language-js">const $button = $(
   &lt;button id=&quot;the-button&quot; className=&quot;a-button&quot;&gt;
     click
   &lt;/button&gt;
 );
 
-expect($button).toMatchSelector(&quot;#the-button&quot;);
-expect($button).toMatchSelector(&quot;.a-button&quot;);</code></pre>
-<p>Checks whether the matched elements <strong>do not match the selector</strong></p>
+expect($button).toMatchSelector(&#39;#the-button&#39;);
+expect($button).toMatchSelector(&#39;.a-button&#39;);</code></pre>
+<p>Checks whether the matched elements <strong>do not match</strong> the selector</p>
 <pre><code class="language-js">const $button = $(
   &lt;button id=&quot;the-button&quot; className=&quot;a-button&quot;&gt;
     click
   &lt;/button&gt;
 );
 
-expect($button).not.toMatchSelector(&quot;#hello&quot;);
-expect($button).not.toMatchSelector(&quot;.world&quot;);</code></pre>
-<p>For a list of items, it checks if *all the elements match the provided selector**</p>
+expect($button).not.toMatchSelector(&#39;#hello&#39;);
+expect($button).not.toMatchSelector(&#39;.world&#39;);</code></pre>
+<p>For a list of items, it checks if <strong>all</strong> the elements match the provided selector</p>
 <pre><code class="language-js">const $list = $(
   &lt;ul&gt;
     &lt;li id=&quot;first-list-item&quot; className=&quot;list-item&quot;&gt;
@@ -875,13 +875,14 @@ expect($button).not.toMatchSelector(&quot;.world&quot;);</code></pre>
   &lt;/ul&gt;
 );
 
-expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;li&quot;);
-expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;.list-item&quot;);
+// PASS
+expect($list.find(&#39;li&#39;)).toMatchSelector(&#39;li&#39;);
+expect($list.find(&#39;li&#39;)).toMatchSelector(&#39;.list-item&#39;);
 
 // DO NOT PASS
-expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;.item&quot;);
-expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;#first-list-item&quot;);</code></pre>
-<p>For a list of items, it checks if *all the elements do not match the provided selector**</p>
+expect($list.find(&#39;li&#39;)).toMatchSelector(&#39;.item&#39;);
+expect($list.find(&#39;li&#39;)).toMatchSelector(&#39;#first-list-item&#39;);</code></pre>
+<p>For a list of items, it checks if <strong>any</strong> of the elements <strong>do not</strong> match the provided selector</p>
 <pre><code class="language-js">const $list = $(
   &lt;ul&gt;
     &lt;li id=&quot;first-list-item&quot; className=&quot;list-item&quot;&gt;
@@ -891,13 +892,14 @@ expect($list.find(&quot;li&quot;)).toMatchSelector(&quot;#first-list-item&quot;)
   &lt;/ul&gt;
 );
 
-expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;div&quot;);
-expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;.hello&quot;);
-expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;#first-list-item&quot;);
+// PASS
+expect($list.find(&#39;li&#39;)).not.toMatchSelector(&#39;div&#39;);
+expect($list.find(&#39;li&#39;)).not.toMatchSelector(&#39;.hello&#39;);
+expect($list.find(&#39;li&#39;)).not.toMatchSelector(&#39;#first-list-item&#39;);
 
 // DO NOT PASS
-expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;li&quot;);
-expect($list.find(&quot;li&quot;)).not.toMatchSelector(&quot;.list-item&quot;);</code></pre>
+expect($list.find(&#39;li&#39;)).not.toMatchSelector(&#39;li&#39;);
+expect($list.find(&#39;li&#39;)).not.toMatchSelector(&#39;.list-item&#39;);</code></pre>
 
 
 <h2 id="examples">Examples</h2>

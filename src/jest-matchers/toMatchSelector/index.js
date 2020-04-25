@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from "../../helpers";
+import { normalize, getPlainTag } from '../../helpers';
 
 export default function (frag, selectorStr) {
   // To avoid double negations ¯\_(ツ)_/¯
@@ -11,13 +11,11 @@ export default function (frag, selectorStr) {
     const base = getPlainTag(el);
     const matches = el.matches(selectorStr);
 
-    // expect(<a href="banana.com" />).toHaveAttribute('href', 'banana.com);
     if (this.affirmative && !matches) {
       const msg = `Expected ${base} to match selector, ${selectorStr}`;
       return { pass: false, message: () => msg };
     }
 
-    // expect(<a href="banana.com" />).not.toHaveAttribute('orange');
     if (this.isNot && matches) {
       const msg = `Expected ${base} not to match selector, ${selectorStr}`;
       return { pass: true, message: () => msg };
