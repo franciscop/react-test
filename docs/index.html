@@ -21,6 +21,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://react-test.dev/" />
     <meta name="twitter:title" content="React Test" />
+    <meta name="twitter:image" content="http://react-test.dev/hero.jpg">
 
     <meta
       name="twitter:description"
@@ -456,16 +457,17 @@ expect(text).toEqual([&quot;A&quot;, &quot;B&quot;]);</code></pre>
 
 
 <h3 id="click">.click()</h3>
-<p>Simulates a click on all the matched elements and waits for them to resolve:</p>
 <pre><code class="language-js">.click() -&gt; promise</code></pre>
-<h4>Usage</h4>
-<p>It needs to be awaited to ensure the side effects are run and the component re-rendered:</p>
+<p>Simulates a click on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:</p>
 <pre><code class="language-js">it(&#39;clicks the current element&#39;, async () =&gt; {
   const counter = $(&lt;Counter /&gt;);
   expect(counter.text()).toEqual(&quot;0&quot;);
   await counter.click();
   expect(counter.text()).toEqual(&quot;1&quot;);
 });</code></pre>
+<blockquote>
+<p><code>.click()</code> already wraps the call with act(), so there&#39;s no need for you to also wrap it. Just make sure to await for it.</p>
+</blockquote>
 <h4>Parameters</h4>
 <p>None. Any parameters passed will be ignored.</p>
 <h4>Returns</h4>
