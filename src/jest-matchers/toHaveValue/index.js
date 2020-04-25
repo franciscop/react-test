@@ -38,13 +38,11 @@ export default function (frag, value) {
     );
   }
 
-  // expect(<input type="text" value="banana" />).toHaveValue('banana');
   if (this.affirmative && !matches) {
     const msg = `Expected ${base} to have value=${value}`;
     return { pass: false, message: () => msg };
   }
 
-  // expect(<input type="text" value="banana" />).not.toHaveValue('apple');
   if (this.isNot && matches) {
     const msg = `Expected ${base} not to have value=${value}`;
     return { pass: true, message: () => msg };

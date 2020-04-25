@@ -15,6 +15,18 @@ const $select = $(
 );
 
 describe('.toHaveValue()', () => {
+  it('requires an HTMLelement', () => {
+    const msg = 'expect() should receive an HTMLElement or React Test instance';
+    expect(() => expect(null).toHaveValue('kiwi')).toThrow(msg);
+    expect(() => expect('random').toHaveValue('kiwi')).toThrow(msg);
+  });
+
+  it('requires a valid instance', () => {
+    expect(() => expect({}).toHaveValue('kiwi')).toThrow(
+      'expect() should receive an HTMLElement or React Test instance'
+    );
+  });
+
   it('works for a simple case', () => {
     expect($textInput).toHaveValue('text');
     expect($numberInput).toHaveValue(10);
@@ -29,16 +41,12 @@ describe('.toHaveValue()', () => {
     expect($select).not.toHaveValue('first');
   });
 
-  it('requires an HTMLelement', () => {
-    const msg = 'expect() should receive an HTMLElement or React Test instance';
-    expect(() => expect(null).toHaveValue('kiwi')).toThrow(msg);
-    expect(() => expect('random').toHaveValue('kiwi')).toThrow(msg);
-  });
+  it('checks defaultValue when set', () => {
+    const $input = $(<input type="text" defaultValue="initial text" />);
+    const $textarea = $(<textarea defaultValue="initial textarea" />);
 
-  it('requires a valid instance', () => {
-    expect(() => expect({}).toHaveValue('kiwi')).toThrow(
-      'expect() should receive an HTMLElement or React Test instance'
-    );
+    expect($input).toHaveValue('initial text');
+    expect($textarea).toHaveValue('initial textarea');
   });
 
   it('cannot check for values on input types, checkbox and radio', () => {
@@ -81,15 +89,12 @@ describe('.toHaveValue()', () => {
     expect(() => expect($textInput).toHaveValue('random')).toThrow(
       'Expected <input type="text" readonly="" value="text"> to have value=random'
     );
-
     expect(() => expect($numberInput).toHaveValue(11)).toThrow(
       'Expected <input type="number" readonly="" value="10"> to have value=11'
     );
-
     expect(() => expect($textarea).toHaveValue('random')).toThrow(
       'Expected <textarea readonly=""> to have value=random'
     );
-
     expect(() => expect($select).toHaveValue('first')).toThrow(
       'Expected <select> to have value=first'
     );
@@ -99,15 +104,12 @@ describe('.toHaveValue()', () => {
     expect(() => expect($textInput).not.toHaveValue('text')).toThrow(
       'Expected <input type="text" readonly="" value="text"> not to have value=text'
     );
-
     expect(() => expect($numberInput).not.toHaveValue(10)).toThrow(
       'Expected <input type="number" readonly="" value="10"> not to have value=10'
     );
-
     expect(() => expect($textarea).not.toHaveValue('text description')).toThrow(
       'Expected <textarea readonly=""> not to have value=text description'
     );
-
     expect(() => expect($select).not.toHaveValue('second')).toThrow(
       'Expected <select> not to have value=second'
     );
