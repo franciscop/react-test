@@ -2,7 +2,7 @@
 
 > Early package! We are [looking for **beginner Open Source contributors**](https://github.com/franciscop/react-test/blob/master/Contributing.md)! ❤️
 
-A complete and expressive testing library for React:
+Expressive testing library for React to make sure your code works as expected:
 
 ```js
 import $ from "react-test";
