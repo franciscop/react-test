@@ -2,7 +2,7 @@
 
 > Early package! We are [looking for **beginner Open Source contributors**](https://github.com/franciscop/react-test/blob/master/Contributing.md)! ❤️
 
-A complete and expressive testing library for React:
+Expressive testing library for React to make sure your code works as expected:
 
 ```js
 import $ from "react-test";
@@ -34,7 +34,7 @@ Then install `react-test`. It is only needed for development:
 npm install react-test --save-dev
 ```
 
-Finally you can write tests, let's say you have [the `<Counter />` component from this example](#counter), let's test it to make sure it works as expected:
+Finally you can write tests. Let's say you have [the `<Counter />` component from this example](#counter) and you want to test it to make sure it works as expected:
 
 ```js
 // src/Counter.test.js
