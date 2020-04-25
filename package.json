@@ -1,6 +1,6 @@
 {
   "name": "react-test",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Expressive testing library for React to make sure your code works as expected",
   "homepage": "https://react-test.dev/",
   "repository": "https://github.com/franciscop/react-test.git",
