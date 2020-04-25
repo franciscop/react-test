@@ -752,7 +752,90 @@ expect($form.find(&quot;textarea&quot;)).not.toBeEnabled();
 
 
 <h3 id="tohaveattribute">.toHaveAttribute()</h3>
-<p>This method <a href="https://github.com/franciscop/react-test/blob/master/Contributing.md"><strong>is looking for a beginner OSS contributor</strong></a> ❤️</p>
+<p>Check whether the matched elements <strong>contain</strong> the attribute &amp;&amp; value</p>
+<pre><code class="language-js">it(&#39;has attribute and value&#39;, () =&gt; {
+  const $button = (
+    &lt;button type=&quot;submit&quot; disabled&gt;
+      click
+    &lt;/button&gt;
+  );
+
+  expect($button).toHaveAttribute(&#39;type&#39;, &#39;submit&#39;);
+  expect($button).toHaveAttribute(&#39;disabled&#39;);
+});</code></pre>
+<p>It checks whether the matched elements <strong>do not contain</strong> the attribute</p>
+<pre><code class="language-js">it(&#39;does not have the attribute and value&#39;, () =&gt; {
+  const $button = (
+    &lt;button type=&quot;submit&quot; disabled&gt;
+      click
+    &lt;/button&gt;
+  );
+
+  expect($button).not.toHaveAttribute(&#39;onclick&#39;);
+  expect($button).not.toHaveAttribute(&#39;type&#39;, &#39;reset&#39;);
+});</code></pre>
+<p>It checks whether the matched elements contain the attribute and the <strong>matched regex value</strong></p>
+<pre><code class="language-js">it(&#39;checks if attribute has given regex value&#39;, () =&gt; {
+  const $button = (
+    &lt;button type=&quot;submit&quot; disabled&gt;
+      click
+    &lt;/button&gt;
+  );
+
+  // Positive assertions: all the given regex values match
+  expect($button).toHaveAttribute(&#39;type&#39;, /submit/);
+  expect($button).toHaveAttribute(&#39;type&#39;, /su?b.+/);
+  expect($button).toHaveAttribute(&#39;type&#39;, /.*/);
+
+  // Negative assertions: all the given regex values do not match
+  expect($button).not.toHaveAttribute(&#39;type&#39;, /sub/);
+  expect($button).not.toHaveAttribute(&#39;type&#39;, /su?b/);
+  expect($button).not.toHaveAttribute(&#39;type&#39;, /.*q/);
+});</code></pre>
+<p>For a list of items, it checks whether <strong>all</strong> have the same attribute &amp;&amp; value or regex</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li value=&quot;1&quot; title=&quot;list-item&quot;&gt;
+      apple
+    &lt;/li&gt;
+    &lt;li value=&quot;2&quot; title=&quot;list-item&quot;&gt;
+      apple
+    &lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+// PASS
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;value&#39;);
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;title&#39;, &#39;list-item&#39;);
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;title&#39;, /list-item/);
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;title&#39;, /^li.t-.*/);
+
+// DO NOT PASS
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;error&#39;);
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;id&#39;);
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;value&#39;, &#39;1&#39;);
+expect($list.find(&#39;li&#39;)).toHaveAttribute(&#39;title&#39;, /list/);</code></pre>
+<p>For a list of items, it checks whether <strong>any do not</strong> have the same attribute &amp;&amp; value or regex</p>
+<pre><code class="language-js">const $list = $(
+  &lt;ul&gt;
+    &lt;li id=&quot;first&quot; value=&quot;1&quot; title=&quot;list-item&quot;&gt;
+      apple
+    &lt;/li&gt;
+    &lt;li value=&quot;2&quot; title=&quot;list-item&quot;&gt;
+      apple
+    &lt;/li&gt;
+  &lt;/ul&gt;
+);
+
+// PASS
+expect($list.find(&#39;li&#39;)).not.toHaveAttribute(&#39;error&#39;);
+expect($list.find(&#39;li&#39;)).not.toHaveAttribute(&#39;value&#39;, &#39;1&#39;);
+expect($list.find(&#39;li&#39;)).not.toHaveAttribute(&#39;title&#39;, /list/);
+
+// DO NOT PASS
+expect($list.find(&#39;li&#39;)).not.toHaveAttribute(&#39;value&#39;);
+expect($list.find(&#39;li&#39;)).not.toHaveAttribute(&#39;value&#39;, &#39;1&#39;);
+expect($list.find(&#39;li&#39;)).not.toHaveAttribute(&#39;title&#39;, /^list-.*/);</code></pre>
 
 
 <h3 id="tohaveclass">.toHaveClass()</h3>

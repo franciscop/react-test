@@ -24,20 +24,14 @@ export default function (frag, attr, val) {
     if (val instanceof RegExp) valErrMessage = ` that matches ${val}`;
     else if (val) valErrMessage = `="${val}"`;
 
-    // expect(<a href="banana.com" />).toHaveAttribute('href', 'banana.com);
-    if (this.affirmative) {
-      if (!found) {
-        const msg = `Expected ${base} to have attribute ${attr}${valErrMessage}`;
-        return { pass: false, message: () => msg };
-      }
+    if (this.affirmative && !found) {
+      const msg = `Expected ${base} to have attribute \`${attr}\`${valErrMessage}`;
+      return { pass: false, message: () => msg };
     }
 
-    // expect(<a href="banana.com" />).not.toHaveAttribute('orange');
-    if (this.isNot) {
-      if (found) {
-        const msg = `Expected ${base} not to have attribute ${attr}${valErrMessage}`;
-        return { pass: true, message: () => msg };
-      }
+    if (this.isNot && found) {
+      const msg = `Expected ${base} not to have attribute \`${attr}\`${valErrMessage}`;
+      return { pass: true, message: () => msg };
     }
   }
 
