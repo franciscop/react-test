@@ -3,12 +3,19 @@ import $ from "umbrellajs";
 
 $("a").on("click", e => {
   const href = $(e.currentTarget).attr("href");
+
+  // Only for relative links
   if (!/^#/.test(href)) return;
 
   e.preventDefault();
 
-  history.replaceState(null, null, href);
-  $(href).scroll();
+  if (href === "#top") {
+    history.replaceState(null, null, "/");
+    $("body").scroll();
+  } else {
+    history.replaceState(null, null, href);
+    $(href).scroll();
+  }
   $(e.currentTarget)
     .closest(".entry")
     .addClass("active");

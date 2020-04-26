@@ -8,7 +8,15 @@ export default {
   output: {
     file: "index.min.js",
     name: "$",
-    format: "umd"
+    format: "umd",
+    // This is because we use default and named exports at the same time. The
+    // commonjs will have to import with ['default'], but no problem for ESM
+    exports: "named",
+
+    globals: {
+      "react-jsdom": "ReactJSDOM",
+      "react-dom/test-utils": "testUtils"
+    }
   },
   external: ["react-jsdom", "react-dom/test-utils"],
   plugins: [

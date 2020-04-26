@@ -112,6 +112,7 @@ aside h2 {
 
 aside a {
   display: block;
+  cursor: pointer;
   width: 100%;
   padding: 5px 8px;
   line-height: 20px;
@@ -284,6 +285,7 @@ pre,
 code,
 code[class*="language-"],
 pre[class*="language-"] {
+  background: #f5f2f0;
   font-family: "Source Code Pro", serif;
   font-size: 16px;
 }

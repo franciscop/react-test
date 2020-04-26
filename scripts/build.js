@@ -30,81 +30,88 @@ const methodsBeforeMatchers = tocOrder => (a, b) => {
   return 0;
 };
 
-// This builds the whole site from the readmes, using marked and handlebars
-const build = async (req, res, next = () => {}) => {
-  try {
-    // Generate the bundled javascript file
-    try {
-      await cmd(`rollup -c ./scripts/rollup.config.js`);
-    } catch (error) {}
-
-    // Optional read a toc.json file from `src/`:
-    const tocFile = await read("./src/toc.json");
-    const tocOrder = tocFile ? JSON.parse(tocFile) : [];
-
-    // Generate the CSS file
-    await scss("./docs/style.scss", "./docs/style.min.css");
-
-    // Generate the HTML files
-    const content = await walk("./src")
-      .filter(/\.md$/)
-      .concat(await abs("./readme.md"))
-      .sort((a, b) => a.localeCompare(b))
-      .sort((a, b) => depth(a) - depth(b))
-      .sort(methodsBeforeMatchers(tocOrder))
-      .map(read)
-      // Because it breaks with 2nd arg as the index
-      .map(page => marked(page))
-      // We don't want the id="..." in the h4 levels
-      .map(html => html.replace(/<h4 id="\w+">/g, "<h4>"))
-      .join("\n\n");
-
-    const sections = content
-      .split("\n")
-      .map(a => a.match(/<h(2|3) id=\"([a-z\-]+)\">([^\<]+)<\/h(2|3)>/))
-      .filter(Boolean)
-      .map(([, level, hash, title]) => ({
-        hash,
-        title,
-        level: level === "2" ? "primary" : "secondary"
-      }));
-    let toc = `
-      <h2><a href="#docs">React Test</a></h2>
-      <div class="entry primary">
-        <label class="more"></label>
-        <a href="#docs">Introduction</a>
-      </div>
-      <section>
-    `;
-    sections.forEach((sec, i, secs) => {
-      // Start new section
-      if (sec.level === "secondary" && i && secs[i - 1].level === "primary") {
-        toc += `<section>`;
-      }
-      toc += `
-        <div class="entry ${sec.level}">
-          ${sec.level === "primary" ? '<label class="more"></label>' : ""}
-          <a href="#${sec.hash}">${sec.title}</a>
-        </div>
-      `;
-      if (
-        sec.level === "secondary" &&
-        secs[i + 1] &&
-        secs[i + 1].level === "primary"
-      ) {
-        toc += `</section>`;
-      }
-    });
-    const page = await read("./docs/index.hbs");
-    const html = hbs(page, { content, toc });
-    await write("./docs/index.html", html);
-    next();
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+// Optional read a toc.json file from `src/`:
+const readToc = async () => {
+  const tocFile = await read("./src/toc.json");
+  return tocFile ? JSON.parse(tocFile) : [];
 };
 
-build();
+// Generate the bundled javascript file
+const buildJavascript = async () => {
+  try {
+    await cmd(`rollup -c ./scripts/rollup.config.js`);
+  } catch (error) {}
+};
+
+const buildCss = async () => {
+  // Generate the CSS file
+  await scss("./docs/style.scss", "./docs/style.min.css");
+};
+
+const buildHtml = async () => {
+  const tocOrder = await readToc();
+
+  // Generate the HTML files
+  const content = await walk("./src")
+    .filter(/\.md$/)
+    .concat(await abs("./readme.md"))
+    .sort((a, b) => a.localeCompare(b))
+    .sort((a, b) => depth(a) - depth(b))
+    .sort(methodsBeforeMatchers(tocOrder))
+    .map(read)
+    // Because it breaks with 2nd arg as the index
+    .map(page => marked(page))
+    // We don't want the id="..." in the h4 levels
+    .map(html => html.replace(/<h4 id="\w+">/g, "<h4>"))
+    .join("\n\n");
+
+  const sections = content
+    .split("\n")
+    .map(a => a.match(/<h(2|3) id=\"([a-z\-]+)\">([^\<]+)<\/h(2|3)>/))
+    .filter(Boolean)
+    .map(([, level, hash, title]) => ({
+      hash,
+      title,
+      level: level === "2" ? "primary" : "secondary"
+    }));
+  let toc = `
+    <h2><a href="#top">React Test</a></h2>
+    <div class="entry primary">
+      <label class="more"></label>
+      <a href="#top">Introduction</a>
+    </div>
+    <section>
+  `;
+  sections.forEach((sec, i, secs) => {
+    // Start new section
+    if (sec.level === "secondary" && i && secs[i - 1].level === "primary") {
+      toc += `<section>`;
+    }
+    toc += `
+      <div class="entry ${sec.level}">
+        ${sec.level === "primary" ? '<label class="more"></label>' : ""}
+        <a href="#${sec.hash}">${sec.title}</a>
+      </div>
+    `;
+    if (
+      sec.level === "secondary" &&
+      secs[i + 1] &&
+      secs[i + 1].level === "primary"
+    ) {
+      toc += `</section>`;
+    }
+  });
+  const page = await read("./docs/index.hbs");
+  const html = hbs(page, { content, toc });
+  await write("./docs/index.html", html);
+};
+
+// This builds the whole site from the readmes, using marked and handlebars
+const build = () => Promise.all([buildJavascript(), buildCss(), buildHtml()]);
+
+build().then(
+  () => console.log("\x1b[32m", "✓", "\x1b[0m", "Built all successfully"),
+  error => console.error(error)
+);
 
 export default build;
