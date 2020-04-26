@@ -1,4 +1,4 @@
-### Counter
+### \<Counter /\>
 
 Let's say that we have a simple counter. Every time you click it, its value increments by one:
 

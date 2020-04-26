@@ -4,13 +4,15 @@ $picnic-dropimage-background-image: "";
 $picnic-grid-offpart: false;
 $picnic-grid-offpart-sizes: false;
 
+$large: 1100px;
+
 @import "./prism.scss";
 
 body {
   background: #f1f1ff;
   font-size: 18px;
   box-sizing: border-box;
-  max-width: 1100px;
+  max-width: $large;
   margin: 0 auto;
   box-sizing: border-box;
   line-height: 1.5;
@@ -45,12 +47,17 @@ strong {
   width: calc(100% + 20px);
   margin-left: -20px;
   flex-wrap: wrap;
+  justify-content: center;
 
   & > * {
     box-sizing: border-box;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     padding-left: 20px;
     padding-bottom: 20px;
+
+    &:first-child {
+      flex-grow: 1;
+    }
   }
 }
 
@@ -75,6 +82,7 @@ blockquote {
 aside {
   width: 100%;
   max-width: 800px;
+  min-width: 280px;
   margin: 0 auto;
 
   background: #fff;
@@ -89,24 +97,21 @@ aside {
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: $large) {
   aside {
     position: sticky;
     top: 0;
   }
-  aside .wrap {
-    // padding: 20px;
-  }
 }
 
 aside .wrap {
-  padding: 10px;
+  padding: 20px;
 }
 
 aside h2 {
   line-height: 1;
   font-size: 20px;
-  margin: 10px;
+  margin: 0 0 10px;
   padding: 0;
 }
 
@@ -209,7 +214,7 @@ main {
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: $large) {
   main {
     width: 800px;
     border-radius: 0 0 8px 8px;
