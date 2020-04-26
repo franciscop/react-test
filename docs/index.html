@@ -271,14 +271,17 @@ describe(&quot;Counter.js&quot;, () =&gt; {
 <p>Finally run the tests with Jest:</p>
 <pre><code class="language-bash">npm run test</code></pre>
 <h3 id="basics-of-testing">Basics of testing</h3>
-<p>React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has few dependencies, which also helps with debugging, documenting, etc.</p>
+<p>React applications are divided in components, and these components can be tested either individually or in group. Self-contained components are easier to test, document and debug.</p>
 <p>For example, a plain button can be defined with a callback function, and change colors depending on the <code>primary</code> attribute:</p>
-<pre><code class="language-js">// Button.js
-import React from &quot;react&quot;;
+<pre><code class="language-js">import React from &quot;react&quot;;
 
 export default function Button ({ primary, onClick, children }) {
   const background = primary ? &quot;blue&quot; : &quot;gray&quot;;
-  return &lt;button onClick={onClick} style={{ background }}&gt;{children}&lt;/button&gt;;
+  return (
+    &lt;button onClick={onClick} style={{ background }}&gt;
+      {children}
+    &lt;/button&gt;
+  );
 }</code></pre>
 <p>Then we can test it with <code>react-test</code> by creating a <code>Button.test.js</code> file and adding some assertions:</p>
 <pre><code class="language-js">import React from &quot;react&quot;;
@@ -314,8 +317,7 @@ describe(&quot;Button.js&quot;, () =&gt; {
   });
 });</code></pre>
 <p>Great! All of our tests are working except for the last one. Now we can go back to our component and fix it:</p>
-<pre><code class="language-js">// Button.js
-import React from &quot;react&quot;;
+<pre><code class="language-js">import React from &quot;react&quot;;
 
 export default function Button ({ primary, onClick, children, ...props }) {
   const background = primary ? &quot;blue&quot; : &quot;gray&quot;;

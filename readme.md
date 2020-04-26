@@ -74,17 +74,20 @@ npm run test
 
 ### Basics of testing
 
-React applications are divided in components, and these components can be tested either individually or in group. Making a component easy to test means that is has few dependencies, which also helps with debugging, documenting, etc.
+React applications are divided in components, and these components can be tested either individually or in group. Self-contained components are easier to test, document and debug.
 
 For example, a plain button can be defined with a callback function, and change colors depending on the `primary` attribute:
 
 ```js
-// Button.js
 import React from "react";
 
 export default function Button ({ primary, onClick, children }) {
   const background = primary ? "blue" : "gray";
-  return <button onClick={onClick} style={{ background }}>{children}</button>;
+  return (
+    <button onClick={onClick} style={{ background }}>
+      {children}
+    </button>
+  );
 }
 ```
 
@@ -128,7 +131,6 @@ describe("Button.js", () => {
 Great! All of our tests are working except for the last one. Now we can go back to our component and fix it:
 
 ```js
-// Button.js
 import React from "react";
 
 export default function Button ({ primary, onClick, children, ...props }) {
