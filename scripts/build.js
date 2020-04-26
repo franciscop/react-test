@@ -2,8 +2,9 @@ import files from "files";
 import Handlebars from "handlebars";
 import marked from "marked";
 import sass from "node-sass";
+import cmd from "atocha";
 
-const { read, walk, write } = files;
+const { abs, read, walk, write } = files;
 const hbs = (tpl, data = {}) => Handlebars.compile(tpl)(data);
 const scss = (file, to) => {
   return new Promise((done, fail) => {
@@ -18,29 +19,39 @@ const scss = (file, to) => {
 // This is to sort the paths by their depth in the filesystem
 const depth = path => (path ? path.replace(/[^\/]/g, "").length : 0);
 
-const methodsBeforeMatchers = (a, b) => {
-  if (a.includes("methods") && b.includes("jest")) return -1;
-  if (a.includes("jest") && b.includes("methods")) return 1;
-
-  if (a.includes("methods") && b.includes("examples")) return -1;
-  if (a.includes("jest") && b.includes("examples")) return -1;
-
-  if (a.includes("examples") && b.includes("methods")) return 1;
-  if (a.includes("examples") && b.includes("jest")) return 1;
-
+const methodsBeforeMatchers = tocOrder => (a, b) => {
+  const keyA = tocOrder.findIndex(name => a.includes(name));
+  const keyB = tocOrder.findIndex(name => b.includes(name));
+  if (keyA === -1 && keyB === -1) return 0;
+  if (keyA === -1) return -1;
+  if (keyB === -1) return 1;
+  if (keyA > keyB) return 1;
+  if (keyB > keyA) return -1;
   return 0;
 };
 
 // This builds the whole site from the readmes, using marked and handlebars
 const build = async (req, res, next = () => {}) => {
   try {
+    // Generate the bundled javascript file
+    try {
+      await cmd(`rollup -c ./scripts/rollup.config.js`);
+    } catch (error) {}
+
+    // Optional read a toc.json file from `src/`:
+    const tocFile = await read("./src/toc.json");
+    const tocOrder = tocFile ? JSON.parse(tocFile) : [];
+
+    // Generate the CSS file
     await scss("./docs/style.scss", "./docs/style.min.css");
+
+    // Generate the HTML files
     const content = await walk("./src")
       .filter(/\.md$/)
-      .concat("./readme.md")
+      .concat(await abs("./readme.md"))
       .sort((a, b) => a.localeCompare(b))
       .sort((a, b) => depth(a) - depth(b))
-      .sort(methodsBeforeMatchers)
+      .sort(methodsBeforeMatchers(tocOrder))
       .map(read)
       // Because it breaks with 2nd arg as the index
       .map(page => marked(page))
@@ -89,6 +100,7 @@ const build = async (req, res, next = () => {}) => {
     await write("./docs/index.html", html);
     next();
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

@@ -9,8 +9,8 @@
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c && node ./docs/build.js",
-    "docs": "node ./docs/server.js",
+    "build": "rollup -c && node ./scripts/build.js",
+    "docs": "node ./scripts/server.js",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "jest --coverage --watch",
     "test": "jest --coverage --detectOpenHandles"
@@ -36,6 +36,7 @@
     "@babel/core": "^7.7.7",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
+    "atocha": "^1.2.2",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.4",
@@ -49,14 +50,16 @@
     "marked": "^0.8.0",
     "node-sass": "^4.13.1",
     "picnic": "^6.5.2",
+    "prismjs": "^1.20.0",
     "react": "^16.8.0",
     "react-dom": "^16.9.0",
     "react-jsdom": "^3.0.0",
-    "rollup": "^1.28.0",
+    "rollup": "^1.32.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.2.0"
+    "rollup-plugin-terser": "^5.2.0",
+    "umbrellajs": "^3.1.0"
   },
   "babel": {
     "presets": [
