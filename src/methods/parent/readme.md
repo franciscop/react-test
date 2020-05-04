@@ -1,4 +1,4 @@
-## .parent()
+### .parent()
 
 Get the direct parent of all of the elements with an optional selector:
 
