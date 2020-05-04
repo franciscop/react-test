@@ -20,6 +20,7 @@ import "./methods/toArray";
 import "./methods/trigger";
 import "./methods/children";
 import "./methods/closest";
+import "./methods/parent";
 
 export { default as until } from "./helpers/until";
 
