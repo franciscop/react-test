@@ -1,6 +1,41 @@
 import "prismjs";
 import $ from "umbrellajs";
 
+(function tableofcontents() {
+  const headers = $("main h2, main h3");
+
+  let toc = `
+    <div class="entry primary">
+      <label class="more"></label>
+      <a href="#top"><strong>${document.title}</strong></a>
+    </div>
+  `;
+  headers.nodes.forEach((sec, i, secs) => {
+    const $sec = $(sec);
+    const around = [secs[i - 1], sec, secs[i + 1]];
+    const [prev, level, next] = around.map(
+      sec => sec && ($(sec).is("h2") ? "primary" : "secondary")
+    );
+
+    if ((level === "secondary" && prev === "primary") || !prev) {
+      toc += `<section>`;
+    }
+
+    toc += `
+      <div class="entry ${level}">
+        ${level === "primary" ? '<label class="more"></label>' : ""}
+        <a href="#${$sec.attr("id")}">${$sec.text()}</a>
+      </div>
+    `;
+
+    if (level === "secondary" && next !== "secondary") {
+      toc += `</section>`;
+    }
+  });
+
+  $("aside").html(toc);
+})();
+
 $("a").on("click", e => {
   const href = $(e.currentTarget).attr("href");
 

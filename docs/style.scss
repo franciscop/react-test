@@ -76,6 +76,10 @@ blockquote {
 }
 
 aside {
+  padding: 20px;
+}
+
+.wrap {
   width: 100%;
   max-width: 800px;
   min-width: 280px;
@@ -88,20 +92,16 @@ aside {
 }
 
 @media (min-width: 800px) {
-  aside {
+  .wrap {
     border-radius: 0 0 8px 8px;
   }
 }
 
 @media (min-width: $large) {
-  aside {
+  .wrap {
     position: sticky;
     top: 0;
   }
-}
-
-aside .wrap {
-  padding: 20px;
 }
 
 aside h2 {
