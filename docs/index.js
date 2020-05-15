@@ -66,9 +66,8 @@ $("aside .more").handle("click", e => {
 // Timeout to direct the attention here
 setTimeout(() => {
   // Show the first one
-  $("aside .more")
-    .first()
-    .click();
+  const first = $("aside .more").first();
+  if (first) first.click();
 
   // Show the menu of the one in the URL (if any)
   const hash = window.location.hash;
