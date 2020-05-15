@@ -17,18 +17,28 @@ import $ from "umbrellajs";
       sec => sec && ($(sec).is("h2") ? "primary" : "secondary")
     );
 
-    if ((level === "secondary" && prev === "primary") || !prev) {
+    if (
+      (prev === "primary" && level === "secondary") ||
+      (!prev && level === "secondary")
+    ) {
       toc += `<section>`;
     }
 
     toc += `
       <div class="entry ${level}">
-        ${level === "primary" ? '<label class="more"></label>' : ""}
+        ${
+          level === "primary" && next === "secondary"
+            ? '<label class="more"></label>'
+            : ""
+        }
         <a href="#${$sec.attr("id")}">${$sec.text()}</a>
       </div>
     `;
 
-    if (level === "secondary" && next !== "secondary") {
+    if (
+      (level === "secondary" && next === "primary") ||
+      (level === "secondary" && !next)
+    ) {
       toc += `</section>`;
     }
   });
