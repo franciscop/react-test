@@ -4,9 +4,16 @@ import $ from "umbrellajs";
 (function tableofcontents() {
   const headers = $("main h2, main h3");
 
+  const plain = html => {
+    var text = document.createTextNode(html);
+    var p = document.createElement("p");
+    p.appendChild(text);
+    return p.innerHTML;
+  };
+
   let toc = `
     <div class="entry primary">
-      <label class="more"></label>
+      ${$(headers.first()).is("h3") ? '<label class="more"></label>' : ""}
       <a href="#top"><strong>${document.title}</strong></a>
     </div>
   `;
@@ -31,7 +38,7 @@ import $ from "umbrellajs";
             ? '<label class="more"></label>'
             : ""
         }
-        <a href="#${$sec.attr("id")}">${$sec.text()}</a>
+        <a href="#${$sec.attr("id")}">${plain($sec.text())}</a>
       </div>
     `;
 
