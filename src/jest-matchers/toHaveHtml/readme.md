@@ -1,6 +1,6 @@
 ### .toHaveHtml()
 
-Checks whether the selected elements have the passed HTML
+Checks whether the selected elements have HTML
 
 ```js
 const $div = $(
@@ -12,7 +12,7 @@ const $div = $(
 expect($div).toHaveHtml('<span>I am a span</span>');
 ```
 
-Checks whether the selected elements **do not** have the passed HTML
+Checks whether the selected elements **do not** have HTML
 
 ```js
 const $div = $(
@@ -64,7 +64,7 @@ expect($div).toHaveHtml('plain text');
 expect($div).toHaveHtml('<random>'); // random is not an official HTML tag
 ```
 
-For a list of elements, checks if **all** the elements have the HTML
+For a list of elements, checks if **all** the elements have HTML
 
 ```js
 const $body = $(
@@ -87,7 +87,7 @@ expect($body.find('div')).toHaveHtml('<li>');
 expect($body.find('div')).toHaveHtml('<p>');
 ```
 
-For a list of elements, checks if **any** of the elements **do not** have the HTML
+For a list of elements, checks if **any** of the elements **do not** have HTML
 
 ```js
 const $body = $(

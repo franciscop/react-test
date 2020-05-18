@@ -24,7 +24,7 @@ describe('.toHaveHtml()', () => {
     expect($div).toHaveHtml('<div>');
   });
 
-  it('validates all substrings of innerHTML', () => {
+  it('validates all children of innerHTML', () => {
     expect($div).toHaveHtml('<span>I am a span</span>');
     expect($div).toHaveHtml('<span>Im also here</span>');
   });
@@ -58,16 +58,16 @@ describe('.toHaveHtml()', () => {
       </section>
     ).find('div');
 
-    const validInnerHTML = ['<span>span</span>', '<span>'];
-    const invalidInnerHTML = ['<p>', '<li>', '<span>div</span>'];
+    const validInnerHTMLs = ['<span>span</span>', '<span>'];
+    const invalidInnerHTMLs = ['<p>', '<li>', '<span>div</span>'];
 
     it('requires all elements to contain html', () => {
-      for (const validHTML of validInnerHTML) {
+      for (const validHTML of validInnerHTMLs) {
         expect($divs).toHaveHtml(validHTML);
       }
 
-      // Throws on first child with non-contained HTML
-      for (const invalidHTML of invalidInnerHTML) {
+      // Throws on first child with non-existent HTML
+      for (const invalidHTML of invalidInnerHTMLs) {
         expect(() => expect($divs).toHaveHtml(invalidHTML)).toThrow(
           `Expected <div id="div-1"> to have \`${invalidHTML}\``
         );
@@ -75,12 +75,12 @@ describe('.toHaveHtml()', () => {
     });
 
     it('negatively asserts multiple elements', () => {
-      for (const invalidHTML of invalidInnerHTML) {
+      for (const invalidHTML of invalidInnerHTMLs) {
         expect($divs).not.toHaveHtml(invalidHTML);
       }
 
       // Throws on first child with valid HTML
-      for (const validHTML of validInnerHTML) {
+      for (const validHTML of validInnerHTMLs) {
         expect(() => expect($divs).not.toHaveHtml(validHTML)).toThrow(
           `Expected <div id="div-1"> not to have \`${validHTML}\``
         );
