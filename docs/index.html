@@ -893,14 +893,6 @@ expect($div).toHaveHtml(&#39;&lt;span&gt;I am a span&lt;/span&gt;&#39;);</code><
 );
 
 expect($div).not.toHaveHtml(&#39;&lt;li&gt;I am a list item&lt;/li&gt;&#39;);</code></pre>
-<p>Trims the passed HTML to check for</p>
-<pre><code class="language-js">const $div = $(
-  &lt;div&gt;
-    &lt;span&gt;I am a span&lt;/span&gt;
-  &lt;/div&gt;
-);
-
-expect($div).toHaveHtml(&#39;&lt;span&gt;I am a span&lt;/span&gt;     &#39;);</code></pre>
 <p>Validates parent element HTML</p>
 <pre><code class="language-js">const $div = $(
   &lt;div&gt;
@@ -909,16 +901,26 @@ expect($div).toHaveHtml(&#39;&lt;span&gt;I am a span&lt;/span&gt;     &#39;);</c
 );
 
 expect($div).toHaveHtml(&#39;&lt;div&gt;&#39;);</code></pre>
-<p>Validates all substrings of inner HTML</p>
+<p>Validates across different depth levels of inner HTML</p>
 <pre><code class="language-js">const $div = $(
   &lt;div&gt;
     &lt;span&gt;I am a span&lt;/span&gt;
   &lt;/div&gt;
 );
 
-expect($div).toHaveHtml(&#39;span&#39;);
-expect($div).toHaveHtml(&#39;spa&#39;);
-expect($div).toHaveHtml(&#39;&lt;spa&#39;);</code></pre>
+expect($div).toHaveHtml(&#39;&lt;span&gt;&#39;);
+expect($div).toHaveHtml(&#39;&lt;span&gt;I am a span&lt;/span&gt;&#39;);</code></pre>
+<p>Throws error for invalid HTML</p>
+<pre><code class="language-js">const $div = $(
+  &lt;div&gt;
+    &lt;span&gt;I am a span&lt;/span&gt;
+  &lt;/div&gt;
+);
+
+// THROWS ERROR -&gt; Invalid HTML. Please input valid HTML.
+expect($div).toHaveHtml(&#39;&lt;spa&#39;);
+expect($div).toHaveHtml(&#39;plain text&#39;);
+expect($div).toHaveHtml(&#39;&lt;random&gt;&#39;); // random is not an official HTML tag</code></pre>
 <p>For a list of elements, checks if <strong>all</strong> the elements have the HTML</p>
 <pre><code class="language-js">const $body = $(
   &lt;body&gt;
@@ -933,11 +935,11 @@ expect($div).toHaveHtml(&#39;&lt;spa&#39;);</code></pre>
 
 // PASS
 expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;&lt;span&gt;&#39;);
-expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;span text&#39;);
+expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;&lt;span&gt;span text&lt;/span&gt;&#39;);
 
 // DO NOT PASS
 expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;&lt;li&gt;&#39;);
-expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;span t3xt&#39;);</code></pre>
+expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;&lt;p&gt;&#39;);</code></pre>
 <p>For a list of elements, checks if <strong>any</strong> of the elements <strong>do not</strong> have the HTML</p>
 <pre><code class="language-js">const $body = $(
   &lt;body&gt;
@@ -945,18 +947,20 @@ expect($body.find(&#39;div&#39;)).toHaveHtml(&#39;span t3xt&#39;);</code></pre>
       &lt;span&gt;span&lt;/span&gt;
     &lt;/div&gt;
     &lt;div&gt;
-      &lt;p&gt;list item&lt;/p&gt;
+      &lt;p&gt;paragraph&lt;/p&gt;
     &lt;/div&gt;
   &lt;/body&gt;
 );
 
 // PASS
-expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;span$&#39;);
+expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;h1&gt;&#39;);
 expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;li&gt;&#39;);
+expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;span&gt;random text&lt;/span&gt;&#39;);
 
 // DO NOT PASS
-expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;span&#39;);
-expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;p&#39;); // second div has a p tag</code></pre>
+expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;span&gt;&#39;);
+expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;p&gt;&#39;);
+expect($body.find(&#39;div&#39;)).not.toHaveHtml(&#39;&lt;p&gt;paragraph&lt;/p&gt;&#39;);</code></pre>
 
 
 <h3 id="tohavestyle">.toHaveStyle()</h3>
