@@ -1,16 +1,18 @@
 import React from "react";
 import $ from "../../";
 import "../index.js";
+// import './styles.css';
 
 // The base style object to test against
 const styleObj = { display: "none", textAlign: "center" };
 const styleStr = "text-align: center; display: none;";
 
-// const incorrectStyleObj = { display: "none", textAlign: "center", backgroundColor: 'green' };
-// color: red; backgroundColor: 'green'
-
 // The base element that we will use to test
 const $div = $(<div style={styleObj} />);
+
+// Element using class instead of inline styles
+// const $divWithClass = $(<div className="testClass" />);
+
 
 describe(".toHaveStyle()", () => {
 
@@ -55,10 +57,15 @@ describe(".toHaveStyle()", () => {
         expect($div).not.toHaveStyle({ textAlign: "left" });
     });
 
-    it("can handle styles tring argument with or without final semicolon", () => {
+    it("can handle styles string argument with or without final semicolon", () => {
         expect($div).toHaveStyle("text-align: center; display: none;");
         expect($div).toHaveStyle("text-align: center; display: none");
     });
+
+    // it("can find styles applied to an element through a class", () => {
+    //     expect($divWithClass).toHaveStyle("text-align: center; display: none;");
+    //     expect($divWithClass).toHaveStyle(styleObj);
+    // });
 
     it("throws the correct error message when a single style is missing", () => {
         expect(() => expect($div).toHaveStyle({ color: 'purple' }))
@@ -94,3 +101,37 @@ describe(".toHaveStyle()", () => {
             .toThrow('Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]');
     });
 });
+
+// Base list element to be used in test cases for multiple elements
+const $list = $(
+    <ul>
+        <li style={styleObj}></li>
+        <li style={styleObj}></li>
+        <li style={{ ...styleObj, color: "red" }}></li>
+    </ul>
+);
+
+describe(".toHaveStyle() - checkmultiple elements", () => {
+
+    it('should be able to check styles are present on multiple elements', () => {
+        expect($list.find('li')).toHaveStyle(styleObj);
+        expect($list.find('li')).toHaveStyle("display: none");
+        expect($list.find('li')).toHaveStyle({ textAlign: "center" });
+    })
+
+    it('should be able to check styles are absent multiple elements', () => {
+        expect($list.find('li')).not.toHaveStyle("color: green");
+        expect($list.find('li')).not.toHaveStyle("width: 20px");
+        expect($list.find('li')).not.toHaveStyle({ height: "100%" });
+    })
+
+    it('should check styles are present on all elements', () => {
+        expect(() => expect($list.find('li')).toHaveStyle("color: red"))
+            .toThrow('Expected <li style="display: none; text-align: center;"> to include style [color: red]')
+    })
+
+    it('should check styles are not present on all elements', () => {
+        expect(() => expect($list.find('li')).not.toHaveStyle("color: red"))
+            .toThrow('Expected <li style="display: none; text-align: center; color: red;"> not to include style [color: red]')
+    })
+})
