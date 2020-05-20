@@ -1,6 +1,8 @@
 import $ from "../constructor";
 
 $.prototype.parent = function (selector) {
-  if (!selector) return this.map((node) => node.parentNode);
-  return this.find(selector).map((node) => node.parentNode);
+  if (!selector) return this.first().parentNode;
+  return [...this.map((node) => node.parentElement)].reduce((node) =>
+    node.matches(selector)
+  );
 };
