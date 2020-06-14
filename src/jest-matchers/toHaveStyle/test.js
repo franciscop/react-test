@@ -1,7 +1,6 @@
 import React from "react";
 import $ from "../../";
 import "../index.js";
-// import './styles.css';
 
 // The base style object to test against
 const styleObj = { display: "none", textAlign: "center" };
@@ -9,10 +8,6 @@ const styleStr = "text-align: center; display: none;";
 
 // The base element that we will use to test
 const $div = $(<div style={styleObj} />);
-
-// Element using class instead of inline styles
-// const $divWithClass = $(<div className="testClass" />);
-
 
 describe(".toHaveStyle()", () => {
 
@@ -61,11 +56,6 @@ describe(".toHaveStyle()", () => {
         expect($div).toHaveStyle("text-align: center; display: none;");
         expect($div).toHaveStyle("text-align: center; display: none");
     });
-
-    // it("can find styles applied to an element through a class", () => {
-    //     expect($divWithClass).toHaveStyle("text-align: center; display: none;");
-    //     expect($divWithClass).toHaveStyle(styleObj);
-    // });
 
     it("throws the correct error message when a single style is missing", () => {
         expect(() => expect($div).toHaveStyle({ color: 'purple' }))

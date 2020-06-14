@@ -4,6 +4,7 @@ Check whether all of the matched elements have the expected styles applied:
 
 ```js
 const $button = $(<button></button>);
+
 // Check for presence of styles using style object as an argument
 expect($button).toHaveStyle({ backgroundColor: "red", textAlign: "center" });
 expect($button).toHaveStyle({ textAlign: "center" });
@@ -25,11 +26,11 @@ const $list = $(
   </ul>
 );
 
-// All of the elements have the searched for styles
+// All of the matching elements have the searched for styles
 expect($list.find("li")).toHaveStyle({ color: "red" });
 expect($list.find("li")).toHaveStyle("color: red");
 
-// None of the elements have the searched for styles
+// None of the matching elements have the searched for styles
 expect($list.find("li")).not.toHaveStyle({ color: "green" });
 expect($list.find("li")).not.toHaveStyle("color: green");
 ```

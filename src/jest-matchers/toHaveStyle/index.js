@@ -1,15 +1,13 @@
 import { normalize, getPlainTag } from "../../helpers";
 
 // Parse JS camelCase style properties to lowercase hyphenated strings
-const parseCamelCase = (styleToParse) => {
-    return styleToParse
-        .replace(/([a-z\d])([A-Z])/g, '$1' + "-" + '$2')
-        .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + "-" + '$2')
-        .toLowerCase();
-}
+const parseCamelCase = (styleToParse) => styleToParse
+    .replace(/([a-z\d])([A-Z])/g, '$1' + "-" + '$2')
+    .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + "-" + '$2')
+    .toLowerCase();
 
-// Get correct error msg string depending on number of incorrect styles
-const getErrorStr = incorrectStyles => `style${incorrectStyles.length > 1 ? "s" : ""} [${incorrectStyles.join(", ")}]`;
+// Clean styles object to return string array of individual styles styles
+const cleanStylesObject = (styles) => Object.entries(styles).map(([key, value]) => `${parseCamelCase(key)}: ${value}`);
 
 // Split style string into array with all semicolons and spaces removed
 const cleanStylesStr = (stylesStr) => {
@@ -18,8 +16,8 @@ const cleanStylesStr = (stylesStr) => {
     return styles;
 }
 
-// Split style string into array with all semicolons and spaces removed
-const cleanObjectStyles = (styles) => Object.entries(styles).map(([key, value]) => `${parseCamelCase(key)}: ${value}`);
+// Get correct error msg string depending on number of incorrect styles
+const getErrorStr = incorrectStyles => `style${incorrectStyles.length > 1 ? "s" : ""} [${incorrectStyles.join(", ")}]`;
 
 export default function (frag, styles) {
     // To avoid double negations ¯\_(ツ)_/¯
@@ -37,7 +35,7 @@ export default function (frag, styles) {
         const elStyles = Object.entries(el.style["_values"]).map(([key, value]) => `${key}: ${value}`);
 
         // Get an array of style strings to search for in the element styles. Has to handle styles argument of either type string or type object
-        let stylesArray = typeof styles === "string" ? cleanStylesStr(styles) : cleanObjectStyles(styles);
+        let stylesArray = typeof styles === "string" ? cleanStylesStr(styles) : cleanStylesObject(styles);
 
         // expect(<div style={{display: "none"}} />).toHaveStyle({ display: "none" });
         if (this.affirmative) {
