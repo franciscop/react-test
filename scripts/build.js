@@ -30,37 +30,6 @@ const methodsBeforeMatchers = tocOrder => (a, b) => {
   return 0;
 };
 
-const createToc = content => {
-  const intro = { title: "Introduction", level: "primary", hash: "top" };
-  const levels = { "2": "primary", "3": "secondary" };
-  const sections = content
-    .split("\n")
-    .map(a => a.match(/<h(2|3) id=\"([a-z\-]+)\">([^\<]+)<\/h(2|3)>/))
-    .filter(Boolean)
-    .map(([, level, hash, title]) => ({ hash, title, level: levels[level] }));
-  let toc = `<h2><a href="#top">React Test</a></h2>`;
-  [intro, ...sections].forEach((sec, i, secs) => {
-    const around = [secs[i - 1], sec, secs[i + 1]];
-    const [prev, level, next] = around.map(sec => sec && sec.level);
-
-    // Start new section
-    if (level === "secondary" && prev === "primary") {
-      toc += `<section>`;
-    }
-    toc += `
-      <div class="entry ${level}">
-        ${level === "primary" ? '<label class="more"></label>' : ""}
-        <a href="#${sec.hash}">${sec.title}</a>
-      </div>
-    `;
-    if (level === "secondary" && next !== "secondary") {
-      toc += `</section>`;
-    }
-  });
-  return toc;
-};
-
-// Optional read a toc.json file from `src/`:
 const readConfig = async () => {
   const configFile = await read("./docs/config.json");
   const config = configFile ? JSON.parse(configFile) : {};
@@ -98,10 +67,8 @@ const buildHtml = async () => {
     .map(html => html.replace(/-">/g, '">'))
     .join("\n\n");
 
-  const toc = createToc(content);
-
   const page = await read("./docs/index.hbs");
-  const html = hbs(page, { content, toc });
+  const html = hbs(page, { content });
   await write("./docs/index.html", html);
 };
 
