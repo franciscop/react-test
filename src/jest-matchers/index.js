@@ -4,6 +4,8 @@ import toHaveClass from './toHaveClass';
 import toHaveText from './toHaveText';
 import toHaveValue from './toHaveValue';
 import toMatchSelector from './toMatchSelector';
+import toHaveStyle from './toHaveStyle';
+
 
 expect.extend({
   toBeEnabled,
@@ -12,4 +14,5 @@ expect.extend({
   toHaveText,
   toHaveValue,
   toMatchSelector,
+  toHaveStyle
 });
