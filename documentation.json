@@ -1,0 +1,15 @@
+{
+  "name": "React Test",
+  "title": "🧯 React Test - Expressive testing library for React",
+  "description": "Make readable assertions for your App and be confident about the code you ship. Reduce user-facing bugs and increase satisfaction.",
+  "home": "https://react-test.dev/",
+  "logo": "https://react-test.dev/favicon.png",
+  "hero": "https://react-test.dev/hero.png",
+  "menu": {
+    "Issues": "https://github.com/franciscop/react-test/issues",
+    "Contribute": "https://github.com/franciscop/react-test/blob/master/Contributing.md",
+    "Donate": "https://www.paypal.me/franciscopresencia/19",
+    "Github": "https://github.com/franciscop/react-test"
+  },
+  "pages": ["readme.md", "src/methods", "src/jest-matchers", "src/examples"]
+}
