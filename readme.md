@@ -19,7 +19,7 @@ The `react-test` syntax follows a similar schema to jQuery so it's very easy to 
 
 
 
-### Getting Started
+## Getting Started
 
 First you'll need a working React project. As an example you can start a working React project with [Create React App](https://create-react-app.dev/):
 
