@@ -1,7 +1,5 @@
 {
   "title": "🧯 React Test - Expressive testing library for React",
-  "logo": "https://react-test.dev/favicon.png",
-  "hero": "https://react-test.dev/hero.png",
   "menu": {
     "Issues": "https://github.com/franciscop/react-test/issues",
     "Contribute": "https://github.com/franciscop/react-test/blob/master/Contributing.md",
