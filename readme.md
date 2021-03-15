@@ -9,9 +9,9 @@ import $ from "react-test";
 
 it("increments when clicked", async () => {
   const counter = $(<Counter />);
-  expect(counter.text()).toEqual("0");
+  expect(counter).toHaveText("0");
   await counter.click();
-  expect(counter.text()).toEqual("1");
+  expect(counter).toHaveText("1");
 });
 ```
 
