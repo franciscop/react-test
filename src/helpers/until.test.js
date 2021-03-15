@@ -40,9 +40,7 @@ describe("until()", () => {
     const timer = $(<Timer />);
 
     expect(timer.is(".active")).toBe(false);
-    // expect(timer).not.toHaveClass('active');
     await until(timer).is(".active");
     expect(timer.is(".active")).toBe(true);
-    // expect(timer).toHaveClass('active');
   });
 });

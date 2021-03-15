@@ -13,7 +13,7 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    await $test.click("div");
+    await $test.find("div").click();
     expect(mock).toBeCalled();
   });
 
@@ -74,6 +74,42 @@ describe(".click()", () => {
     );
     expect(mock).not.toBeCalled();
     await $test.click("div");
+    expect(mock).toBeCalled();
+  });
+
+  it("works with async and waiting", async () => {
+    const mock = jest.fn();
+    const $test = $(
+      <div
+        onClick={async () => {
+          await delay(100);
+          mock();
+        }}
+      >
+        Hi
+      </div>
+    );
+    expect(mock).not.toBeCalled();
+    await $test.click();
+    expect(mock).toBeCalled();
+  });
+
+  const Button = ({ run, ...props }) => <div onClick={run} {...props} />;
+
+  it("works with different prop names", async () => {
+    const mock = jest.fn();
+    const $test = $(
+      <Button
+        run={async () => {
+          await delay(100);
+          mock();
+        }}
+      >
+        Hi
+      </Button>
+    );
+    expect(mock).not.toBeCalled();
+    await $test.click();
     expect(mock).toBeCalled();
   });
 

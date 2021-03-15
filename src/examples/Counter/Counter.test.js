@@ -1,6 +1,6 @@
 // Counter.test.js;
 import React from "react";
-import $ from "react-test";
+import $ from "../../";
 import Counter from "./Counter";
 
 describe("Counter.js", () => {

@@ -9,7 +9,7 @@
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c && node ./scripts/build.js",
+    "build": "rollup -c",
     "docs": "node ./scripts/server.js",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "jest --coverage --watch",
