@@ -15,11 +15,16 @@ const findParents = (node, list = []) => {
 };
 
 const getEvents = node => {
-  const handler = Object.entries(node)
+  if (!node) return null;
+  let handlers = Object.entries(node)
+    .filter(([k]) => /^__reactProps/.test(k))
+    .map(p => p[1])[0];
+  if (handlers && Object.keys(handlers).length) return handlers;
+  handlers = Object.entries(node)
     .filter(([k]) => /^__reactEventHandlers/.test(k))
     .filter(Boolean)[0];
-  if (!handler) return null;
-  return handler[1];
+  if (!handlers) return null;
+  return handlers[1];
 };
 
 $.prototype.trigger = function(type, time = 0) {
