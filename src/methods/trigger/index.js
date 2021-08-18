@@ -34,6 +34,10 @@ $.prototype.trigger = function(type, time = 0) {
           .map(events => events[propName])
           .filter(Boolean);
 
+        if (this.events && this.events[type]) {
+          this.events[type].map(cb => cb());
+        }
+
         await Promise.all(callbacks.map(cb => cb()));
       })
     );

@@ -8,5 +8,5 @@ $.prototype.unique = function() {
     if (nodes.includes(node)) return;
     nodes.push(node);
   });
-  return $(nodes);
+  return $(nodes, this);
 };
