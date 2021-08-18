@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import $ from "../../";
 import "babel-polyfill";
 
@@ -17,13 +17,15 @@ describe(".click()", () => {
     expect(mock).toBeCalled();
   });
 
-  it("returns a promise", async () => {
+  it.only("returns a promise", async () => {
     const mock = jest.fn();
     const $test = $(
       <div>
         <div
           onClick={async () => {
+            console.log("AAA");
             await delay(100);
+            console.log("BBB");
             mock();
           }}
         />
@@ -161,5 +163,28 @@ describe(".click()", () => {
     );
     await $test.click();
     await $test.click("div");
+  });
+
+  it("works with native links", async () => {
+    const mock = jest.fn();
+    const Page = () => {
+      useEffect(() => {
+        document.addEventListener("click", e => {
+          mock();
+        });
+        return () => document.removeEventListener("click", mock);
+      }, []);
+
+      return (
+        <div>
+          <a>Click me</a>
+        </div>
+      );
+    };
+
+    const $test = $(<Page />);
+    expect(mock).not.toBeCalled();
+    await $test.click("a");
+    expect(mock).toBeCalled();
   });
 });

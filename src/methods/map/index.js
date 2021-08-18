@@ -7,6 +7,7 @@ $.prototype.map = function(callback) {
     this.toArray()
       .map(callback)
       .flat()
-      .filter(Boolean)
+      .filter(Boolean),
+    this
   ).unique();
 };
