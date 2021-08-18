@@ -34,8 +34,6 @@ $.prototype.trigger = function(type, time = 0) {
           .map(events => events[propName])
           .filter(Boolean);
 
-        console.log(findParents(node).map(el => getEvents(el))[0]);
-
         if (this.events && this.events[type]) {
           this.events[type].map(cb => cb());
         }

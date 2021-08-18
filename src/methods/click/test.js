@@ -17,15 +17,13 @@ describe(".click()", () => {
     expect(mock).toBeCalled();
   });
 
-  it.only("returns a promise", async () => {
+  it("returns a promise", async () => {
     const mock = jest.fn();
     const $test = $(
       <div>
         <div
           onClick={async () => {
-            console.log("AAA");
             await delay(100);
-            console.log("BBB");
             mock();
           }}
         />
@@ -169,7 +167,7 @@ describe(".click()", () => {
     const mock = jest.fn();
     const Page = () => {
       useEffect(() => {
-        document.addEventListener("click", e => {
+        document.addEventListener("click", () => {
           mock();
         });
         return () => document.removeEventListener("click", mock);
