@@ -167,9 +167,7 @@ describe(".click()", () => {
     const mock = jest.fn();
     const Page = () => {
       useEffect(() => {
-        document.addEventListener("click", () => {
-          mock();
-        });
+        document.addEventListener("click", mock);
         return () => document.removeEventListener("click", mock);
       }, []);
 
