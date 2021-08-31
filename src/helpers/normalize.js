@@ -11,7 +11,10 @@ export default frag => {
   }
 
   // Convert a raw element to
-  if (frag.$$typeof) frag = render(frag);
+  if (frag.$$typeof) {
+    const parts = render(frag);
+    frag = parts[0];
+  }
 
   // For now get the first one, consider looping later
   if (frag.toArray) frag = frag.toArray();

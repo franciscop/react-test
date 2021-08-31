@@ -29,8 +29,8 @@ describe(".html()", () => {
     expect($hello.find("button").html()).toBe(`<button>Hello</button>`);
   });
 
-  it.skip("can get a string", () => {
+  it("can get a string", () => {
     const $hello = $(<>Hello</>);
-    expect($hello.html()).toBe(`Hello`);
+    expect($hello.text()).toBe(`Hello`);
   });
 });

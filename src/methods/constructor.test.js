@@ -48,4 +48,10 @@ describe("Iterator", () => {
     }
     expect(total).toBe(2);
   });
+
+  it("can be double rendered", () => {
+    const html = $(<div>Abc</div>);
+    expect(html.nodes[0].outerHTML).toEqual(`<div>Abc</div>`);
+    expect(html.nodes[0].nodeName).toBe("DIV");
+  });
 });

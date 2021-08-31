@@ -31,31 +31,59 @@ const getEvents = node => {
 };
 
 $.prototype.trigger = function(type, time = 0) {
+  // return act(async () => {
+  //   // Handle the document.addEventListener() && window.addEventListener() events
+  //   const createEvent = (type, base, node) => {
+  //     const event = new Event(type);
+  //     Object.defineProperty(event, "target", { value: node });
+  //     Object.defineProperty(event, "currentTarget", { value: base });
+  //     return event;
+  //   };
+  //
+  //   if (this.events && this.events[type]) {
+  //     const body = findParents(this.nodes[0]).pop();
+  //     this.events[type].map(cb => cb(createEvent(type, body, body)));
+  //   }
+  //
+  //   // Handle the rest of normal events
+  //   this.map(node => {
+  //     const event = new this.window.Event(type, { bubbles: true });
+  //     node.dispatchEvent(event);
+  //   });
+  //
+  //   await new Promise(done => setTimeout(done, time));
+  // });
+
   const propName = `on${type[0].toUpperCase() + type.slice(1)}`;
 
   return act(async () => {
     await Promise.all(
       this.map(async node => {
-        const parents = findParents(node);
-        const callbacks = parents
-          .map(el => [getEvents(el), el])
-          .filter(ev => ev[0])
-          .map(evts => [evts[0][propName], evts[1]])
-          .filter(evts => evts[0]);
-
         const createEvent = base => {
           const event = new Event(type);
           Object.defineProperty(event, "target", { value: node });
           Object.defineProperty(event, "currentTarget", { value: base });
           return event;
         };
+        const parents = findParents(node);
 
         if (this.events && this.events[type]) {
           const body = parents[parents.length - 1];
           this.events[type].map(cb => cb(createEvent(body)));
         }
 
-        await Promise.all(callbacks.map(([cb, el]) => cb(createEvent(el))));
+        if (node[type]) {
+          node[type](createEvent(node));
+        } else {
+          await Promise.all(
+            parents
+              .map(el => [getEvents(el), el])
+              .filter(ev => ev[0])
+              .map(evts => [evts[0][propName], evts[1]])
+              .filter(evts => evts[0])
+              .map(([cb, el]) => cb(createEvent(el)))
+          );
+        }
       })
     );
     await new Promise(done => setTimeout(done, time));

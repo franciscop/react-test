@@ -15,6 +15,7 @@ import "./methods/is";
 import "./methods/last";
 import "./methods/unique";
 import "./methods/map";
+import "./methods/submit";
 import "./methods/text";
 import "./methods/toArray";
 import "./methods/trigger";

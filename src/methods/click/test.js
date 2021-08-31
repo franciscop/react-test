@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import $ from "../../";
 import "babel-polyfill";
 
@@ -15,6 +15,45 @@ describe(".click()", () => {
     expect(mock).not.toBeCalled();
     await $test.find("div").click();
     expect(mock).toBeCalled();
+  });
+
+  it("can click and submit buttons", async () => {
+    const mock = jest.fn();
+    const $form = $(
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          mock();
+        }}
+      >
+        <button name="submit">Hello</button>
+      </form>
+    );
+    expect(mock).not.toBeCalled();
+    await $form.find("button").click();
+    expect(mock).toBeCalled();
+  });
+
+  it("can listen to document clicks", async () => {
+    const mock = jest.fn();
+    const DocClick = () => {
+      const [counter, setCounter] = useState(0);
+      const increment = () => {
+        mock();
+        setCounter(counter + 1);
+      };
+      useEffect(() => {
+        document.addEventListener("click", increment);
+        return () => document.removeEventListener("click", increment);
+      }, [counter]);
+      return <button>{counter}</button>;
+    };
+    const $button = $(<DocClick />);
+    expect(mock).not.toBeCalled();
+    expect($button.text()).toBe("0");
+    await $button.click();
+    expect(mock).toBeCalled();
+    expect($button.text()).toBe("1");
   });
 
   it("returns a promise", async () => {
@@ -65,6 +104,15 @@ describe(".click()", () => {
     expect(badmock).not.toBeCalled();
   });
 
+  it("works with different prop names", async () => {
+    const Button = ({ run, ...props }) => <div onClick={run} {...props} />;
+    const mock = jest.fn();
+    const $test = $(<Button run={mock}>Hi</Button>);
+    expect(mock).not.toBeCalled();
+    await $test.click();
+    expect(mock).toBeCalled();
+  });
+
   it("works with async and no wait", async () => {
     const mock = jest.fn();
     const $test = $(
@@ -77,7 +125,7 @@ describe(".click()", () => {
     expect(mock).toBeCalled();
   });
 
-  it("works with async and waiting", async () => {
+  it.skip("works with async and waiting", async () => {
     const mock = jest.fn();
     const $test = $(
       <div
@@ -88,25 +136,6 @@ describe(".click()", () => {
       >
         Hi
       </div>
-    );
-    expect(mock).not.toBeCalled();
-    await $test.click();
-    expect(mock).toBeCalled();
-  });
-
-  const Button = ({ run, ...props }) => <div onClick={run} {...props} />;
-
-  it("works with different prop names", async () => {
-    const mock = jest.fn();
-    const $test = $(
-      <Button
-        run={async () => {
-          await delay(100);
-          mock();
-        }}
-      >
-        Hi
-      </Button>
     );
     expect(mock).not.toBeCalled();
     await $test.click();
