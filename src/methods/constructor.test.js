@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import $ from "../";
 import "babel-polyfill";
 
@@ -47,6 +47,17 @@ describe("Iterator", () => {
       total++;
     }
     expect(total).toBe(2);
+  });
+
+  it("can use hooks", () => {
+    const CompWithHook = () => {
+      useEffect(() => {
+        // Nothing going on here
+      }, []);
+      return <div>Hi</div>;
+    };
+    const $hooked = $(<CompWithHook />);
+    expect($hooked.html()).toBe(`<div>Hi</div>`);
   });
 
   it("can be double rendered", () => {
