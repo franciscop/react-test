@@ -14,18 +14,14 @@ export default {
     exports: "named",
 
     globals: {
-      "react-jsdom": "ReactJSDOM",
+      window: "Window",
       "react-dom/test-utils": "testUtils"
     }
   },
-  external: ["react-jsdom", "react-dom/test-utils"],
+  external: ["window", "react-dom/test-utils"],
   plugins: [
     nodeResolve({ preferBuiltins: true }),
-    commonjs({
-      namedExports: {
-        "react-dom/test-utils": ["act"]
-      }
-    }),
+    commonjs({ namedExports: { "react-dom/test-utils": ["act"] } }),
     json(),
     terser()
   ]
