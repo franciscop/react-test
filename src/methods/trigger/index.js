@@ -30,50 +30,53 @@ const getEvents = node => {
   return handlers[1];
 };
 
-$.prototype.trigger = function(type, time = 0) {
-  // return act(async () => {
-  //   // Handle the document.addEventListener() && window.addEventListener() events
-  //   const createEvent = (type, base, node) => {
-  //     const event = new Event(type);
-  //     Object.defineProperty(event, "target", { value: node });
-  //     Object.defineProperty(event, "currentTarget", { value: base });
-  //     return event;
-  //   };
-  //
-  //   if (this.events && this.events[type]) {
-  //     const body = findParents(this.nodes[0]).pop();
-  //     this.events[type].map(cb => cb(createEvent(type, body, body)));
-  //   }
-  //
-  //   // Handle the rest of normal events
-  //   this.map(node => {
-  //     const event = new this.window.Event(type, { bubbles: true });
-  //     node.dispatchEvent(event);
-  //   });
-  //
-  //   await new Promise(done => setTimeout(done, time));
-  // });
+const merge = objs => {
+  const props = {};
+  // Merge recursively
+  objs.forEach(obj => {
+    for (let key in obj) {
+      if (props[key]) {
+        for (let subKey in obj[key]) {
+          props[key][subKey] = obj[key][subKey];
+        }
+      } else {
+        props[key] = obj[key];
+      }
+    }
+  });
+  return props;
+};
 
+const createEvent = (type, ...objs) => {
+  const props = merge(objs);
+  const event = new Event(type);
+  for (let key in props) {
+    Object.defineProperty(event, key, {
+      value: props[key],
+      enumerable: true,
+      configurable: true
+    });
+  }
+  return event;
+};
+
+$.prototype.trigger = function(type, time = 0, extra = {}) {
   const propName = `on${type[0].toUpperCase() + type.slice(1)}`;
-
   return act(async () => {
     await Promise.all(
-      this.map(async node => {
-        const createEvent = base => {
-          const event = new Event(type);
-          Object.defineProperty(event, "target", { value: node });
-          Object.defineProperty(event, "currentTarget", { value: base });
-          return event;
-        };
-        const parents = findParents(node);
+      this.map(async target => {
+        const parents = findParents(target);
 
+        // The events manually registered on the root element
         if (this.events && this.events[type]) {
-          const body = parents[parents.length - 1];
-          this.events[type].map(cb => cb(createEvent(body)));
+          const currentTarget = parents[parents.length - 1];
+          const event = createEvent(type, target, { ...extra, currentTarget });
+          this.events[type].map(cb => cb(event));
         }
 
-        if (node[type]) {
-          node[type](createEvent(node));
+        // If there's a direct way of calling it e.g. `button.click()`
+        if (target[type]) {
+          target[type](createEvent(type, target, extra));
         } else {
           await Promise.all(
             parents
@@ -81,7 +84,7 @@ $.prototype.trigger = function(type, time = 0) {
               .filter(ev => ev[0])
               .map(evts => [evts[0][propName], evts[1]])
               .filter(evts => evts[0])
-              .map(([cb, el]) => cb(createEvent(el)))
+              .map(([cb, el]) => cb(createEvent(type, el, extra)))
           );
         }
       })

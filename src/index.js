@@ -19,6 +19,7 @@ import "./methods/submit";
 import "./methods/text";
 import "./methods/toArray";
 import "./methods/trigger";
+import "./methods/type";
 import "./methods/children";
 import "./methods/closest";
 
