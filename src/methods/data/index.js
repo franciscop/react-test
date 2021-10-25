@@ -1,5 +1,5 @@
-import $ from "../constructor";
+import $ from '../constructor'
 
-$.prototype.data = function(value) {
-  return this.attr(`data-${value}`);
-};
+$.prototype.data = function (value) {
+  return this.attr(`data-${value}`)
+}

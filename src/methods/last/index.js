@@ -1,5 +1,5 @@
-import $ from "../constructor";
+import $ from '../constructor'
 
-$.prototype.last = function() {
-  return this.get(-1) || null;
-};
+$.prototype.last = function () {
+  return this.get(-1) || null
+}

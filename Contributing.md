@@ -39,30 +39,34 @@ You can follow some of the existing methods in src/[METHOD]. We'd recommended to
 Tests should make sure that the feature work, with some diverse examples if possible. The normal flow is defining some component to be tested, then execute some operation against it and assert the result:
 
 ```js
-it("Has the correct html without selector", async () => {
+it('Has the correct html without selector', async () => {
   const $hello = $(
     <div>
       <button>Hello</button>
     </div>
   );
-  expect($hello.children().first().nodeName).toBe("BUTTON");
+  expect($hello.children().first().nodeName).toBe('BUTTON');
 });
 ```
 
 You can also keep it in a variable if you want to assert multiple things:
 
 ```js
-it("Has the correct html without selector", async () => {
+it('Has the correct html without selector', async () => {
   const $hello = $(
     <div>
       <button>Hello</button>
     </div>
   );
   const $button = $hello.children();
-  expect($button.first().nodeName).toBe("BUTTON");
-  expect($button.text()).toBe("Hello");
+  expect($button.first().nodeName).toBe('BUTTON');
+  expect($button.text()).toBe('Hello');
 });
 ```
+
+## Style Guide
+
+We use [**JavaScript Standard Style**](https://standardjs.com/) for our style guide, linter, and formatter. The linter will run automatically as part of `npm start` and `npm test`, or you can manually run `npm run lint`. You can then automatically format code with `npm run fix`. Any changes unable to be automatically formatted, will be output to the console for manual changes.
 
 ## About "up for grabs"
 

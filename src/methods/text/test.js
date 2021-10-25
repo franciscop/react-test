@@ -1,29 +1,29 @@
-import React from "react";
-import $ from "../../";
-import "babel-polyfill";
+import React from 'react'
+import $ from '../../'
+import 'babel-polyfill'
 
-describe(".html()", () => {
-  it("can get the plain html", () => {
-    const $hello = $(<button>Hello</button>);
-    expect($hello.text()).toBe(`Hello`);
-  });
+describe('.html()', () => {
+  it('can get the plain html', () => {
+    const $hello = $(<button>Hello</button>)
+    expect($hello.text()).toBe('Hello')
+  })
 
-  it("can get nested children", () => {
+  it('can get nested children', () => {
     const $hello = $(
-      <div className="hello">
+      <div className='hello'>
         <button>Hello</button>
       </div>
-    );
-    expect($hello.text()).toBe(`Hello`);
-  });
+    )
+    expect($hello.text()).toBe('Hello')
+  })
 
-  it("only gets the first child", () => {
+  it('only gets the first child', () => {
     const $hello = $(
-      <div className="hello">
+      <div className='hello'>
         <button>Hello</button>
         <button>World</button>
       </div>
-    );
-    expect($hello.find("button").text()).toBe(`Hello`);
-  });
-});
+    )
+    expect($hello.find('button').text()).toBe('Hello')
+  })
+})

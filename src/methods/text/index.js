@@ -1,6 +1,6 @@
-import $ from "../constructor";
+import $ from '../constructor'
 
-$.prototype.text = function() {
-  const node = this.first();
-  return node ? node.textContent : "";
-};
+$.prototype.text = function () {
+  const node = this.first()
+  return node ? node.textContent : ''
+}

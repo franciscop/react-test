@@ -1,18 +1,18 @@
-import React from "react";
-import $ from "../../";
-import "babel-polyfill";
+import React from 'react'
+import $ from '../../'
+import 'babel-polyfill'
 
-describe(".children()", () => {
-  it("Has the correct html without selector", async () => {
+describe('.children()', () => {
+  it('Has the correct html without selector', async () => {
     const $hello = $(
       <div>
         <button>Hello</button>
       </div>
-    );
-    expect($hello.children().first().nodeName).toBe("BUTTON");
-  });
+    )
+    expect($hello.children().first().nodeName).toBe('BUTTON')
+  })
 
-  it("Has the correct nested html without selector", async () => {
+  it('Has the correct nested html without selector', async () => {
     const $hello = $(
       <div>
         <a>
@@ -24,24 +24,24 @@ describe(".children()", () => {
           <li>B</li>
         </ul>
       </div>
-    );
+    )
     const names = $hello
       .children()
       .toArray()
-      .map(node => node.nodeName);
-    expect(names).toEqual(["A", "UL"]);
-  });
+      .map(node => node.nodeName)
+    expect(names).toEqual(['A', 'UL'])
+  })
 
-  it("Has the correct html with selector", async () => {
+  it('Has the correct html with selector', async () => {
     const $hello = $(
       <div>
         <button>Hello</button>
       </div>
-    );
-    expect($hello.children("button").first().nodeName).toBe("BUTTON");
-  });
+    )
+    expect($hello.children('button').first().nodeName).toBe('BUTTON')
+  })
 
-  it("Has the correct nested html with selector", async () => {
+  it('Has the correct nested html with selector', async () => {
     const $hello = $(
       <div>
         <a>
@@ -53,15 +53,15 @@ describe(".children()", () => {
           <li>B</li>
         </ul>
       </div>
-    );
+    )
     const names = $hello
-      .children("ul")
+      .children('ul')
       .toArray()
-      .map(node => node.nodeName);
-    expect(names).toEqual(["UL"]);
-  });
+      .map(node => node.nodeName)
+    expect(names).toEqual(['UL'])
+  })
 
-  it("Can be chained", async () => {
+  it('Can be chained', async () => {
     const $hello = $(
       <div>
         <a>
@@ -69,16 +69,16 @@ describe(".children()", () => {
           <span>World</span>
         </a>
       </div>
-    );
+    )
     const names = $hello
-      .children("a")
-      .find("button")
+      .children('a')
+      .find('button')
       .toArray()
-      .map(node => node.nodeName);
-    expect(names).toEqual(["BUTTON"]);
-  });
+      .map(node => node.nodeName)
+    expect(names).toEqual(['BUTTON'])
+  })
 
-  it("Can get children of multiple nodes", async () => {
+  it('Can get children of multiple nodes', async () => {
     const $hello = $(
       <div>
         <p>
@@ -94,13 +94,13 @@ describe(".children()", () => {
           </a>
         </p>
       </div>
-    );
+    )
     const names = $hello
-      .find("p")
-      .children("a")
-      .find("button")
+      .find('p')
+      .children('a')
+      .find('button')
       .toArray()
-      .map(node => node.nodeName);
-    expect(names).toEqual(["BUTTON", "BUTTON"]);
-  });
-});
+      .map(node => node.nodeName)
+    expect(names).toEqual(['BUTTON', 'BUTTON'])
+  })
+})

@@ -14,8 +14,10 @@
     "build": "rollup -c",
     "docs": "node ./scripts/server.js",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
-    "start": "jest --coverage --watch",
-    "test": "jest --coverage --detectOpenHandles"
+    "start": "standard && jest --coverage --watch",
+    "test": "standard && jest --coverage --detectOpenHandles",
+    "lint": "standard",
+    "fix": "standard --fix --verbose"
   },
   "keywords": [
     "react",
@@ -52,7 +54,8 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.2.0"
+    "rollup-plugin-terser": "^5.2.0",
+    "standard": "^16.0.4"
   },
   "babel": {
     "presets": [
@@ -69,5 +72,13 @@
       "@babel/preset-react"
     ],
     "plugins": []
+  },
+  "standard": {
+    "globals": [
+      "Event"
+    ],
+    "env": [
+      "jest"
+    ]
   }
 }

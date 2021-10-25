@@ -1,7 +1,7 @@
-import $ from "../constructor";
+import $ from '../constructor'
 
 // The default callback does nothing, just keep it the same
-$.prototype.map = function(callback) {
+$.prototype.map = function (callback) {
   // We don't want to select repeated nodes
   return $(
     this.toArray()
@@ -9,5 +9,5 @@ $.prototype.map = function(callback) {
       .flat()
       .filter(Boolean),
     this
-  ).unique();
-};
+  ).unique()
+}
