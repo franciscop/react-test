@@ -23,7 +23,7 @@ describe('.filter()', () => {
     expect($list.find('li').filter('.bar')).toHaveLength(1);
   });
 
-  it('returns null if no matching nodes', async () => {
+  it('returns empty if no matching nodes', async () => {
     expect($list.find('li').filter('.baz')).toHaveLength(0);
   });
 });
