@@ -1,7 +1,33 @@
 ### .filter()
 
-We are looking for **beginner Open Source Contributors** to implement this method:
+Return all of the given nodes that match the provided selector
 
-- Read [**the Contributing guide**](https://github.com/franciscop/react-test/blob/master/Contributing.md) to get started in your machine.
-- See [**the related issue**](https://github.com/franciscop/react-test/issues/7) and feel free to ask anything.
-- We will give you feedback on the implementation.
+```js
+.filter(selector);
+```
+
+#### Parameters
+
+`selector`: a string containing a selector that nodes must match.
+
+#### Return
+
+An instance of React Test with only the matching nodes.
+
+#### Examples
+
+Filter only the download links from the contact page:
+
+```js
+$(<ContactPage />)
+  .find('a')
+  .filter('[download]');
+```
+
+Get the required password fields from a submitting form:
+
+```
+u('form').on('submit', function(e){
+  var required = u(this).find('[required]').filter('[type="password"]');
+});
+```

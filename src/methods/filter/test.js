@@ -26,4 +26,8 @@ describe('.filter()', () => {
   it('returns empty if no matching nodes', async () => {
     expect($list.find('li').filter('.baz')).toHaveLength(0);
   });
+
+  it('returns all nodes if no selector is provided', async () => {
+    expect($list.find('li').filter()).toHaveLength(3);
+  });
 });
