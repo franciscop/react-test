@@ -16,10 +16,11 @@ An instance of React Test with only the matching nodes.
 
 #### Examples
 
-Filter only the download links from the contact page:
+Filter to select list items with child links from the contact page:
 
 ```js
 $(<ContactPage />)
   .find('a')
-  .filter('[download]');
+  .parent()
+  .filter('li');
 ```
