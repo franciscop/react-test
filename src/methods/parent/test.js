@@ -28,6 +28,6 @@ describe('.parent()', () => {
   });
 
   it('returns empty if no parent node', async () => {
-    expect($list.find('li').parent('.baz')).toHaveLength(0);
+    expect($list.find('li').parent()).toHaveClass('baz');
   });
 });
