@@ -23,11 +23,3 @@ $(<ContactPage />)
   .find('a')
   .filter('[download]');
 ```
-
-Get the required password fields from a submitting form:
-
-```
-u('form').on('submit', function(e){
-  var required = u(this).find('[required]').filter('[type="password"]');
-});
-```
