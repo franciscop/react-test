@@ -29,6 +29,7 @@ describe('.parent()', () => {
 
   it('returns multiple parents of multiple nodes', async () => {
     expect($list.find('a').parent().nodes).toHaveLength(2);
+    expect($list.find('a').parent().first()).toHaveClass('bar');
   });
 
   it('returns empty if no parent', async () => {
