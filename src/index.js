@@ -16,6 +16,7 @@ import './methods/is';
 import './methods/last';
 import './methods/unique';
 import './methods/map';
+import './methods/parent';
 import './methods/submit';
 import './methods/text';
 import './methods/toArray';

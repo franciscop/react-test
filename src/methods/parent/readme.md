@@ -1,7 +1,39 @@
 ### .parent()
 
-We are looking for **beginner Open Source Contributors** to implement this method:
+Return the parent node(s) of the given node(s)
 
-- Read [**the Contributing guide**](https://github.com/franciscop/react-test/blob/master/Contributing.md) to get started in your machine.
-- See [**the related issue**](https://github.com/franciscop/react-test/issues/9) and feel free to ask anything.
-- We will give you feedback on the implementation.
+```js
+.parent();
+```
+
+#### Parameters
+
+None.
+
+#### Return
+
+An instance of React Test with the parent node(s).
+
+#### Examples
+
+Find the parent node of all anchor tags:
+
+```js
+const $list = $(
+  <ul className="boo">
+    <li className="bar">
+      <a href="#" className="baz">
+        Link 1
+      </a>
+    </li>
+    <li className="foo">
+      <a href="#" className="bar">
+        Link 2
+      </a>
+    </li>
+  </ul>
+);
+
+const parents = $list.find('a').parent();
+expect(parents.nodes).toHaveLength(2);
+```
