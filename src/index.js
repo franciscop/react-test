@@ -7,6 +7,7 @@ import $ from "./methods/constructor";
 import "./methods/attr";
 import "./methods/click";
 import "./methods/data";
+import "./methods/delay";
 import "./methods/find";
 import "./methods/get";
 import "./methods/first";
