@@ -1,8 +1,8 @@
 import { normalize, getPlainTag } from "../../helpers";
 
-const whitespace = str => str.replace(/\s+/g, " ");
+const whitespace = (str) => str.replace(/\s+/g, " ");
 
-export default function(frag, expected) {
+export default function (frag, expected) {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 

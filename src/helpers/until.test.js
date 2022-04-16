@@ -21,7 +21,7 @@ describe("until()", () => {
 
   it("works with an object", async () => {
     let pass = false;
-    const obj = { is: param => (pass ? param : false) };
+    const obj = { is: (param) => (pass ? param : false) };
     setTimeout(() => {
       pass = true;
     }, 100);

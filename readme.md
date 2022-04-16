@@ -1,7 +1,5 @@
 # React Test [![npm install react-test](https://img.shields.io/badge/npm%20install-react--test-blue.svg)](https://www.npmjs.com/package/react-test) [![test badge](https://github.com/franciscop/react-test/workflows/tests/badge.svg)](https://github.com/franciscop/react-test/actions) [![gzip size](https://img.badgesize.io/franciscop/react-test/master/index.min.js.svg?compression=gzip)](https://github.com/franciscop/react-test/blob/master/index.min.js)
 
-> Early package! We are [looking for **beginner Open Source contributors**](https://github.com/franciscop/react-test/blob/master/Contributing.md)! ❤️
-
 Expressive testing library for React to make sure your code works as expected:
 
 ```js
@@ -15,7 +13,9 @@ it('increments when clicked', async () => {
 });
 ```
 
-The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. The best way to test declarative code is with an imperative library.
+The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. It also adds some Jest matchers (if you are using Jest) for convenience.
+
+> Early package! We are [looking for **beginner Open Source contributors**](https://github.com/franciscop/react-test/blob/master/Contributing.md)! ❤️
 
 ## Getting Started
 
@@ -35,7 +35,7 @@ npm install react-test --save-dev
 Finally you can write tests. Let's say you have [the `<Counter />` component from this example](#counter) and you want to test it to make sure it works as expected:
 
 ```js
-// Counter.js
+// src/Counter.js
 import React, { useState } from 'react';
 
 export default function Counter() {

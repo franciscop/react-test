@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import $ from "../../";
 import "babel-polyfill";
 
-const delay = time => new Promise(done => setTimeout(done, time));
+const delay = (time) => new Promise((done) => setTimeout(done, time));
 
 describe(".click()", () => {
   it("can attach and click on children", async () => {
@@ -21,7 +21,7 @@ describe(".click()", () => {
     const mock = jest.fn();
     const $form = $(
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           mock();
         }}
@@ -69,7 +69,8 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    await $test.click("div", 200);
+    await $test.find("div").click();
+    await $test.delay(200);
     expect(mock).toBeCalled();
   });
 
@@ -84,7 +85,7 @@ describe(".click()", () => {
     );
     expect(mock1).not.toBeCalled();
     expect(mock2).not.toBeCalled();
-    await $test.click("div");
+    await $test.find("div").click();
     expect(mock1).toBeCalled();
     expect(mock2).toBeCalled();
   });
@@ -99,7 +100,7 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    await $test.click("span");
+    await $test.find("span").click();
     expect(mock).toBeCalled();
     expect(badmock).not.toBeCalled();
   });
@@ -121,7 +122,7 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    await $test.click("div");
+    await $test.find("div").click();
     expect(mock).toBeCalled();
   });
 
@@ -150,7 +151,7 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    await $test.click("div");
+    await $test.find("div").click();
     expect(mock).toBeCalled();
   });
 
@@ -162,9 +163,9 @@ describe(".click()", () => {
       </div>
     );
     expect(mock).not.toBeCalled();
-    await $test.click("a");
+    await $test.find("a").click();
     expect(mock).not.toBeCalled();
-    await $test.click("div");
+    await $test.find("div").click();
     expect(mock).toBeCalled();
   });
 
@@ -178,7 +179,7 @@ describe(".click()", () => {
     expect(mock).not.toBeCalled();
     await $test.click();
     expect(mock).not.toBeCalled();
-    await $test.click("div");
+    await $test.find("div").click();
     expect(mock).toBeCalled();
   });
 
@@ -189,7 +190,7 @@ describe(".click()", () => {
       </div>
     );
     await $test.click();
-    await $test.click("div");
+    await $test.find("div").click();
   });
 
   it("works with native links", async () => {
@@ -209,7 +210,7 @@ describe(".click()", () => {
 
     const $test = $(<Page />);
     expect(mock).not.toBeCalled();
-    await $test.click("a");
+    await $test.find("a").click();
     expect(mock).toBeCalled();
   });
 });

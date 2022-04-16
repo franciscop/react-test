@@ -14,8 +14,8 @@ const $list = $(
   </ul>
 );
 
-const item = $list.find('li').last();
-expect(item.textContent).toBe('Oranges');
+const item = $list.find("li").last();
+expect(item.textContent).toBe("Oranges");
 ```
 
 #### Parameters
@@ -38,8 +38,8 @@ const $list = $(
   </ul>
 );
 
-const item = $list.find('li').first();
-expect(item.textContent).toBe('Oranges');
+const item = $list.find("li").first();
+expect(item.textContent).toBe("Oranges");
 ```
 
 #### Related

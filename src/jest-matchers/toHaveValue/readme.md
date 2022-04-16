@@ -17,8 +17,8 @@ Checks defaultValue if set on element:
 const $input = $(<input type="text" defaultValue="initial text" />);
 const $textarea = $(<textarea defaultValue="initial textarea" />);
 
-expect($input).toHaveValue('initial text');
-expect($textarea).toHaveValue('initial textarea');
+expect($input).toHaveValue("initial text");
+expect($textarea).toHaveValue("initial textarea");
 ```
 
 It only works on the input, textarea, and select tags:
@@ -55,8 +55,8 @@ const $checkbox = $(<input type="checkbox" checked readOnly />);
 const $radio = $(<input type="radio" value="something" checked readOnly />);
 
 // ERROR: Cannot check .toHaveValue() for input type="checkbox" or type="radio".
-expect($checkbox).toHaveValue('check');
-expect($radio).toHaveValue('radio');
+expect($checkbox).toHaveValue("check");
+expect($radio).toHaveValue("radio");
 ```
 
 Element that don't contain the value attribute will throw errors:
@@ -66,6 +66,6 @@ const $button = $(<button>click</button>);
 const $link = $(<a href="hello.com">click</a>);
 
 // ERROR: 'Not a valid element that has a value attribute. Please insert an element that has a value.'
-expect($button).toHaveValue('button');
-expect($link).toHaveValue('link');
+expect($button).toHaveValue("button");
+expect($link).toHaveValue("link");
 ```

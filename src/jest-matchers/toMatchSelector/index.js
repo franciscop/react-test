@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from '../../helpers';
+import { normalize, getPlainTag } from "../../helpers";
 
 export default function (frag, selectorStr) {
   // To avoid double negations ¯\_(ツ)_/¯

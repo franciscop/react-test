@@ -3,7 +3,7 @@
 // Take the expect() arg and returns a clean array of HTMLElements
 import render from "../methods/render";
 
-export default frag => {
+export default (frag) => {
   if (!frag) {
     throw new Error(
       "expect() should receive an HTMLElement or React Test instance"
@@ -22,7 +22,7 @@ export default frag => {
   // It's a single node
   if (!Array.isArray(frag)) frag = [frag];
 
-  frag.forEach(node => {
+  frag.forEach((node) => {
     // Make sure it's an HTML node
     if (!node.nodeName) {
       throw new Error(

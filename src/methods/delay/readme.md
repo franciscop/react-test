@@ -20,11 +20,11 @@ A component that changes after 1 second:
 
 ```js
 const Updater = () => {
-  const [text, setText] = useState('initial');
+  const [text, setText] = useState("initial");
   useEffect(() => {
-    setTimeout(() => setText('updated'), 1000);
+    setTimeout(() => setText("updated"), 1000);
   }, []);
-  return <div>{text}</div>
+  return <div>{text}</div>;
 };
 ```
 
@@ -32,7 +32,7 @@ For testing, we check the initial value and the value after 2 seconds:
 
 ```js
 const updater = $(<Updater />);
-expect(updater.text()).toBe('initial');
+expect(updater.text()).toBe("initial");
 await updater.delay(2000);
-expect(updater.text()).toBe('updated');
+expect(updater.text()).toBe("updated");
 ```

@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from '../../helpers';
+import { normalize, getPlainTag } from "../../helpers";
 
 export default function (frag, html) {
   this.affirmative = !this.isNot;

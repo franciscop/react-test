@@ -14,7 +14,7 @@ const List = () => (
 const text = $(<List />)
   .children()
   .toArray()
-  .map(item => $(item).text());
+  .map((item) => $(item).text());
 
 expect(text).toEqual(["A", "B"]);
 ```

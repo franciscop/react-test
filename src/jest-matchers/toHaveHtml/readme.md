@@ -9,7 +9,7 @@ const $div = $(
   </div>
 );
 
-expect($div).toHaveHtml('<span>I am a span</span>');
+expect($div).toHaveHtml("<span>I am a span</span>");
 ```
 
 Checks whether the selected elements **do not** have HTML
@@ -21,7 +21,7 @@ const $div = $(
   </div>
 );
 
-expect($div).not.toHaveHtml('<li>I am a list item</li>');
+expect($div).not.toHaveHtml("<li>I am a list item</li>");
 ```
 
 Trims passed HTML
@@ -33,7 +33,7 @@ const $div = $(
   </div>
 );
 
-expect($div).toHaveHtml('<span>I am a span</span>        ');
+expect($div).toHaveHtml("<span>I am a span</span>        ");
 ```
 
 Validates across different depth levels of inner HTML
@@ -47,9 +47,9 @@ const $div = $(
   </div>
 );
 
-expect($div).toHaveHtml('<div><span>I am a <b>span</b></span></div>');
-expect($div).toHaveHtml('<span>I am a <b>span</b></span>');
-expect($div).toHaveHtml('<b>span</b>');
+expect($div).toHaveHtml("<div><span>I am a <b>span</b></span></div>");
+expect($div).toHaveHtml("<span>I am a <b>span</b></span>");
+expect($div).toHaveHtml("<b>span</b>");
 ```
 
 For a list of elements, checks if **all** the elements have HTML
@@ -67,12 +67,12 @@ const $body = $(
 );
 
 // PASS
-expect($body.find('div')).toHaveHtml('<span>span text<span>');
-expect($body.find('div')).toHaveHtml('span text');
+expect($body.find("div")).toHaveHtml("<span>span text<span>");
+expect($body.find("div")).toHaveHtml("span text");
 
 // DO NOT PASS
-expect($body.find('div')).toHaveHtml('<li>item</li>');
-expect($body.find('div')).toHaveHtml('<p>text</p>');
+expect($body.find("div")).toHaveHtml("<li>item</li>");
+expect($body.find("div")).toHaveHtml("<p>text</p>");
 ```
 
 For a list of elements, checks if **any** of the elements **do not** have HTML
@@ -90,12 +90,12 @@ const $body = $(
 );
 
 // PASS
-expect($body.find('div')).not.toHaveHtml('<h1>header</h1>');
-expect($body.find('div')).not.toHaveHtml('<li>item</li>');
-expect($body.find('div')).not.toHaveHtml('<span>random text</span>');
+expect($body.find("div")).not.toHaveHtml("<h1>header</h1>");
+expect($body.find("div")).not.toHaveHtml("<li>item</li>");
+expect($body.find("div")).not.toHaveHtml("<span>random text</span>");
 
 // DO NOT PASS
-expect($body.find('div')).not.toHaveHtml('<span>text</span>');
-expect($body.find('div')).not.toHaveHtml('<p>text</p>');
-expect($body.find('div')).not.toHaveHtml('text');
+expect($body.find("div")).not.toHaveHtml("<span>text</span>");
+expect($body.find("div")).not.toHaveHtml("<p>text</p>");
+expect($body.find("div")).not.toHaveHtml("text");
 ```

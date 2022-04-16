@@ -6,7 +6,7 @@ describe(".type()", () => {
   it("handles a simple input", async () => {
     const Input = () => {
       const [text, setText] = useState("");
-      return <input value={text} onChange={e => setText(e.target.value)} />;
+      return <input value={text} onChange={(e) => setText(e.target.value)} />;
     };
     const $input = $(<Input />);
     expect($input).toHaveValue("");
@@ -21,7 +21,7 @@ describe(".type()", () => {
     await $input.type("Hello");
     expect(onChange).toBeCalled();
     expect(onChange.mock.calls[0][0]).toMatchObject({
-      target: { value: "Hello" }
+      target: { value: "Hello" },
     });
   });
 
@@ -30,7 +30,7 @@ describe(".type()", () => {
     return (
       <div>
         Hello {name || "Anonymous"}
-        <input value={name} onChange={e => setName(e.target.value)} />
+        <input value={name} onChange={(e) => setName(e.target.value)} />
       </div>
     );
   };
@@ -46,5 +46,12 @@ describe(".type()", () => {
     expect($input).toHaveValue("");
     await $input.type("Francisco");
     expect($input).toHaveValue("Francisco");
+  });
+
+  it("works with uncontrolled inputs", async () => {
+    const input = $(<input defaultValue="hello" />);
+    expect(input).toHaveValue("hello");
+    await input.type("Francisco");
+    expect(input).toHaveValue("Francisco");
   });
 });

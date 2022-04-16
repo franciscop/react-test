@@ -5,14 +5,12 @@
   "homepage": "https://react-test.dev/",
   "repository": "https://github.com/franciscop/react-test.git",
   "bugs": "https://github.com/franciscop/react-test/issues",
-  "funding": {
-    "url": "https://www.paypal.me/franciscopresencia/19"
-  },
+  "funding": "https://www.paypal.me/franciscopresencia/19",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "docs": "node ./scripts/server.js",
+    "lint": "npx prettier src --write",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "jest --coverage --watch",
     "test": "jest --coverage --detectOpenHandles"
@@ -46,6 +44,7 @@
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-react": "^7.19.0",
     "jest": "^24.9.0",
+    "prettier": "^2.4.1",
     "react": "^16.9.0 || ^17.0.0",
     "react-dom": "^16.9.0 || ^17.0.0",
     "rollup": "^1.32.1",

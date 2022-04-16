@@ -1,6 +1,6 @@
 import { normalize, getPlainTag } from "../../helpers";
 
-export default function(frag) {
+export default function (frag) {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 
@@ -25,7 +25,7 @@ export default function(frag) {
 
     // expect(<input type="text" disabled />).not.toBeEnabled();
     if (this.isNot) {
-        if (isEnabled) {
+      if (isEnabled) {
         const msg = `Expected ${base} to include the attribute "disabled"`;
         return { pass: true, message: () => msg };
       }

@@ -6,11 +6,11 @@ Let's say that we have a simple counter. Every time you click it, its value incr
 // Counter.js
 import React, { useState } from "react";
 
-export default function Counter () {
+export default function Counter() {
   const [counter, setCounter] = useState(0);
   const increment = () => setCounter(counter + 1);
   return <button onClick={increment}>{counter}</button>;
-};
+}
 ```
 
 All of our tests must be wrapped by `describe()` and need to import at least `React`, `react-test` and the component that we want to test:
@@ -22,10 +22,8 @@ import $ from "react-test";
 import Counter from "./Counter";
 
 describe("Counter.js", () => {
-
   // Write your tests here
   // All of the examples below should go here
-
 });
 ```
 

@@ -12,12 +12,12 @@ const $list = $(
 
 describe(".map()", () => {
   it("returns an instance of itself", () => {
-    expect($list.map(node => node)).toBeInstanceOf($);
+    expect($list.map((node) => node)).toBeInstanceOf($);
   });
 
   it("can perform a noop transformation", () => {
     expect($list.first().nodeName).toBe("UL");
-    expect($list.map(node => node).first().nodeName).toBe("UL");
+    expect($list.map((node) => node).first().nodeName).toBe("UL");
   });
 
   it("needs a callback", () => {

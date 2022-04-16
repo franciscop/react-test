@@ -1,4 +1,4 @@
-import $ from '../constructor';
+import $ from "../constructor";
 
 $.prototype.filter = function (selector) {
   if (!selector) return this;

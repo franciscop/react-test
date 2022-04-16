@@ -29,7 +29,7 @@ const $ = function ReactTest(obj, ctx = {}) {
 };
 
 // Allow to iterate with for...of and destructure it like [...$list.find('li')]
-$.prototype[Symbol.iterator] = function*() {
+$.prototype[Symbol.iterator] = function* () {
   for (let node of this.nodes) {
     yield node;
   }

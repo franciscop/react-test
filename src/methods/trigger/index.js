@@ -14,11 +14,11 @@ const findParents = (node, list = []) => {
   else return list;
 };
 
-const getEvents = node => {
+const getEvents = (node) => {
   if (!node) return null;
   let handlers = Object.entries(node)
     .filter(([k]) => /^__reactProps/.test(k))
-    .map(p => p[1])
+    .map((p) => p[1])
     .shift();
   if (handlers && Object.keys(handlers).length) {
     return handlers;
@@ -30,10 +30,10 @@ const getEvents = node => {
   return handlers[1];
 };
 
-const merge = objs => {
+const merge = (objs) => {
   const props = {};
   // Merge recursively
-  objs.forEach(obj => {
+  objs.forEach((obj) => {
     for (let key in obj) {
       if (props[key]) {
         for (let subKey in obj[key]) {
@@ -47,31 +47,31 @@ const merge = objs => {
   return props;
 };
 
-const createEvent = (type, ...objs) => {
-  const props = merge(objs);
+const createEvent = (type, target, ...objs) => {
+  const props = merge([{ target }, ...objs]);
   const event = new Event(type);
   for (let key in props) {
     Object.defineProperty(event, key, {
       value: props[key],
       enumerable: true,
-      configurable: true
+      configurable: true,
     });
   }
   return event;
 };
 
-$.prototype.trigger = function(type, time = 0, extra = {}) {
+$.prototype.trigger = function (type, extra = {}) {
   const propName = `on${type[0].toUpperCase() + type.slice(1)}`;
   return act(async () => {
     await Promise.all(
-      this.map(async target => {
+      this.map(async (target) => {
         const parents = findParents(target);
 
         // The events manually registered on the root element
         if (this.events && this.events[type]) {
           const currentTarget = parents[parents.length - 1];
           const event = createEvent(type, target, { ...extra, currentTarget });
-          this.events[type].map(cb => cb(event));
+          this.events[type].map((cb) => cb(event));
         }
 
         // If there's a direct way of calling it e.g. `button.click()`
@@ -80,15 +80,14 @@ $.prototype.trigger = function(type, time = 0, extra = {}) {
         } else {
           await Promise.all(
             parents
-              .map(el => [getEvents(el), el])
-              .filter(ev => ev[0])
-              .map(evts => [evts[0][propName], evts[1]])
-              .filter(evts => evts[0])
+              .map((el) => [getEvents(el), el])
+              .filter((ev) => ev[0])
+              .map((evts) => [evts[0][propName], evts[1]])
+              .filter((evts) => evts[0])
               .map(([cb, el]) => cb(createEvent(type, el, extra)))
           );
         }
       })
     );
-    await new Promise(done => setTimeout(done, time));
   });
 };

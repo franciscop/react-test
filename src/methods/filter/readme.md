@@ -20,7 +20,7 @@ Filter to select list items with child links from the contact page:
 
 ```js
 $(<ContactPage />)
-  .find('a')
+  .find("a")
   .parent()
-  .filter('li');
+  .filter("li");
 ```

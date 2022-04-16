@@ -31,10 +31,7 @@ describe(".closest()", () => {
         </a>
       </div>
     );
-    const names = $hello
-      .find("button")
-      .closest("a")
-      .first().nodeName;
+    const names = $hello.find("button").closest("a").first().nodeName;
     expect(names).toBe("A");
   });
 
@@ -47,10 +44,7 @@ describe(".closest()", () => {
         </ul>
       </div>
     );
-    const names = $hello
-      .find("li")
-      .closest("ul")
-      .first().nodeName;
+    const names = $hello.find("li").closest("ul").first().nodeName;
     expect(names).toBe("UL");
   });
 
@@ -71,7 +65,7 @@ describe(".closest()", () => {
       .find("a")
       .closest("li")
       .toArray()
-      .map(node => node.nodeName);
+      .map((node) => node.nodeName);
     expect(names).toEqual(["LI", "LI"]);
   });
 
@@ -94,7 +88,7 @@ describe(".closest()", () => {
       .find("a")
       .closest("ul")
       .toArray()
-      .map(node => node.nodeName);
+      .map((node) => node.nodeName);
     expect(names).toEqual(["UL"]);
   });
 });

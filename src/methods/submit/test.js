@@ -4,7 +4,7 @@ import "babel-polyfill";
 
 const CreateUser = ({ onSubmit }) => (
   <form
-    onSubmit={e => {
+    onSubmit={(e) => {
       e.preventDefault();
       onSubmit();
     }}

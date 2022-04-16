@@ -1,6 +1,6 @@
-import React from 'react';
-import $ from '../../';
-import '../index.js';
+import React from "react";
+import $ from "../../";
+import "../index.js";
 
 const $div = $(
   <div>
@@ -12,38 +12,38 @@ const $div = $(
   </div>
 );
 
-describe('.toHaveHtml()', () => {
-  it('works for a simple case', () => {
-    expect($div).toHaveHtml('<span>I am a span</span>');
+describe(".toHaveHtml()", () => {
+  it("works for a simple case", () => {
+    expect($div).toHaveHtml("<span>I am a span</span>");
   });
 
-  it('requires valid html', () => {
-    expect(() => expect($div).toHaveHtml('<h1>header</h1>')).toThrow(
-      'Expected <div> to have `<h1>header</h1>`'
+  it("requires valid html", () => {
+    expect(() => expect($div).toHaveHtml("<h1>header</h1>")).toThrow(
+      "Expected <div> to have `<h1>header</h1>`"
     );
   });
 
-  it('validates all children of innerHTML', () => {
-    expect($div).toHaveHtml('<span>I am a span</span>');
-    expect($div).toHaveHtml('<span>Im also here</span>');
-    expect($div).toHaveHtml('Im also here');
-    expect($div).toHaveHtml('<b>here</b>');
+  it("validates all children of innerHTML", () => {
+    expect($div).toHaveHtml("<span>I am a span</span>");
+    expect($div).toHaveHtml("<span>Im also here</span>");
+    expect($div).toHaveHtml("Im also here");
+    expect($div).toHaveHtml("<b>here</b>");
   });
 
-  it('trims passed HTML to check', () => {
-    expect($div).toHaveHtml('     <span>I am a span</span>');
-    expect($div).toHaveHtml('<span>Im also here</span>     ');
-    expect($div).toHaveHtml('Im also here    ');
+  it("trims passed HTML to check", () => {
+    expect($div).toHaveHtml("     <span>I am a span</span>");
+    expect($div).toHaveHtml("<span>Im also here</span>     ");
+    expect($div).toHaveHtml("Im also here    ");
   });
 
-  it('negatively asserts non-existent HTML', () => {
-    expect($div).not.toHaveHtml('<h1>header</h1>');
+  it("negatively asserts non-existent HTML", () => {
+    expect($div).not.toHaveHtml("<h1>header</h1>");
     expect(() =>
-      expect($div).not.toHaveHtml('<span>I am a span</span>')
-    ).toThrow('Expected <div> not to have `<span>I am a span</span>`');
+      expect($div).not.toHaveHtml("<span>I am a span</span>")
+    ).toThrow("Expected <div> not to have `<span>I am a span</span>`");
   });
 
-  describe('multiple elements', () => {
+  describe("multiple elements", () => {
     const $divs = $(
       <section>
         <div id="div-1">
@@ -53,12 +53,12 @@ describe('.toHaveHtml()', () => {
           <span>span text</span>
         </div>
       </section>
-    ).find('div');
+    ).find("div");
 
-    const validInnerHTMLs = ['<span>span text</span>', 'span text'];
-    const invalidInnerHTMLs = ['<p></p>', '<li></li>', '<span>div</span>'];
+    const validInnerHTMLs = ["<span>span text</span>", "span text"];
+    const invalidInnerHTMLs = ["<p></p>", "<li></li>", "<span>div</span>"];
 
-    it('requires all elements to contain html', () => {
+    it("requires all elements to contain html", () => {
       for (const validHTML of validInnerHTMLs) {
         expect($divs).toHaveHtml(validHTML);
       }
@@ -71,7 +71,7 @@ describe('.toHaveHtml()', () => {
       }
     });
 
-    it('negatively asserts multiple elements', () => {
+    it("negatively asserts multiple elements", () => {
       for (const invalidHTML of invalidInnerHTMLs) {
         expect($divs).not.toHaveHtml(invalidHTML);
       }

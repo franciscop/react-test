@@ -9,7 +9,7 @@ Simulates a form submission on all the matched forms. It should be awaited for t
 ```js
 const CreateUser = ({ onSubmit }) => (
   <form
-    onSubmit={e => {
+    onSubmit={(e) => {
       e.preventDefault(); // <- this is required _when testing_
       onSubmit();
     }}
@@ -53,7 +53,7 @@ We can also test the submission by e.g. clicking on a button on a child node:
 ```js
 const CreateUser = ({ onSubmit }) => (
   <form
-    onSubmit={e => {
+    onSubmit={(e) => {
       e.preventDefault(); // <- this is required _when testing_
       onSubmit();
     }}

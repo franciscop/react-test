@@ -1,5 +1,5 @@
 import $ from "../constructor";
 
-$.prototype.last = function() {
+$.prototype.last = function () {
   return this.get(-1) || null;
 };

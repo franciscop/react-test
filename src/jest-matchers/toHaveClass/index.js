@@ -1,10 +1,10 @@
 import { normalize, getPlainTag } from "../../helpers";
 
-const toStr = list => {
+const toStr = (list) => {
   return `class${list.length > 1 ? "es" : ""} "${list.join('", "')}"`;
 };
 
-export default function(frag, ...expectedClasses) {
+export default function (frag, ...expectedClasses) {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 
@@ -21,10 +21,10 @@ export default function(frag, ...expectedClasses) {
     const base = getPlainTag(el);
 
     // All the expected classes that have been received
-    const found = expected.filter(name => received.includes(name));
+    const found = expected.filter((name) => received.includes(name));
 
     // All of the expected classes that have NOT been received
-    const notfound = expected.filter(name => !received.includes(name));
+    const notfound = expected.filter((name) => !received.includes(name));
 
     // expect(<div className="banana" />).toHaveClass('banana');
     if (this.affirmative) {

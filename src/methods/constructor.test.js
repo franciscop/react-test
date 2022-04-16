@@ -16,7 +16,7 @@ describe("Iterator", () => {
       </ul>
     );
     expect([...html.find("li")]).toHaveLength(2);
-    expect([...html.find("li")].map(el => el.nodeName)).toEqual(["LI", "LI"]);
+    expect([...html.find("li")].map((el) => el.nodeName)).toEqual(["LI", "LI"]);
   });
 
   it("can iterate the values with for...of", () => {

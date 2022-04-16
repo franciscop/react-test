@@ -1,7 +1,7 @@
 // [INTERNAL USE ONLY
 // Retrieves a clear name for the passed element
 
-export default el => {
+export default (el) => {
   // Get the full HTML tag WITHOUT its contents
   const html = el.cloneNode(false).outerHTML;
 

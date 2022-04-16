@@ -19,9 +19,9 @@ You can select items with a CSS selector that matches attributes:
 ```js
 const $form = $(<LoginForm />);
 const $firstName = $form.find('[name="firstname"]');
-expect($firstName).toHaveValue('');
-await $firstName.type('John');
-expect($firstName).toHaveValue('John');
+expect($firstName).toHaveValue("");
+await $firstName.type("John");
+expect($firstName).toHaveValue("John");
 ```
 
 If you are asserting things, you might prefer [`.toHaveAttribute()`](#tohaveattribute) instead of the above:
@@ -42,7 +42,7 @@ const $links = $(<Page />).find("a[target=_blank]");
 
 // Make sure they follow the schema
 for (let link of $links) {
-  expect($(link).attr('rel')).toBe("noopener noreferrer");
+  expect($(link).attr("rel")).toBe("noopener noreferrer");
 }
 ```
 
@@ -53,5 +53,5 @@ When [`.toHaveAttribute()`](#tohaveattribute) is available, you can shorten it:
 const $links = $(<Page />).find("a[target=_blank]");
 
 // Make sure they *all* have rel="noopener noreferrer"
-expect($links).toHaveAttribute('rel', 'noopener noreferrer');
+expect($links).toHaveAttribute("rel", "noopener noreferrer");
 ```

@@ -1,7 +1,7 @@
 import Window from "window";
 import ReactDOM from "react-dom";
 
-const render = component => {
+const render = (component) => {
   const window = new Window();
 
   const container = window.document.createElement("div");
@@ -14,7 +14,7 @@ const render = component => {
 };
 
 // This takes a react object like <Button /> and returns the DOM tree
-export default obj => {
+export default (obj) => {
   if (!obj) return [[]];
 
   if (["string", "number", "boolean"].includes(typeof obj)) {
@@ -28,6 +28,6 @@ export default obj => {
 
   // It's already parsed
   return [
-    (Array.isArray(obj) ? obj : [obj]).filter(obj => typeof obj === "object")
+    (Array.isArray(obj) ? obj : [obj]).filter((obj) => typeof obj === "object"),
   ];
 };

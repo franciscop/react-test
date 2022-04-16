@@ -4,12 +4,12 @@ import "../index.js";
 
 // The base elements that we will use to test
 const $enabled = $(<input />);
-const $disabled = $(<input disabled/>);
+const $disabled = $(<input disabled />);
 
 describe(".toBeEnabled()", () => {
   it("works for a simple case", () => {
     expect(<input />).toBeEnabled();
-    expect(<input disabled/>).not.toBeEnabled();
+    expect(<input disabled />).not.toBeEnabled();
     expect($enabled.get(0)).toBeEnabled();
     expect($disabled.get(0)).not.toBeEnabled();
     expect($enabled).toBeEnabled();
@@ -81,7 +81,7 @@ describe(".toBeEnabled()", () => {
         'Expected <button id="mango" disabled=""> not to include the attribute "disabled"'
       );
     });
-    
+
     it("requires none of the specified elements to be enabled", () => {
       expect($form.find("button")).not.toBeEnabled();
 

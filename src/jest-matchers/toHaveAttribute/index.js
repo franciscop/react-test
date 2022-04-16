@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from '../../helpers';
+import { normalize, getPlainTag } from "../../helpers";
 
 export default function (frag, attr, val) {
   // To avoid double negations ¯\_(ツ)_/¯
@@ -15,12 +15,12 @@ export default function (frag, attr, val) {
     const found = attributes.some(({ name, value }) => {
       if (attr !== name) return false;
       if (val instanceof RegExp) return val.test(value);
-      if (typeof val === 'boolean') return value === '';
+      if (typeof val === "boolean") return value === "";
       return val ? value === val : true;
     });
 
     // Prepare val error message
-    let valErrMessage = '';
+    let valErrMessage = "";
     if (val instanceof RegExp) valErrMessage = ` that matches ${val}`;
     else if (val) valErrMessage = `="${val}"`;
 

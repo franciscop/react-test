@@ -34,6 +34,6 @@ const $list = $(
   </ul>
 );
 
-const parents = $list.find('a').parent();
+const parents = $list.find("a").parent();
 expect(parents.nodes).toHaveLength(2);
 ```

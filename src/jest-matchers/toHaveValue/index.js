@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from '../../helpers';
+import { normalize, getPlainTag } from "../../helpers";
 
 export default function (frag, value) {
   // To avoid double negations ¯\_(ツ)_/¯
@@ -10,13 +10,13 @@ export default function (frag, value) {
   //Should only handle one element
   if (frag.length > 1)
     throw new Error(
-      'Cannot check multiple elements for values. Please pass only one element.'
+      "Cannot check multiple elements for values. Please pass only one element."
     );
 
   const el = frag[0];
 
   const tagName = el.tagName.toLowerCase();
-  if (tagName === 'input' && ['checkbox', 'radio'].includes(el.type)) {
+  if (tagName === "input" && ["checkbox", "radio"].includes(el.type)) {
     throw new Error(
       'Cannot check .toHaveValue() for input type="checkbox" or type="radio".'
     );
@@ -24,17 +24,17 @@ export default function (frag, value) {
 
   const base = getPlainTag(el);
   let matches = false;
-  if (tagName === 'input') {
+  if (tagName === "input") {
     matches =
-      el.type === 'number' ? Number(el.value) === value : el.value === value;
-  } else if (tagName === 'textarea') {
+      el.type === "number" ? Number(el.value) === value : el.value === value;
+  } else if (tagName === "textarea") {
     matches = el.value === value;
-  } else if (tagName === 'select') {
+  } else if (tagName === "select") {
     const selected = [...el.options].find((option) => option.selected);
     matches = selected.value === value;
   } else {
     throw new Error(
-      'Not a valid element that has a value attribute. Please insert an element that has a value.'
+      "Not a valid element that has a value attribute. Please insert an element that has a value."
     );
   }
 
