@@ -1,11 +1,13 @@
 {
   "name": "react-test",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Expressive testing library for React to make sure your code works as expected. Write better code, ship fewer bugs.",
   "homepage": "https://react-test.dev/",
   "repository": "https://github.com/franciscop/react-test.git",
   "bugs": "https://github.com/franciscop/react-test/issues",
-  "funding": "https://www.paypal.me/franciscopresencia/19",
+  "funding": {
+    "url": "https://www.paypal.me/franciscopresencia/19"
+  },
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
   "scripts": {
