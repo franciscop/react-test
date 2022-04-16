@@ -5,7 +5,14 @@ import $ from "../constructor";
 $.prototype.change = function (value) {
   // This is needed for uncontrolled inputs
   this.map((node) => {
-    node.value = value;
+    if (
+      node.nodeName === "INPUT" &&
+      ["checkbox", "radio"].includes(node.type)
+    ) {
+      node.checked = value;
+    } else {
+      node.value = value;
+    }
   });
   return this.trigger("change", { target: { value } });
 };

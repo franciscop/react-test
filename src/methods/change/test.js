@@ -51,4 +51,61 @@ describe(".change()", () => {
     await input.change("Francisco");
     expect(input).toHaveValue("Francisco");
   });
+
+  it("works with uncontrolled textarea", async () => {
+    const input = $(<textarea defaultValue="hello" />);
+    expect(input).toHaveValue("hello");
+    await input.change("world");
+    expect(input).toHaveValue("world");
+  });
+
+  it("works with uncontrolled selects", async () => {
+    const input = $(
+      <select name="pick" defaultValue="a">
+        <option value="a">A</option>
+        <option value="b">B</option>
+      </select>
+    );
+    expect(input).toHaveValue("a");
+    await input.change("b");
+    expect(input).toHaveValue("b");
+    await input.change(false);
+    expect(input).toHaveValue(false);
+  });
+
+  it("works with uncontrolled checkboxes", async () => {
+    const input = $(<input type="checkbox" defaultChecked />);
+    expect(input.get(0).checked).toBe(true);
+    // expect(input).toBeChecked();    // NOT YET
+    await input.change(false);
+    expect(input.get(0).checked).toBe(false);
+    // expect(input).not.toBeChecked();    // NOT YET
+  });
+
+  it("works with uncontrolled checkboxes with value", async () => {
+    const input = $(<input type="checkbox" value="hello" defaultChecked />);
+    expect(input.get(0).checked).toBe(true);
+    // expect(input).toBeChecked();   // NOT YET
+    await input.change(false);
+    expect(input.get(0).checked).toBe(false);
+    // expect(input).not.toBeChecked();   // NOT YET
+  });
+
+  it("works with uncontrolled radio", async () => {
+    const input = $(<input type="radio" defaultChecked />);
+    expect(input.get(0).checked).toBe(true);
+    // expect(input).toBeChecked();    // NOT YET
+    await input.change(false);
+    expect(input.get(0).checked).toBe(false);
+    // expect(input).not.toBeChecked();    // NOT YET
+  });
+
+  it("works with uncontrolled radio with value", async () => {
+    const input = $(<input type="radio" value="hello" defaultChecked />);
+    expect(input.get(0).checked).toBe(true);
+    // expect(input).toBeChecked();   // NOT YET
+    await input.change(false);
+    expect(input.get(0).checked).toBe(false);
+    // expect(input).not.toBeChecked();   // NOT YET
+  });
 });

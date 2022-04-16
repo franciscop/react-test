@@ -1,6 +1,6 @@
 import { normalize, getPlainTag } from "../../helpers";
 
-export default function (frag, value) {
+export default function (frag, value = true) {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 
@@ -31,7 +31,20 @@ export default function (frag, value) {
     matches = el.value === value;
   } else if (tagName === "select") {
     const selected = [...el.options].find((option) => option.selected);
-    matches = selected.value === value;
+    if (selected) {
+      if (value === true) {
+        matches = true;
+      } else {
+        matches = selected.value === value;
+      }
+    } else {
+      if (value) {
+        matches = false;
+      } else {
+        const msg = `Expected an option to be selected in ${base} (but none was)`;
+        return { pass: true, message: () => msg };
+      }
+    }
   } else {
     throw new Error(
       "Not a valid element that has a value attribute. Please insert an element that has a value."
@@ -39,7 +52,7 @@ export default function (frag, value) {
   }
 
   if (this.affirmative && !matches) {
-    const msg = `Expected ${base} to have value=${value}`;
+    const msg = `Expected ${base} to have value="${value}"`;
     return { pass: false, message: () => msg };
   }
 

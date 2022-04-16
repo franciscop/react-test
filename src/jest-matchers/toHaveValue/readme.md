@@ -57,6 +57,9 @@ const $radio = $(<input type="radio" value="something" checked readOnly />);
 // ERROR: Cannot check .toHaveValue() for input type="checkbox" or type="radio".
 expect($checkbox).toHaveValue("check");
 expect($radio).toHaveValue("radio");
+
+expect($checkbox.get(0).checked).toBe(true);
+expect($radio.get(0).checked).toBe(true);
 ```
 
 Element that don't contain the value attribute will throw errors:

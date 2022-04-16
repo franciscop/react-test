@@ -7,7 +7,7 @@ const $textInput = $(<input type="text" value="text" readOnly />);
 const $numberInput = $(<input type="number" value="10" readOnly />);
 const $textarea = $(<textarea value="text description" readOnly />);
 const $select = $(
-  <select value="second" onChange={() => {}}>
+  <select defaultValue="second">
     <option value="first">first</option>
     <option value="second">second</option>
     <option value="third">third</option>
@@ -87,16 +87,16 @@ describe(".toHaveValue()", () => {
 
   it("requires the correct value", () => {
     expect(() => expect($textInput).toHaveValue("random")).toThrow(
-      'Expected <input type="text" readonly="" value="text"> to have value=random'
+      'Expected <input type="text" readonly="" value="text"> to have value="random"'
     );
     expect(() => expect($numberInput).toHaveValue(11)).toThrow(
-      'Expected <input type="number" readonly="" value="10"> to have value=11'
+      'Expected <input type="number" readonly="" value="10"> to have value="11"'
     );
     expect(() => expect($textarea).toHaveValue("random")).toThrow(
-      'Expected <textarea readonly=""> to have value=random'
+      'Expected <textarea readonly=""> to have value="random"'
     );
     expect(() => expect($select).toHaveValue("first")).toThrow(
-      "Expected <select> to have value=first"
+      'Expected <select> to have value="first"'
     );
   });
 
