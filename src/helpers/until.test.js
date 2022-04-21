@@ -44,6 +44,61 @@ describe("until()", () => {
     expect(timer.is(".active")).toBe(true);
   });
 
+  it("works with inside chaining", async () => {
+    const Timer = () => {
+      const [out, setOut] = useState(false);
+      if (!out) setTimeout(() => setOut(true), 100);
+      return (
+        <div>
+          <div className={out ? "active" : null}>Blah</div>
+        </div>
+      );
+    };
+    const timer = $(<Timer />);
+
+    expect(timer.children().is(".active")).toBe(false);
+    const res = await until(() => timer.children().is(".active"));
+    expect(timer.children().is(".active")).toBe(true);
+    expect(res).toBe(true);
+  });
+
+  it("works with chaining OUTSIDE of it", async () => {
+    const Timer = () => {
+      const [out, setOut] = useState(false);
+      if (!out) setTimeout(() => setOut(true), 100);
+      return (
+        <div>
+          <div className={out ? "active" : null}>Blah</div>
+        </div>
+      );
+    };
+    const timer = $(<Timer />);
+
+    expect(timer.children().is(".active")).toBe(false);
+    const res = await until(timer).children().is(".active");
+    expect(timer.children().is(".active")).toBe(true);
+    expect(res).toBe(true);
+  });
+
+  it("works with 'find'", async () => {
+    const Timer = () => {
+      const [out, setOut] = useState(false);
+      if (!out) setTimeout(() => setOut(true), 100);
+      return (
+        <div>
+          <div className={out ? "active" : null}>Blah</div>
+        </div>
+      );
+    };
+    const timer = $(<Timer />);
+
+    expect(timer.children().is(".active")).toBe(false);
+    // Note: res here is the value from the resolved ".find()"
+    const res = await until(timer).find(".active");
+    expect(timer.children().is(".active")).toBe(true);
+    expect(res).toHaveHtml('<div class="active">Blah</div>');
+  });
+
   it("works with a checkbox", async () => {
     const Checkbox = () => {
       const [checked, setChecked] = useState(false);
