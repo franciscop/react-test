@@ -43,4 +43,17 @@ describe("until()", () => {
     await until(timer).is(".active");
     expect(timer.is(".active")).toBe(true);
   });
+
+  it("works with a checkbox", async () => {
+    const Checkbox = () => {
+      const [checked, setChecked] = useState(false);
+      if (!checked) setTimeout(() => setChecked(true), 100);
+      return <input type="checkbox" checked={checked} readOnly />;
+    };
+    const box = $(<Checkbox />);
+
+    expect(box.is(":checked")).toBe(false);
+    await until(box).is(":checked");
+    expect(box.is(":checked")).toBe(true);
+  });
 });

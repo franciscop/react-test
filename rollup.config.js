@@ -17,14 +17,14 @@ export default {
       window: "Window",
       react: "React",
       "react-dom": "ReactDOM",
-      "react-dom/test-utils": "testUtils"
-    }
+      "react-dom/test-utils": "testUtils",
+    },
   },
   external: ["window", "react", "react-dom", "react-dom/test-utils"],
   plugins: [
     nodeResolve({ preferBuiltins: true }),
     commonjs({ namedExports: { "react-dom/test-utils": ["act"] } }),
     json(),
-    terser()
-  ]
+    terser(),
+  ],
 };
