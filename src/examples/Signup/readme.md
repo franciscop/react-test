@@ -27,7 +27,7 @@ All of our tests must be wrapped by `describe()` and need to import at least `Re
 // Signup.test.js
 import React from "react";
 import $ from "react-test";
-import Counter from "./Signup";
+import Signup from "./Signup";
 
 describe("Signup.js", () => {
   // Write your tests here
