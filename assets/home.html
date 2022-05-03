@@ -2,7 +2,8 @@
   <div>
     <h1>React Test</h1>
     <p>
-      Expressive testing library for React to make sure your code works as expected. Write better code, ship fewer bugs.
+      Expressive testing library for React to make sure your code works as
+      expected. Write better code, ship fewer bugs.
     </p>
     <pre class="small">npm install react-test</pre>
     <div class="buttons">
@@ -14,13 +15,16 @@
       >
     </div>
   </div>
-  <div style="width: 630px;max-width:100%">
-    <pre><code class="language-js">import $ from &#x22;react-test&#x22;
-import Counter from &#x22;./Counter.js&#x22;
+  <div style="width: 630px; max-width: 100%">
+    <pre><code class="language-js">import $ from &quot;react-test&quot;
+import Counter from &quot;./Counter.js&quot;
 
-describe(&#x22Counter&#x22, () =&#x3E; {
-  it(&#x22starts with 0&#x22, () =&#x3E; {
-    expect($(&#x3C;Counter /&#x3E;)).toHaveText(&#x220&#x22);
+describe(&quot;Counter&quot;, () =&gt; {
+  it(&quot;increments when clicked&quot;, async () =&gt; {
+    const counter = $(&lt;Counter /&gt;);
+    expect(counter).toHaveText(&quot;0&quot;);
+    await counter.click();
+    expect(counter).toHaveText(&quot;0&quot;);
   });
 });</code></pre>
   </div>
@@ -101,9 +105,7 @@ describe(&#x22Counter&#x22, () =&#x3E; {
         </svg>
         <h3>Jest Matchers</h3>
       </header>
-      <p>
-        ...
-      </p>
+      <p>...</p>
     </div>
   </div>
   <div>
@@ -133,7 +135,7 @@ describe(&#x22Counter&#x22, () =&#x3E; {
           target="_blank"
           >250+ tests</a
         >
-        to make sure everything works. We follow semver strictly
+        to ensure everything works. We follow semver strictly
       </p>
     </div>
   </div>
@@ -154,9 +156,7 @@ describe(&#x22Counter&#x22, () =&#x3E; {
         </svg>
         <h3>Modern React</h3>
       </header>
-      <p>
-        Test your hooks and modern features [...]
-      </p>
+      <p>Test your hooks and modern features [...]</p>
     </div>
   </div>
   <div>

@@ -2,6 +2,7 @@
   "title": "🧯 React Test - Expressive testing library for React",
   "home": "assets/home.html",
   "menu": {
+    "Documentation": "/documentation",
     "Issues": "https://github.com/franciscop/react-test/issues",
     "Contribute": "https://github.com/franciscop/react-test/blob/master/Contributing.md",
     "Donate": "https://www.paypal.me/franciscopresencia/19",
