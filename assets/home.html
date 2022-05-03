@@ -1,0 +1,187 @@
+<section class="hero flex center nowrap">
+  <div>
+    <h1>React Test</h1>
+    <p>
+      Expressive testing library for React to make sure your code works as expected. Write better code, ship fewer bugs.
+    </p>
+    <pre class="small">npm install react-test</pre>
+    <div class="buttons">
+      <a class="button" href="/documentation">Documentation</a>
+      <a
+        class="pseudo button"
+        href="https://www.paypal.me/franciscopresencia/19"
+        >Donate</a
+      >
+    </div>
+  </div>
+  <div style="width: 630px;max-width:100%">
+    <pre><code class="language-js">import $ from &#x22;react-test&#x22;
+import Counter from &#x22;./Counter.js&#x22;
+
+describe(&#x22Counter&#x22, () =&#x3E; {
+  it(&#x22starts with 0&#x22, () =&#x3E; {
+    expect($(&#x3C;Counter /&#x3E;)).toHaveText(&#x220&#x22);
+  });
+});</code></pre>
+  </div>
+</section>
+
+<br />
+
+<section class="features flex one two-500 three-900">
+  <div>
+    <div class="feature">
+      <header>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path
+            d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"
+          />
+        </svg>
+        <h3>Familiar</h3>
+      </header>
+      <p>
+        React Test uses jQuery syntax for rendering and navigating components.
+      </p>
+    </div>
+  </div>
+  <div>
+    <div class="feature">
+      <header>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-file-text"
+        >
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+        </svg>
+        <h3>Documented</h3>
+      </header>
+      <p>
+        <a href="/documentation#getting-started">Getting started</a>,
+        <a href="/documentation#library-api">API</a>,
+        <a href="/documentation#jest-matchers">Jest matchers</a> and
+        <a href="/documentation#examples-12">examples</a> for your convenience
+      </p>
+    </div>
+  </div>
+  <div>
+    <div class="feature">
+      <header>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M20.24 12.24a6 6 0 00-8.49-8.49L5 10.5V19h8.5zM16 8L2 22M17.5 15H9"
+          />
+        </svg>
+        <h3>Jest Matchers</h3>
+      </header>
+      <p>
+        ...
+      </p>
+    </div>
+  </div>
+  <div>
+    <div class="feature">
+      <header>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-check-circle"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <h3>Stable and tested</h3>
+      </header>
+      <p>
+        With
+        <a
+          href="https://github.com/franciscop/react-test/actions"
+          target="_blank"
+          >250+ tests</a
+        >
+        to make sure everything works. We follow semver strictly
+      </p>
+    </div>
+  </div>
+  <div>
+    <div class="feature">
+      <header>
+        <svg
+          width="300"
+          height="300"
+          xmlns="http://www.w3.org/2000/svg"
+          version="1.1"
+          viewBox="0 0 300 300"
+        >
+          <path
+            id="svg_1"
+            d="m187.1,205.1l25,0l0,3.8c0,27.3 -22.2,49.4 -49.4,49.4s-49.4,-22.2 -49.4,-49.5l-0.5,-122c15.3,-4.9 26.5,-19.3 26.5,-36.2c0,-21 -17.1,-38.1 -38.1,-38.1c-21,0 -38.1,17.1 -38.1,38.1c0,17 11.2,31.4 26.6,36.3l0.5,121.9c0,39.9 32.5,72.4 72.4,72.4c39.9,0 72.4,-32.5 72.4,-72.4l0,-3.8l0,-42.5l0,-42.5l-47.9,85.1zm-86.1,-169.5c8.3,0 15.1,6.8 15.1,15.1s-6.8,15.1 -15.1,15.1s-15,-6.8 -15,-15.1s6.7,-15.1 15,-15.1z"
+          />
+        </svg>
+        <h3>Modern React</h3>
+      </header>
+      <p>
+        Test your hooks and modern features [...]
+      </p>
+    </div>
+  </div>
+  <div>
+    <div class="feature">
+      <header>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-smile"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+          <line x1="9" y1="9" x2="9.01" y2="9"></line>
+          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+        </svg>
+        <h3>Intuitive</h3>
+      </header>
+      <p>Try it once and you won't need to read the docs again</p>
+    </div>
+  </div>
+</section>
