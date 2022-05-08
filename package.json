@@ -29,8 +29,8 @@
   "files": [],
   "dependencies": {
     "array-flat-polyfill": "^1.0.1",
-    "react": "^16.9.0 || ^17.0.0",
-    "react-dom": "^16.9.0 || ^17.0.0",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0",
     "window": "^4.2.7"
   },
   "devDependencies": {
@@ -46,8 +46,8 @@
     "eslint-plugin-react": "^7.19.0",
     "jest": "^24.9.0",
     "prettier": "^2.4.1",
-    "react": "^16.9.0 || ^17.0.0",
-    "react-dom": "^16.9.0 || ^17.0.0",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0",
     "rollup": "^1.32.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
