@@ -4,7 +4,6 @@ const $ = function ReactTest(obj, ctx = {}) {
   if (!(this instanceof $)) return new $(obj, ctx);
 
   this.events = ctx.events || {};
-  this.window = ctx.window;
 
   window.addEventListener = (event, callback) => {
     this.events[event] = this.events[event] || [];
@@ -16,11 +15,7 @@ const $ = function ReactTest(obj, ctx = {}) {
     this.events[event].push(callback);
   };
 
-  const [nodes, newWindow] = render(obj);
-  this.nodes = nodes;
-  if (!this.window && newWindow) {
-    this.window = newWindow;
-  }
+  this.nodes = render(obj);
 
   return this;
 };

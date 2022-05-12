@@ -1,5 +1,3 @@
-import Window from "window";
-// import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 
@@ -17,18 +15,17 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 // root.render(<App tab="home" />);
 
 const render = (component) => {
-  const window = new Window();
   const container = window.document.createElement("div");
   container.id = "root";
   window.document.body.appendChild(container);
   const root = createRoot(container);
   act(() => root.render(component));
-  return [[...container.childNodes], window];
+  return [...container.childNodes];
 };
 
 // This takes a react object like <Button /> and returns the DOM tree
 export default (obj) => {
-  if (!obj) return [[]];
+  if (!obj) return [];
 
   if (["string", "number", "boolean"].includes(typeof obj)) {
     return render(obj);
@@ -40,7 +37,7 @@ export default (obj) => {
   }
 
   // It's already parsed
-  return [
-    (Array.isArray(obj) ? obj : [obj]).filter((obj) => typeof obj === "object"),
-  ];
+  return (Array.isArray(obj) ? obj : [obj]).filter(
+    (obj) => typeof obj === "object"
+  );
 };
