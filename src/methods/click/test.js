@@ -126,23 +126,6 @@ describe(".click()", () => {
     expect(mock).toBeCalled();
   });
 
-  it.skip("works with async and waiting", async () => {
-    const mock = jest.fn();
-    const $test = $(
-      <div
-        onClick={async () => {
-          await delay(100);
-          mock();
-        }}
-      >
-        Hi
-      </div>
-    );
-    expect(mock).not.toBeCalled();
-    await $test.click();
-    expect(mock).toBeCalled();
-  });
-
   it("will bubble up", async () => {
     const mock = jest.fn();
     const $test = $(

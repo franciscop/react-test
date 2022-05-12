@@ -1,15 +1,28 @@
 import Window from "window";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import { act } from "react-dom/test-utils";
+
+global.IS_REACT_ACT_ENVIRONMENT = true;
+
+// // Before
+// import { render } from 'react-dom';
+// const container = document.getElementById('app');
+// render(<App tab="home" />, container);
+//
+// // After
+// import { createRoot } from 'react-dom/client';
+// const container = document.getElementById('app');
+// const root = createRoot(container); // createRoot(container!) if you use TypeScript
+// root.render(<App tab="home" />);
 
 const render = (component) => {
   const window = new Window();
-
   const container = window.document.createElement("div");
   container.id = "root";
   window.document.body.appendChild(container);
-
-  ReactDOM.render(component, container);
-
+  const root = createRoot(container);
+  act(() => root.render(component));
   return [[...container.childNodes], window];
 };
 

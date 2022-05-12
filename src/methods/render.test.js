@@ -1,6 +1,5 @@
 import React from "react";
 import render from "./render";
-import "babel-polyfill";
 
 describe("render", () => {
   it("empty returns an empty array", () => {
