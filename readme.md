@@ -79,6 +79,8 @@ Finally run the tests with Jest:
 npm run test
 ```
 
+You can find more sample tests on the [Contributing Guide](./Contributing.md).
+
 ### Basics of testing
 
 React applications are divided in components, and these components can be tested either individually or in group. Self-contained components are easier to test, document and debug.
