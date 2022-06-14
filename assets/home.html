@@ -19,13 +19,11 @@
     <pre><code class="language-js">import $ from &quot;react-test&quot;
 import Counter from &quot;./Counter.js&quot;
 
-describe(&quot;Counter&quot;, () =&gt; {
-  it(&quot;increments when clicked&quot;, async () =&gt; {
-    const counter = $(&lt;Counter /&gt;);
-    expect(counter).toHaveText(&quot;0&quot;);
-    await counter.click();
-    expect(counter).toHaveText(&quot;1&quot;);
-  });
+it(&quot;increments when clicked&quot;, async () =&gt; {
+  const counter = $(&lt;Counter /&gt;);
+  expect(counter).toHaveText(&quot;0&quot;);
+  await counter.click();
+  expect(counter).toHaveText(&quot;1&quot;);
 });</code></pre>
   </div>
 </section>
