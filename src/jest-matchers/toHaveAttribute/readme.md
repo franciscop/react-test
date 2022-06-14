@@ -46,7 +46,7 @@ it("checks if attribute has given regex value", () => {
   expect($button).toHaveAttribute("type", /.*/);
 
   // Negative assertions: all the given regex values do not match
-  expect($button).not.toHaveAttribute("type", /sub/);
+  expect($button).not.toHaveAttribute("type", /sub$/);
   expect($button).not.toHaveAttribute("type", /su?b/);
   expect($button).not.toHaveAttribute("type", /.*q/);
 });
@@ -68,6 +68,7 @@ const $list = $(
 
 // PASS
 expect($list.find("li")).toHaveAttribute("value");
+expect($list.find("li")).toHaveAttribute("value", /^\d+$/);
 expect($list.find("li")).toHaveAttribute("title", "list-item");
 expect($list.find("li")).toHaveAttribute("title", /list-item/);
 expect($list.find("li")).toHaveAttribute("title", /^li.t-.*/);
@@ -76,10 +77,10 @@ expect($list.find("li")).toHaveAttribute("title", /^li.t-.*/);
 expect($list.find("li")).toHaveAttribute("error");
 expect($list.find("li")).toHaveAttribute("id");
 expect($list.find("li")).toHaveAttribute("value", "1");
-expect($list.find("li")).toHaveAttribute("title", /list/);
+expect($list.find("li")).toHaveAttribute("title", /list$/);
 ```
 
-For a list of items, it checks whether **any do not** have the same attribute && value or regex
+For a list of items, it checks whether **any do not** have the same attribute and value or regex
 
 ```js
 const $list = $(
@@ -95,8 +96,8 @@ const $list = $(
 
 // PASS
 expect($list.find("li")).not.toHaveAttribute("error");
-expect($list.find("li")).not.toHaveAttribute("value", "1");
-expect($list.find("li")).not.toHaveAttribute("title", /list/);
+expect($list.find("li")).not.toHaveAttribute("value", "3");
+expect($list.find("li")).not.toHaveAttribute("title", /^list$/);
 
 // DO NOT PASS
 expect($list.find("li")).not.toHaveAttribute("value");
