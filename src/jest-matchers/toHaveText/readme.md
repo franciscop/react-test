@@ -50,7 +50,7 @@ const $list = $(
   </ul>
 );
 
-// ERROR! Because only one of them has the text "apple"
+// ERROR! Because only one of them has the text "banana"
 expect($list.find("li")).toHaveText("apple");
 // Expected <li> to have text "apple" but it received "banana"
 
