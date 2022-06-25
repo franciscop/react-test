@@ -250,17 +250,20 @@ it(&quot;renders a simple title&quot;, () =&gt; {
 
 <section class="hero flex one two-900 center">
   <div>
-    <h2>Simulate user actions</h2>
-    <p>
-      This is where this library gets really valuable! Emulating user
-      interactions is as easy as it could ever be. There's
-      <a href="/documentation#library-api">multiple event helpers</a> available.
-    </p>
-    <p>
-      For example, to <a href="/documentation#counter">test a Counter</a> that
-      increments when clicked: render and assert the initial status, then await
-      for a user click, and finally make more assertions.
-    </p>
+    <div class="content">
+      <h2>Simulate user actions</h2>
+      <p>
+        This is where this library gets really valuable! Emulating user
+        interactions is as easy as it could ever be. There's
+        <a href="/documentation#library-api">multiple event helpers</a>
+        available.
+      </p>
+      <p>
+        For example, to <a href="/documentation#counter">test a Counter</a> that
+        increments when clicked: render and assert the initial status, then
+        await for a user click, and finally make more assertions.
+      </p>
+    </div>
   </div>
   <div>
     <pre><code class="language-js">import $ from &quot;react-test&quot;;
@@ -280,17 +283,20 @@ it(&quot;Can increment a counter&quot;, async () =&gt; {
 
 <section class="hero flex one two-900 center">
   <div>
-    <h2>Timers, async, etc.</h2>
-    <p>
-      There's many other things that might are valuable; waiting for a network
-      call, for a specific DOM element, or for fixed amount of time before doing
-      assertions.
-    </p>
-    <p>
-      You can use <a href="/documentation#delay"><code>.delay()</code></a> for a
-      simple timer or <a href="/documentation#until"><code>until()</code></a>
-      for more complex DOM behavior.
-    </p>
+    <div class="content">
+      <h2>Timers, async, etc.</h2>
+      <p>
+        There's many other things that might are valuable; waiting for a network
+        call, for a specific DOM element, or for fixed amount of time before
+        doing assertions.
+      </p>
+      <p>
+        You can use <a href="/documentation#delay"><code>.delay()</code></a> for
+        a simple timer or
+        <a href="/documentation#until"><code>until()</code></a>
+        for more complex DOM behavior.
+      </p>
+    </div>
   </div>
   <div>
     <pre><code class="language-js">import $ from &quot;react-test&quot;;
