@@ -13,6 +13,7 @@
     "lint": "npx prettier src --write",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "jest --coverage --watch",
+    "pretest": "npx prettier --write readme.md src",
     "test": "jest --coverage --detectOpenHandles"
   },
   "keywords": [
@@ -28,7 +29,6 @@
   "main": "index.min.js",
   "files": [],
   "dependencies": {
-    "array-flat-polyfill": "^1.0.1",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "window": "^1.0.0"
