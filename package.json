@@ -31,7 +31,7 @@
     "array-flat-polyfill": "^1.0.1",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "window": "^4.2.7"
+    "window": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

@@ -295,9 +295,7 @@ import UserList from &quot;./UserList&quot;;
 it(&quot;Can wait for a DOM change&quot;, async () =&gt; {
   const users = $(&lt;UserList /&gt;);
   expect(users.find(&quot;ul li&quot;).length).toBe(0);
-
   await until(users).find(&quot;ul li&quot;);
-
   expect(users.find(&quot;ul li&quot;).length).toBe(10);
 });</code></pre>
   </div>
