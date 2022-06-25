@@ -3,13 +3,13 @@
 Expressive testing library for React to make sure your code works as expected:
 
 ```js
-import $ from 'react-test';
+import $ from "react-test";
 
-it('increments when clicked', async () => {
+it("increments when clicked", async () => {
   const counter = $(<Counter />);
-  expect(counter).toHaveText('0');
+  expect(counter).toHaveText("0");
   await counter.click();
-  expect(counter).toHaveText('1');
+  expect(counter).toHaveText("1");
 });
 ```
 
@@ -36,7 +36,7 @@ Finally you can write tests. Let's say you have [the `<Counter />` component fro
 
 ```js
 // src/Counter.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function Counter() {
   const [counter, setCounter] = useState(0);
@@ -47,28 +47,28 @@ export default function Counter() {
 
 ```js
 // src/Counter.test.js
-import React from 'react';
-import $ from 'react-test';
-import Counter from './Counter';
+import React from "react";
+import $ from "react-test";
+import Counter from "./Counter";
 
-describe('Counter.js', () => {
-  it('is initialized to 0', () => {
+describe("Counter.js", () => {
+  it("is initialized to 0", () => {
     const counter = $(<Counter />);
-    expect(counter.text()).toBe('0');
+    expect(counter.text()).toBe("0");
   });
 
-  it('can be incremented with a click', async () => {
+  it("can be incremented with a click", async () => {
     const counter = $(<Counter />);
     await counter.click();
-    expect(counter.text()).toBe('1');
+    expect(counter.text()).toBe("1");
   });
 
-  it('can be incremented multiple times', async () => {
+  it("can be incremented multiple times", async () => {
     const counter = $(<Counter />);
     await counter.click();
     await counter.click();
     await counter.click();
-    expect(counter.text()).toBe('3');
+    expect(counter.text()).toBe("3");
   });
 });
 ```
@@ -86,10 +86,10 @@ React applications are divided in components, and these components can be tested
 For example, a plain button can be defined with a callback function, and change colors depending on the `primary` attribute:
 
 ```js
-import React from 'react';
+import React from "react";
 
 export default function Button({ primary, onClick, children }) {
-  const background = primary ? 'blue' : 'gray';
+  const background = primary ? "blue" : "gray";
   return (
     <button onClick={onClick} style={{ background }}>
       {children}
@@ -101,19 +101,19 @@ export default function Button({ primary, onClick, children }) {
 Then we can test it with `react-test` by creating a `Button.test.js` file and adding some assertions:
 
 ```js
-import React from 'react';
-import $ from 'react-test';
-import Button from './Button';
+import React from "react";
+import $ from "react-test";
+import Button from "./Button";
 
-describe('Button.js', () => {
-  it('has different backgrounds depending on the props', () => {
+describe("Button.js", () => {
+  it("has different backgrounds depending on the props", () => {
     const $button = $(<Button>Hello</Button>);
-    expect($button).toHaveStyle('background', 'gray');
+    expect($button).toHaveStyle("background", "gray");
     const $primary = $(<Button primary>Hello</Button>);
-    expect($primary).toHaveStyle('background', 'blue');
+    expect($primary).toHaveStyle("background", "blue");
   });
 
-  it('can be clicked', async () => {
+  it("can be clicked", async () => {
     const fn = jest.fn();
     const $button = $(<Button onClick={fn}>Hello</Button>);
     expect(fn).not.toBeCalled();
@@ -138,10 +138,10 @@ describe('Button.js', () => {
 Great! All of our tests are working except for the last one. Now we can go back to our component and fix it:
 
 ```js
-import React from 'react';
+import React from "react";
 
 export default function Button({ primary, onClick, children, ...props }) {
-  const background = primary ? 'blue' : 'gray';
+  const background = primary ? "blue" : "gray";
   return (
     <button onClick={onClick} style={{ background }} {...props}>
       {children}
@@ -180,21 +180,21 @@ The syntax follows jQuery-style chaining:
 
 ```js
 // react-test
-import $ from 'react-test';
-test('Increments when clicked', async () => {
+import $ from "react-test";
+test("Increments when clicked", async () => {
   const $counter = $(<Counter />);
-  expect($counter).toHaveText('0');
+  expect($counter).toHaveText("0");
   await $counter.click();
-  expect($counter).toHaveText('1');
+  expect($counter).toHaveText("1");
 });
 
 // react testing library
-import { render, fireEvent } from '@testing-library/react';
-test('Increments when clicked', () => {
+import { render, fireEvent } from "@testing-library/react";
+test("Increments when clicked", () => {
   const { getByRole, container } = render(<Counter />);
-  expect(container).toHaveTextContent('0');
-  fireEvent.click(getByRole('button'));
-  expect(container).toHaveTextContent('1');
+  expect(container).toHaveTextContent("0");
+  fireEvent.click(getByRole("button"));
+  expect(container).toHaveTextContent("1");
 });
 ```
 
@@ -205,13 +205,13 @@ React Test is a work in progress, so if you are writing tests for production rig
 That's not really a question! But if for some reason you deeply despise those dollars, perhaps because they remind you of PHP, you can avoid them altogether:
 
 ```js
-import render from 'react-test';
+import render from "react-test";
 
-test('Increments when clicked', async () => {
+test("Increments when clicked", async () => {
   const counter = render(<Counter />);
-  expect(counter).toHaveText('0');
+  expect(counter).toHaveText("0");
   await counter.click();
-  expect(counter).toHaveText('1');
+  expect(counter).toHaveText("1");
 });
 ```
 
