@@ -16,8 +16,8 @@
     </div>
   </div>
   <div style="width: 630px; max-width: 100%">
-    <pre><code class="language-js">import $ from &quot;react-test&quot;
-import Counter from &quot;./Counter.js&quot;
+    <pre><code class="language-js">import $ from &quot;react-test&quot;;
+import Counter from &quot;./Counter.js&quot;;
 
 it(&quot;increments when clicked&quot;, async () =&gt; {
   const counter = $(&lt;Counter /&gt;);
@@ -192,18 +192,47 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
     <p>
       This is the most basic functionality of this library; it allows you to
       render a React component and make assertions against it with Jest or any
-      other library you use. You can either use the provided methods to access
-      properties like <code>.text()</code>, or grab the first node with
-      <code>.first()</code> and then use native DOM methods.
+      other library you use.
+    </p>
+    <p>
+      You can use the library methods to read values like <code>.text()</code>,
+      or get the first node with <code>.first()</code> and then use the native
+      DOM API.
     </p>
   </div>
   <div>
-    <pre><code class="language-js">import $ from &quot;react-test&quot;
+    <pre><code class="language-js">import $ from &quot;react-test&quot;;
 
-it(&quot;renders a simple paragraph&quot;, async () =&gt; {
-  const paragraph = $(&lt;p&gt;Hello&lt;/p&gt;);
-  expect(paragraph.text()).toBe(&quot;Hello&quot;);
-  expect(paragraph.first().nodeName).toBe('P');
+it(&quot;renders a simple title&quot;, () =&gt; {
+  const title = $(&lt;h1&gt;Hello&lt;/h1&gt;);
+  expect(title.text()).toBe(&quot;Hello&quot;);
+  expect(title.attr('id')).toBe(null);
+  expect(title.first().nodeName).toBe(&quot;H1&quot;);
+  // ...
+});</code></pre>
+  </div>
+</section>
+
+<br />
+
+<section class="hero flex one two-900 center">
+  <div>
+    <h2>Jest Matchers assertions</h2>
+    <p>
+      We've also created
+      <a href="/documentation#jest-matchers">a series of Jest Matchers</a>
+      (included by default if you use Jest) that makes the tests more readable
+      and the error messages when a test fails very clear.
+    </p>
+  </div>
+  <div>
+    <pre><code class="language-js">import $ from &quot;react-test&quot;;
+
+it(&quot;renders a simple title&quot;, () =&gt; {
+  const title = $(&lt;h1&gt;Hello&lt;/h1&gt;);
+  expect(title).toHaveText(&quot;Hello&quot;);
+  expect(title).not.toHaveAttribute(&quot;id&quot;);
+  expect(title).toMatchSelector(&quot;h1&quot;);
   // ...
 });</code></pre>
   </div>
