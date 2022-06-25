@@ -217,7 +217,7 @@ it(&quot;renders a simple title&quot;, () =&gt; {
 
 <section class="hero flex one two-900 center">
   <div>
-    <h2>Jest Matchers assertions</h2>
+    <h2>Idiomatic Jest Matchers</h2>
     <p>
       We've also created
       <a href="/documentation#jest-matchers">a series of Jest Matchers</a>
@@ -234,6 +234,71 @@ it(&quot;renders a simple title&quot;, () =&gt; {
   expect(title).not.toHaveAttribute(&quot;id&quot;);
   expect(title).toMatchSelector(&quot;h1&quot;);
   // ...
+});</code></pre>
+  </div>
+</section>
+
+<br />
+
+<section class="hero flex one two-900 center">
+  <div>
+    <h2>Simulate user actions</h2>
+    <p>
+      This is where this library gets really valuable! Emulating user
+      interactions is as easy as it could ever be. There's
+      <a href="/documentation#library-api">multiple event helpers</a> available.
+    </p>
+    <p>
+      For example, to
+      <a href="/documentation#counter">simulate a Counter</a> that increments
+      when clicked: you can render and assert the initial status, then await for
+      a user click, and then make more assertions about the final status.
+    </p>
+  </div>
+  <div>
+    <pre><code class="language-js">import $ from &quot;react-test&quot;;
+import Counter from &quot;./Counter&quot;;
+
+it(&quot;Can test a counter with clicks&quot;, async () =&gt; {
+  const counter = $(&lt;Counter /&gt;);
+  expect(counter).toHaveText(&quot;0&quot;);
+  await counter.click();
+  // Or await counter.find(&quot;button&quot;).click(); if it's a child
+  expect(counter).toHaveText(&quot;1&quot;);
+});</code></pre>
+  </div>
+</section>
+
+<br />
+
+<section class="hero flex one two-900 center">
+  <div>
+    <h2>Timers, async, etc.</h2>
+    <p>
+      There's many other things that might be valuable; waiting for a network
+      call to finish before doing assertions, waiting for a specific DOM
+      element, or just waiting for a fixed amount of time.
+    </p>
+    <p>
+      You can use <a href="/documentation#delay"><code>.delay()</code></a> for a
+      simple timer or <a href="/documentation#until"><code>until()</code></a>
+      for more complex DOM behavior.
+    </p>
+  </div>
+  <div>
+    <pre><code class="language-js">import $ from &quot;react-test&quot;;
+import UserList from &quot;./UserList&quot;;
+
+it(&quot;Can test a counter with clicks&quot;, async () =&gt; {
+  // Render the initial user list, which should be empty
+  const users = $(&lt;UserList /&gt;);
+  expect(users.find(&quot;ul li&quot;).length).toBe(0);
+
+  // This awaits until the component has some &lt;li&gt;
+  await until(users).find(&quot;ul li&quot;);
+
+  // Now it should've rendered with 10 users from the network
+  expect(users.find(&quot;ul li&quot;).length).toBe(10);
 });</code></pre>
   </div>
 </section>
