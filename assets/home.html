@@ -206,7 +206,7 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
 it(&quot;renders a simple title&quot;, () =&gt; {
   const title = $(&lt;h1&gt;Hello&lt;/h1&gt;);
   expect(title.text()).toBe(&quot;Hello&quot;);
-  expect(title.attr('id')).toBe(null);
+  expect(title.attr(&quot;id&quot;)).toBe(null);
   expect(title.first().nodeName).toBe(&quot;H1&quot;);
   // ...
 });</code></pre>
@@ -293,7 +293,6 @@ it(&quot;Can increment a counter&quot;, async () =&gt; {
 import UserList from &quot;./UserList&quot;;
 
 it(&quot;Can wait for a DOM change&quot;, async () =&gt; {
-  // Before the network call it's empty
   const users = $(&lt;UserList /&gt;);
   expect(users.find(&quot;ul li&quot;).length).toBe(0);
 
