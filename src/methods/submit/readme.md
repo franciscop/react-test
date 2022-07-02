@@ -1,10 +1,10 @@
 ### .submit()
 
 ```js
-.submit() -> promise
+.submit() -> Promise
 ```
 
-Simulates a form submission on all the matched forms. It should be awaited for the side effects to run and the component to re-rendered (if needed). For example, let's say that you have this form component:
+Trigger a form submission on all the matched forms. It should be awaited for the side effects to run and the component to re-rendered:
 
 ```js
 const CreateUser = ({ onSubmit }) => (
@@ -20,11 +20,7 @@ const CreateUser = ({ onSubmit }) => (
     <button>Submit</button>
   </form>
 );
-```
 
-Then you can test that the form is properly submitted like this:
-
-```js
 it("can mock submitting a form", async () => {
   const onSubmit = jest.fn();
   const createUser = $(<CreateUser onSubmit={onSubmit} />);
@@ -34,7 +30,7 @@ it("can mock submitting a form", async () => {
 });
 ```
 
-> `.submit()` already wraps the call with act(), so there's no need for you to also wrap it. Just make sure to await for it.
+> `.click()` already wraps the call with act(), so there's no need for you to also wrap it.
 
 > `onSubmit` should always call `e.preventDefault()`, since the browser behavior has not been imitated by this library.
 

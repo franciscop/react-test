@@ -12,9 +12,9 @@
     "build": "rollup -c",
     "lint": "npx prettier src --write",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
-    "start": "jest --coverage --watch",
+    "start": "jest src/ --coverage --watch",
     "pretest": "npx prettier --write readme.md src",
-    "test": "jest --coverage --detectOpenHandles"
+    "test": "jest ./src/ --coverage --detectOpenHandles"
   },
   "keywords": [
     "react",
@@ -44,6 +44,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-react": "^7.19.0",
+    "form-mate": "^3.1.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "prettier": "^2.4.1",

@@ -15,10 +15,8 @@ expect(button.text()).toBe("Hello world");
 | [.each()](#each)         | [.get()](#get)         | [.delay()](#delay)       |
 | [.filter()](#filter)     | [.html()](#html)       | [.submit()](#submit)     |
 | [.find()](#find)         | [.is()](#is)           | [.trigger()](#trigger)   |
-| [.first()](#first)       | [.text()](#text)       | [.type()](#type)         |
-| [.last()](#last)         | [.toArray()](#toarray) |                          |
-| [.parent()](#parent)     |                        |                          |
-| [.siblings()](#siblings) |                        |                          |
+| [.parent()](#parent)     | [.text()](#text)       | [.type()](#type)         |
+| [.siblings()](#siblings) | [.toArray()](#toarray) |                          |
 
 Since the API is inspired on jQuery we call React Test `$`, but you can call it `render` or anything you prefer.
 
@@ -44,4 +42,20 @@ it("can type in an input", async () => {
   // ERROR! this or any similar workflow doesn't work as expected!
   greet.find("input").get(0).value = "John";
 });
+```
+
+You can iterate over the matched elements with `for ... of`:
+
+```js
+const list = $(
+  <ul>
+    <li>A</li>
+    <li>B</li>
+    <li>C</li>
+  </ul>
+);
+
+for (let node of list.children()) {
+  expect(node.nodeName).toBe("LI");
+}
 ```

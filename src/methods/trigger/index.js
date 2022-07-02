@@ -1,3 +1,5 @@
+// [INTERNAL USE ONLY]
+
 // In React 16.9 - https://github.com/facebook/react/issues/15379
 // TEMPORAL
 // This is a fairly experimental implementation, it emulates event propagation
@@ -15,19 +17,13 @@ const findParents = (node, list = []) => {
 };
 
 const getEvents = (node) => {
-  if (!node) return null;
-  let handlers = Object.entries(node)
+  const handlers = Object.entries(node)
     .filter(([k]) => /^__reactProps/.test(k))
     .map((p) => p[1])
     .shift();
   if (handlers && Object.keys(handlers).length) {
     return handlers;
   }
-  handlers = Object.entries(node)
-    .filter(([k]) => /^__reactEventHandlers/.test(k))
-    .filter(Boolean)[0];
-  if (!handlers) return null;
-  return handlers[1];
 };
 
 const merge = (objs) => {

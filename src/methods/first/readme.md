@@ -1,4 +1,19 @@
-### .first()
+### .first() _(deprecated)_
+
+To get the first DOM element, use:
+
+```js
+const list = $(<ItemList />);
+
+// RECOMMENDED
+list.children().get();
+list.children().get(0); // Same
+
+// NO; DEPRECATED
+list.children().first();
+```
+
+**OLD DOCS FOR .first()**:
 
 Retrieve the first of the matched nodes:
 

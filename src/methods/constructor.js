@@ -17,6 +17,9 @@ const $ = function ReactTest(obj, ctx = {}) {
 
   this.nodes = render(obj);
 
+  // Add a .length that goes to measure the nodes
+  Object.defineProperty(this, "length", { get: () => this.nodes.length });
+
   return this;
 };
 

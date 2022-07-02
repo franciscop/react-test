@@ -20,7 +20,7 @@ const formToObject = (form) => {
   return values;
 };
 
-export default function Signup({ onSubmit = () => {} }) {
+export default function Signup({ onSubmit }) {
   return (
     <form
       onSubmit={(e) => {

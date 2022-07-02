@@ -1,4 +1,18 @@
-### .last()
+### .last() _(deprecated)_
+
+To get the last DOM element, use:
+
+```js
+const list = $(<ItemList />);
+
+// RECOMMENDED
+list.children().get(-1);
+
+// NO; DEPRECATED
+list.children().last();
+```
+
+**OLD DOCS FOR .last()**:
 
 Retrieve the last of the matched nodes
 

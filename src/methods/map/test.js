@@ -16,11 +16,25 @@ describe(".map()", () => {
   });
 
   it("can perform a noop transformation", () => {
-    expect($list.first().nodeName).toBe("UL");
-    expect($list.map((node) => node).first().nodeName).toBe("UL");
+    expect($list.get(0).nodeName).toBe("UL");
+    expect($list.map((node) => node).get(0).nodeName).toBe("UL");
   });
 
   it("needs a callback", () => {
     expect(() => $list.map()).toThrow();
+  });
+
+  describe("readme", () => {
+    it("can get a new collection", () => {
+      const list = $(
+        <ul>
+          <li>A</li>
+          <li>B</li>
+        </ul>
+      );
+      // Same as .find('li')
+      const items = list.map((node) => node.querySelectorAll("li"));
+      expect(items.toArray((node) => node.nodeName)).toEqual(["LI", "LI"]);
+    });
   });
 });

@@ -32,4 +32,28 @@ describe(".submit()", () => {
     await createUser.find("button").click();
     expect(onSubmit).toBeCalled();
   });
+
+  describe("readme", () => {
+    const CreateUser = ({ onSubmit }) => (
+      <form
+        onSubmit={(e) => {
+          e.preventDefault(); // <- this is required _when testing_
+          onSubmit();
+        }}
+      >
+        <input name="firstname" />
+        <input name="lastname" />
+        <input name="age" />
+        <button>Submit</button>
+      </form>
+    );
+
+    it("can mock submitting a form", async () => {
+      const onSubmit = jest.fn();
+      const createUser = $(<CreateUser onSubmit={onSubmit} />);
+      expect(onSubmit).not.toBeCalled();
+      await createUser.submit();
+      expect(onSubmit).toBeCalled();
+    });
+  });
 });

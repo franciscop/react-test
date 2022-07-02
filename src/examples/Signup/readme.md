@@ -3,20 +3,17 @@
 We are going to see now how we can simulate interactions with a form. This goes from the basics of typing text, validating the output, to more advanced features like validating _as we type_. We are going to use the library [`form-mate`](https://form-mate.dev/) to greatly simplify our code, our base form is this:
 
 ```js
+import Form from "form-mate";
+
 export default function Signup({ onSubmit = () => {} }) {
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit(formToObject(e.target));
-      }}
-    >
+    <Form onSubmit={onSubmit}>
       <input name="username" type="text" />
       <input name="tos" type="checkbox" />
       <input name="option" type="radio" value="a" defaultChecked />
       <input name="option" type="radio" value="b" />
       <button>Send</button>
-    </form>
+    </Form>
   );
 }
 ```

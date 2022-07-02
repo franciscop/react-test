@@ -3,13 +3,22 @@ import $ from "../../";
 import "babel-polyfill";
 
 describe(".find()", () => {
+  it("can be called empty", async () => {
+    const $hello = $(
+      <div>
+        <button>Hello</button>
+      </div>
+    );
+    expect($hello.find()).toBe($hello);
+  });
+
   it("will get tag that we want", async () => {
     const $hello = $(
       <div>
         <button>Hello</button>
       </div>
     );
-    expect($hello.find("button").first().nodeName).toBe("BUTTON");
+    expect($hello.find("button").get(0).nodeName).toBe("BUTTON");
   });
 
   it("can match every successor", async () => {

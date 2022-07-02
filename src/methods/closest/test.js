@@ -9,12 +9,12 @@ describe(".closest()", () => {
         <button>Hello</button>
       </div>
     );
-    expect($hello.closest("div").first().nodeName).toBe("DIV");
+    expect($hello.closest("div").get(0).nodeName).toBe("DIV");
   });
 
   it("Will default to self", async () => {
     const $hello = $(<button>Hello</button>);
-    expect($hello.closest().first().nodeName).toBe("BUTTON");
+    expect($hello.closest().get(0).nodeName).toBe("BUTTON");
   });
 
   it("Will have no nodes when no match is found", async () => {
@@ -31,7 +31,7 @@ describe(".closest()", () => {
         </a>
       </div>
     );
-    const names = $hello.find("button").closest("a").first().nodeName;
+    const names = $hello.find("button").closest("a").get(0).nodeName;
     expect(names).toBe("A");
   });
 
@@ -44,7 +44,7 @@ describe(".closest()", () => {
         </ul>
       </div>
     );
-    const names = $hello.find("li").closest("ul").first().nodeName;
+    const names = $hello.find("li").closest("ul").get(0).nodeName;
     expect(names).toBe("UL");
   });
 
@@ -90,5 +90,21 @@ describe(".closest()", () => {
       .toArray()
       .map((node) => node.nodeName);
     expect(names).toEqual(["UL"]);
+  });
+
+  describe("readme", () => {
+    it("finds all the list items with a link", async () => {
+      const list = $(
+        <ul>
+          <li>
+            <a>A</a>
+          </li>
+          <li>B</li>
+        </ul>
+      );
+      const item = list.find("a").closest("li");
+      expect(item.text()).toBe("A");
+      expect(item.html()).toBe("<li><a>A</a></li>");
+    });
   });
 });

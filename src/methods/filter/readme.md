@@ -1,14 +1,34 @@
 ### .filter()
 
-Return all of the given nodes that match the provided selector
+```js
+.filter(selector) -> $
+```
+
+Keep only the nodes that match the selector, removing the others:
 
 ```js
-.filter(selector);
+it("can get just the users", () => {
+  const list = $(
+    <ul>
+      <li className="user">John</li>
+      <li className="group">Ibiza</li>
+      <li className="user">Sarah</li>
+    </ul>
+  );
+  const people = list.children().filter(".user");
+  expect(people.toArray((node) => node.textContent)).toEqual(["John", "Sarah"]);
+});
 ```
 
 #### Parameters
 
-`selector`: a string containing a selector that nodes must match.
+`selector`: one of these two:
+
+- a string containing the CSS selector that nodes must match
+- a callback that will keep the element if it returns `true`. It receives:
+  - `node`: the current node being iterated on.
+  - `index`: the index of the current node in the matched list.
+  - `list`: an array with all of the nodes that are being iterated over.
 
 #### Return
 

@@ -1,10 +1,10 @@
 ### .find()
 
-Get all of the descendants of the nodes with an optional filter
-
 ```js
-.find(filter);
+.find(selector) ->
 ```
+
+Get all of the descendants of the nodes with an optional filter
 
 #### Parameters
 
@@ -20,12 +20,4 @@ Find all the links in the contact page:
 
 ```js
 $(<ContactPage />).find("a");
-```
-
-Get the required fields within a submitting form:
-
-```
-u('form').on('submit', function(e){
-  var required = u(this).find('[required]');
-});
 ```

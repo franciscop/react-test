@@ -108,4 +108,50 @@ describe(".change()", () => {
     expect(input.get(0).checked).toBe(false);
     // expect(input).not.toBeChecked();   // NOT YET
   });
+
+  it("can test all the input types", async () => {
+    const form = $(
+      <form>
+        <input name="text" type="text" />
+        <input name="password" type="password" />
+        <input name="checkbox" type="checkbox" />
+        <input name="radio" type="radio" value="a" defaultChecked />
+        <input name="radio" type="radio" value="b" />
+      </form>
+    );
+    const data = new FormData(form.get(0));
+    expect(data.get("text")).toBe("");
+    expect(data.get("password")).toBe("");
+    expect(data.get("checkbox")).toBe(null);
+    expect(form.find('[name="checkbox"]').get(0).checked).toBe(false);
+    // expect(data.get("radio")).toBe("a");
+    // expect(form.find('[name="radio"]').get(0).checked).toBe(true);
+
+    await form.find('[name="text"]').change("hello");
+    await form.find('[name="password"]').change("world");
+    await form.find('[name="checkbox"]').change(true);
+    // await form.find('[name="radio"]').change("b");
+
+    const later = new FormData(form.get(0));
+    expect(later.get("text")).toBe("hello");
+    expect(later.get("password")).toBe("world");
+    expect(later.get("checkbox")).toBe("on");
+    expect(form.find('[name="checkbox"]').get(0).checked).toBe(true);
+    // expect(data.get("radio")).toBe("b");
+    // expect(form.find('[name="radio"]').get(0).checked).toBe(false);
+  });
+
+  describe("checkboxes", () => {
+    it("only accepts true/false for checkboxes", async () => {
+      const input = $(<input name="checkbox" type="checkbox" />);
+      expect(input.get(0).value).toBe("on");
+      expect(input.get(0).checked).toBe(false);
+
+      // await input.change(true);
+      await input.click();
+
+      expect(input.get(0).value).toBe("on");
+      expect(input.get(0).checked).toBe(true);
+    });
+  });
 });

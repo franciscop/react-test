@@ -1,13 +1,13 @@
 ### .change()
 
 ```js
-.change(value) -> promise
+.change(value) -> Promise
 ```
 
-Simulates a change in an element, like an input. It should be awaited for the side effects to run and the component to re-rendered:
+Trigger a change in all of the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
 
 ```js
-it("can change the current element value", async () => {
+it("can change the input value", async () => {
   const input = $(<input defaultValue="hello" />);
   expect(input).toHaveValue("hello");
   await input.change("world");
@@ -17,13 +17,13 @@ it("can change the current element value", async () => {
 
 It works on elements of type `<input>`, `<textarea>` and `<select>`.
 
-> `.change()` already wraps the call with act(), so there's no need for you to also wrap it. Just make sure to await for it.
+> `.change()` already wraps the call with act(), so there's no need for you to also wrap it.
 
 #### Parameters
 
 `value`: the new value for the element. If it's a text input, textarea or select, it should be a `string`. If it's a `checkbox` or `radio`, it should be a true/false `boolean`.
 
-#### Returns
+#### Return
 
 A promise that must be awaited before doing any assertion.
 

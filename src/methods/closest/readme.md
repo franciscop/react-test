@@ -1,16 +1,32 @@
 ### .closest()
 
-Find the first ancestor that matches the selector for each element:
+```js
+.closest(selector) -> $
+```
+
+Find the first ancestor that matches the selector for each element (deduplicated):
 
 ```js
-.closest(selector: string)
+it("finds all the list items with a link", async () => {
+  const list = $(
+    <ul>
+      <li>
+        <a>A</a>
+      </li>
+      <li>B</li>
+    </ul>
+  );
+  const item = list.find("a").closest("li");
+  expect(item.text()).toBe("A");
+  expect(item.html()).toBe("<li><a>A</a></li>");
+});
 ```
 
 #### Parameters
 
 `selector`: Expression to match elements against
 
-#### Returns
+#### Return
 
 An instance of `react-test` with the new elements as nodes
 

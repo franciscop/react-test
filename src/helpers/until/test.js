@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import $, { until } from "../";
+import $, { until } from "../../";
 import "babel-polyfill";
 
 describe("until()", () => {
+  it("resolves immediately when empty", async () => {
+    const init = new Date();
+    await until();
+    expect(new Date() - init).toBeLessThan(100);
+  });
+
   it("passes fast with true", async () => {
     const init = new Date();
     await until(() => true);

@@ -1,16 +1,29 @@
 ### .children()
 
-Get the direct children of all of the elements with an optional filter:
+```js
+.children(selector) -> $
+```
+
+Get the children nodes of all of the current elements, with an optional selector:
 
 ```js
-.children(filter: string)
+it("can select all list items", async () => {
+  const list = $(
+    <ul>
+      <li>A</li>
+      <li>B</li>
+    </ul>
+  );
+  expect(list.children().text()).toBe("A");
+  expect(list.children(":last-child").text()).toBe("B");
+});
 ```
 
 #### Parameters
 
-`filter`: A selector expression to match elements against
+`selector`: A CSS selector expression to match elements against
 
-#### Returns
+#### Return
 
 An instance of `react-test` with the new children as itst elements.
 
@@ -19,20 +32,19 @@ An instance of `react-test` with the new children as itst elements.
 Since we return an instance of `react-test`, we have to use `.toArray()` to convert it to an array so that we can iterate through them.
 
 ```js
-import $ from "react-test";
+it("can get the children", () => {
+  const List = () => (
+    <ul>
+      <li>A</li>
+      <li>B</li>
+    </ul>
+  );
 
-const List = () => (
-  <ul>
-    <li>A</li>
-    <li>B</li>
-  </ul>
-);
+  // Find the text of each element
+  const text = $(<List />)
+    .children()
+    .toArray((item) => item.textContent);
 
-// Find the text of each element
-const text = $(<List />)
-  .children()
-  .toArray()
-  .map((item) => $(item).text());
-
-expect(text).toEqual(["A", "B"]);
+  expect(text).toEqual(["A", "B"]);
+});
 ```

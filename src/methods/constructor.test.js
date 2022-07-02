@@ -9,14 +9,16 @@ describe("Iterator", () => {
   });
 
   it("can convert to an array with destructuring", () => {
-    const html = $(
+    const list = $(
       <ul>
         <li>A</li>
         <li>B</li>
       </ul>
     );
-    expect([...html.find("li")]).toHaveLength(2);
-    expect([...html.find("li")].map((el) => el.nodeName)).toEqual(["LI", "LI"]);
+    const len = list.find("li").length;
+    expect(len).toBe(2);
+    expect(list.find("li")).toHaveLength(2);
+    expect(list.find("li").toArray((el) => el.nodeName)).toEqual(["LI", "LI"]);
   });
 
   it("can iterate the values with for...of", () => {

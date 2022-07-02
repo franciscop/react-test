@@ -17,6 +17,16 @@ describe(".click()", () => {
     expect(mock).toBeCalled();
   });
 
+  it("can click even without handler", async () => {
+    const test = $(<button>Hello</button>);
+    await test.click();
+  });
+
+  it("can click even without node", async () => {
+    const test = $(<button>Hello</button>);
+    await test.find("li").click();
+  });
+
   it("can click and submit buttons", async () => {
     const mock = jest.fn();
     const $form = $(

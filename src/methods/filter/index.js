@@ -2,8 +2,9 @@ import $ from "../constructor";
 
 $.prototype.filter = function (selector) {
   if (!selector) return this;
-  return $(
-    this.toArray().filter((node) => node.matches(selector)),
-    this
-  );
+  if (typeof selector === "string") {
+    const sel = selector;
+    selector = (node) => node.matches(sel);
+  }
+  return $(this.toArray().filter(selector), this);
 };

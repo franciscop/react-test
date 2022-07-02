@@ -54,4 +54,13 @@ describe(".type()", () => {
     await input.type("Francisco");
     expect(input).toHaveValue("Francisco");
   });
+
+  describe("readme", () => {
+    it("can simulate typing in an input", async () => {
+      const input = $(<input />);
+      expect(input).toHaveValue("");
+      await input.type("Francisco");
+      expect(input).toHaveValue("Francisco");
+    });
+  });
 });

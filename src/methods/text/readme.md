@@ -1,18 +1,18 @@
 ### .text()
 
-Retrieve the textContent of the elements:
-
 ```js
-.text()
+.text() -> String
 ```
 
-Whitespace is normalized for easy comparison:
+Get the textContent of the first matched node:
 
 ```js
-$(
-  <div>
-    Hello <br /> world
-  </div>
-).text();
-// "Hello world"
+it("can get the simple text", () => {
+  const greeting = $(
+    <div>
+      Hello <br /> world
+    </div>
+  );
+  expect(greeting.text()).toBe("Hello world");
+});
 ```

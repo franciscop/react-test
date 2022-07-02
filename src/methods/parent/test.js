@@ -29,10 +29,24 @@ describe(".parent()", () => {
 
   it("returns multiple parents of multiple nodes", async () => {
     expect($list.find("a").parent().nodes).toHaveLength(2);
-    expect($list.find("a").parent().first()).toHaveClass("bar");
+    expect($list.find("a").parent().get(0)).toHaveClass("bar");
   });
 
   it("returns empty if no parent", async () => {
     expect($list.find(".boo").parent().nodes).toHaveLength(0);
+  });
+
+  describe("readme", () => {
+    it("can go down and up again", () => {
+      const list = $(
+        <ul>
+          <li>A</li>
+          <li>B</li>
+        </ul>
+      );
+      const items = list.children(); // <li>A</li>, <li>B</li>
+      const listB = items.parent(); // <ul>...</ul>
+      expect(listB.html()).toEqual(list.html());
+    });
   });
 });

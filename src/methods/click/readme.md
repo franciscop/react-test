@@ -1,13 +1,13 @@
 ### .click()
 
 ```js
-.click() -> promise
+.click() -> Promise
 ```
 
-Simulates a click on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
+Trigger a click on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
 
 ```js
-it("clicks the current element", async () => {
+it("can click the counter", async () => {
   const counter = $(<Counter />);
   expect(counter.text()).toEqual("0");
   await counter.click();
@@ -15,13 +15,13 @@ it("clicks the current element", async () => {
 });
 ```
 
-> `.click()` already wraps the call with act(), so there's no need for you to also wrap it. Just make sure to await for it.
+> `.click()` already wraps the call with act(), so there's no need for you to also wrap it.
 
 #### Parameters
 
 None. Any parameters passed will be ignored.
 
-#### Returns
+#### Return
 
 A promise that must be awaited before doing any assertion.
 

@@ -11,4 +11,17 @@ describe(".data()", () => {
     const $hello = $(<div id="0">Hello</div>);
     expect($hello.data("id")).toBe(null);
   });
+
+  describe("readme", () => {
+    it("can read the data attributes", () => {
+      const card = $(
+        <div data-id="25" data-selected selected>
+          Card
+        </div>
+      );
+      expect(card.data("id")).toBe("25");
+      expect(card.data("selected")).toBe("true"); // T_T 🤷‍♂️ gh/facebook/react/24812
+      expect(card.data("name")).toBe(null);
+    });
+  });
 });

@@ -1,10 +1,21 @@
 ### .delay()
 
-Makes the component to wait for a determined period of time for async actions to happen. It will be called wrapped in "act()" inside.
+```js
+.delay(time) -> Promise
+```
+
+Makes the component to wait for the specified period of time in milliseconds:
 
 ```js
-.delay(time);  // milliseconds
+it("can wait for an async action", async () => {
+  const down = $(<CountDown />);
+  expect(down.text()).toBe("3");
+  await down.delay(4000); // 4 seconds
+  expect(down.text()).toBe("Done!");
+});
 ```
+
+> `.delay()` already wraps the call with act(), so there's no need for you to also wrap it.
 
 #### Parameters
 

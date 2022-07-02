@@ -24,4 +24,12 @@ describe(".attr()", () => {
   it("works with no matched elements", () => {
     expect($base.find("button").attr("title")).toBe(null);
   });
+
+  describe("readme", () => {
+    const input = $(<input name="email" defaultValue="" disabled />);
+    expect(input.attr("name")).toBe("email");
+    expect(input.attr("value")).toBe("");
+    expect(input.attr("disabled")).toBe("");
+    expect(input.attr("placeholder")).toBe(null);
+  });
 });

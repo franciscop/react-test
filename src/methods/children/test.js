@@ -9,7 +9,7 @@ describe(".children()", () => {
         <button>Hello</button>
       </div>
     );
-    expect($hello.children().first().nodeName).toBe("BUTTON");
+    expect($hello.children().get(0).nodeName).toBe("BUTTON");
   });
 
   it("Has the correct nested html without selector", async () => {
@@ -38,7 +38,7 @@ describe(".children()", () => {
         <button>Hello</button>
       </div>
     );
-    expect($hello.children("button").first().nodeName).toBe("BUTTON");
+    expect($hello.children("button").get(0).nodeName).toBe("BUTTON");
   });
 
   it("Has the correct nested html with selector", async () => {
@@ -102,5 +102,34 @@ describe(".children()", () => {
       .toArray()
       .map((node) => node.nodeName);
     expect(names).toEqual(["BUTTON", "BUTTON"]);
+  });
+
+  describe("readme", () => {
+    it("can select all list items", async () => {
+      const list = $(
+        <ul>
+          <li>A</li>
+          <li>B</li>
+        </ul>
+      );
+      expect(list.children().text()).toBe("A");
+      expect(list.children(":last-child").text()).toBe("B");
+    });
+
+    it("can get the children", () => {
+      const List = () => (
+        <ul>
+          <li>A</li>
+          <li>B</li>
+        </ul>
+      );
+
+      // Find the text of each element
+      const text = $(<List />)
+        .children()
+        .toArray((item) => item.textContent);
+
+      expect(text).toEqual(["A", "B"]);
+    });
   });
 });

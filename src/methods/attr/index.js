@@ -1,6 +1,6 @@
 import $ from "../constructor";
 
-$.prototype.attr = function (key) {
-  const node = this.first();
-  return node && node.getAttribute(key);
+$.prototype.attr = function (name) {
+  const node = this.get(0);
+  return node && node.getAttribute(name);
 };

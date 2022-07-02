@@ -1,19 +1,21 @@
 ### .type()
 
 ```js
-.type(text) -> promise
+.type(text) -> Promise
 ```
 
 Simulates typing the text on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
 
 ```js
-const input = $(<Input />);
-expect(input).toHaveValue("");
-await input.type("Francisco");
-expect(input).toHaveValue("Francisco");
+it("can simulate typing in an input", async () => {
+  const input = $(<input />);
+  expect(input).toHaveValue("");
+  await input.type("Francisco");
+  expect(input).toHaveValue("Francisco");
+});
 ```
 
-Note that this simulates typing the text letter by letter, so it's useful to test more complex interactions. If you want to test a simpler `onChange`, you might instead use `.change(text)`.
+Note that this simulates typing the text letter by letter, so it's useful to test more complex interactions. If you want to test a simpler `onChange`, you might want to use [`.change(text)`](#change) instead.
 
 > `.type()` already wraps the call with act(), so there's no need for you to also wrap it. Just make sure to await for it.
 
