@@ -20,8 +20,8 @@ describe(".map()", () => {
     expect($list.map((node) => node).get(0).nodeName).toBe("UL");
   });
 
-  it("needs a callback", () => {
-    expect(() => $list.map()).toThrow();
+  it("defaults to the identity callback", () => {
+    expect($list.map()).toEqual($list);
   });
 
   describe("readme", () => {
@@ -34,7 +34,7 @@ describe(".map()", () => {
       );
       // Same as .find('li')
       const items = list.map((node) => node.querySelectorAll("li"));
-      expect(items.toArray((node) => node.nodeName)).toEqual(["LI", "LI"]);
+      expect(items.array((node) => node.nodeName)).toEqual(["LI", "LI"]);
     });
   });
 });

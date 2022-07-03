@@ -12,6 +12,16 @@ describe(".children()", () => {
     expect($hello.children().get(0).nodeName).toBe("BUTTON");
   });
 
+  it("Ignores spaces", async () => {
+    const $hello = $(
+      <div>
+        {" "}
+        <button>Hello</button>{" "}
+      </div>
+    );
+    expect($hello.children()).toHaveLength(1);
+  });
+
   it("Has the correct nested html without selector", async () => {
     const $hello = $(
       <div>
@@ -27,7 +37,7 @@ describe(".children()", () => {
     );
     const names = $hello
       .children()
-      .toArray()
+      .array()
       .map((node) => node.nodeName);
     expect(names).toEqual(["A", "UL"]);
   });
@@ -56,7 +66,7 @@ describe(".children()", () => {
     );
     const names = $hello
       .children("ul")
-      .toArray()
+      .array()
       .map((node) => node.nodeName);
     expect(names).toEqual(["UL"]);
   });
@@ -73,7 +83,7 @@ describe(".children()", () => {
     const names = $hello
       .children("a")
       .find("button")
-      .toArray()
+      .array()
       .map((node) => node.nodeName);
     expect(names).toEqual(["BUTTON"]);
   });
@@ -99,7 +109,7 @@ describe(".children()", () => {
       .find("p")
       .children("a")
       .find("button")
-      .toArray()
+      .array()
       .map((node) => node.nodeName);
     expect(names).toEqual(["BUTTON", "BUTTON"]);
   });
@@ -127,7 +137,7 @@ describe(".children()", () => {
       // Find the text of each element
       const text = $(<List />)
         .children()
-        .toArray((item) => item.textContent);
+        .array((item) => item.textContent);
 
       expect(text).toEqual(["A", "B"]);
     });

@@ -8,15 +8,16 @@ const button = $(<button>Hello world</button>);
 expect(button.text()).toBe("Hello world");
 ```
 
-| DOM navigation           | Read data              | Promises (Events+timing) |
-| ------------------------ | ---------------------- | ------------------------ |
-| [.children()](#children) | [.attr()](#attr)       | [.change()](#change)     |
-| [.closest()](#closest)   | [.data()](#data)       | [.click()](#click)       |
-| [.each()](#each)         | [.get()](#get)         | [.delay()](#delay)       |
-| [.filter()](#filter)     | [.html()](#html)       | [.submit()](#submit)     |
-| [.find()](#find)         | [.is()](#is)           | [.trigger()](#trigger)   |
-| [.parent()](#parent)     | [.text()](#text)       | [.type()](#type)         |
-| [.siblings()](#siblings) | [.toArray()](#toarray) |                          |
+| DOM navigation           | Read data          | Promises (Events+timing) |
+| ------------------------ | ------------------ | ------------------------ |
+| [.children()](#children) | [.array()](#array) | [.change()](#change)     |
+| [.closest()](#closest)   | [.attr()](#attr)   | [.click()](#click)       |
+| [.each()](#each)         | [.data()](#data)   | [.delay()](#delay)       |
+| [.filter()](#filter)     | [.get()](#get)     | [.submit()](#submit)     |
+| [.find()](#find)         | [.html()](#html)   | [.trigger()](#trigger)   |
+| [.not()](#not)           | [.is()](#is)       | [.type()](#type)         |
+| [.parent()](#parent)     | [.text()](#text)   |                          |
+| [.siblings()](#siblings) |                    |                          |
 
 Since the API is inspired on jQuery we call React Test `$`, but you can call it `render` or anything you prefer.
 

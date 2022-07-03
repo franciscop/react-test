@@ -18,7 +18,14 @@ it("can properly match the button", () => {
 
 #### Parameters
 
-`selector`: the CSS selector to run against each of the matched nodes.
+`selector`: any one of these:
+
+- a string containing the CSS selector that nodes must match
+- a ReactTest instance containing a number of nodes. All the matched nodes must be in the ReactTest instance nodes
+- a callback that will keep the element if it returns `true`. It receives:
+  - `node`: the current node being iterated on.
+  - `index`: the index of the current node in the matched list.
+  - `list`: an array with all of the nodes that are being iterated over.
 
 #### Return
 
@@ -26,11 +33,16 @@ A boolean, `true` to indicate all of the selector matches all of the nodes, `fal
 
 #### Notes
 
-For a given selector, if you apply `.filter(selector).is(selector)` (both being the same selector) it will **always** return true.
+For a given selector, if you apply `.filter(selector).is(selector)` (both being the same CSS selector) it will **always** return true.
 
 #### Examples
 
 > TODO
+
+```js
+// Check that the important class belongs to a direct list item
+expect(list.find(".important").is(list.children())).toBe(true);
+```
 
 #### Related
 

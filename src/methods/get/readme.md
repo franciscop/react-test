@@ -66,4 +66,4 @@ expect(first.textContent).toBe("A");
 
 #### Related
 
-- [`.toArray()`](#toarray): get ALL of the current nodes as a plain array.
+- [`.array()`](#array): get ALL of the current nodes as a plain array.

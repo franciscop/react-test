@@ -54,7 +54,7 @@ describe(".filter()", () => {
         </ul>
       );
       const people = list.children().filter(".user");
-      expect(people.toArray((node) => node.textContent)).toEqual([
+      expect(people.array((node) => node.textContent)).toEqual([
         "John",
         "Sarah",
       ]);

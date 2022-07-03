@@ -27,9 +27,9 @@ it("can select all list items", async () => {
 
 An instance of `react-test` with the new children as itst elements.
 
-#### Usage
+#### Examples
 
-Since we return an instance of `react-test`, we have to use `.toArray()` to convert it to an array so that we can iterate through them.
+Since we return an instance of `react-test`, we have to use `.array()` to convert it to an array so that we can iterate through them.
 
 ```js
 it("can get the children", () => {
@@ -43,7 +43,7 @@ it("can get the children", () => {
   // Find the text of each element
   const text = $(<List />)
     .children()
-    .toArray((item) => item.textContent);
+    .array((item) => item.textContent);
 
   expect(text).toEqual(["A", "B"]);
 });

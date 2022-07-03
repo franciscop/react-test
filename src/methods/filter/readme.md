@@ -16,15 +16,16 @@ it("can get just the users", () => {
     </ul>
   );
   const people = list.children().filter(".user");
-  expect(people.toArray((node) => node.textContent)).toEqual(["John", "Sarah"]);
+  expect(people.array((node) => node.textContent)).toEqual(["John", "Sarah"]);
 });
 ```
 
 #### Parameters
 
-`selector`: one of these two:
+`selector`: any one of these:
 
 - a string containing the CSS selector that nodes must match
+- a ReactTest instance containing a number of nodes. All the matched nodes must be in the ReactTest instance nodes
 - a callback that will keep the element if it returns `true`. It receives:
   - `node`: the current node being iterated on.
   - `index`: the index of the current node in the matched list.
@@ -44,3 +45,7 @@ $(<ContactPage />)
   .parent()
   .filter("li");
 ```
+
+#### Related
+
+- [`.not(selector)`](#filter): a method that returns a new collection only with nodes that pass the matcher.

@@ -32,7 +32,7 @@ describe(".each()", () => {
     });
     expect(params[0].textContent).toBe(items.get(0).textContent);
     expect(params[1]).toBe(0);
-    expect(params[2]).toHaveLength(items.toArray().length);
+    expect(params[2]).toHaveLength(items.length);
   });
 
   describe("readme", () => {

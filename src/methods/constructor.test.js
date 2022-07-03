@@ -18,7 +18,7 @@ describe("Iterator", () => {
     const len = list.find("li").length;
     expect(len).toBe(2);
     expect(list.find("li")).toHaveLength(2);
-    expect(list.find("li").toArray((el) => el.nodeName)).toEqual(["LI", "LI"]);
+    expect(list.find("li").array((el) => el.nodeName)).toEqual(["LI", "LI"]);
   });
 
   it("can iterate the values with for...of", () => {

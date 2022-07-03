@@ -4,8 +4,7 @@ import $ from "../constructor";
 $.prototype.map = function (callback) {
   // We don't want to select repeated nodes
   const nodes = [];
-  this.toArray()
-    .map(callback)
+  this.array(callback)
     // Convert any potential NodeList into an array of plain nodes
     .map((ret) => (ret && ret.forEach ? [...ret] : ret))
     .flat()

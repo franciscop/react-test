@@ -1,4 +1,19 @@
-### .toArray()
+### .toArray() _(deprecated)_
+
+To get a plain array of nodes, use `.array()` instead:
+
+```js
+const list = $(<ItemList />);
+
+// RECOMMENDED
+list.children().array();
+list.children().array((node) => node); // Same
+
+// NO; DEPRECATED
+list.children().toArray();
+```
+
+**OLD DOCS FOR .toArray()**:
 
 ```js
 .toArray(callback) -> Array

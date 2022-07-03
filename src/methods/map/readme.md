@@ -16,7 +16,7 @@ it("can get a new collection", () => {
   );
   // Same as .find('li')
   const items = list.map((node) => node.querySelectorAll("li"));
-  expect(items.toArray((node) => node.nodeName)).toEqual(["LI", "LI"]);
+  expect(items.array((node) => node.nodeName)).toEqual(["LI", "LI"]);
 });
 ```
 
