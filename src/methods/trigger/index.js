@@ -56,8 +56,14 @@ const createEvent = (type, target, ...objs) => {
   return event;
 };
 
+const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
+
 $.prototype.trigger = function (type, extra = {}) {
-  const propName = `on${type[0].toUpperCase() + type.slice(1)}`;
+  // TODO: probably whitelist this
+  const propName = `on${capitalize(type)}`.replace(
+    /(down|up|left|right|in|out|move)$/i,
+    capitalize
+  );
   return act(async () => {
     await Promise.all(
       this.map(async (target) => {
@@ -72,16 +78,24 @@ $.prototype.trigger = function (type, extra = {}) {
 
         // If there's a direct way of calling it e.g. `button.click()`
         if (target[type]) {
-          target[type](createEvent(type, target, extra));
+          if (type === "click") {
+            const event = new MouseEvent("click", {
+              bubbles: true,
+              cancelable: true,
+              ...extra,
+            });
+            target.dispatchEvent(event);
+          } else {
+            target[type](createEvent(type, target, extra));
+          }
         } else {
-          await Promise.all(
-            parents
-              .map((el) => [getEvents(el), el])
-              .filter((ev) => ev[0])
-              .map((evts) => [evts[0][propName], evts[1]])
-              .filter((evts) => evts[0])
-              .map(([cb, el]) => cb(createEvent(type, el, extra)))
-          );
+          const events = parents
+            .map((el) => [getEvents(el), el])
+            .filter((ev) => ev[0])
+            .map((evts) => [evts[0][propName], evts[1]])
+            .filter((evts) => evts[0])
+            .map(([cb, el]) => cb(createEvent(type, el, extra)));
+          await Promise.all(events);
         }
       })
     );

@@ -245,3 +245,14 @@ listItems.get(0); // <li>A</li>   ~> The first item
 listItems.get(1); // <li>B</li>   ~> The second item
 listItems.get(-1); // <li>B</li>   ~> The last item (same as the second)
 ```
+
+#### When will the 1.0 be ready?
+
+To launch the version 1.0, I'd like to finish a few tasks:
+
+- Write more documentation and normalize it
+- Normalize code, specially across testing
+- Add some more event-based functionality, like extending native events (if possible).
+- Write 5 working examples in total. Counter, Signup, MovieList, CRUD and Swipe (names TBD).
+
+I don't know how long that'll take, right now I'm normalizing the code and documentation.
