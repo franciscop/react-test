@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <path fill="#c21325" stroke="#fff" stroke-width="20" d="M383 247s-18-3-40-4h-57c-14 1-32-6-35 2a170 170 0 0 1-106 116 52 52 0 0 1-26-67c9-20 19-41 0-46-13-4-20 9-25 22-10 26-28 53-34 85-5 33 0 69 29 89 68 47 141-29 219-48 28-7 58-6 83-20 19-11 31-29 34-49 6-32-11-64-42-80z"/>
+  <path fill="none" stroke="#fff" stroke-width="20" d="M251 245a170 170 0 0 1-106 116 52 52 0 0 1-26-67c9-20 19-41 0-46-13-4-20 9-25 22-10 26-28 53-34 85-5 33 0 69 29 89 68 47 141-29 219-48 28-7 58-6 83-20 19-11 31-29 34-49 6-32-11-64-42-80"/>
+  <path fill="#c21325" d="m313 120 55 111 65-192H194l65 192z"/>
+  <path fill="none" stroke="#fff" stroke-width="20" d="m313 120 55 111 65-192H194l65 192z"/>
+  <circle cx="247.1" cy="245.9" r="40.9" fill="#c21325"/>
+  <circle cx="247.1" cy="245.9" r="40.9" fill="none" stroke="#fff" stroke-width="20"/>
+  <circle cx="380.4" cy="245.9" r="40.9" fill="#c21325" stroke="#fff" stroke-width="20"/>
+  <circle cx="380.4" cy="245.9" r="40.9" fill="none" stroke="#fff" stroke-width="20"/>
+  <circle cx="113.2" cy="246.2" r="40.9" fill="#c21325"/>
+  <circle cx="113.2" cy="246.2" r="40.9" fill="none" stroke="#fff" stroke-width="20"/>
+</svg>
