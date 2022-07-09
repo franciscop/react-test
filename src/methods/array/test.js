@@ -14,19 +14,15 @@ describe(".array()", () => {
   it("accepts a callback with a simple .map()", () => {
     const greetings = $(<div>Hello</div>);
     const texts = greetings.array((node) => node.nodeName);
-    expect(Array.isArray(texts)).toBe(true);
-    expect(texts[0]).toBe("DIV");
+    expect(texts).toEqual(["DIV"]);
   });
 
   it("receives a node, index and list in the callback", () => {
-    let args;
     const greetings = $(<div>Hello</div>);
-    greetings.array((...params) => {
-      args = params;
-    });
-    expect(args[0].nodeName).toBe("DIV");
-    expect(args[1]).toBe(0);
-    expect(args[2]).toHaveLength(greetings.length);
+    const args = greetings.array((...params) => params);
+    expect(args[0][0].nodeName).toBe("DIV");
+    expect(args[0][1]).toBe(0);
+    expect(args[0][2]).toHaveLength(greetings.length);
   });
 
   it("can receive the property to extract", () => {

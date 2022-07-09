@@ -14,18 +14,15 @@ import "./methods/delay";
 import "./methods/each";
 import "./methods/filter";
 import "./methods/find";
-import "./methods/first";
 import "./methods/get";
 import "./methods/html";
 import "./methods/is";
-import "./methods/last";
 import "./methods/map";
 import "./methods/not";
 import "./methods/parent";
 import "./methods/siblings";
 import "./methods/submit";
 import "./methods/text";
-import "./methods/toArray";
 import "./methods/trigger";
 import "./methods/type";
 

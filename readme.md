@@ -150,6 +150,39 @@ export default function Button({ primary, onClick, children, ...props }) {
 }
 ```
 
+### Concepts
+
+#### Matched nodes
+
+When we talk about "the first element" or "the elements matched" we always refer to the top-level element (unless specified differently). So in this example:
+
+```js
+const list = $(
+  <ul>
+    <li>A</li>
+    <li>B</li>
+  </ul>
+);
+```
+
+The first element, which is the same as the matched nodes, is the `ul` and **not the <li>**. We can always "go down a level" with the proper DOM navigation methods:
+
+```js
+const list = $(...);  // The node <ul>
+const items = list.children();  // An array of <li> nodes
+```
+
+In this case the _matched nodes_ of `list` is an array containing only the `<ul>`, while the _matched nodes_ for `items` is an array with both of the `<li>`.
+
+This is very important for many things, e.g. if you are trying to `.filter()` the `<li>` you need to use `items` and not `list`, same as if you want to get the first `<li>`'s Node:
+
+```js
+list.get(0); // <ul>...</ul> ~> The whole thing
+items.get(0); // <li>A</li>   ~> The first item
+items.get(1); // <li>B</li>   ~> The second item
+items.get(-1); // <li>B</li>   ~> The last item
+```
+
 ### FAQ
 
 #### Is this an official Facebook/React library?
@@ -216,35 +249,6 @@ test("Increments when clicked", async () => {
 ```
 
 We obviously love React, but let's not forget that jQuery also has some great things as well. This library brings some of these nice things to react testing.
-
-#### What is "the first element"?
-
-When we talk about "the first element" or "the elements matched" we always refer to the top-level element (unless specified differently). So in this example:
-
-```js
-const list = $(
-  <ul>
-    <li>A</li>
-    <li>B</li>
-  </ul>
-);
-```
-
-The first element, which is the same as the elements matched, is the `ul` and **not the <li>**. We can always "go down a level" with the proper DOM navigation methods:
-
-```js
-const list = $(...);  // The node <ul>
-const listItems = list.children();  // An array of <li> nodes
-```
-
-This is very important for many things, e.g. if you are trying to `.filter()` the `<li>` you need to use `listItems` and not `list`, same as if you want to get the first `<li>`'s Node:
-
-```js
-list.get(0); // <ul>...</ul> ~> The whole thing
-listItems.get(0); // <li>A</li>   ~> The first item
-listItems.get(1); // <li>B</li>   ~> The second item
-listItems.get(-1); // <li>B</li>   ~> The last item (same as the second)
-```
 
 #### When will the 1.0 be ready?
 

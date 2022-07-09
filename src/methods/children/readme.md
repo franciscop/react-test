@@ -4,7 +4,7 @@
 .children(selector) -> $
 ```
 
-Get the children nodes of all of the current elements, with an optional selector:
+Get the children nodes of all of the matched elements, optionally filtering them with a CSS selector:
 
 ```js
 it("can select all list items", async () => {

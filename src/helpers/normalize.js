@@ -17,7 +17,7 @@ export default (frag) => {
   }
 
   // For now get the first one, consider looping later
-  if (frag.toArray) frag = frag.toArray();
+  if (frag.array) frag = frag.array();
 
   // It's a single node
   if (!Array.isArray(frag)) frag = [frag];

@@ -95,7 +95,7 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
         </svg>
         <h3>Jest Matchers</h3>
       </header>
-      <p>Write intuitive test assertions and fail with clear error messages</p>
+      <p>Write intuitive test assertions that fail with clear error messages</p>
     </div>
   </div>
   <div>
@@ -112,7 +112,7 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
         <a
           href="https://github.com/franciscop/react-test/actions"
           target="_blank"
-          >250+ tests</a
+          >300+ tests</a
         >
         to ensure everything works. We follow semver strictly
       </p>
@@ -176,8 +176,8 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
       </p>
       <p>
         You can use the library methods to read values like
-        <code>.text()</code>, or get the first node with
-        <code>.first()</code> and then use the native DOM API.
+        <code>.text()</code>, or get a node with <code>.get(index)</code> and
+        then use the native DOM API.
       </p>
     </div>
   </div>
@@ -188,7 +188,7 @@ it(&quot;renders a simple title&quot;, () =&gt; {
   const title = $(&lt;h1&gt;Hello&lt;/h1&gt;);
   expect(title.text()).toBe(&quot;Hello&quot;);
   expect(title.attr(&quot;id&quot;)).toBe(null);
-  expect(title.first().nodeName).toBe(&quot;H1&quot;);
+  expect(title.get(0).nodeName).toBe(&quot;H1&quot;);
   // ...
 });</code></pre>
   </div>
@@ -252,8 +252,8 @@ it(&quot;Can increment a counter&quot;, async () =&gt; {
   const counter = $(&lt;Counter /&gt;);
   expect(counter).toHaveText(&quot;0&quot;);
   await counter.click();
-  // Or await counter.find(&quot;button&quot;).click();
-  expect(counter).toHaveText(&quot;1&quot;);
+  await counter.click();
+  expect(counter).toHaveText(&quot;2&quot;);
 });</code></pre>
   </div>
 </section>
@@ -278,14 +278,14 @@ it(&quot;Can increment a counter&quot;, async () =&gt; {
     </div>
   </div>
   <div>
-    <pre><code class="language-js">import $ from &quot;react-test&quot;;
+    <pre><code class="language-js">import $, {until } from &quot;react-test&quot;;
 import UserList from &quot;./UserList&quot;;
 
-it(&quot;Can wait for a DOM change&quot;, async () =&gt; {
+it(&quot;waits for a DOM change&quot;, async () =&gt; {
   const users = $(&lt;UserList /&gt;);
-  expect(users.find(&quot;ul li&quot;).length).toBe(0);
-  await until(users).find(&quot;ul li&quot;);
-  expect(users.find(&quot;ul li&quot;).length).toBe(10);
+  expect(users.find(&quot;li&quot;)).toHaveLength(0);
+  await until(users).find(&quot;li&quot;);
+  expect(users.find(&quot;li&quot;)).toHaveLength(10);
 });</code></pre>
   </div>
 </section>

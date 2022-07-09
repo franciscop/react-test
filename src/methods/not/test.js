@@ -13,6 +13,11 @@ const list = $(
 const items = list.children();
 
 describe(".not()", () => {
+  it("rejects everything when emtpy", async () => {
+    const out = items.not();
+    expect(out).toHaveLength(0);
+  });
+
   it("can exclude an element", async () => {
     const out = items.not(".active").array((n) => n.textContent);
     expect(out).toEqual(["A", "C"]);
@@ -21,6 +26,10 @@ describe(".not()", () => {
   it("Has the correct html", async () => {
     const out = items.not(":last-child").array((n) => n.textContent);
     expect(out).toEqual(["A", "B"]);
+  });
+
+  it("doesn't accept a callback", async () => {
+    expect(() => items.not((node) => node)).toThrow();
   });
 
   describe("readme", () => {
