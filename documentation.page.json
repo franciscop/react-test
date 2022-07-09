@@ -1,6 +1,7 @@
 {
   "title": "🧯 React Test - Expressive testing library for React",
   "home": "assets/home.html",
+  "homepage": "https://react-test.dev/",
   "menu": {
     "Documentation": "/documentation",
     "Issues": "https://github.com/franciscop/react-test/issues",

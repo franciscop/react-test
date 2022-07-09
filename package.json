@@ -27,6 +27,7 @@
     "runner"
   ],
   "main": "index.min.js",
+  "types": "./index.d.ts",
   "files": [],
   "dependencies": {
     "react": ">=18.0.0",
