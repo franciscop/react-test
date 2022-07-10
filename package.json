@@ -28,7 +28,7 @@
   ],
   "main": "index.min.js",
   "types": "./index.d.ts",
-  "files": [],
+  "files": ["index.d.ts"],
   "dependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
