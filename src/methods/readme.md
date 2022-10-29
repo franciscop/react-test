@@ -19,6 +19,8 @@ expect(button.text()).toBe("Hello world");
 | [.parent()](#parent)     | [.text()](#text)   |                          |
 | [.siblings()](#siblings) |                    |                          |
 
+Others: [.props()](#props) and [.render()](#render).
+
 Since the API is inspired on jQuery we call React Test `$`, but you can call it `render` or anything you prefer.
 
 You _cannot_ modify the DOM directly with this library, but you _can_ trigger events that, depending on your React components, might modify the DOM:

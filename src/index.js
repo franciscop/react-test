@@ -20,6 +20,8 @@ import "./methods/is";
 import "./methods/map";
 import "./methods/not";
 import "./methods/parent";
+import "./methods/props";
+import "./methods/render/index.js";
 import "./methods/siblings";
 import "./methods/submit";
 import "./methods/text";

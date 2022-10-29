@@ -17,8 +17,10 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 const render = (component) => {
   const container = window.document.createElement("div");
   container.id = "root";
+  container.component = component;
   window.document.body.appendChild(container);
   const root = createRoot(container);
+  container.root = root;
   act(() => root.render(component));
   return [...container.childNodes];
 };

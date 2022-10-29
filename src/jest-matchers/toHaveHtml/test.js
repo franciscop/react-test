@@ -12,6 +12,8 @@ const $div = $(
   </div>
 );
 
+const expectString = `<div><span>I am a span</span><span>Im also here</span><span><b>here</b></span></div>`;
+
 describe(".toHaveHtml()", () => {
   it("works for a simple case", () => {
     expect($div).toHaveHtml("<span>I am a span</span>");
@@ -19,7 +21,7 @@ describe(".toHaveHtml()", () => {
 
   it("requires valid html", () => {
     expect(() => expect($div).toHaveHtml("<h1>header</h1>")).toThrow(
-      "Expected <div> to have `<h1>header</h1>`"
+      `Expected ${expectString} to include <h1>header</h1>`
     );
   });
 
@@ -40,7 +42,9 @@ describe(".toHaveHtml()", () => {
     expect($div).not.toHaveHtml("<h1>header</h1>");
     expect(() =>
       expect($div).not.toHaveHtml("<span>I am a span</span>")
-    ).toThrow("Expected <div> not to have `<span>I am a span</span>`");
+    ).toThrow(
+      `Expected ${expectString} not to include <span>I am a span</span>`
+    );
   });
 
   describe("multiple elements", () => {
@@ -55,6 +59,8 @@ describe(".toHaveHtml()", () => {
       </section>
     ).find("div");
 
+    const strDivs = `<div id="div-1"><span>span text</span></div>`;
+
     const validInnerHTMLs = ["<span>span text</span>", "span text"];
     const invalidInnerHTMLs = ["<p></p>", "<li></li>", "<span>div</span>"];
 
@@ -66,7 +72,7 @@ describe(".toHaveHtml()", () => {
       // Throws on first child with non-existent HTML
       for (const invalidHTML of invalidInnerHTMLs) {
         expect(() => expect($divs).toHaveHtml(invalidHTML)).toThrow(
-          `Expected <div id="div-1"> to have \`${invalidHTML}\``
+          `Expected ${strDivs} to include ${invalidHTML}`
         );
       }
     });
@@ -79,7 +85,7 @@ describe(".toHaveHtml()", () => {
       // Throws on first child with valid HTML
       for (const validHTML of validInnerHTMLs) {
         expect(() => expect($divs).not.toHaveHtml(validHTML)).toThrow(
-          `Expected <div id="div-1"> not to have \`${validHTML}\``
+          `Expected ${strDivs} not to include ${validHTML}`
         );
       }
     });
