@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rollup -c",
     "lint": "npx prettier src --write",
-    "size": "echo $(gzip -c index.min.js | wc -c) bytes",
+    "size": "echo $(gzip -c index.js | wc -c) bytes",
     "start": "jest src/ --coverage --watch",
     "pretest": "npx prettier --write readme.md src",
     "test": "jest ./src/ --coverage --detectOpenHandles"
@@ -26,11 +26,8 @@
     "jest",
     "runner"
   ],
-  "main": "index.min.js",
-  "types": "./index.d.ts",
-  "files": [
-    "index.d.ts"
-  ],
+  "main": "index.js",
+  "files": [],
   "dependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
@@ -56,8 +53,7 @@
     "rollup": "^1.32.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^5.2.0"
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "jest": {
     "testEnvironment": "jsdom"

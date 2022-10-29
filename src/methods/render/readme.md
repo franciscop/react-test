@@ -4,7 +4,7 @@
 .render(newComponent) -> $
 ```
 
-Rerender the component as specified with the new value, or unmount/mount the new component.
+Rerender the component as specified with the new value. If the component is different, or unmount+mount those respectively:
 
 ```js
 const Demo = (props) => <div {...props}>world</div>;

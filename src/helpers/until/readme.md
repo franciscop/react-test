@@ -1,6 +1,6 @@
 ### until()
 
-This is a very useful function. It's really flexible on what it does, the basics is that it keeps waiting until some condition is met. For example, let's say that you have a timer that changes its class to `active` after 3s:
+Wait until the specified condition is fulfilled. There are multiple ways of specifying the conditions. For example, let's say that you have a timer that changes its class to `active` after 3s:
 
 ```js
 import $, { until } from "react-test";

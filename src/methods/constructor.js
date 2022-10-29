@@ -1,7 +1,7 @@
 import render from "./render";
 
-const $ = function ReactTest(obj, ctx = {}) {
-  if (!(this instanceof $)) return new $(obj, ctx);
+function ReactTest(obj, ctx = {}) {
+  if (!(this instanceof ReactTest)) return new ReactTest(obj, ctx);
 
   this.events = ctx.events || {};
 
@@ -21,13 +21,13 @@ const $ = function ReactTest(obj, ctx = {}) {
   Object.defineProperty(this, "length", { get: () => this.nodes.length });
 
   return this;
-};
+}
 
 // Allow to iterate with for...of and destructure it like [...$list.find('li')]
-$.prototype[Symbol.iterator] = function* () {
+ReactTest.prototype[Symbol.iterator] = function* () {
   for (let node of this.nodes) {
     yield node;
   }
 };
 
-export default $;
+export default ReactTest;

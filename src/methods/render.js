@@ -14,7 +14,7 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 // const root = createRoot(container); // createRoot(container!) if you use TypeScript
 // root.render(<App tab="home" />);
 
-const render = (component) => {
+const renderRoot = (component) => {
   const container = window.document.createElement("div");
   container.id = "root";
   container.component = component;
@@ -30,12 +30,12 @@ export default (obj) => {
   if (!obj) return [];
 
   if (["string", "number", "boolean"].includes(typeof obj)) {
-    return render(obj);
+    return renderRoot(obj);
   }
 
   // A react instance, so render it to jsdom:
   if (obj.$$typeof) {
-    return render(obj);
+    return renderRoot(obj);
   }
 
   // It's already parsed

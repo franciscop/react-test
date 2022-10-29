@@ -4,7 +4,7 @@
 .props(newProps) -> $
 ```
 
-Rerender the component with the new specified props.
+Rerender the component with the new props specified as a plain object:
 
 ```js
 const Demo = (props) => <div {...props}>world</div>;

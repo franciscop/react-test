@@ -1,5 +1,16 @@
 import $ from "../constructor";
 
+/**
+ * Keep only the nodes that match the selector, removing the others:
+ *
+ * ```js
+ * const items = $(<ChatRooms />).children();
+ * const people = items.filter(".user").array("innerText");
+ * expect(people).toEqual(["John", "Sarah"]);
+ * ```
+ *
+ * **[→ Full .filter() Docs](https://react-test.dev/documentation#filter)**
+ */
 $.prototype.filter = function (selector = "*") {
   // An plain string
   if (typeof selector === "string") {

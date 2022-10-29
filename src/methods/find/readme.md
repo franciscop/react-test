@@ -1,14 +1,14 @@
 ### .find()
 
 ```js
-.find(selector) ->
+.find(selector) -> $
 ```
 
 Get all of the descendants of the nodes with an optional filter
 
 #### Parameters
 
-`filter`: a string containing a selector that nodes must pass or a function that return a boolean. See [.filter()](#filter) for a better explanation
+`selector`: a string containing a selector that nodes must pass or a function that return a boolean. See [.filter()](#filter) for a complete explanation of how selectors work.
 
 #### Return
 

@@ -51,13 +51,22 @@ const untilObject = (obj) => {
   return new Proxy(obj, { get: getter });
 };
 
-const until = (arg) => {
+/**
+ * Wait until the specified condition is fulfilled. There are multiple ways of specifying the conditions:
+ *
+ * ```js
+ * await until(() => new Date() - init > 1000);
+ * await until(button).is(".active");
+ * await until(list).find("li");
+ * ```
+ *
+ * **[→ Full until() Docs](https://react-test.dev/documentation#until)**
+ */
+export default function until(arg) {
   if (typeof arg === "function") {
     return untilCallback(arg);
   }
   if (typeof arg === "object") {
     return untilObject(arg);
   }
-};
-
-export default until;
+}

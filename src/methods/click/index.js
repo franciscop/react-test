@@ -1,7 +1,17 @@
 import $ from "../constructor";
 
-// Right now this is forced to be async just for the sake of it (from trigger).
-// This is because I'm fairly confident the final API will be async
+/**
+ * Trigger a click on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
+ *
+ * ```js
+ * const counter = $(<Counter />);
+ * expect(counter.text()).toEqual("0");
+ * await counter.click();
+ * expect(counter.text()).toEqual("1");
+ * ```
+ *
+ * **[→ Full .click() Docs](https://react-test.dev/documentation#click)**
+ */
 $.prototype.click = function () {
   return this.trigger("click");
 };

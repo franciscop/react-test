@@ -1,7 +1,17 @@
 import $ from "../constructor";
 
-// Right now this is forced to be async just for the sake of it (from trigger).
-// This is because I'm fairly confident the final API will be async
+/**
+ * Trigger a change in all of the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
+ *
+ * ```js
+ * const input = $(<input defaultValue="hello" />);
+ * expect(input).toHaveValue("hello");
+ * await input.change("world");
+ * expect(input).toHaveValue("world");
+ * ```
+ *
+ * **[→ Full .change() Docs](https://react-test.dev/documentation#change)**
+ */
 $.prototype.change = function (value) {
   // This is needed for uncontrolled inputs
   this.map((node) => {
