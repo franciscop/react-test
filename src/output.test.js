@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import $ from "./index.js";
-import "babel-polyfill";
+import $ from "../index.js";
 
 describe("output", () => {
   it("can use hooks", () => {

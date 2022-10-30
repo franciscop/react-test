@@ -114,22 +114,26 @@
 
   global.IS_REACT_ACT_ENVIRONMENT = true;
 
-  // // Before
-  // import { render } from 'react-dom';
-  // const container = document.getElementById('app');
-  // render(<App tab="home" />, container);
-  //
-  // // After
-  // import { createRoot } from 'react-dom/client';
-  // const container = document.getElementById('app');
-  // const root = createRoot(container); // createRoot(container!) if you use TypeScript
-  // root.render(<App tab="home" />);
-
   const createBoundaries = () => {
     const handler = { error: false };
+
     class Catcher extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { isError: false };
+        window.addEventListener("error", this.onError.bind(this));
+      }
       static getDerivedStateFromError() {
         return { isError: true };
+      }
+      componentWillUnmount() {
+        window.removeEventListener("error", this.onError);
+      }
+      onError(event) {
+        // This elevates the errors from local in the render tree
+        // to global in the test level
+        event.preventDefault();
+        this.componentDidCatch(event.error);
       }
       componentDidCatch(error) {
         handler.error = error;
@@ -146,12 +150,15 @@
     const [handler, Catcher] = createBoundaries();
     const container = window.document.createElement("div");
     container.id = "root";
-    container.component = React.createElement(Catcher, null, component);
+    container.handler = handler;
+    container.catcher = Catcher;
+    container.component = component;
     window.document.body.appendChild(container);
     const root = client_1(container);
     container.root = root;
-    testUtils.act(() => root.render(component));
+    testUtils.act(() => root.render(React.createElement(Catcher, null, component)));
     if (handler.error) {
+      testUtils.act(() => root.unmount());
       throw handler.error;
     }
     return [...container.childNodes];
@@ -941,10 +948,18 @@
     const container = this.nodes[0].closest("#root");
     const component = container.component;
     const root = container.root;
+    const handler = container.handler;
+    const Catcher = container.catcher;
     if (typeof props === "function") {
       props = props(component.props);
     }
-    testUtils.act(() => root.render({ ...component, props }));
+    testUtils.act(() =>
+      root.render(React.createElement(Catcher, null, { ...component, props }))
+    );
+    if (handler.error) {
+      testUtils.act(() => root.unmount());
+      throw handler.error;
+    }
     this.nodes = [...container.childNodes];
     return this;
   };
@@ -964,7 +979,13 @@
   ReactTest.prototype.render = function (component) {
     const container = this.nodes[0].closest("#root");
     const root = container.root;
-    testUtils.act(() => root.render(component));
+    const Catcher = container.catcher;
+    const handler = container.handler;
+    testUtils.act(() => root.render(React.createElement(Catcher, null, component)));
+    if (handler.error) {
+      testUtils.act(() => root.unmount());
+      throw handler.error;
+    }
     this.nodes = [...container.childNodes];
     return this;
   };

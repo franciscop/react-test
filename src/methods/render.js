@@ -4,22 +4,26 @@ import { act } from "react-dom/test-utils";
 
 global.IS_REACT_ACT_ENVIRONMENT = true;
 
-// // Before
-// import { render } from 'react-dom';
-// const container = document.getElementById('app');
-// render(<App tab="home" />, container);
-//
-// // After
-// import { createRoot } from 'react-dom/client';
-// const container = document.getElementById('app');
-// const root = createRoot(container); // createRoot(container!) if you use TypeScript
-// root.render(<App tab="home" />);
-
 const createBoundaries = () => {
   const handler = { error: false };
+
   class Catcher extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { isError: false };
+      window.addEventListener("error", this.onError.bind(this));
+    }
     static getDerivedStateFromError() {
       return { isError: true };
+    }
+    componentWillUnmount() {
+      window.removeEventListener("error", this.onError);
+    }
+    onError(event) {
+      // This elevates the errors from local in the render tree
+      // to global in the test level
+      event.preventDefault();
+      this.componentDidCatch(event.error);
     }
     componentDidCatch(error) {
       handler.error = error;
@@ -36,12 +40,15 @@ const renderRoot = (component) => {
   const [handler, Catcher] = createBoundaries();
   const container = window.document.createElement("div");
   container.id = "root";
-  container.component = React.createElement(Catcher, null, component);
+  container.handler = handler;
+  container.catcher = Catcher;
+  container.component = component;
   window.document.body.appendChild(container);
   const root = createRoot(container);
   container.root = root;
-  act(() => root.render(component));
+  act(() => root.render(React.createElement(Catcher, null, component)));
   if (handler.error) {
+    act(() => root.unmount());
     throw handler.error;
   }
   return [...container.childNodes];
