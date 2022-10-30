@@ -1,6 +1,6 @@
 import commonjs from "rollup-plugin-commonjs";
 import nodeResolve from "rollup-plugin-node-resolve";
-import json from "rollup-plugin-json";
+// import json from "rollup-plugin-json";
 
 export default {
   input: "src/index.js",
@@ -13,16 +13,14 @@ export default {
     exports: "named",
 
     globals: {
-      window: "Window",
       react: "React",
       "react-dom": "ReactDOM",
       "react-dom/test-utils": "testUtils",
     },
   },
-  external: ["window", "react", "react-dom", "react-dom/test-utils"],
+  external: ["react", "react-dom", "react-dom/test-utils"],
   plugins: [
     nodeResolve({ preferBuiltins: true }),
     commonjs({ namedExports: { "react-dom/test-utils": ["act"] } }),
-    json(),
   ],
 };

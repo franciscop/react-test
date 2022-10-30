@@ -10,28 +10,24 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "lint": "npx prettier src --write",
+    "lint": "prettier src --write",
     "size": "echo $(gzip -c index.js | wc -c) bytes",
     "start": "jest src/ --coverage --watch",
-    "pretest": "npx prettier --write readme.md src",
+    "pretest": "prettier --write readme.md src",
     "test": "jest ./src/ --coverage --detectOpenHandles"
   },
   "keywords": [
     "react",
     "test",
     "testing",
-    "jquery",
     "expressive",
-    "act",
-    "jest",
-    "runner"
+    "jest"
   ],
   "main": "index.js",
   "files": [],
-  "dependencies": {
+  "peerDependencies": {
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0",
-    "window": "^1.0.0"
+    "react-dom": ">=18.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
@@ -44,15 +40,13 @@
     "eslint": "^6.8.0",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-react": "^7.19.0",
-    "form-mate": "^3.1.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "prettier": "^2.4.1",
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "rollup": "^1.32.1",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "jest": {
@@ -63,9 +57,6 @@
       [
         "@babel/preset-env",
         {
-          "targets": {
-            "node": 4
-          },
           "useBuiltIns": "usage",
           "corejs": 3
         }
