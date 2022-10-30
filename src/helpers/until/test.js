@@ -1,6 +1,6 @@
+import "babel-polyfill";
 import React, { useState } from "react";
 import $, { until } from "../../";
-import "babel-polyfill";
 
 describe("until()", () => {
   it("resolves immediately when empty", async () => {

@@ -1,3 +1,4 @@
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { act } from "react-dom/test-utils";
 
@@ -14,14 +15,35 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 // const root = createRoot(container); // createRoot(container!) if you use TypeScript
 // root.render(<App tab="home" />);
 
+const createBoundaries = () => {
+  const handler = { error: false };
+  class Catcher extends React.Component {
+    static getDerivedStateFromError() {
+      return { isError: true };
+    }
+    componentDidCatch(error) {
+      handler.error = error;
+    }
+    render() {
+      if (this.state && this.state.isError) return null;
+      return this.props.children;
+    }
+  }
+  return [handler, Catcher];
+};
+
 const renderRoot = (component) => {
+  const [handler, Catcher] = createBoundaries();
   const container = window.document.createElement("div");
   container.id = "root";
-  container.component = component;
+  container.component = React.createElement(Catcher, null, component);
   window.document.body.appendChild(container);
   const root = createRoot(container);
   container.root = root;
   act(() => root.render(component));
+  if (handler.error) {
+    throw handler.error;
+  }
   return [...container.childNodes];
 };
 

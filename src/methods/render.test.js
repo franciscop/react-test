@@ -17,6 +17,14 @@ describe("render", () => {
     expect(html[0].textContent).toEqual("Hello");
   });
 
+  it("can deal with errors", () => {
+    const MyDemo = () => {
+      throw new Error("hello");
+    };
+    const html = () => render(<MyDemo />);
+    expect(html).toThrow("hello");
+  });
+
   it("can render a plain Div", () => {
     const html = render(<div>Abc</div>);
     expect(html[0].outerHTML).toEqual(`<div>Abc</div>`);

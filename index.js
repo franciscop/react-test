@@ -1,9 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react-dom/test-utils'), require('react-dom')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react-dom/test-utils', 'react-dom'], factory) :
-  (global = global || self, factory(global.$ = {}, global.testUtils, global.ReactDOM));
-}(this, (function (exports, testUtils, reactDom) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react-dom/test-utils'), require('react'), require('react-dom')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react-dom/test-utils', 'react', 'react-dom'], factory) :
+  (global = global || self, factory(global.$ = {}, global.testUtils, global.React, global.ReactDOM));
+}(this, (function (exports, testUtils, React, reactDom) { 'use strict';
 
+  React = React && Object.prototype.hasOwnProperty.call(React, 'default') ? React['default'] : React;
   reactDom = reactDom && Object.prototype.hasOwnProperty.call(reactDom, 'default') ? reactDom['default'] : reactDom;
 
   const delay = (time) => new Promise((done) => setTimeout(done, time));
@@ -124,14 +125,35 @@
   // const root = createRoot(container); // createRoot(container!) if you use TypeScript
   // root.render(<App tab="home" />);
 
+  const createBoundaries = () => {
+    const handler = { error: false };
+    class Catcher extends React.Component {
+      static getDerivedStateFromError() {
+        return { isError: true };
+      }
+      componentDidCatch(error) {
+        handler.error = error;
+      }
+      render() {
+        if (this.state && this.state.isError) return null;
+        return this.props.children;
+      }
+    }
+    return [handler, Catcher];
+  };
+
   const renderRoot = (component) => {
+    const [handler, Catcher] = createBoundaries();
     const container = window.document.createElement("div");
     container.id = "root";
-    container.component = component;
+    container.component = React.createElement(Catcher, null, component);
     window.document.body.appendChild(container);
     const root = client_1(container);
     container.root = root;
     testUtils.act(() => root.render(component));
+    if (handler.error) {
+      throw handler.error;
+    }
     return [...container.childNodes];
   };
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import $ from "./index.min.js";
+import $ from "./index.js";
 import "babel-polyfill";
 
 describe("output", () => {
