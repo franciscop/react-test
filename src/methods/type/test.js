@@ -20,7 +20,12 @@ describe(".type()", () => {
     expect(onChange).not.toBeCalled();
     await $input.type("Hello");
     expect(onChange).toBeCalled();
+    // Only written one letter in the first call
     expect(onChange.mock.calls[0][0]).toMatchObject({
+      target: { value: "H" },
+    });
+    // Written all of the letters in the last call
+    expect(onChange.mock.calls.pop()[0]).toMatchObject({
       target: { value: "Hello" },
     });
   });

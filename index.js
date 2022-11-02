@@ -1075,8 +1075,8 @@
     return props;
   };
 
-  const createEvent = (type, target, ...objs) => {
-    const props = merge([{ target }, ...objs]);
+  const createEvent = (type, ...objs) => {
+    const props = merge([...objs]);
     const event = new Event(type);
     for (let key in props) {
       Object.defineProperty(event, key, {
@@ -1090,6 +1090,19 @@
 
   const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
 
+  /**
+   * Simulates an event happening on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
+   *
+   * ```js
+   * const fn = jest.fn();
+   * const canvas = $(<canvas onClick={fn}></canvas>);
+   * await canvas.trigger("click", { clientX: 10, clientY: 20 });
+   * const event = fn.mock.calls[0][0];
+   * expect(event).toMatchObject({ clientX: 10, clientY: 20 });
+   * ```
+   *
+   * **[→ Full .trigger() Docs](https://react-test.dev/documentation#trigger)**
+   */
   ReactTest.prototype.trigger = function (type, extra = {}) {
     // TODO: probably whitelist this
     const propName = `on${capitalize(type)}`.replace(
@@ -1104,8 +1117,9 @@
           // The events manually registered on the root element
           if (this.events && this.events[type]) {
             const currentTarget = parents[parents.length - 1];
-            const event = createEvent(type, target, { ...extra, currentTarget });
+            const event = createEvent(type, { target, currentTarget, ...extra });
             this.events[type].map((cb) => cb(event));
+            return;
           }
 
           // If there's a direct way of calling it e.g. `button.click()`
@@ -1118,7 +1132,7 @@
               });
               target.dispatchEvent(event);
             } else {
-              target[type](createEvent(type, target, extra));
+              target[type](createEvent(type, { target, ...extra }));
             }
           } else {
             const events = parents
@@ -1126,7 +1140,7 @@
               .filter((ev) => ev[0])
               .map((evts) => [evts[0][propName], evts[1]])
               .filter((evts) => evts[0])
-              .map(([cb, el]) => cb(createEvent(type, el, extra)));
+              .map(([cb, target]) => cb(createEvent(type, { target, ...extra })));
             await Promise.all(events);
           }
         })
