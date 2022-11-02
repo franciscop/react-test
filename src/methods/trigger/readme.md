@@ -1,4 +1,4 @@
-### .trigger(name, extra?)
+### .trigger()
 
 ```js
 .trigger(name, extra?) -> Promise
