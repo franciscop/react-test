@@ -34,7 +34,7 @@ To allow for more people to get started as contributors, please limit your contr
 You can follow some of the existing methods in src/[METHOD]. We'd recommended to copy one of the existing ones and modify the files to have a base to get started, like `.children()`.
 
 ## Writing Code
-1. Create a local branch of the repository
+1. Create a local branch of the repository (alternatively you could use the "fork" menu to create your own copy of the repository)
 2. Copy an existing component folder (such as '.children()') from the existing modules in /src
 3. Rename the folder to match the name defined in the Issue you took from the Issues tab in Github.
 4. Write your implementation in the "index.js" file
@@ -42,6 +42,6 @@ You can follow some of the existing methods in src/[METHOD]. We'd recommended to
 6. Write tests for your function in the "test.js" file (More info on writing tests in the [Testing How-To](./contributing-guides/how-tos/Testing.md))
 
 ## Merging Your Contribution
-Once you have completed a code contribution you need to first create a branch on origin.  This may require getting permission from the repository owner.
-Once your branch is pushed to origin you can initiate a pull request.  To do so simply go to the Pull Requests tab in Github and click "New Pull Request".  Make a request to merge your branch to main and make sure to link the Issue you claimed in the PR description.  The project owner will review the PR.  Keep an eye out for feedback/comments on your PR to know if you need to make additional changes to allow your contribution to merge. 
+If you forked your own version of the repository, you will be able to make a Pull Request from your fork to the main fork.  If you create a local branch from the main repository, you may need to get permission from the repository owner in order to push your changes to your branch on origin.
+Once your branch is pushed to origin (or main in your fork) you can initiate a pull request.  To do so simply go to the Pull Requests tab in Github and click "New Pull Request".  Make a request to merge your branch to main and make sure to link the Issue you claimed in the PR description.  The project owner will review the PR.  Keep an eye out for feedback/comments on your PR to know if you need to make additional changes to allow your contribution to merge. 
 
