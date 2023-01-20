@@ -4,9 +4,7 @@ import { act } from "react-dom/test-utils";
 
 global.IS_REACT_ACT_ENVIRONMENT = true;
 
-const createBoundaries = () => {
-  const handler = { error: false };
-
+const createCatcher = () => {
   class Catcher extends React.Component {
     constructor(props) {
       super(props);
@@ -26,45 +24,47 @@ const createBoundaries = () => {
       this.componentDidCatch(event.error);
     }
     componentDidCatch(error) {
-      handler.error = error;
+      Catcher.error = error;
     }
     render() {
       if (this.state && this.state.isError) return null;
       return this.props.children;
     }
   }
-  return [handler, Catcher];
+
+  return Catcher;
 };
 
-const renderRoot = (component) => {
-  const [handler, Catcher] = createBoundaries();
+const createContainer = () => {
+  const Catcher = createCatcher();
   const container = window.document.createElement("div");
   container.id = "root";
-  container.handler = handler;
-  container.catcher = Catcher;
-  container.component = component;
   window.document.body.appendChild(container);
   const root = createRoot(container);
   container.root = root;
-  act(() => root.render(React.createElement(Catcher, null, component)));
-  if (handler.error) {
-    act(() => root.unmount());
-    throw handler.error;
-  }
-  return [...container.childNodes];
+
+  // Render the component and catch any error during this rendering
+  container.render = (component) => {
+    container.component = component;
+    act(() => root.render(React.createElement(Catcher, null, component)));
+    if (Catcher.error) {
+      act(() => root.unmount());
+      throw Catcher.error;
+    }
+  };
+
+  return container;
 };
 
 // This takes a react object like <Button /> and returns the DOM tree
 export default (obj) => {
   if (!obj) return [];
 
-  if (["string", "number", "boolean"].includes(typeof obj)) {
-    return renderRoot(obj);
-  }
-
-  // A react instance, so render it to jsdom:
-  if (obj.$$typeof) {
-    return renderRoot(obj);
+  // A react instance or a plain value, so render it to jsdom:
+  if (obj.$$typeof || ["string", "number", "boolean"].includes(typeof obj)) {
+    const container = createContainer();
+    container.render(obj);
+    return [...container.childNodes];
   }
 
   // It's already parsed

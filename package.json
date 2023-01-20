@@ -12,7 +12,7 @@
     "build": "rollup -c",
     "lint": "prettier src --write",
     "size": "echo $(gzip -c index.js | wc -c) bytes",
-    "start": "jest src/ --coverage --watch",
+    "start": "jest src/ --watch",
     "pretest": "prettier --write readme.md src",
     "test": "jest ./src/ --coverage --detectOpenHandles"
   },
@@ -50,7 +50,10 @@
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "jest": {
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   },
   "babel": {
     "presets": [

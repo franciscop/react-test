@@ -4,7 +4,7 @@
 .render(newComponent) -> $
 ```
 
-Rerender the component as specified with the new value. If the component is different, or unmount+mount those respectively:
+Rerender the component as specified with the new value. If the component is different unmount+mount those respectively:
 
 ```js
 const Demo = (props) => <div {...props}>world</div>;
@@ -12,8 +12,10 @@ const Demo = (props) => <div {...props}>world</div>;
 it("can force-update the props on the root", () => {
   const demo = $(<Demo className="hello" />);
   expect(demo).toHaveHtml(`<div class="hello">world</div>`);
+
   // Rerender with a new className on the top component:
-  demo.props(<Demo className="bye" />);
+  demo.render(<Demo className="bye" />);
+
   expect(demo).toHaveHtml(`<div class="bye">world</div>`);
 });
 ```

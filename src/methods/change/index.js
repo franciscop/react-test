@@ -11,8 +11,9 @@ import $ from "../constructor";
  * ```
  *
  * **[→ Full .change() Docs](https://react-test.dev/documentation#change)**
+ * @param {(string|boolean)} value
  */
-$.prototype.change = function (value) {
+$.prototype.change = async function (value) {
   // This is needed for uncontrolled inputs
   this.map((node) => {
     if (
@@ -24,5 +25,7 @@ $.prototype.change = function (value) {
       node.value = value;
     }
   });
-  return this.trigger("change", { target: { value } });
+
+  await this.trigger("change", { target: { value } });
+  return null;
 };

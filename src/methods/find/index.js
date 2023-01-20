@@ -9,6 +9,7 @@ import $ from "../constructor";
  * ```
  *
  * **[→ Full .find() Docs](https://react-test.dev/documentation#find)**
+ * @param {(string)} selector
  */
 $.prototype.find = function (selector) {
   if (!selector) return this;

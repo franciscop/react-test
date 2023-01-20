@@ -11,11 +11,12 @@ import $ from "../constructor";
  * ```
  *
  * **[→ Full .array() Docs](https://react-test.dev/documentation#array)**
+ * @param {(string|function)} callback
  */
 $.prototype.array = function (callback = (node) => node) {
   if (typeof callback === "string") {
     const key = callback;
     callback = (node) => node[key];
   }
-  return this.nodes.map(callback);
+  return /** @type {(Node[]|string[])} */ (this.nodes.map(callback));
 };

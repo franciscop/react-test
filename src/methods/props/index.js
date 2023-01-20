@@ -1,6 +1,4 @@
-import React from "react";
 import $ from "../constructor";
-import { act } from "react-dom/test-utils";
 
 /**
  * Re-render a component with the new props specified as a plain object:
@@ -16,20 +14,10 @@ import { act } from "react-dom/test-utils";
  */
 $.prototype.props = function (props) {
   const container = this.nodes[0].closest("#root");
-  const component = container.component;
-  const root = container.root;
-  const handler = container.handler;
-  const Catcher = container.catcher;
   if (typeof props === "function") {
-    props = props(component.props);
+    props = props(container.component.props);
   }
-  act(() =>
-    root.render(React.createElement(Catcher, null, { ...component, props }))
-  );
-  if (handler.error) {
-    act(() => root.unmount());
-    throw handler.error;
-  }
+  container.render({ ...container.component, props });
   this.nodes = [...container.childNodes];
   return this;
 };

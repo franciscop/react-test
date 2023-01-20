@@ -12,8 +12,10 @@ const Demo = (props) => <div {...props}>world</div>;
 it("can force-update the props on the root", () => {
   const demo = $(<Demo className="hello" />);
   expect(demo).toHaveHtml(`<div class="hello">world</div>`);
+
   // Rerender with a new className on the top component:
   demo.props({ className: "bye" });
+
   expect(demo).toHaveHtml(`<div class="bye">world</div>`);
 });
 ```

@@ -8,18 +8,16 @@ const button = $(<button>Hello world</button>);
 expect(button.text()).toBe("Hello world");
 ```
 
-| DOM navigation           | Read data          | Promises (Events+timing) |
-| ------------------------ | ------------------ | ------------------------ |
-| [.children()](#children) | [.array()](#array) | [.change()](#change)     |
-| [.closest()](#closest)   | [.attr()](#attr)   | [.click()](#click)       |
-| [.each()](#each)         | [.data()](#data)   | [.delay()](#delay)       |
-| [.filter()](#filter)     | [.get()](#get)     | [.submit()](#submit)     |
-| [.find()](#find)         | [.html()](#html)   | [.trigger()](#trigger)   |
-| [.not()](#not)           | [.is()](#is)       | [.type()](#type)         |
-| [.parent()](#parent)     | [.text()](#text)   |                          |
-| [.siblings()](#siblings) |                    |                          |
-
-Others: [.props()](#props) and [.render()](#render).
+| DOM navigation           | Read data          | Events                 | Others               |
+| ------------------------ | ------------------ | ---------------------- | -------------------- |
+| [.children()](#children) | [.array()](#array) | [.change()](#change)   | [.delay()](#delay)   |
+| [.closest()](#closest)   | [.attr()](#attr)   | [.click()](#click)     | [.props()](#props)   |
+| [.each()](#each)         | [.data()](#data)   | [.submit()](#submit)   | [.render()](#render) |
+| [.filter()](#filter)     | [.get()](#get)     | [.trigger()](#trigger) |                      |
+| [.find()](#find)         | [.html()](#html)   | [.type()](#type)       |                      |
+| [.not()](#not)           | [.is()](#is)       |                        |                      |
+| [.parent()](#parent)     | [.text()](#text)   |                        |                      |
+| [.siblings()](#siblings) |                    |                        |                      |
 
 Since the API is inspired on jQuery we call React Test `$`, but you can call it `render` or anything you prefer.
 

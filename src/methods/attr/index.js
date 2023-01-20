@@ -11,8 +11,9 @@ import $ from "../constructor";
  * ```
  *
  * **[→ Full .attr() Docs](https://react-test.dev/documentation#attr)**
+ * @param {(string)} name
  */
 $.prototype.attr = function (name) {
   const node = this.get(0);
-  return node && node.getAttribute(name);
+  return /** @type {(string|null)} */ (node && node.getAttribute(name));
 };

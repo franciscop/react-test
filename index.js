@@ -114,9 +114,7 @@
 
   global.IS_REACT_ACT_ENVIRONMENT = true;
 
-  const createBoundaries = () => {
-    const handler = { error: false };
-
+  const createCatcher = () => {
     class Catcher extends React.Component {
       constructor(props) {
         super(props);
@@ -136,45 +134,47 @@
         this.componentDidCatch(event.error);
       }
       componentDidCatch(error) {
-        handler.error = error;
+        Catcher.error = error;
       }
       render() {
         if (this.state && this.state.isError) return null;
         return this.props.children;
       }
     }
-    return [handler, Catcher];
+
+    return Catcher;
   };
 
-  const renderRoot = (component) => {
-    const [handler, Catcher] = createBoundaries();
+  const createContainer = () => {
+    const Catcher = createCatcher();
     const container = window.document.createElement("div");
     container.id = "root";
-    container.handler = handler;
-    container.catcher = Catcher;
-    container.component = component;
     window.document.body.appendChild(container);
     const root = client_1(container);
     container.root = root;
-    testUtils.act(() => root.render(React.createElement(Catcher, null, component)));
-    if (handler.error) {
-      testUtils.act(() => root.unmount());
-      throw handler.error;
-    }
-    return [...container.childNodes];
+
+    // Render the component and catch any error during this rendering
+    container.render = (component) => {
+      container.component = component;
+      testUtils.act(() => root.render(React.createElement(Catcher, null, component)));
+      if (Catcher.error) {
+        testUtils.act(() => root.unmount());
+        throw Catcher.error;
+      }
+    };
+
+    return container;
   };
 
   // This takes a react object like <Button /> and returns the DOM tree
   var render = (obj) => {
     if (!obj) return [];
 
-    if (["string", "number", "boolean"].includes(typeof obj)) {
-      return renderRoot(obj);
-    }
-
-    // A react instance, so render it to jsdom:
-    if (obj.$$typeof) {
-      return renderRoot(obj);
+    // A react instance or a plain value, so render it to jsdom:
+    if (obj.$$typeof || ["string", "number", "boolean"].includes(typeof obj)) {
+      const container = createContainer();
+      container.render(obj);
+      return [...container.childNodes];
     }
 
     // It's already parsed
@@ -628,10 +628,11 @@
    * ```
    *
    * **[→ Full .attr() Docs](https://react-test.dev/documentation#attr)**
+   * @param {(string)} name
    */
   ReactTest.prototype.attr = function (name) {
     const node = this.get(0);
-    return node && node.getAttribute(name);
+    return /** @type {(string|null)} */ (node && node.getAttribute(name));
   };
 
   /**
@@ -645,13 +646,14 @@
    * ```
    *
    * **[→ Full .array() Docs](https://react-test.dev/documentation#array)**
+   * @param {(string|function)} callback
    */
   ReactTest.prototype.array = function (callback = (node) => node) {
     if (typeof callback === "string") {
       const key = callback;
       callback = (node) => node[key];
     }
-    return this.nodes.map(callback);
+    return /** @type {(Node[]|string[])} */ (this.nodes.map(callback));
   };
 
   /**
@@ -665,8 +667,9 @@
    * ```
    *
    * **[→ Full .change() Docs](https://react-test.dev/documentation#change)**
+   * @param {(string|boolean)} value
    */
-  ReactTest.prototype.change = function (value) {
+  ReactTest.prototype.change = async function (value) {
     // This is needed for uncontrolled inputs
     this.map((node) => {
       if (
@@ -678,7 +681,9 @@
         node.value = value;
       }
     });
-    return this.trigger("change", { target: { value } });
+
+    await this.trigger("change", { target: { value } });
+    return null;
   };
 
   /**
@@ -810,6 +815,7 @@
    * ```
    *
    * **[→ Full .find() Docs](https://react-test.dev/documentation#find)**
+   * @param {(string)} selector
    */
   ReactTest.prototype.find = function (selector) {
     if (!selector) return this;
@@ -946,20 +952,10 @@
    */
   ReactTest.prototype.props = function (props) {
     const container = this.nodes[0].closest("#root");
-    const component = container.component;
-    const root = container.root;
-    const handler = container.handler;
-    const Catcher = container.catcher;
     if (typeof props === "function") {
-      props = props(component.props);
+      props = props(container.component.props);
     }
-    testUtils.act(() =>
-      root.render(React.createElement(Catcher, null, { ...component, props }))
-    );
-    if (handler.error) {
-      testUtils.act(() => root.unmount());
-      throw handler.error;
-    }
+    container.render({ ...container.component, props });
     this.nodes = [...container.childNodes];
     return this;
   };
@@ -978,14 +974,7 @@
    */
   ReactTest.prototype.render = function (component) {
     const container = this.nodes[0].closest("#root");
-    const root = container.root;
-    const Catcher = container.catcher;
-    const handler = container.handler;
-    testUtils.act(() => root.render(React.createElement(Catcher, null, component)));
-    if (handler.error) {
-      testUtils.act(() => root.unmount());
-      throw handler.error;
-    }
+    container.render(component);
     this.nodes = [...container.childNodes];
     return this;
   };
