@@ -38,12 +38,8 @@ export default function (frag, value = true) {
         matches = selected.value === value;
       }
     } else {
-      if (value) {
-        matches = false;
-      } else {
-        const msg = `Expected an option to be selected in ${base} (but none was)`;
-        return { pass: true, message: () => msg };
-      }
+      const msg = `Expected an option to be selected in ${base} (but none was)`;
+      return { pass: true, message: () => msg };
     }
   } else {
     throw new Error(
