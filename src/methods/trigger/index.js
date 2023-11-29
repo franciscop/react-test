@@ -31,13 +31,7 @@ const merge = (objs) => {
   // Merge recursively
   objs.forEach((obj) => {
     for (let key in obj) {
-      if (props[key]) {
-        for (let subKey in obj[key]) {
-          props[key][subKey] = obj[key][subKey];
-        }
-      } else {
-        props[key] = obj[key];
-      }
+      props[key] = obj[key];
     }
   });
   return props;
