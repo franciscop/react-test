@@ -114,4 +114,16 @@ describe(".toHaveValue()", () => {
       "Expected <select> not to have value=second"
     );
   });
+
+  it("handles select element with value true", () => {
+    const $selectTrue = $(
+      <select defaultValue={true}>
+        <option value="first">first</option>
+        <option value="second">second</option>
+        <option value="third">third</option>
+        <option value={true}>True</option>
+      </select>
+    );
+    expect($selectTrue).toHaveValue(true);
+  });
 });
