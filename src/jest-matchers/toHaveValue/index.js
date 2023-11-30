@@ -1,6 +1,6 @@
 import { normalize, getPlainTag } from "../../helpers";
 
-export default function (frag, value = true) {
+export default function (frag, value) {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 
