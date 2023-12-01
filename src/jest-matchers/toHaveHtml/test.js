@@ -1,6 +1,8 @@
-import React from "react";
-import $ from "../../";
 import "../index.js";
+
+import React from "react";
+
+import $ from "../../";
 
 const $div = $(
   <div>
@@ -40,6 +42,7 @@ describe(".toHaveHtml()", () => {
 
   it("negatively asserts non-existent HTML", () => {
     expect($div).not.toHaveHtml("<h1>header</h1>");
+    expect($div).not.toHaveHtml(123);
     expect(() =>
       expect($div).not.toHaveHtml("<span>I am a span</span>")
     ).toThrow(

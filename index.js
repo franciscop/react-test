@@ -445,11 +445,11 @@
           matches = selected.value === value;
         }
       } else {
-        if (value) {
-          matches = false;
-        } else {
+        if (value === true) {
           const msg = `Expected an option to be selected in ${base} (but none was)`;
-          return { pass: true, message: () => msg };
+          return { pass: false, message: () => msg };
+        } else {
+          matches = !value;
         }
       }
     } else {
@@ -1047,25 +1047,7 @@
     }
   };
 
-  const merge = (objs) => {
-    const props = {};
-    // Merge recursively
-    objs.forEach((obj) => {
-      for (let key in obj) {
-        if (props[key]) {
-          for (let subKey in obj[key]) {
-            props[key][subKey] = obj[key][subKey];
-          }
-        } else {
-          props[key] = obj[key];
-        }
-      }
-    });
-    return props;
-  };
-
-  const createEvent = (type, ...objs) => {
-    const props = merge([...objs]);
+  const createEvent = (type, props) => {
     const event = new Event(type);
     for (let key in props) {
       Object.defineProperty(event, key, {

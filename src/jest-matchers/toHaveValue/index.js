@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from "../../helpers";
+import { getPlainTag, normalize } from "../../helpers";
 
 export default function (frag, value = true) {
   // To avoid double negations ¯\_(ツ)_/¯
@@ -38,11 +38,11 @@ export default function (frag, value = true) {
         matches = selected.value === value;
       }
     } else {
-      if (value) {
-        matches = false;
-      } else {
+      if (value === true) {
         const msg = `Expected an option to be selected in ${base} (but none was)`;
-        return { pass: true, message: () => msg };
+        return { pass: false, message: () => msg };
+      } else {
+        matches = !value;
       }
     }
   } else {

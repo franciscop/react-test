@@ -1,6 +1,8 @@
-import React from "react";
-import $ from "../../";
 import "../index.js";
+
+import React from "react";
+
+import $ from "../../";
 
 // Requires readOnly or onChange when value is set
 const $textInput = $(<input type="text" value="text" readOnly />);
@@ -31,6 +33,7 @@ describe(".toHaveValue()", () => {
     expect($textInput).toHaveValue("text");
     expect($numberInput).toHaveValue(10);
     expect($textarea).toHaveValue("text description");
+    expect($select).toHaveValue();
     expect($select).toHaveValue("second");
   });
 
@@ -39,6 +42,8 @@ describe(".toHaveValue()", () => {
     expect($numberInput).not.toHaveValue("text");
     expect($textarea).not.toHaveValue("random");
     expect($select).not.toHaveValue("first");
+    expect(<select />).not.toHaveValue();
+    expect(<select />).not.toHaveValue("second");
   });
 
   it("checks defaultValue when set", () => {
@@ -96,6 +101,12 @@ describe(".toHaveValue()", () => {
       'Expected <textarea readonly=""> to have value="random"'
     );
     expect(() => expect($select).toHaveValue("first")).toThrow(
+      'Expected <select> to have value="first"'
+    );
+    expect(() => expect(<select />).toHaveValue()).toThrow(
+      "Expected an option to be selected in <select> (but none was)"
+    );
+    expect(() => expect(<select />).toHaveValue("first")).toThrow(
       'Expected <select> to have value="first"'
     );
   });
