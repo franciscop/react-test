@@ -38,11 +38,16 @@ describe(".toHaveHtml()", () => {
     expect($div).toHaveHtml("     <span>I am a span</span>");
     expect($div).toHaveHtml("<span>Im also here</span>     ");
     expect($div).toHaveHtml("Im also here    ");
+    expect(() => expect($div).toHaveHtml(123)).toThrow(
+      "Second argument of .toHaveHtml() needs to be a string"
+    );
   });
 
   it("negatively asserts non-existent HTML", () => {
     expect($div).not.toHaveHtml("<h1>header</h1>");
-    expect($div).not.toHaveHtml(123);
+    expect(() => expect($div).not.toHaveHtml(123)).toThrow(
+      "Second argument of .toHaveHtml() needs to be a string"
+    );
     expect(() =>
       expect($div).not.toHaveHtml("<span>I am a span</span>")
     ).toThrow(

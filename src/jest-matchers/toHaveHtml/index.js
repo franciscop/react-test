@@ -5,7 +5,7 @@ export default function (frag, html) {
   frag = normalize(frag);
   if (typeof html !== "string") {
     const msg = `Second argument of .toHaveHtml() needs to be a string`;
-    return { pass: false, message: () => msg };
+    return { pass: this.isNot, message: () => msg };
   }
 
   for (let el of frag) {
