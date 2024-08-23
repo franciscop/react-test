@@ -32,7 +32,7 @@ Then install `react-test`. It is only needed for development:
 npm install react-test --save-dev
 ```
 
-Finally you can write tests. Let's say you have [the `<Counter />` component from this example](#counter) and you want to test it to make sure it works as expected:
+Finally you can write tests. Let's say you have [the `<Counter />` component from this example](/tree/master/src/examples/Counter) and you want to test it to make sure it works as expected:
 
 ```js
 // src/Counter.js
