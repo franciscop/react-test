@@ -1,10 +1,10 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react-dom/test-utils'), require('react'), require('react-dom')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react-dom/test-utils', 'react', 'react-dom'], factory) :
-  (global = global || self, factory(global.$ = {}, global.testUtils, global.React, global.ReactDOM));
-}(this, (function (exports, testUtils, React, reactDom) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
+  (global = global || self, factory(global.$ = {}, global.React, global.ReactDOM));
+}(this, (function (exports, React, reactDom) { 'use strict';
 
-  React = React && Object.prototype.hasOwnProperty.call(React, 'default') ? React['default'] : React;
+  var React__default = 'default' in React ? React['default'] : React;
   reactDom = reactDom && Object.prototype.hasOwnProperty.call(reactDom, 'default') ? reactDom['default'] : reactDom;
 
   const delay = (time) => new Promise((done) => setTimeout(done, time));
@@ -12,7 +12,7 @@
   const untilCallback = async (cb) => {
     let value = await cb();
     while (!value) {
-      await testUtils.act(async () => {
+      await React.act(async () => {
         await delay(50);
         value = await cb();
       });
@@ -36,7 +36,7 @@
         return async (cb) => {
           let res;
           while (!res) {
-            await testUtils.act(async () => {
+            await React.act(async () => {
               await delay(50);
               res = execute(obj, chain);
 
@@ -115,7 +115,7 @@
   global.IS_REACT_ACT_ENVIRONMENT = true;
 
   const createCatcher = () => {
-    class Catcher extends React.Component {
+    class Catcher extends React__default.Component {
       constructor(props) {
         super(props);
         this.state = { isError: false };
@@ -156,9 +156,9 @@
     // Render the component and catch any error during this rendering
     container.render = (component) => {
       container.component = component;
-      testUtils.act(() => root.render(React.createElement(Catcher, null, component)));
+      React.act(() => root.render(React__default.createElement(Catcher, null, component)));
       if (Catcher.error) {
-        testUtils.act(() => root.unmount());
+        React.act(() => root.unmount());
         throw Catcher.error;
       }
     };
@@ -761,7 +761,7 @@
    * **[→ Full .delay() Docs](https://react-test.dev/documentation#delay)**
    */
   ReactTest.prototype.delay = async function (time) {
-    await testUtils.act(() => new Promise((done) => setTimeout(done, time)));
+    await React.act(() => new Promise((done) => setTimeout(done, time)));
   };
 
   /**
@@ -1080,7 +1080,7 @@
       /(down|up|left|right|in|out|move)$/i,
       capitalize
     );
-    return testUtils.act(async () => {
+    return React.act(async () => {
       await Promise.all(
         this.map(async (target) => {
           const parents = findParents(target);
@@ -1139,7 +1139,7 @@
     }
   };
 
-  exports.act = testUtils.act;
+  exports.act = React.act;
   exports.default = ReactTest;
   exports.until = until;
 

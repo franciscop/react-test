@@ -5,7 +5,7 @@
 // This is a fairly experimental implementation, it emulates event propagation
 // but doesn't properly handle `e.stopPropagation()`. The nice thing is that
 // it can and will await properly for the async callbacks!
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 
 import $ from "../constructor";
 

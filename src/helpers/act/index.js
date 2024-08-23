@@ -1,4 +1,4 @@
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 
 /**
  * Wrap a piece of async code that is expected to result in a re-render:

@@ -1,4 +1,4 @@
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 const delay = (time) => new Promise((done) => setTimeout(done, time));
 
 const untilCallback = async (cb) => {

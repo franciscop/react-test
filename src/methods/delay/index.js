@@ -1,5 +1,5 @@
 import $ from "../constructor";
-import { act } from "react-dom/test-utils";
+import { act } from "react";
 
 /**
  * Makes the component to wait for the specified period of time in milliseconds:
