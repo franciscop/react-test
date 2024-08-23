@@ -69,7 +69,6 @@ $.prototype.trigger = function (type, extra = {}) {
           const currentTarget = parents[parents.length - 1];
           const event = createEvent(type, { target, currentTarget, ...extra });
           this.events[type].map((cb) => cb(event));
-          return;
         }
 
         // If there's a direct way of calling it e.g. `button.click()`
