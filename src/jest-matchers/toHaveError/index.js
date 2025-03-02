@@ -1,7 +1,8 @@
-import { getPlainTag } from "../../helpers";
+import { getPlainTag, normalize } from "../../helpers";
 
 export default function toHaveError(frag, expectedMessage) {
   const isAffirmative = !this.isNot;
+  frag = normalize(frag);
 
   // Validate input
   if (

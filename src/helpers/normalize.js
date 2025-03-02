@@ -1,7 +1,7 @@
 // [INTERNAL USE ONLY]
 // normalize()
 // Take the expect() arg and returns a clean array of HTMLElements
-import render from "../methods/render";
+import render from "../methods/constructor";
 
 export default (frag) => {
   if (!frag) {
@@ -11,10 +11,9 @@ export default (frag) => {
   }
 
   // Convert a raw element to
-  if (frag.$$typeof) {
-    const parts = render(frag);
-    frag = parts[0];
-  }
+  if (frag.$$typeof) return [...render(frag)];
+
+  if (frag.error) return frag;
 
   // For now get the first one, consider looping later
   if (frag.array) frag = frag.array();

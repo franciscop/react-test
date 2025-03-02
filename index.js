@@ -184,6 +184,43 @@
     );
   };
 
+  function ReactTest(obj, ctx = {}) {
+    if (!(this instanceof ReactTest)) return new ReactTest(obj, ctx);
+
+    this.events = ctx.events || {};
+    const originalAddEventListener = window.addEventListener;
+
+    window.addEventListener = (event, callback) => {
+      this.events[event] = this.events[event] || [];
+      this.events[event].push(callback);
+      originalAddEventListener.call(window, event, callback); // Call native
+    };
+
+    document.addEventListener = (event, callback) => {
+      this.events[event] = this.events[event] || [];
+      this.events[event].push(callback);
+    };
+
+    try {
+      this.nodes = render(obj);
+    } catch (error) {
+      this.nodes = [];
+      this.error = error;
+    }
+
+    // Add a .length that goes to measure the nodes
+    Object.defineProperty(this, "length", { get: () => this.nodes.length });
+
+    return this;
+  }
+
+  // Allow to iterate with for...of and destructure it like [...$list.find('li')]
+  ReactTest.prototype[Symbol.iterator] = function* () {
+    for (let node of this.nodes) {
+      yield node;
+    }
+  };
+
   // [INTERNAL USE ONLY]
 
   var normalize = (frag) => {
@@ -194,10 +231,9 @@
     }
 
     // Convert a raw element to
-    if (frag.$$typeof) {
-      const parts = render(frag);
-      frag = parts[0];
-    }
+    if (frag.$$typeof) return [...ReactTest(frag)];
+
+    if (frag.error) return frag;
 
     // For now get the first one, consider looping later
     if (frag.array) frag = frag.array();
@@ -352,6 +388,7 @@
 
   function toHaveError(frag, expectedMessage) {
     const isAffirmative = !this.isNot;
+    frag = normalize(frag);
 
     // Validate input
     if (
@@ -662,43 +699,6 @@
     toMatchSelector,
     toHaveStyle,
   });
-
-  function ReactTest(obj, ctx = {}) {
-    if (!(this instanceof ReactTest)) return new ReactTest(obj, ctx);
-
-    this.events = ctx.events || {};
-    const originalAddEventListener = window.addEventListener;
-
-    window.addEventListener = (event, callback) => {
-      this.events[event] = this.events[event] || [];
-      this.events[event].push(callback);
-      originalAddEventListener.call(window, event, callback); // Call native
-    };
-
-    document.addEventListener = (event, callback) => {
-      this.events[event] = this.events[event] || [];
-      this.events[event].push(callback);
-    };
-
-    try {
-      this.nodes = render(obj);
-    } catch (error) {
-      this.nodes = [];
-      this.error = error;
-    }
-
-    // Add a .length that goes to measure the nodes
-    Object.defineProperty(this, "length", { get: () => this.nodes.length });
-
-    return this;
-  }
-
-  // Allow to iterate with for...of and destructure it like [...$list.find('li')]
-  ReactTest.prototype[Symbol.iterator] = function* () {
-    for (let node of this.nodes) {
-      yield node;
-    }
-  };
 
   /**
    * Read the attribute value of the first node and return its value, or null if there's no node or attribute:
