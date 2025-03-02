@@ -4,10 +4,12 @@ function ReactTest(obj, ctx = {}) {
   if (!(this instanceof ReactTest)) return new ReactTest(obj, ctx);
 
   this.events = ctx.events || {};
+  const originalAddEventListener = window.addEventListener;
 
   window.addEventListener = (event, callback) => {
     this.events[event] = this.events[event] || [];
     this.events[event].push(callback);
+    originalAddEventListener.call(window, event, callback); // Call native
   };
 
   document.addEventListener = (event, callback) => {
@@ -15,7 +17,12 @@ function ReactTest(obj, ctx = {}) {
     this.events[event].push(callback);
   };
 
-  this.nodes = render(obj);
+  try {
+    this.nodes = render(obj);
+  } catch (error) {
+    this.nodes = [];
+    this.error = error;
+  }
 
   // Add a .length that goes to measure the nodes
   Object.defineProperty(this, "length", { get: () => this.nodes.length });

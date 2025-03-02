@@ -2,6 +2,8 @@
 // Retrieves a clear name for the passed element
 
 export default (el) => {
+  if (!el) return null;
+
   // Get the full HTML tag WITHOUT its contents
   const html = el.cloneNode(false).outerHTML;
 

@@ -8,11 +8,11 @@ const createCatcher = () => {
   class Catcher extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { isError: false };
+      this.state = { error: null };
       window.addEventListener("error", this.onError.bind(this));
     }
-    static getDerivedStateFromError() {
-      return { isError: true };
+    static getDerivedStateFromError(error) {
+      return { error };
     }
     componentWillUnmount() {
       window.removeEventListener("error", this.onError);
@@ -27,7 +27,7 @@ const createCatcher = () => {
       Catcher.error = error;
     }
     render() {
-      if (this.state && this.state.isError) return null;
+      if (this.state && this.state.error) return null;
       return this.props.children;
     }
   }
@@ -46,7 +46,8 @@ const createContainer = () => {
   // Render the component and catch any error during this rendering
   container.render = (component) => {
     container.component = component;
-    act(() => root.render(React.createElement(Catcher, null, component)));
+    const comp = React.createElement(Catcher, null, component);
+    act(() => root.render(comp));
     if (Catcher.error) {
       act(() => root.unmount());
       throw Catcher.error;

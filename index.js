@@ -118,11 +118,11 @@
     class Catcher extends React__default.Component {
       constructor(props) {
         super(props);
-        this.state = { isError: false };
+        this.state = { error: null };
         window.addEventListener("error", this.onError.bind(this));
       }
-      static getDerivedStateFromError() {
-        return { isError: true };
+      static getDerivedStateFromError(error) {
+        return { error };
       }
       componentWillUnmount() {
         window.removeEventListener("error", this.onError);
@@ -137,7 +137,7 @@
         Catcher.error = error;
       }
       render() {
-        if (this.state && this.state.isError) return null;
+        if (this.state && this.state.error) return null;
         return this.props.children;
       }
     }
@@ -156,7 +156,8 @@
     // Render the component and catch any error during this rendering
     container.render = (component) => {
       container.component = component;
-      React.act(() => root.render(React__default.createElement(Catcher, null, component)));
+      const comp = React__default.createElement(Catcher, null, component);
+      React.act(() => root.render(comp));
       if (Catcher.error) {
         React.act(() => root.unmount());
         throw Catcher.error;
@@ -220,6 +221,8 @@
   // Retrieves a clear name for the passed element
 
   var getPlainTag = (el) => {
+    if (!el) return null;
+
     // Get the full HTML tag WITHOUT its contents
     const html = el.cloneNode(false).outerHTML;
 
@@ -346,6 +349,78 @@
 
     return { pass: !this.isNot };
   }
+
+  function toHaveError(frag, expectedMessage) {
+    const isAffirmative = !this.isNot;
+
+    // Validate input
+    if (
+      !frag ||
+      typeof frag !== "object" ||
+      !("nodes" in frag) ||
+      !("error" in frag)
+    ) {
+      return {
+        pass: false,
+        message: () =>
+          `Expected a ReactTest instance with .nodes and .error properties, got ${this.utils.printReceived(
+          frag
+        )}`,
+      };
+    }
+
+    const hasError = !!frag.error;
+    const actualMessage = hasError ? frag.error.message : undefined;
+    const nodeTag = frag.nodes[0] ? getPlainTag(frag.nodes[0]) : "component";
+
+    if (isAffirmative) {
+      // expect().toHaveError()
+      if (!hasError) {
+        return {
+          pass: false,
+          message: () => `Expected ${nodeTag} to throw an error, but it did not`,
+        };
+      }
+
+      // No message provided, just check for any error
+      if (expectedMessage === undefined) {
+        return {
+          pass: true,
+          message: () => "Error thrown as expected",
+        };
+      }
+
+      // Match specific message
+      const pass = actualMessage === expectedMessage;
+      return {
+        pass,
+        message: () =>
+          pass
+            ? "Error message matched"
+            : `Expected ${nodeTag} to throw error with message ${this.utils.printExpected(
+              expectedMessage
+            )}, but got ${this.utils.printReceived(actualMessage)}`,
+      };
+    } else {
+      // expect().not.toHaveError()
+      if (hasError) {
+        return {
+          pass: false,
+          message: () =>
+            `Expected ${nodeTag} not to throw an error, but it threw: "${actualMessage}"`,
+        };
+      }
+
+      // No error, as expected
+      return {
+        pass: true,
+        message: () => "No error thrown as expected",
+      };
+    }
+  }
+
+  // Register with Jest
+  expect.extend({ toHaveError });
 
   function toHaveHtml (frag, html) {
     this.affirmative = !this.isNot;
@@ -580,6 +655,7 @@
     toBeEnabled,
     toHaveAttribute,
     toHaveClass,
+    toHaveError,
     toHaveHtml,
     toHaveText,
     toHaveValue,
@@ -591,10 +667,12 @@
     if (!(this instanceof ReactTest)) return new ReactTest(obj, ctx);
 
     this.events = ctx.events || {};
+    const originalAddEventListener = window.addEventListener;
 
     window.addEventListener = (event, callback) => {
       this.events[event] = this.events[event] || [];
       this.events[event].push(callback);
+      originalAddEventListener.call(window, event, callback); // Call native
     };
 
     document.addEventListener = (event, callback) => {
@@ -602,7 +680,12 @@
       this.events[event].push(callback);
     };
 
-    this.nodes = render(obj);
+    try {
+      this.nodes = render(obj);
+    } catch (error) {
+      this.nodes = [];
+      this.error = error;
+    }
 
     // Add a .length that goes to measure the nodes
     Object.defineProperty(this, "length", { get: () => this.nodes.length });
