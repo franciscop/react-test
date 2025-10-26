@@ -3,7 +3,7 @@ name: tests
 on:
   push:
   schedule:
-    - cron: "0 0 1 1 *" # Runs every January 1st at 00:00 UTC
+    - cron: "0 0 1 * *" # Runs every 1st of the month at 00:00 UTC
 
 jobs:
   build:
@@ -11,14 +11,16 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        react-version: [16.8, 17, 18, 19]
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - name: Use Node.js latest
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "lts/*"
+      - name: Install specific React version
+        run: npm install react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }}
       - name: install dependencies
         run: npm install
       - name: npm test
