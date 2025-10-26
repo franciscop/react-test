@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        react-version: [16.8, 17, 18, 19]
+        react-version: [18, 19]
 
     steps:
       - uses: actions/checkout@v4
