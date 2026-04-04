@@ -6,6 +6,7 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
+    "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "types": ["jest", "node"]
   },

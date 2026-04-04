@@ -3,8 +3,8 @@ import "./jest-matchers/index.ts";
 import $ from "./methods/constructor.ts";
 
 // Import all of the methods which will modify the $.prototype straight away
-import "./methods/attr/index.ts";
 import "./methods/array/index.ts";
+import "./methods/attr/index.ts";
 import "./methods/change/index.ts";
 import "./methods/children/index.ts";
 import "./methods/click/index.ts";
@@ -21,7 +21,7 @@ import "./methods/map/index.ts";
 import "./methods/not/index.ts";
 import "./methods/parent/index.ts";
 import "./methods/props/index.ts";
-import "./methods/render/index.ts"; // There exists a ./methods/render.ts
+import "./methods/render/index.ts";
 import "./methods/siblings/index.ts";
 import "./methods/submit/index.ts";
 import "./methods/text/index.ts";
