@@ -7,15 +7,7 @@ export default [
     input: "src/index.ts",
     output: {
       file: "index.min.js",
-      name: "$",
-      format: "umd",
-      exports: "named",
-      globals: {
-        react: "React",
-        "react-dom": "ReactDOM",
-        "react-dom/client": "ReactDOMClient",
-        "react-dom/test-utils": "testUtils",
-      },
+      format: "esm",
     },
     external: ["react", "react-dom", "react-dom/client", "react-dom/test-utils"],
     plugins: [
