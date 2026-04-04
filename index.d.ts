@@ -1,0 +1,56 @@
+export { act } from 'react';
+
+type EventHandler = (event: Event) => void;
+interface ReactTest {
+    nodes: Node[];
+    events: Record<string, EventHandler[]>;
+    error?: Error;
+    length: number;
+    [Symbol.iterator](): Generator<Node, void, unknown>;
+    attr(name: string): string | null;
+    array(): Node[];
+    array(callback: string): unknown[];
+    array<T>(callback: (node: Node, index: number, arr: Node[]) => T): T[];
+    change(value: string | boolean): Promise<null>;
+    children(selector?: string): ReactTest;
+    click(): Promise<void>;
+    closest(selector?: string): ReactTest;
+    data(name: string): string | null;
+    delay(time: number): Promise<void>;
+    each(callback?: (node: Node, index: number, arr: Node[]) => void): ReactTest;
+    filter(selector?: string | ReactTest | ((node: Node, index: number) => boolean)): ReactTest;
+    find(selector?: string): ReactTest;
+    get(index?: number): Node | null;
+    html(): string;
+    is(selector?: string | ReactTest | ((node: Node) => boolean)): boolean;
+    map(callback?: (node: Node) => Node | NodeList | Node[] | null | undefined): ReactTest;
+    not(filter?: string | ReactTest): ReactTest;
+    parent(): ReactTest;
+    props(props: Record<string, unknown> | ((prev: Record<string, unknown>) => Record<string, unknown>)): ReactTest;
+    render(component: unknown): ReactTest;
+    siblings(selector?: string): ReactTest;
+    submit(): Promise<void>;
+    text(): string;
+    trigger(type: string, extra?: Record<string, unknown>): Promise<void>;
+    type(input: string): Promise<void>;
+}
+declare const $: {
+    new (obj: unknown, ctx?: Partial<Pick<ReactTest, "events">>): ReactTest;
+    (obj: unknown, ctx?: Partial<Pick<ReactTest, "events">>): ReactTest;
+    prototype: ReactTest;
+};
+
+/**
+ * Wait until the specified condition is fulfilled. There are multiple ways of specifying the conditions:
+ *
+ * ```js
+ * await until(() => new Date() - init > 1000);
+ * await until(button).is(".active");
+ * await until(list).find("li");
+ * ```
+ *
+ * **[→ Full until() Docs](https://react-test.dev/documentation#until)**
+ */
+declare function until(arg?: (() => unknown) | object): any;
+
+export { $ as default, until };

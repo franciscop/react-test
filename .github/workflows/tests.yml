@@ -1,9 +1,6 @@
 name: tests
 
-on:
-  push:
-  schedule:
-    - cron: "0 0 1 * *" # Runs every 1st of the month at 00:00 UTC
+on: [push]
 
 jobs:
   build:
@@ -21,9 +18,9 @@ jobs:
           node-version: "lts/*"
       - name: Install specific React version
         run: npm install react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }}
-      - name: install dependencies
+      - name: Install dependencies
         run: npm install
-      - name: npm test
+      - name: Run the tests
         run: npm test
         env:
           CI: true

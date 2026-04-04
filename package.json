@@ -7,13 +7,31 @@
   "bugs": "https://github.com/franciscop/react-test/issues",
   "funding": "https://www.paypal.me/franciscopresencia/19",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
+  "documentation": {
+    "title": "🧯 React Test - Expressive testing library for React",
+    "home": "assets/home.html",
+    "menu": {
+      "Documentation": "/documentation",
+      "Issues": "https://github.com/franciscop/react-test/issues",
+      "Contribute": "https://github.com/franciscop/react-test/blob/master/Contributing.md",
+      "Get help": "https://superpeer.com/francisco/-/javascript-and-react-help",
+      "Github": "https://github.com/franciscop/react-test"
+    },
+    "pages": [
+      "readme.md",
+      "src/methods",
+      "src/helpers",
+      "src/jest-matchers",
+      "src/examples"
+    ]
+  },
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "lint": "prettier src --write",
-    "size": "echo $(gzip -c index.js | wc -c) bytes",
+    "build": "tsc -p tsconfig.build.json && rollup -c",
+    "lint": "prettier src --write && tsc",
+    "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "jest src/ --watch",
-    "pretest": "prettier --write readme.md src",
     "test": "jest ./src/ --coverage --detectOpenHandles"
   },
   "keywords": [
@@ -23,85 +41,49 @@
     "expressive",
     "jest"
   ],
-  "main": "index.js",
-  "files": [],
+  "main": "index.min.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ],
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-transform-modules-commonjs": "^7.15.0",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-react": "^7.7.4",
-    "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
-    "core-js": "^3.6.4",
-    "eslint": "^6.8.0",
-    "eslint-plugin-jest": "^23.8.2",
-    "eslint-plugin-react": "^7.19.0",
-    "jest": "^28.1.0",
-    "jest-environment-jsdom": "^28.1.0",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.2",
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.4",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "prettier": "^2.4.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "rollup": "^1.32.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup": "^4.60.1",
+    "rollup-plugin-dts": "^6.4.1",
+    "typescript": "^6.0.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "@babel/preset-typescript"
+    ]
   },
   "jest": {
     "testEnvironment": "jsdom",
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "!src/**/*.test.ts",
+      "!src/**/*.test.tsx"
     ]
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "useBuiltIns": "usage",
-          "corejs": 3
-        }
-      ],
-      "@babel/preset-react"
-    ]
-  },
-  "eslintConfig": {
-    "env": {
-      "node": true,
-      "commonjs": true,
-      "es6": true,
-      "browser": true,
-      "jest/globals": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended"
-    ],
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": 2018,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "react",
-      "jest"
-    ],
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "rules": {
-      "jest/no-disabled-tests": "warn",
-      "jest/no-focused-tests": "error",
-      "jest/no-identical-title": "error",
-      "jest/prefer-to-have-length": "warn",
-      "jest/valid-expect": "error",
-      "react/prop-types": "off"
-    }
   }
 }
