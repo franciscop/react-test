@@ -17,7 +17,7 @@ const CreateUser = ({ onSubmit }: { onSubmit: () => void }) => (
 
 describe(".submit()", () => {
   it("can mock submitting a form", async () => {
-    const onSubmit = jest.fn();
+    const onSubmit = vi.fn();
     const createUser = $(<CreateUser onSubmit={onSubmit} />);
     expect(onSubmit).not.toHaveBeenCalled();
     await createUser.submit();
@@ -25,7 +25,7 @@ describe(".submit()", () => {
   });
 
   it("submits the form when clicking the button", async () => {
-    const onSubmit = jest.fn();
+    const onSubmit = vi.fn();
     const createUser = $(<CreateUser onSubmit={onSubmit} />);
     expect(onSubmit).not.toHaveBeenCalled();
     await createUser.find("button").click();
@@ -48,7 +48,7 @@ describe(".submit()", () => {
     );
 
     it("can mock submitting a form", async () => {
-      const onSubmit = jest.fn();
+      const onSubmit = vi.fn();
       const createUser = $(<CreateUser onSubmit={onSubmit} />);
       expect(onSubmit).not.toHaveBeenCalled();
       await createUser.submit();

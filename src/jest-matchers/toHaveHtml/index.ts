@@ -1,10 +1,11 @@
+
 import { normalize } from "../../helpers/index.ts";
 
 export default function (
   this: any,
   frag: any,
   html: unknown
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   this.affirmative = !this.isNot;
   frag = normalize(frag);
   if (typeof html !== "string") {

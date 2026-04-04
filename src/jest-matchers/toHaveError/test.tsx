@@ -4,10 +4,10 @@ import "../index";
 
 describe(".toHaveError()", () => {
   beforeAll(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    vi.spyOn(console, "error").mockImplementation(() => {});
   });
   afterAll(() => {
-    (console.error as jest.MockedFunction<typeof console.error>).mockRestore();
+    (console.error as ReturnType<typeof vi.spyOn>).mockRestore();
   });
 
   it("works for a simple case", () => {

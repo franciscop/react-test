@@ -1,3 +1,4 @@
+
 import { normalize, getPlainTag } from "../../helpers/index.ts";
 
 export default function (
@@ -5,7 +6,7 @@ export default function (
   frag: any,
   attr: string,
   val?: string | RegExp | boolean
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 

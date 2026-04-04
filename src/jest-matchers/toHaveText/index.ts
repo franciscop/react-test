@@ -1,3 +1,4 @@
+
 import { normalize, getPlainTag } from "../../helpers/index.ts";
 
 const whitespace = (str: string) => str.replace(/\s+/g, " ");
@@ -6,7 +7,7 @@ export default function (
   this: any,
   frag: any,
   expected: string
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 

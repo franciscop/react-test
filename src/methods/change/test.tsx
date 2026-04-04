@@ -3,7 +3,7 @@ import $ from "../../";
 
 describe(".change()", () => {
   it("can attach and click on children", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div>
         <input onChange={mock} />
@@ -15,7 +15,7 @@ describe(".change()", () => {
   });
 
   it("has the right value", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div>
         <input onChange={mock} />
@@ -30,8 +30,8 @@ describe(".change()", () => {
   });
 
   it("can change two inputs", async () => {
-    const mock1 = jest.fn();
-    const mock2 = jest.fn();
+    const mock1 = vi.fn();
+    const mock2 = vi.fn();
     const $test = $(
       <div>
         <input onChange={mock1} />

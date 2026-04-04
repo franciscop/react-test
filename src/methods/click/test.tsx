@@ -5,7 +5,7 @@ const delay = (time: number) => new Promise((done) => setTimeout(done, time));
 
 describe(".click()", () => {
   it("can attach and click on children", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div>
         <div onClick={mock} />
@@ -27,7 +27,7 @@ describe(".click()", () => {
   });
 
   it("can click and submit buttons", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $form = $(
       <form
         onSubmit={(e) => {
@@ -44,7 +44,7 @@ describe(".click()", () => {
   });
 
   it("can listen to document clicks", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const DocClick = () => {
       const [counter, setCounter] = useState(0);
       const increment = () => {
@@ -66,7 +66,7 @@ describe(".click()", () => {
   });
 
   it("returns a promise", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div>
         <div
@@ -84,8 +84,8 @@ describe(".click()", () => {
   });
 
   it("can click two children", async () => {
-    const mock1 = jest.fn();
-    const mock2 = jest.fn();
+    const mock1 = vi.fn();
+    const mock2 = vi.fn();
     const $test = $(
       <div>
         <div onClick={mock1} />
@@ -100,8 +100,8 @@ describe(".click()", () => {
   });
 
   it("can click only on the first one", async () => {
-    const mock = jest.fn();
-    const badmock = jest.fn();
+    const mock = vi.fn();
+    const badmock = vi.fn();
     const $test = $(
       <div>
         <span onClick={mock} />
@@ -116,7 +116,7 @@ describe(".click()", () => {
 
   it("works with different prop names", async () => {
     const Button = ({ run, ...props }: any) => <div onClick={run} {...props} />;
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(<Button run={mock}>Hi</Button>);
     expect(mock).not.toHaveBeenCalled();
     await $test.click();
@@ -124,7 +124,7 @@ describe(".click()", () => {
   });
 
   it("works with async and no wait", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div onClick={async () => mock()}>
         <div>Hi</div>
@@ -136,7 +136,7 @@ describe(".click()", () => {
   });
 
   it("will bubble up", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div onClick={mock}>
         <div>Hi</div>
@@ -148,7 +148,7 @@ describe(".click()", () => {
   });
 
   it("won't throw when clicking on unfound children", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div>
         <div onClick={mock}>Hi</div>
@@ -162,7 +162,7 @@ describe(".click()", () => {
   });
 
   it("won't throw when clicking on children with no props", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const $test = $(
       <div>
         <div onClick={mock}>Hi</div>
@@ -186,7 +186,7 @@ describe(".click()", () => {
   });
 
   it("works with native links", async () => {
-    const mock = jest.fn();
+    const mock = vi.fn();
     const Page = () => {
       useEffect(() => {
         document.addEventListener("click", mock);

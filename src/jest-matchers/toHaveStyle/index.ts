@@ -1,3 +1,4 @@
+
 import { normalize, getPlainTag } from "../../helpers/index.ts";
 
 // Parse JS camelCase style properties to lowercase hyphenated strings
@@ -30,7 +31,7 @@ export default function (
   this: any,
   frag: any,
   styles: string | Record<string, unknown>
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 

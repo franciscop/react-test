@@ -14,7 +14,7 @@ describe(".type()", () => {
   });
 
   it("can attach and click on children", async () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const $input = $(<input onChange={onChange} />);
     expect(onChange).not.toHaveBeenCalled();
     await $input.type("Hello");
@@ -24,7 +24,7 @@ describe(".type()", () => {
       target: { value: "H" },
     });
     // Written all of the letters in the last call
-    expect(onChange.mock.calls.pop()[0]).toMatchObject({
+    expect(onChange.mock.calls.pop()![0]).toMatchObject({
       target: { value: "Hello" },
     });
   });

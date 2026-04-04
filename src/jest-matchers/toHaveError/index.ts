@@ -1,10 +1,11 @@
+
 import { getPlainTag, normalize } from "../../helpers/index.ts";
 
 export default function toHaveError(
   this: any,
   frag: any,
   expectedMessage?: string
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   const isAffirmative = !this.isNot;
   frag = normalize(frag);
 

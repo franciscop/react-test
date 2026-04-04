@@ -1,3 +1,4 @@
+
 import { normalize, getPlainTag } from "../../helpers/index.ts";
 
 const toStr = (list: string[]) => {
@@ -8,7 +9,7 @@ export default function (
   this: any,
   frag: any,
   ...expectedClasses: (string | string[])[]
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 

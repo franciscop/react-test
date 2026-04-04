@@ -28,11 +28,11 @@
     ]
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && rollup -c",
-    "lint": "prettier src --write && tsc",
-    "size": "echo $(gzip -c index.min.js | wc -c) bytes",
-    "start": "jest src/ --watch",
-    "test": "jest ./src/ --coverage --detectOpenHandles"
+    "build": "vite build",
+    "lint": "tsc",
+    "size": "echo $(gzip -c dist/index.min.js | wc -c) bytes",
+    "start": "vitest",
+    "test": "vitest run --coverage"
   },
   "keywords": [
     "react",
@@ -41,49 +41,28 @@
     "expressive",
     "jest"
   ],
-  "main": "index.min.js",
-  "types": "index.d.ts",
+  "main": "dist/index.min.js",
+  "types": "dist/src/index.d.ts",
   "files": [
-    "index.d.ts"
+    "dist"
   ],
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.2",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
-    "@rollup/plugin-babel": "^6.0.0",
-    "@rollup/plugin-terser": "^1.0.0",
-    "@types/jest": "^30.0.0",
     "@types/node": "^25.5.2",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.4",
-    "jest": "^30.3.0",
-    "jest-environment-jsdom": "^30.3.0",
-    "prettier": "^2.4.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.2",
+    "esbuild": "^0.27.7",
+    "jsdom": "^29.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "rollup": "^4.60.1",
-    "rollup-plugin-dts": "^6.4.1",
-    "typescript": "^6.0.2"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-typescript"
-    ]
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "src/**/*.tsx",
-      "!src/**/*.test.ts",
-      "!src/**/*.test.tsx"
-    ]
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.1.2"
   }
 }

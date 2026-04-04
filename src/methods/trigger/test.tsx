@@ -3,7 +3,7 @@ import $ from "../../";
 
 describe(".trigger()", () => {
   it("handles a simple input", async () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     const button = $(<button onClick={onClick}>Hello</button>);
     expect(onClick).not.toHaveBeenCalled();
     await button.trigger("click", { clientX: 100, clientY: 200 });
@@ -53,7 +53,7 @@ describe(".trigger()", () => {
   });
 
   it("can simulate clicking a div in a specific place", async () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const canvas = $(<canvas onClick={fn}></canvas>);
     expect(fn).not.toHaveBeenCalled();
     await canvas.trigger("click", { clientX: 10, clientY: 20 });
@@ -73,7 +73,7 @@ describe(".trigger()", () => {
   };
 
   it("can trigger clicks even from the window", async () => {
-    const onDown = jest.fn();
+    const onDown = vi.fn();
     const demo = $(<Demo onDown={onDown} />);
     expect(onDown).not.toHaveBeenCalled();
 
@@ -85,7 +85,7 @@ describe(".trigger()", () => {
   });
 
   it("can customize the target to window", async () => {
-    const onDown = jest.fn();
+    const onDown = vi.fn();
     const demo = $(<Demo onDown={onDown} />);
     expect(onDown).not.toHaveBeenCalled();
     await demo.trigger("keydown", { key: "x", target: window });
@@ -96,7 +96,7 @@ describe(".trigger()", () => {
   });
 
   it("can customize the target to body", async () => {
-    const onDown = jest.fn();
+    const onDown = vi.fn();
 
     const demo = $(<Demo onDown={onDown} />);
     expect(onDown).not.toHaveBeenCalled();

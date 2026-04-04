@@ -24,7 +24,7 @@ describe(".attr()", () => {
     expect($base.find("button").attr("title")).toBe(null);
   });
 
-  describe("readme", () => {
+  it("readme", () => {
     const input = $(<input name="email" defaultValue="" disabled />);
     expect(input.attr("name")).toBe("email");
     expect(input.attr("value")).toBe("");

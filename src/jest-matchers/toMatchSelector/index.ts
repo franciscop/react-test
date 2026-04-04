@@ -1,10 +1,11 @@
+
 import { normalize, getPlainTag } from "../../helpers/index.ts";
 
 export default function (
   this: any,
   frag: any,
   selectorStr: string
-): jest.CustomMatcherResult {
+): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 

@@ -13,9 +13,7 @@ it("increments when clicked", async () => {
 });
 ```
 
-The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. It also adds some Jest matchers (if you are using Jest) for convenience.
-
-> Early package! We are [looking for **beginner Open Source contributors**](https://github.com/franciscop/react-test/blob/master/Contributing.md)! ❤️
+The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. It also adds some Jest and Vite matchers for convenience.
 
 ## Getting Started
 

@@ -5,7 +5,7 @@ import Signup from "./Signup";
 
 describe("Signup.js", () => {
   it("can be submitted empty", async () => {
-    const cb = jest.fn();
+    const cb = vi.fn();
     const form = $(<Signup onSubmit={cb} />);
 
     expect(cb).not.toHaveBeenCalled();
@@ -14,7 +14,7 @@ describe("Signup.js", () => {
   });
 
   it("can modify each of the fields properly", async () => {
-    const cb = jest.fn();
+    const cb = vi.fn();
     const form = $(<Signup onSubmit={cb} />);
 
     await form.find('[type="text"]').type("hello");
