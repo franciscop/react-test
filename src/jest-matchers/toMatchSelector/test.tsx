@@ -36,7 +36,7 @@ describe(".toMatchSelector()", () => {
 
   it("requires the correct selector", () => {
     expect(() => expect($button).toMatchSelector(".the-button")).toThrow(
-      'Expected <button id="the-button" class="a-button"> to match selector, .the-button'
+      'Expected <button class="a-button" id="the-button"> to match selector, .the-button'
     );
   });
 
@@ -45,7 +45,7 @@ describe(".toMatchSelector()", () => {
 
     // throws when selector exists when negatively asserting
     expect(() => expect($button).not.toMatchSelector(".a-button")).toThrow(
-      'Expected <button id="the-button" class="a-button"> not to match selector, .a-button'
+      'Expected <button class="a-button" id="the-button"> not to match selector, .a-button'
     );
   });
 
@@ -66,7 +66,7 @@ describe(".toMatchSelector()", () => {
       expect(() =>
         expect($list.find("li")).toMatchSelector("#impossible")
       ).toThrow(
-        'Expected <li id="first-list-item" class="list-item"> to match selector, #impossible'
+        'Expected <li class="list-item" id="first-list-item"> to match selector, #impossible'
       );
     });
 
@@ -77,7 +77,7 @@ describe(".toMatchSelector()", () => {
       expect(() =>
         expect($list.find("li")).not.toMatchSelector("#first-list-item")
       ).toThrow(
-        'Expected <li id="first-list-item" class="list-item"> not to match selector, #first-list-item'
+        'Expected <li class="list-item" id="first-list-item"> not to match selector, #first-list-item'
       );
     });
   });

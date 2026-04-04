@@ -92,10 +92,10 @@ describe(".toHaveValue()", () => {
 
   it("requires the correct value", () => {
     expect(() => expect($textInput).toHaveValue("random")).toThrow(
-      'Expected <input type="text" readonly="" value="text"> to have value="random"'
+      'Expected <input readonly="" type="text" value="text"> to have value="random"'
     );
     expect(() => expect($numberInput).toHaveValue(11)).toThrow(
-      'Expected <input type="number" readonly="" value="10"> to have value="11"'
+      'Expected <input readonly="" type="number" value="10"> to have value="11"'
     );
     expect(() => expect($textarea).toHaveValue("random")).toThrow(
       'Expected <textarea readonly=""> to have value="random"'
@@ -113,10 +113,10 @@ describe(".toHaveValue()", () => {
 
   it("requires correct negative assertions", () => {
     expect(() => expect($textInput).not.toHaveValue("text")).toThrow(
-      'Expected <input type="text" readonly="" value="text"> not to have value=text'
+      'Expected <input readonly="" type="text" value="text"> not to have value=text'
     );
     expect(() => expect($numberInput).not.toHaveValue(10)).toThrow(
-      'Expected <input type="number" readonly="" value="10"> not to have value=10'
+      'Expected <input readonly="" type="number" value="10"> not to have value=10'
     );
     expect(() => expect($textarea).not.toHaveValue("text description")).toThrow(
       'Expected <textarea readonly=""> not to have value=text description'

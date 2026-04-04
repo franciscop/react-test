@@ -4,10 +4,12 @@
 export default (el: Element | null): string | null => {
   if (!el) return null;
 
-  // Get the full HTML tag WITHOUT its contents
-  const html = (el.cloneNode(false) as Element).outerHTML;
+  const tag = el.tagName.toLowerCase();
 
-  // Regex should NOT be used generally for HTML. We make an exception here
-  // because it's a very strict regex out of a very well defined output string
-  return html.replace(/<\/[a-zA-Z0-9-]+>$/, "");
+  const attrs = [...el.attributes]
+    .sort((a, b) => a.name.localeCompare(b.name)) // enforce order
+    .map((attr) => `${attr.name}="${attr.value}"`)
+    .join(" ");
+
+  return `<${tag}${attrs ? " " + attrs : ""}>`;
 };

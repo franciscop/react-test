@@ -70,7 +70,7 @@ describe(".toBeEnabled()", () => {
       expect($form.find("textarea")).toBeEnabled();
 
       expect(() => expect($form.find("input")).toBeEnabled()).toThrow(
-        'Expected <input id="orange" disabled=""> not to include the attribute "disabled"'
+        'Expected <input disabled="" id="orange"> not to include the attribute "disabled"'
       );
 
       expect(() => expect($form.find("input")).not.toBeEnabled()).toThrow(
@@ -78,7 +78,7 @@ describe(".toBeEnabled()", () => {
       );
 
       expect(() => expect($form.find("button")).toBeEnabled()).toThrow(
-        'Expected <button id="mango" disabled=""> not to include the attribute "disabled"'
+        'Expected <button disabled="" id="mango"> not to include the attribute "disabled"'
       );
     });
 
