@@ -1,8 +1,6 @@
 import $, { act } from "../../";
 import CountDown from "./CountDown";
 
-import { vi } from "vitest";
-
 it("will countdown from 3 to 0", async () => {
   vi.useFakeTimers();
 

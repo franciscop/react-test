@@ -89,6 +89,6 @@ export default (obj?: unknown): Node[] => {
 
   // It's already parsed
   return (Array.isArray(obj) ? obj : [obj]).filter(
-    (obj) => typeof obj === "object"
+    (obj) => typeof obj === "object",
   ) as Node[];
 };

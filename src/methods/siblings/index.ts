@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Find all of the sibling nodes to the current one:
@@ -13,7 +13,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.siblings = function (
   this: ReactTest,
-  selector?: string
+  selector?: string,
 ): ReactTest {
   return this.parent().children(selector).not(this);
 };

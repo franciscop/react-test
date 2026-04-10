@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Simulates typing the text on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
@@ -14,7 +14,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.type = async function (
   this: ReactTest,
-  input: string
+  input: string,
 ): Promise<void> {
   const strings = input.split("").map((k, i) => input.slice(0, i + 1));
   for (const value of strings) {

@@ -12,7 +12,7 @@ it("can select all list items", async () => {
     <ul>
       <li>A</li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   expect(list.children().text()).toBe("A");
   expect(list.children(":last-child").text()).toBe("B");

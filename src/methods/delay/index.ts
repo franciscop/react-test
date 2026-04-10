@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 import { act } from "react";
 
 /**
@@ -15,7 +15,7 @@ import { act } from "react";
  */
 $.prototype.delay = async function (
   this: ReactTest,
-  time: number
+  time: number,
 ): Promise<void> {
   await act(() => new Promise<void>((done) => setTimeout(done, time)));
 };

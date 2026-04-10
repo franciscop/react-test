@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Trigger a click on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:

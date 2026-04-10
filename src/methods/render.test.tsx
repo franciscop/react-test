@@ -36,10 +36,10 @@ describe("render", () => {
       <ul>
         <li>A</li>
         <li>B</li>
-      </ul>
+      </ul>,
     );
     expect((html[0] as HTMLElement).outerHTML).toEqual(
-      `<ul><li>A</li><li>B</li></ul>`
+      `<ul><li>A</li><li>B</li></ul>`,
     );
     expect(html[0].nodeName).toBe("UL");
     expect((html[0] as HTMLElement).children).toHaveLength(2);

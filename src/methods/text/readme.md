@@ -11,7 +11,7 @@ it("can get the simple text", () => {
   const greeting = $(
     <div>
       Hello <br /> world
-    </div>
+    </div>,
   );
   expect(greeting.text()).toBe("Hello world");
 });

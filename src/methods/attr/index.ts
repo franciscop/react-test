@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Read the attribute value of the first node and return its value, or null if there's no node or attribute:

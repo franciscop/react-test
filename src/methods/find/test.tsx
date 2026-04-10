@@ -6,7 +6,7 @@ describe(".find()", () => {
     const $hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect($hello.find()).toBe($hello);
   });
@@ -15,7 +15,7 @@ describe(".find()", () => {
     const $hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect($hello.find("button").get(0)!.nodeName).toBe("BUTTON");
   });
@@ -27,7 +27,7 @@ describe(".find()", () => {
           <button>Hello</button>
           <span>World</span>
         </a>
-      </div>
+      </div>,
     );
     const names = $hello.find("*").array((node) => node.nodeName);
     expect(names).toEqual(["A", "BUTTON", "SPAN"]);

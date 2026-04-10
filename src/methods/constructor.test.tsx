@@ -12,7 +12,7 @@ describe("Iterator", () => {
       <ul>
         <li>A</li>
         <li>B</li>
-      </ul>
+      </ul>,
     );
     const len = list.find("li").length;
     expect(len).toBe(2);
@@ -25,7 +25,7 @@ describe("Iterator", () => {
       <ul>
         <li>A</li>
         <li>B</li>
-      </ul>
+      </ul>,
     );
     let total = 0;
     for (let item of html.find("li")) {
@@ -40,7 +40,7 @@ describe("Iterator", () => {
       <ul>
         <li>A</li>
         <li>B</li>
-      </ul>
+      </ul>,
     );
     let total = 0;
     for (let item of html.find("li")) {

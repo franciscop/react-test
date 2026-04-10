@@ -1,5 +1,4 @@
-
-import { normalize, getPlainTag } from "../../helpers/index.ts";
+import { normalize, getPlainTag } from "../../helpers/index";
 
 const toStr = (list: string[]) => {
   return `class${list.length > 1 ? "es" : ""} "${list.join('", "')}"`;

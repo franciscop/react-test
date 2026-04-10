@@ -5,14 +5,14 @@ import "../index";
 const $button = $(
   <button id="the-button" className="a-button">
     click
-  </button>
+  </button>,
 );
 const $nestedButton = $(
   <div id="one">
     <div id="two">
       <button>click</button>
     </div>
-  </div>
+  </div>,
 );
 
 describe(".toMatchSelector()", () => {
@@ -30,13 +30,13 @@ describe(".toMatchSelector()", () => {
 
   it("requires a valid instance", () => {
     expect(() => expect({}).toMatchSelector(".kiwi")).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
   it("requires the correct selector", () => {
     expect(() => expect($button).toMatchSelector(".the-button")).toThrow(
-      'Expected <button class="a-button" id="the-button"> to match selector, .the-button'
+      'Expected <button class="a-button" id="the-button"> to match selector, .the-button',
     );
   });
 
@@ -45,7 +45,7 @@ describe(".toMatchSelector()", () => {
 
     // throws when selector exists when negatively asserting
     expect(() => expect($button).not.toMatchSelector(".a-button")).toThrow(
-      'Expected <button class="a-button" id="the-button"> not to match selector, .a-button'
+      'Expected <button class="a-button" id="the-button"> not to match selector, .a-button',
     );
   });
 
@@ -56,7 +56,7 @@ describe(".toMatchSelector()", () => {
           apple
         </li>
         <li className="list-item">apple</li>
-      </ul>
+      </ul>,
     );
 
     it("requires all elements to have the same selector", () => {
@@ -64,9 +64,9 @@ describe(".toMatchSelector()", () => {
 
       // Throws error on the first un-matched selector
       expect(() =>
-        expect($list.find("li")).toMatchSelector("#impossible")
+        expect($list.find("li")).toMatchSelector("#impossible"),
       ).toThrow(
-        'Expected <li class="list-item" id="first-list-item"> to match selector, #impossible'
+        'Expected <li class="list-item" id="first-list-item"> to match selector, #impossible',
       );
     });
 
@@ -75,9 +75,9 @@ describe(".toMatchSelector()", () => {
 
       // At least one item has the id, first-list-item
       expect(() =>
-        expect($list.find("li")).not.toMatchSelector("#first-list-item")
+        expect($list.find("li")).not.toMatchSelector("#first-list-item"),
       ).toThrow(
-        'Expected <li class="list-item" id="first-list-item"> not to match selector, #first-list-item'
+        'Expected <li class="list-item" id="first-list-item"> not to match selector, #first-list-item',
       );
     });
   });

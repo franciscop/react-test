@@ -1,12 +1,11 @@
-
-import { normalize, getPlainTag } from "../../helpers/index.ts";
+import { normalize, getPlainTag } from "../../helpers/index";
 
 const whitespace = (str: string) => str.replace(/\s+/g, " ");
 
 export default function (
   this: any,
   frag: any,
-  expected: string
+  expected: string,
 ): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;

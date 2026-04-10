@@ -18,7 +18,7 @@ it("normalizes whitespace", () => {
   const $text = $(
     <div>
       Hello <br /> world!
-    </div>
+    </div>,
   );
   expect($text).toHaveText("Hello world!");
 });
@@ -31,7 +31,7 @@ const $list = $(
   <ul>
     <li>apple</li>
     <li>apple</li>
-  </ul>
+  </ul>,
 );
 // Passes; all of them have the given text
 expect($list.find("li")).toHaveText("apple");
@@ -47,7 +47,7 @@ const $list = $(
   <ul>
     <li>apple</li>
     <li>banana</li>
-  </ul>
+  </ul>,
 );
 
 // ERROR! Because only one of them has the text "banana"

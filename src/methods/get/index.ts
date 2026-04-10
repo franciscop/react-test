@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Get a native DOM Node given its index. Defaults to the first element:

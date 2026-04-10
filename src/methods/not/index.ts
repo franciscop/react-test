@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Remove the matched nodes from the collection. It's the opposite of .filter():
@@ -13,7 +13,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.not = function (
   this: ReactTest,
-  filter: string | ReactTest = "*"
+  filter: string | ReactTest = "*",
 ): ReactTest {
   if (typeof filter === "function") {
     throw new Error("A callback is not allowed for .not()");

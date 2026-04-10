@@ -63,7 +63,7 @@ const $list = $(
     <li value="2" title="list-item">
       apple
     </li>
-  </ul>
+  </ul>,
 );
 
 // PASS
@@ -91,7 +91,7 @@ const $list = $(
     <li value="2" title="list-item">
       apple
     </li>
-  </ul>
+  </ul>,
 );
 
 // PASS

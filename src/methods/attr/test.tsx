@@ -4,7 +4,7 @@ import $ from "../../";
 const $base = $(
   <div className="test" {...({ disabled: true } as any)}>
     Hello
-  </div>
+  </div>,
 );
 
 describe(".attr()", () => {

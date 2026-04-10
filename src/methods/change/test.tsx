@@ -7,7 +7,7 @@ describe(".change()", () => {
     const $test = $(
       <div>
         <input onChange={mock} />
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("input").change("hello");
@@ -19,12 +19,12 @@ describe(".change()", () => {
     const $test = $(
       <div>
         <input onChange={mock} />
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("input").change("hello");
     expect(($test.find("input").get(0) as HTMLInputElement).value).toBe(
-      "hello"
+      "hello",
     );
     expect(mock.mock.calls[0][0].target.value).toBe("hello");
   });
@@ -36,7 +36,7 @@ describe(".change()", () => {
       <div>
         <input onChange={mock1} />
         <input onChange={mock2} />
-      </div>
+      </div>,
     );
     expect(mock1).not.toHaveBeenCalled();
     expect(mock2).not.toHaveBeenCalled();
@@ -65,7 +65,7 @@ describe(".change()", () => {
       <select name="pick" defaultValue="a">
         <option value="a">A</option>
         <option value="b">B</option>
-      </select>
+      </select>,
     );
     expect(input).toHaveValue("a");
     await input.change("b");
@@ -118,14 +118,14 @@ describe(".change()", () => {
         <input name="checkbox" type="checkbox" />
         <input name="radio" type="radio" value="a" defaultChecked />
         <input name="radio" type="radio" value="b" />
-      </form>
+      </form>,
     );
     const data = new FormData(form.get(0) as HTMLFormElement);
     expect(data.get("text")).toBe("");
     expect(data.get("password")).toBe("");
     expect(data.get("checkbox")).toBe(null);
     expect(
-      (form.find('[name="checkbox"]').get(0) as HTMLInputElement).checked
+      (form.find('[name="checkbox"]').get(0) as HTMLInputElement).checked,
     ).toBe(false);
     // expect(data.get("radio")).toBe("a");
     // expect(form.find('[name="radio"]').get(0).checked).toBe(true);
@@ -140,7 +140,7 @@ describe(".change()", () => {
     expect(later.get("password")).toBe("world");
     expect(later.get("checkbox")).toBe("on");
     expect(
-      (form.find('[name="checkbox"]').get(0) as HTMLInputElement).checked
+      (form.find('[name="checkbox"]').get(0) as HTMLInputElement).checked,
     ).toBe(true);
     // expect(data.get("radio")).toBe("b");
     // expect(form.find('[name="radio"]').get(0).checked).toBe(false);

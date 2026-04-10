@@ -6,7 +6,7 @@ describe(".closest()", () => {
     const $hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect($hello.closest("div").get(0)!.nodeName).toBe("DIV");
   });
@@ -28,7 +28,7 @@ describe(".closest()", () => {
           <button>Hello</button>
           <span>World</span>
         </a>
-      </div>
+      </div>,
     );
     const names = $hello.find("button").closest("a").get(0)!.nodeName;
     expect(names).toBe("A");
@@ -41,7 +41,7 @@ describe(".closest()", () => {
           <li>Hello</li>
           <li>World</li>
         </ul>
-      </div>
+      </div>,
     );
     const names = $hello.find("li").closest("ul").get(0)!.nodeName;
     expect(names).toBe("UL");
@@ -99,7 +99,7 @@ describe(".closest()", () => {
             <a>A</a>
           </li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       const item = list.find("a").closest("li");
       expect(item.text()).toBe("A");

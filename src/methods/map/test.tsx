@@ -6,7 +6,7 @@ const $list = $(
     <li>A</li>
     <li>B</li>
     <li>C</li>
-  </ul>
+  </ul>,
 );
 
 describe(".map()", () => {
@@ -29,11 +29,11 @@ describe(".map()", () => {
         <ul>
           <li>A</li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       // Same as .find('li')
       const items = list.map((node) =>
-        (node as Element).querySelectorAll("li")
+        (node as Element).querySelectorAll("li"),
       );
       expect(items.array((node) => node.nodeName)).toEqual(["LI", "LI"]);
     });

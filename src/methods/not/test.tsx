@@ -6,7 +6,7 @@ const list = $(
     <li>A</li>
     <li className="active">B</li>
     <li>C</li>
-  </ul>
+  </ul>,
 );
 
 const items = list.children();
@@ -29,7 +29,7 @@ describe(".not()", () => {
 
   it("doesn't accept a callback", async () => {
     expect(() =>
-      (items.not as (x: unknown) => unknown)((node: Node) => node)
+      (items.not as (x: unknown) => unknown)((node: Node) => node),
     ).toThrow();
   });
 
@@ -40,7 +40,7 @@ describe(".not()", () => {
           <li className="user">John</li>
           <li className="group">Ibiza</li>
           <li className="user">Sarah</li>
-        </ul>
+        </ul>,
       );
       const people = list.children().not(".group");
       expect(people.array((node) => node.textContent)).toEqual([

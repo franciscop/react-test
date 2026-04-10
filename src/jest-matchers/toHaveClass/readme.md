@@ -16,7 +16,7 @@ const $list = $(
   <ul>
     <li className="item main">a</li>
     <li className="item secondary">b</li>
-  </ul>
+  </ul>,
 );
 
 // All of them have the class item

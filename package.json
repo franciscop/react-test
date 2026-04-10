@@ -3,21 +3,64 @@
   "version": "0.24.2",
   "description": "Expressive testing library for React to make sure your code works as expected. Write better code, ship fewer bugs.",
   "homepage": "https://react-test.dev/",
-  "repository": "https://github.com/franciscop/react-test.git",
-  "bugs": "https://github.com/franciscop/react-test/issues",
+  "repository": "github:franciscop/react-test",
   "funding": "https://www.paypal.me/franciscopresencia/19",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "test",
+    "testing",
+    "render",
+    "events",
+    "jest",
+    "vitest"
+  ],
+  "scripts": {
+    "build": "npm run build:library && npm run build:types && npm run build:prettier",
+    "build:library": "vite build && mv dist/index.min.js . && rm -rf dist",
+    "build:types": "dts-bundle-generator --external-types 'react,react-dom' --out-file index.d.ts src/index.ts && cat src/jest-matchers/types.d.ts >> index.d.ts",
+    "build:prettier": "prettier src *.ts *.json --write",
+    "lint": "tsc",
+    "size": "echo $(gzip -c index.min.js | wc -c) bytes",
+    "start": "vitest",
+    "test": "vitest run --coverage"
+  },
+  "main": "index.min.js",
   "type": "module",
+  "types": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ],
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.2",
+    "dts-bundle-generator": "^9.5.1",
+    "esbuild": "^0.27.7",
+    "jsdom": "^29.0.1",
+    "prettier": "^3.8.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "terser": "^5.46.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
+  },
   "documentation": {
     "title": "🧯 React Test - Expressive testing library for React",
     "home": "assets/home.html",
     "menu": {
       "Documentation": "/documentation",
-      "Issues": "https://github.com/franciscop/react-test/issues",
-      "Contribute": "https://github.com/franciscop/react-test/blob/master/Contributing.md",
-      "Get help": "https://superpeer.com/francisco/-/javascript-and-react-help",
-      "Github": "https://github.com/franciscop/react-test"
+      "Donate": "https://www.paypal.me/franciscopresencia/19",
+      "Author": "https://francisco.io/",
+      "Github": "https://github.com/franciscop/form-mate"
     },
     "pages": [
       "readme.md",
@@ -26,43 +69,5 @@
       "src/jest-matchers",
       "src/examples"
     ]
-  },
-  "scripts": {
-    "build": "vite build",
-    "lint": "tsc",
-    "size": "echo $(gzip -c dist/index.min.js | wc -c) bytes",
-    "start": "vitest",
-    "test": "vitest run --coverage"
-  },
-  "keywords": [
-    "react",
-    "test",
-    "testing",
-    "expressive",
-    "jest"
-  ],
-  "main": "dist/index.min.js",
-  "types": "dist/src/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^25.5.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "@vitest/coverage-v8": "^4.1.2",
-    "esbuild": "^0.27.7",
-    "jsdom": "^29.0.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^4.1.2"
   }
 }

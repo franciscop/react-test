@@ -6,7 +6,7 @@ const list = $(
     <li>A</li>
     <li>B</li>
     <li>C</li>
-  </ul>
+  </ul>,
 );
 
 const items = list.children();
@@ -41,7 +41,7 @@ describe(".each()", () => {
           <li>A</li>
           <li>B</li>
           <li>C</li>
-        </ul>
+        </ul>,
       );
       const texts: string[] = [];
       const out = list.find("li").each((node) => texts.push(node.textContent!));

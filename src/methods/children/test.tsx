@@ -6,7 +6,7 @@ describe(".children()", () => {
     const $hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect($hello.children().get(0)!.nodeName).toBe("BUTTON");
   });
@@ -16,7 +16,7 @@ describe(".children()", () => {
       <div>
         {" "}
         <button>Hello</button>{" "}
-      </div>
+      </div>,
     );
     expect($hello.children()).toHaveLength(1);
   });
@@ -32,7 +32,7 @@ describe(".children()", () => {
           <li>A</li>
           <li>B</li>
         </ul>
-      </div>
+      </div>,
     );
     const names = $hello
       .children()
@@ -45,7 +45,7 @@ describe(".children()", () => {
     const $hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect($hello.children("button").get(0)!.nodeName).toBe("BUTTON");
   });
@@ -61,7 +61,7 @@ describe(".children()", () => {
           <li>A</li>
           <li>B</li>
         </ul>
-      </div>
+      </div>,
     );
     const names = $hello
       .children("ul")
@@ -77,7 +77,7 @@ describe(".children()", () => {
           <button>Hello</button>
           <span>World</span>
         </a>
-      </div>
+      </div>,
     );
     const names = $hello
       .children("a")
@@ -102,7 +102,7 @@ describe(".children()", () => {
             <span>World</span>
           </a>
         </p>
-      </div>
+      </div>,
     );
     const names = $hello
       .find("p")
@@ -119,7 +119,7 @@ describe(".children()", () => {
         <ul>
           <li>A</li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       expect(list.children().text()).toBe("A");
       expect(list.children(":last-child").text()).toBe("B");

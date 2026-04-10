@@ -9,7 +9,7 @@ describe(".get()", () => {
         <li>B</li>
         <li>C</li>
         <li>D</li>
-      </ul>
+      </ul>,
     );
     expect(list.find("li").get(0)).toHaveText("A");
     expect(list.find("li").get(1)).toHaveText("B");
@@ -25,7 +25,7 @@ describe(".get()", () => {
         <div>B</div>
         <div>C</div>
         <div>D</div>
-      </>
+      </>,
     );
     expect(list.get(0)).toHaveText("A");
     expect(list.get(1)).toHaveText("B");

@@ -12,7 +12,7 @@ it("can go down and up again", () => {
     <ul>
       <li>A</li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   const items = list.children(); // <li>A</li>, <li>B</li>
   const listB = items.parent(); // <ul>...</ul>
@@ -47,7 +47,7 @@ const list = $(
         Link 2
       </a>
     </li>
-  </ul>
+  </ul>,
 );
 
 const parents = list.find("a").parent();

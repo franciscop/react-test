@@ -23,7 +23,7 @@ const $list = $(
   <ul>
     <li style={{ ...styleObj, color: "red" }}></li>
     <li style={{ ...styleObj, color: "red" }}></li>
-  </ul>
+  </ul>,
 );
 
 // All of the matching elements have the searched for styles

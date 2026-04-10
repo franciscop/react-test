@@ -16,10 +16,10 @@ describe(".html()", () => {
     const hello = $(
       <div className="hello">
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect(hello.html()).toBe(
-      `<div class="hello"><button>Hello</button></div>`
+      `<div class="hello"><button>Hello</button></div>`,
     );
   });
 
@@ -28,7 +28,7 @@ describe(".html()", () => {
       <div className="hello">
         <button>Hello</button>
         <button>World</button>
-      </div>
+      </div>,
     );
     expect($hello.find("button").html()).toBe(`<button>Hello</button>`);
   });

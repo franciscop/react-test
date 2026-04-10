@@ -16,7 +16,7 @@ describe(".html()", () => {
     const $hello = $(
       <div className="hello">
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect($hello.text()).toBe(`Hello`);
   });
@@ -26,7 +26,7 @@ describe(".html()", () => {
       <div className="hello">
         <button>Hello</button>
         <button>World</button>
-      </div>
+      </div>,
     );
     expect($hello.find("button").text()).toBe(`Hello`);
   });
@@ -36,7 +36,7 @@ describe(".html()", () => {
       const greeting = $(
         <div>
           Hello <br /> world
-        </div>
+        </div>,
       );
       expect(greeting.text()).toBe("Hello world");
     });

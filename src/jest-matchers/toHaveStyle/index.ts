@@ -1,5 +1,4 @@
-
-import { normalize, getPlainTag } from "../../helpers/index.ts";
+import { normalize, getPlainTag } from "../../helpers/index";
 
 // Parse JS camelCase style properties to lowercase hyphenated strings
 const parseCamelCase = (styleToParse: string) =>
@@ -11,7 +10,7 @@ const parseCamelCase = (styleToParse: string) =>
 // Clean styles object to return string array of individual styles styles
 const cleanStylesObject = (styles: Record<string, unknown>) =>
   Object.entries(styles).map(
-    ([key, value]) => `${parseCamelCase(key)}: ${value}`
+    ([key, value]) => `${parseCamelCase(key)}: ${value}`,
   );
 
 // Split style string into array with all semicolons and spaces removed
@@ -24,13 +23,13 @@ const cleanStylesStr = (stylesStr: string) => {
 // Get correct error msg string depending on number of incorrect styles
 const getErrorStr = (incorrectStyles: string[]) =>
   `style${incorrectStyles.length > 1 ? "s" : ""} [${incorrectStyles.join(
-    ", "
+    ", ",
   )}]`;
 
 export default function (
   this: any,
   frag: any,
-  styles: string | Record<string, unknown>
+  styles: string | Record<string, unknown>,
 ): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
@@ -48,7 +47,7 @@ export default function (
       (_, i) => {
         const prop = (el as HTMLElement).style.item(i);
         return `${prop}: ${(el as HTMLElement).style.getPropertyValue(prop)}`;
-      }
+      },
     );
 
     // Get an array of style strings to search for in the element styles. Has to handle styles argument of either type string or type object
@@ -61,7 +60,7 @@ export default function (
     if (this.affirmative) {
       // Check each of the search styles to see if they're present on the HTML element and isolate missing styles
       const missingStyles = stylesArray.filter(
-        (styleToBeChecked) => !elStyles.includes(styleToBeChecked)
+        (styleToBeChecked) => !elStyles.includes(styleToBeChecked),
       );
 
       if (missingStyles.length) {
@@ -74,12 +73,12 @@ export default function (
     if (this.isNot) {
       // Check each of the search styles to see if they're incorrectly present on the HTML element and isolate those that are
       const incorrectStyles = stylesArray.filter((styleToBeChecked) =>
-        elStyles.includes(styleToBeChecked)
+        elStyles.includes(styleToBeChecked),
       );
 
       if (incorrectStyles.length) {
         const msg = `Expected ${base} not to include ${getErrorStr(
-          incorrectStyles
+          incorrectStyles,
         )}`;
         return { pass: true, message: () => msg };
       }

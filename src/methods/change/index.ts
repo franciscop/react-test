@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Trigger a change in all of the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
@@ -14,7 +14,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.change = async function (
   this: ReactTest,
-  value: string | boolean
+  value: string | boolean,
 ): Promise<null> {
   // This is needed for uncontrolled inputs
   this.map((node) => {

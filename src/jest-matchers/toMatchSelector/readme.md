@@ -6,7 +6,7 @@ Checks whether the matched elements **match** the selector
 const $button = $(
   <button id="the-button" className="a-button">
     click
-  </button>
+  </button>,
 );
 
 expect($button).toMatchSelector("#the-button");
@@ -19,7 +19,7 @@ Checks whether the matched elements **do not match** the selector
 const $button = $(
   <button id="the-button" className="a-button">
     click
-  </button>
+  </button>,
 );
 
 expect($button).not.toMatchSelector("#hello");
@@ -35,7 +35,7 @@ const $list = $(
       apple
     </li>
     <li className="list-item">apple</li>
-  </ul>
+  </ul>,
 );
 
 // PASS
@@ -56,7 +56,7 @@ const $list = $(
       apple
     </li>
     <li className="list-item">apple</li>
-  </ul>
+  </ul>,
 );
 
 // PASS

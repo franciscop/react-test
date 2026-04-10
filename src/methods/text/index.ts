@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 const whitespace = (str: string) => str.replace(/\s+/g, " ");
 
 /**

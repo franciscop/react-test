@@ -53,7 +53,7 @@ const list = $(
     <li>A</li>
     <li>B</li>
     <li>C</li>
-  </ul>
+  </ul>,
 );
 
 for (let node of list.children()) {

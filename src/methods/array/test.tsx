@@ -19,7 +19,7 @@ describe(".array()", () => {
   it("receives a node, index and list in the callback", () => {
     const greetings = $(<div>Hello</div>);
     const args = greetings.array(
-      (node, index, arr) => [node, index, arr] as [Node, number, Node[]]
+      (node, index, arr) => [node, index, arr] as [Node, number, Node[]],
     );
     expect(args[0][0].nodeName).toBe("DIV");
     expect(args[0][1]).toBe(0);
@@ -32,7 +32,7 @@ describe(".array()", () => {
         <li>A</li>
         <li>B</li>
         <li>C</li>
-      </ul>
+      </ul>,
     );
     expect(list.children().array("textContent")).toEqual(["A", "B", "C"]);
     expect(list.children().array("nodeName")).toEqual(["LI", "LI", "LI"]);
@@ -44,7 +44,7 @@ describe(".array()", () => {
         <ul>
           <li>A</li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       const texts = list.children().array("textContent");
       expect(texts).toEqual(["A", "B"]);
@@ -55,7 +55,7 @@ describe(".array()", () => {
         <ul>
           <li>A</li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       const items = list.children().array("textContent");
       expect(items).toEqual(["A", "B"]);
@@ -66,7 +66,7 @@ describe(".array()", () => {
         <ul>
           <li>A</li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       const items = list
         .children()

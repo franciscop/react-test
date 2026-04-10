@@ -13,7 +13,7 @@ const $select = $(
     <option value="first">first</option>
     <option value="second">second</option>
     <option value="third">third</option>
-  </select>
+  </select>,
 );
 
 describe(".toHaveValue()", () => {
@@ -25,7 +25,7 @@ describe(".toHaveValue()", () => {
 
   it("requires a valid instance", () => {
     expect(() => expect({}).toHaveValue("kiwi")).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
@@ -59,10 +59,10 @@ describe(".toHaveValue()", () => {
     const $radio = $(<input type="radio" value="something" checked readOnly />);
 
     expect(() => expect($checkbox).toHaveValue("check")).toThrow(
-      'Cannot check .toHaveValue() for input type="checkbox" or type="radio".'
+      'Cannot check .toHaveValue() for input type="checkbox" or type="radio".',
     );
     expect(() => expect($radio).toHaveValue("radio")).toThrow(
-      'Cannot check .toHaveValue() for input type="checkbox" or type="radio".'
+      'Cannot check .toHaveValue() for input type="checkbox" or type="radio".',
     );
   });
 
@@ -71,10 +71,10 @@ describe(".toHaveValue()", () => {
       <li>
         <input type="text" value="first" readOnly />
         <input type="text" value="second" readOnly />
-      </li>
+      </li>,
     );
     expect(() => expect($list.find("input")).toHaveValue("first")).toThrow(
-      "Cannot check multiple elements for values. Please pass only one element."
+      "Cannot check multiple elements for values. Please pass only one element.",
     );
   });
 
@@ -83,46 +83,46 @@ describe(".toHaveValue()", () => {
     const $link = $(<a href="hello.com">click</a>);
 
     expect(() => expect($button).toHaveValue("button")).toThrow(
-      "Not a valid element that has a value attribute. Please insert an element that has a value."
+      "Not a valid element that has a value attribute. Please insert an element that has a value.",
     );
     expect(() => expect($link).toHaveValue("link")).toThrow(
-      "Not a valid element that has a value attribute. Please insert an element that has a value."
+      "Not a valid element that has a value attribute. Please insert an element that has a value.",
     );
   });
 
   it("requires the correct value", () => {
     expect(() => expect($textInput).toHaveValue("random")).toThrow(
-      'Expected <input readonly="" type="text" value="text"> to have value="random"'
+      'Expected <input readonly="" type="text" value="text"> to have value="random"',
     );
     expect(() => expect($numberInput).toHaveValue(11)).toThrow(
-      'Expected <input readonly="" type="number" value="10"> to have value="11"'
+      'Expected <input readonly="" type="number" value="10"> to have value="11"',
     );
     expect(() => expect($textarea).toHaveValue("random")).toThrow(
-      'Expected <textarea readonly=""> to have value="random"'
+      'Expected <textarea readonly=""> to have value="random"',
     );
     expect(() => expect($select).toHaveValue("first")).toThrow(
-      'Expected <select> to have value="first"'
+      'Expected <select> to have value="first"',
     );
     expect(() => expect(<select />).toHaveValue()).toThrow(
-      "Expected an option to be selected in <select> (but none was)"
+      "Expected an option to be selected in <select> (but none was)",
     );
     expect(() => expect(<select />).toHaveValue("first")).toThrow(
-      'Expected <select> to have value="first"'
+      'Expected <select> to have value="first"',
     );
   });
 
   it("requires correct negative assertions", () => {
     expect(() => expect($textInput).not.toHaveValue("text")).toThrow(
-      'Expected <input readonly="" type="text" value="text"> not to have value=text'
+      'Expected <input readonly="" type="text" value="text"> not to have value=text',
     );
     expect(() => expect($numberInput).not.toHaveValue(10)).toThrow(
-      'Expected <input readonly="" type="number" value="10"> not to have value=10'
+      'Expected <input readonly="" type="number" value="10"> not to have value=10',
     );
     expect(() => expect($textarea).not.toHaveValue("text description")).toThrow(
-      'Expected <textarea readonly=""> not to have value=text description'
+      'Expected <textarea readonly=""> not to have value=text description',
     );
     expect(() => expect($select).not.toHaveValue("second")).toThrow(
-      "Expected <select> not to have value=second"
+      "Expected <select> not to have value=second",
     );
   });
 });

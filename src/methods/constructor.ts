@@ -1,4 +1,4 @@
-import render from "./render.ts";
+import render from "./render";
 
 type EventHandler = (event: Event) => void;
 
@@ -22,21 +22,21 @@ export interface ReactTest {
   delay(time: number): Promise<void>;
   each(callback?: (node: Node, index: number, arr: Node[]) => void): ReactTest;
   filter(
-    selector?: string | ReactTest | ((node: Node, index: number) => boolean)
+    selector?: string | ReactTest | ((node: Node, index: number) => boolean),
   ): ReactTest;
   find(selector?: string): ReactTest;
   get(index?: number): Node | null;
   html(): string;
   is(selector?: string | ReactTest | ((node: Node) => boolean)): boolean;
   map(
-    callback?: (node: Node) => Node | NodeList | Node[] | null | undefined
+    callback?: (node: Node) => Node | NodeList | Node[] | null | undefined,
   ): ReactTest;
   not(filter?: string | ReactTest): ReactTest;
   parent(): ReactTest;
   props(
     props:
       | Record<string, unknown>
-      | ((prev: Record<string, unknown>) => Record<string, unknown>)
+      | ((prev: Record<string, unknown>) => Record<string, unknown>),
   ): ReactTest;
   render(component: unknown): ReactTest;
   siblings(selector?: string): ReactTest;
@@ -49,12 +49,12 @@ export interface ReactTest {
 function ReactTest(
   this: ReactTest,
   obj: unknown,
-  ctx: Partial<Pick<ReactTest, "events">> = {}
+  ctx: Partial<Pick<ReactTest, "events">> = {},
 ): ReactTest {
   if (!(this instanceof ReactTest))
     return new (ReactTest as unknown as new (
       obj: unknown,
-      ctx?: Partial<Pick<ReactTest, "events">>
+      ctx?: Partial<Pick<ReactTest, "events">>,
     ) => ReactTest)(obj, ctx);
 
   this.events = ctx.events || {};
@@ -63,20 +63,20 @@ function ReactTest(
   window.addEventListener = (
     event: string,
     callback: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ) => {
     this.events[event] = this.events[event] || [];
     this.events[event].push(callback as EventHandler);
     originalAddEventListener(
       event,
       callback,
-      options as boolean | AddEventListenerOptions
+      options as boolean | AddEventListenerOptions,
     );
   };
 
   document.addEventListener = (
     event: string,
-    callback: EventListenerOrEventListenerObject
+    callback: EventListenerOrEventListenerObject,
   ) => {
     this.events[event] = this.events[event] || [];
     this.events[event].push(callback as EventHandler);

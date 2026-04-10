@@ -12,7 +12,7 @@ it("can get a new collection", () => {
     <ul>
       <li>A</li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   // Same as .find('li')
   const items = list.map((node) => node.querySelectorAll("li"));

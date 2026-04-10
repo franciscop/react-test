@@ -1,10 +1,9 @@
-
-import { normalize, getPlainTag } from "../../helpers/index.ts";
+import { normalize, getPlainTag } from "../../helpers/index";
 
 export default function (
   this: any,
   frag: any,
-  selectorStr: string
+  selectorStr: string,
 ): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;

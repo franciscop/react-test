@@ -10,7 +10,7 @@ const list = $(
         Link
       </a>
     </li>
-  </ul>
+  </ul>,
 ).find("li");
 
 describe(".filter()", () => {
@@ -51,7 +51,7 @@ describe(".filter()", () => {
           <li className="user">John</li>
           <li className="group">Ibiza</li>
           <li className="user">Sarah</li>
-        </ul>
+        </ul>,
       );
       const people = list.children().filter(".user");
       expect(people.array((node) => node.textContent)).toEqual([

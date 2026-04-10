@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Trigger a form submission on all the matched forms. It should be awaited for the side effects to run and the component to re-rendered:

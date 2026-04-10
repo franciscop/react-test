@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Iterates over each of the nodes and returns a new collection with the nodes that were returned from the callback:
@@ -14,14 +14,14 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.map = function (
   this: ReactTest,
-  callback: (node: Node) => Node | NodeList | Node[] | null | undefined
+  callback: (node: Node) => Node | NodeList | Node[] | null | undefined,
 ): ReactTest {
   // We don't want to select repeated nodes
   const nodes: Node[] = [];
   (this.array(callback as (node: Node) => unknown) as unknown[])
     // Convert any potential NodeList into an array of plain nodes
     .map((ret: unknown) =>
-      ret && (ret as NodeList).forEach ? [...(ret as NodeList)] : ret
+      ret && (ret as NodeList).forEach ? [...(ret as NodeList)] : ret,
     )
     .flat()
     .forEach((node) => {

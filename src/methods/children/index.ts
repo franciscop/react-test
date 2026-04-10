@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Get the children nodes of all of the matched elements, optionally filtering them with a CSS selector:

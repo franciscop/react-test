@@ -1,12 +1,12 @@
 // [INTERNAL USE ONLY]
 // normalize()
 // Take the expect() arg and returns a clean array of HTMLElements
-import render from "../methods/constructor.ts";
+import render from "../methods/constructor";
 
 export default (frag: any): any => {
   if (!frag) {
     throw new Error(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   }
 
@@ -25,7 +25,7 @@ export default (frag: any): any => {
     // Make sure it's an HTML node
     if (!node.nodeName) {
       throw new Error(
-        "expect() should receive an HTMLElement or React Test instance"
+        "expect() should receive an HTMLElement or React Test instance",
       );
     }
   });

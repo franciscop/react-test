@@ -11,7 +11,7 @@ const $div = $(
     <span>
       <b>here</b>
     </span>
-  </div>
+  </div>,
 );
 
 const expectString = `<div><span>I am a span</span><span>Im also here</span><span><b>here</b></span></div>`;
@@ -23,7 +23,7 @@ describe(".toHaveHtml()", () => {
 
   it("requires valid html", () => {
     expect(() => expect($div).toHaveHtml("<h1>header</h1>")).toThrow(
-      `Expected ${expectString} to include <h1>header</h1>`
+      `Expected ${expectString} to include <h1>header</h1>`,
     );
   });
 
@@ -39,19 +39,19 @@ describe(".toHaveHtml()", () => {
     expect($div).toHaveHtml("<span>Im also here</span>     ");
     expect($div).toHaveHtml("Im also here    ");
     expect(() => expect($div).toHaveHtml(123 as unknown as string)).toThrow(
-      "Second argument of .toHaveHtml() needs to be a string"
+      "Second argument of .toHaveHtml() needs to be a string",
     );
   });
 
   it("negatively asserts non-existent HTML", () => {
     expect($div).not.toHaveHtml("<h1>header</h1>");
     expect(() => expect($div).not.toHaveHtml(123 as unknown as string)).toThrow(
-      "Second argument of .toHaveHtml() needs to be a string"
+      "Second argument of .toHaveHtml() needs to be a string",
     );
     expect(() =>
-      expect($div).not.toHaveHtml("<span>I am a span</span>")
+      expect($div).not.toHaveHtml("<span>I am a span</span>"),
     ).toThrow(
-      `Expected ${expectString} not to include <span>I am a span</span>`
+      `Expected ${expectString} not to include <span>I am a span</span>`,
     );
   });
 
@@ -64,7 +64,7 @@ describe(".toHaveHtml()", () => {
         <div id="div-2">
           <span>span text</span>
         </div>
-      </section>
+      </section>,
     ).find("div");
 
     const strDivs = `<div id="div-1"><span>span text</span></div>`;
@@ -80,7 +80,7 @@ describe(".toHaveHtml()", () => {
       // Throws on first child with non-existent HTML
       for (const invalidHTML of invalidInnerHTMLs) {
         expect(() => expect($divs).toHaveHtml(invalidHTML)).toThrow(
-          `Expected ${strDivs} to include ${invalidHTML}`
+          `Expected ${strDivs} to include ${invalidHTML}`,
         );
       }
     });
@@ -93,7 +93,7 @@ describe(".toHaveHtml()", () => {
       // Throws on first child with valid HTML
       for (const validHTML of validInnerHTMLs) {
         expect(() => expect($divs).not.toHaveHtml(validHTML)).toThrow(
-          `Expected ${strDivs} not to include ${validHTML}`
+          `Expected ${strDivs} not to include ${validHTML}`,
         );
       }
     });

@@ -6,7 +6,7 @@ const list = $(
     <li>A</li>
     <li className="active">B</li>
     <li>C</li>
-  </ul>
+  </ul>,
 );
 
 describe(".siblings()", () => {

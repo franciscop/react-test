@@ -22,31 +22,31 @@ describe(".toHaveAttribute()", () => {
 
   it("requires a valid instance", () => {
     expect(() => expect({}).toHaveAttribute("kiwi")).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
   it("requires the correct attr name", () => {
     expect(() => expect($button).toHaveAttribute("error")).toThrow(
-      'Expected <button type="submit"> to have attribute `error`'
+      'Expected <button type="submit"> to have attribute `error`',
     );
   });
 
   it("requires the correct attr value", () => {
     expect(() => expect($button).toHaveAttribute("type", "reset")).toThrow(
-      'Expected <button type="submit"> to have attribute `type`="reset"'
+      'Expected <button type="submit"> to have attribute `type`="reset"',
     );
   });
 
   it("fails if attr is found when not expected", () => {
     expect(() => expect($button).not.toHaveAttribute("type")).toThrow(
-      'Expected <button type="submit"> not to have attribute `type`'
+      'Expected <button type="submit"> not to have attribute `type`',
     );
   });
 
   it("fails if attr with correct value is found when not expected", () => {
     expect(() => expect($button).not.toHaveAttribute("type", "submit")).toThrow(
-      'Expected <button type="submit"> not to have attribute `type`="submit"'
+      'Expected <button type="submit"> not to have attribute `type`="submit"',
     );
   });
 
@@ -59,7 +59,7 @@ describe(".toHaveAttribute()", () => {
 
     it("fails when regex is invalid", () => {
       expect(() => expect($input).toHaveAttribute("type", /texax./)).toThrow(
-        'Expected <input name="name" required="" type="text"> to have attribute `type` that matches /texax./'
+        'Expected <input name="name" required="" type="text"> to have attribute `type` that matches /texax./',
       );
     });
 
@@ -69,7 +69,7 @@ describe(".toHaveAttribute()", () => {
 
     it("fails when negated regex values exist", () => {
       expect(() => expect($input).not.toHaveAttribute("type", /tex.+/)).toThrow(
-        'Expected <input name="name" required="" type="text"> not to have attribute `type` that matches /tex.+/'
+        'Expected <input name="name" required="" type="text"> not to have attribute `type` that matches /tex.+/',
       );
     });
   });
@@ -83,28 +83,28 @@ describe(".toHaveAttribute()", () => {
         <li value="2" title="list-item">
           apple
         </li>
-      </ul>
+      </ul>,
     );
 
     it("requires all elements to have the same attribute", () => {
       expect($list.find("li")).toHaveAttribute("value");
       expect(() => expect($list.find("li")).toHaveAttribute("id")).toThrow(
-        'Expected <li title="list-item" value="2"> to have attribute `id`'
+        'Expected <li title="list-item" value="2"> to have attribute `id`',
       );
     });
 
     it("requires all elements to have the same attribute && value", () => {
       expect(() =>
-        expect($list.find("li")).toHaveAttribute("value", "1")
+        expect($list.find("li")).toHaveAttribute("value", "1"),
       ).toThrow(
-        'Expected <li title="list-item" value="2"> to have attribute `value`="1"'
+        'Expected <li title="list-item" value="2"> to have attribute `value`="1"',
       );
     });
 
     it("requires all elements to not have the same attribute", () => {
       expect($list.find("li")).not.toHaveAttribute("hi");
       expect(() => expect($list.find("li")).not.toHaveAttribute("id")).toThrow(
-        'Expected <li id="first" title="list-item" value="1"> not to have attribute `id`'
+        'Expected <li id="first" title="list-item" value="1"> not to have attribute `id`',
       );
     });
 
@@ -112,9 +112,9 @@ describe(".toHaveAttribute()", () => {
       expect($list.find("li")).not.toHaveAttribute("title", "order");
       // Returns the first unmatched element
       expect(() =>
-        expect($list.find("li")).not.toHaveAttribute("title", "list-item")
+        expect($list.find("li")).not.toHaveAttribute("title", "list-item"),
       ).toThrow(
-        'Expected <li id="first" title="list-item" value="1"> not to have attribute `title`="list-item"'
+        'Expected <li id="first" title="list-item" value="1"> not to have attribute `title`="list-item"',
       );
     });
   });
@@ -169,7 +169,7 @@ describe(".toHaveAttribute()", () => {
           <li value="2" title="list-item">
             apple
           </li>
-        </ul>
+        </ul>,
       );
 
       // PASS
@@ -183,10 +183,10 @@ describe(".toHaveAttribute()", () => {
       expect(() => expect($list.find("li")).toHaveAttribute("error")).toThrow();
       expect(() => expect($list.find("li")).toHaveAttribute("id")).toThrow();
       expect(() =>
-        expect($list.find("li")).toHaveAttribute("value", "1")
+        expect($list.find("li")).toHaveAttribute("value", "1"),
       ).toThrow();
       expect(() =>
-        expect($list.find("li")).toHaveAttribute("title", /list$/)
+        expect($list.find("li")).toHaveAttribute("title", /list$/),
       ).toThrow();
     });
 
@@ -199,7 +199,7 @@ describe(".toHaveAttribute()", () => {
           <li value="2" title="list-item">
             apple
           </li>
-        </ul>
+        </ul>,
       );
 
       // PASS
@@ -209,13 +209,13 @@ describe(".toHaveAttribute()", () => {
 
       // DO NOT PASS
       expect(() =>
-        expect($list.find("li")).not.toHaveAttribute("value")
+        expect($list.find("li")).not.toHaveAttribute("value"),
       ).toThrow();
       expect(() =>
-        expect($list.find("li")).not.toHaveAttribute("value", "1")
+        expect($list.find("li")).not.toHaveAttribute("value", "1"),
       ).toThrow();
       expect(() =>
-        expect($list.find("li")).not.toHaveAttribute("title", /^list-.*/)
+        expect($list.find("li")).not.toHaveAttribute("title", /^list-.*/),
       ).toThrow();
     });
   });

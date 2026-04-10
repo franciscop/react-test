@@ -17,41 +17,41 @@ describe(".toHaveClass()", () => {
 
   it("requires an HTML element", () => {
     expect(() => expect(null).toHaveClass("banana")).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
 
     expect(() => expect("abc").toHaveClass("banana")).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
   it("requires a valid instance", () => {
     expect(() => expect(true).toHaveClass("banana")).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
   it("requires a class if it's not found", () => {
     expect(() => expect($div).toHaveClass("banana")).toThrow(
-      'Expected <div class="hello world"> to include class "banana"'
+      'Expected <div class="hello world"> to include class "banana"',
     );
   });
 
   it("only requires the class that is not found", () => {
     expect(() => expect($div).toHaveClass("hello", "banana")).toThrow(
-      'Expected <div class="hello world"> to include class "banana"'
+      'Expected <div class="hello world"> to include class "banana"',
     );
   });
 
   it("can pluralize class names", () => {
     expect(() => expect($div).toHaveClass("potato", "banana")).toThrow(
-      'Expected <div class="hello world"> to include classes "potato", "banana"'
+      'Expected <div class="hello world"> to include classes "potato", "banana"',
     );
   });
 
   it("fails if it's found when not expected", () => {
     expect(() => expect($div).not.toHaveClass("hello")).toThrow(
-      'Expected <div class="hello world"> not to include class "hello"'
+      'Expected <div class="hello world"> not to include class "hello"',
     );
   });
 
@@ -59,7 +59,7 @@ describe(".toHaveClass()", () => {
     expect(() => {
       expect($div).not.toHaveClass("hello", "banana");
     }).toThrow(
-      'Expected <div class="hello world"> not to include class "hello"'
+      'Expected <div class="hello world"> not to include class "hello"',
     );
   });
 
@@ -67,7 +67,7 @@ describe(".toHaveClass()", () => {
     expect(() => {
       expect($div).not.toHaveClass("hello", "world");
     }).toThrow(
-      'Expected <div class="hello world"> not to include classes "hello", "world"'
+      'Expected <div class="hello world"> not to include classes "hello", "world"',
     );
   });
 
@@ -76,14 +76,14 @@ describe(".toHaveClass()", () => {
       <ul>
         <li className="item main">a</li>
         <li className="item secondary">b</li>
-      </ul>
+      </ul>,
     );
 
     it("requires all the elements to have the class", () => {
       expect($list.find("li")).toHaveClass("item");
 
       expect(() => expect($list.find("li")).toHaveClass("main")).toThrow(
-        'Expected <li class="item secondary"> to include class "main"'
+        'Expected <li class="item secondary"> to include class "main"',
       );
     });
 
@@ -91,17 +91,17 @@ describe(".toHaveClass()", () => {
       expect($list.find("li")).not.toHaveClass("demo");
 
       expect(() => expect($list.find("li")).not.toHaveClass("item")).toThrow(
-        'Expected <li class="item main"> not to include class "item"'
+        'Expected <li class="item main"> not to include class "item"',
       );
 
       expect(() => expect($list.find("li")).not.toHaveClass("main")).toThrow(
-        'Expected <li class="item main"> not to include class "main"'
+        'Expected <li class="item main"> not to include class "main"',
       );
 
       expect(() =>
-        expect($list.find("li")).not.toHaveClass("secondary")
+        expect($list.find("li")).not.toHaveClass("secondary"),
       ).toThrow(
-        'Expected <li class="item secondary"> not to include class "secondary"'
+        'Expected <li class="item secondary"> not to include class "secondary"',
       );
     });
   });

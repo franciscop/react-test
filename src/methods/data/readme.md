@@ -11,7 +11,7 @@ it("can read the data attributes", () => {
   const card = $(
     <div data-id="25" data-selected>
       Card
-    </div>
+    </div>,
   );
   expect(card.data("id")).toBe("25");
   expect(card.data("selected")).toBe("true"); // T_T 🤷‍♂️ gh/facebook/react/24812

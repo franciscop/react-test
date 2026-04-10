@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Re-render a component with the new props specified as a plain object:
@@ -16,7 +16,7 @@ $.prototype.props = function (
   this: ReactTest,
   props:
     | Record<string, unknown>
-    | ((prev: Record<string, unknown>) => Record<string, unknown>)
+    | ((prev: Record<string, unknown>) => Record<string, unknown>),
 ): ReactTest {
   const container = (this.nodes[0] as Element).closest("#root") as any;
   if (typeof props === "function") {

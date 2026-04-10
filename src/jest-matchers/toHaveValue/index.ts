@@ -1,10 +1,9 @@
-
-import { getPlainTag, normalize } from "../../helpers/index.ts";
+import { getPlainTag, normalize } from "../../helpers/index";
 
 export default function (
   this: any,
   frag: any,
-  value: string | boolean | number = true
+  value: string | boolean | number = true,
 ): { pass: boolean; message: () => string } {
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
@@ -15,7 +14,7 @@ export default function (
   //Should only handle one element
   if (frag.length > 1)
     throw new Error(
-      "Cannot check multiple elements for values. Please pass only one element."
+      "Cannot check multiple elements for values. Please pass only one element.",
     );
 
   const el = frag[0] as
@@ -29,7 +28,7 @@ export default function (
     ["checkbox", "radio"].includes((el as HTMLInputElement).type)
   ) {
     throw new Error(
-      'Cannot check .toHaveValue() for input type="checkbox" or type="radio".'
+      'Cannot check .toHaveValue() for input type="checkbox" or type="radio".',
     );
   }
 
@@ -62,7 +61,7 @@ export default function (
     }
   } else {
     throw new Error(
-      "Not a valid element that has a value attribute. Please insert an element that has a value."
+      "Not a valid element that has a value attribute. Please insert an element that has a value.",
     );
   }
 

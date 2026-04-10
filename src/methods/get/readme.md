@@ -13,7 +13,7 @@ const list = $(
     <li>B</li>
     <li>C</li>
     <li>D</li>
-  </ul>
+  </ul>,
 );
 expect(list.find("li").get()).toHaveText("A");
 expect(list.find("li").get(1)).toHaveText("B");
@@ -58,7 +58,7 @@ const list = $(
   <ul>
     <li>A</li>
     <li>B</li>
-  </ul>
+  </ul>,
 );
 const first = list.get(0);
 expect(first.textContent).toBe("A");

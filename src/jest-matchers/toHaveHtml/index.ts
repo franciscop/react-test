@@ -1,10 +1,9 @@
-
-import { normalize } from "../../helpers/index.ts";
+import { normalize } from "../../helpers/index";
 
 export default function (
   this: any,
   frag: any,
-  html: unknown
+  html: unknown,
 ): { pass: boolean; message: () => string } {
   this.affirmative = !this.isNot;
   frag = normalize(frag);

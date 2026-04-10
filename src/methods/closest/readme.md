@@ -14,7 +14,7 @@ it("finds all the list items with a link", async () => {
         <a>A</a>
       </li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   const item = list.find("a").closest("li");
   expect(item.text()).toBe("A");

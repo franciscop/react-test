@@ -16,7 +16,7 @@ describe(".data()", () => {
       const card = $(
         <div data-id="25" data-selected {...({ selected: true } as any)}>
           Card
-        </div>
+        </div>,
       );
       expect(card.data("id")).toBe("25");
       expect(card.data("selected")).toBe("true"); // T_T 🤷‍♂️ gh/facebook/react/24812

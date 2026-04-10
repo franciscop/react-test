@@ -42,7 +42,7 @@ describe("getPlainTag", () => {
     el.setAttribute("type", "text");
 
     expect(getPlainTag(el)).toBe(
-      '<input readonly="" type="text" value="text">'
+      '<input readonly="" type="text" value="text">',
     );
   });
 

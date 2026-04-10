@@ -9,7 +9,7 @@ describe(".click()", () => {
     const $test = $(
       <div>
         <div onClick={mock} />
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("div").click();
@@ -36,7 +36,7 @@ describe(".click()", () => {
         }}
       >
         <button name="submit">Hello</button>
-      </form>
+      </form>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $form.find("button").click();
@@ -75,7 +75,7 @@ describe(".click()", () => {
             mock();
           }}
         />
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("div").click();
@@ -90,7 +90,7 @@ describe(".click()", () => {
       <div>
         <div onClick={mock1} />
         <div onClick={mock2} />
-      </div>
+      </div>,
     );
     expect(mock1).not.toHaveBeenCalled();
     expect(mock2).not.toHaveBeenCalled();
@@ -106,7 +106,7 @@ describe(".click()", () => {
       <div>
         <span onClick={mock} />
         <div onClick={badmock} />
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("span").click();
@@ -128,7 +128,7 @@ describe(".click()", () => {
     const $test = $(
       <div onClick={async () => mock()}>
         <div>Hi</div>
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("div").click();
@@ -140,7 +140,7 @@ describe(".click()", () => {
     const $test = $(
       <div onClick={mock}>
         <div>Hi</div>
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("div").click();
@@ -152,7 +152,7 @@ describe(".click()", () => {
     const $test = $(
       <div>
         <div onClick={mock}>Hi</div>
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.find("a").click();
@@ -166,7 +166,7 @@ describe(".click()", () => {
     const $test = $(
       <div>
         <div onClick={mock}>Hi</div>
-      </div>
+      </div>,
     );
     expect(mock).not.toHaveBeenCalled();
     await $test.click();
@@ -179,7 +179,7 @@ describe(".click()", () => {
     const $test = $(
       <div>
         <div>Hi</div>
-      </div>
+      </div>,
     );
     await $test.click();
     await $test.find("div").click();

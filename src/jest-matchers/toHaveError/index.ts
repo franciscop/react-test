@@ -1,10 +1,9 @@
-
-import { getPlainTag, normalize } from "../../helpers/index.ts";
+import { getPlainTag, normalize } from "../../helpers/index";
 
 export default function toHaveError(
   this: any,
   frag: any,
-  expectedMessage?: string
+  expectedMessage?: string,
 ): { pass: boolean; message: () => string } {
   const isAffirmative = !this.isNot;
   frag = normalize(frag);
@@ -20,7 +19,7 @@ export default function toHaveError(
       pass: false,
       message: () =>
         `Expected a ReactTest instance with .nodes and .error properties, got ${this.utils.printReceived(
-          frag
+          frag,
         )}`,
     };
   }
@@ -54,7 +53,7 @@ export default function toHaveError(
         pass
           ? "Error message matched"
           : `Expected ${nodeTag} to throw error with message ${this.utils.printExpected(
-              expectedMessage
+              expectedMessage,
             )}, but got ${this.utils.printReceived(actualMessage)}`,
     };
   } else {

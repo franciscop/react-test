@@ -12,7 +12,7 @@ it("can get the text of the children", () => {
     <ul>
       <li>A</li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   const texts = list.children().array("textContent");
   expect(texts).toEqual(["A", "B"]);
@@ -40,7 +40,7 @@ it("can use a key for each of the nodes", () => {
     <ul>
       <li>A</li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   const items = list.children().array("textContent");
   expect(items).toEqual(["A", "B"]);
@@ -55,7 +55,7 @@ it("can use a function to return more complex data", () => {
     <ul>
       <li>A</li>
       <li>B</li>
-    </ul>
+    </ul>,
   );
   const items = list
     .children()

@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Get all of the matched nodes as a plain array. Optionally extract data of each node either with a key used as an prop, or with a callback:
@@ -14,7 +14,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 ($.prototype.array as any) = function (
   this: ReactTest,
-  callback: string | ((node: Node) => unknown) = (node) => node
+  callback: string | ((node: Node) => unknown) = (node) => node,
 ): unknown[] {
   if (typeof callback === "string") {
     const key = callback;

@@ -23,7 +23,7 @@ const $form = $(
 
     <button id="mango" disabled />
     <button id="coconut" disabled />
-  </form>
+  </form>,
 );
 
 // All of them are enabled

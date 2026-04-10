@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Iterates over each of the nodes and returns the same collection of nodes as there was before:
@@ -14,7 +14,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.each = function (
   this: ReactTest,
-  callback: (node: Node, index: number, arr: Node[]) => void = () => {}
+  callback: (node: Node, index: number, arr: Node[]) => void = () => {},
 ): ReactTest {
   this.array(callback);
   return this;

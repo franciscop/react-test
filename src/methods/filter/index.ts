@@ -1,4 +1,4 @@
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 /**
  * Keep only the nodes that match the selector, removing the others:
@@ -13,7 +13,7 @@ import $, { type ReactTest } from "../constructor.ts";
  */
 $.prototype.filter = function (
   this: ReactTest,
-  selector: string | ReactTest | ((node: Node) => boolean) = "*"
+  selector: string | ReactTest | ((node: Node) => boolean) = "*",
 ): ReactTest {
   // A plain string
   if (typeof selector === "string") {

@@ -14,7 +14,7 @@ const $list = $(
         Link 2
       </a>
     </li>
-  </ul>
+  </ul>,
 );
 
 describe(".parent()", () => {
@@ -41,7 +41,7 @@ describe(".parent()", () => {
         <ul>
           <li>A</li>
           <li>B</li>
-        </ul>
+        </ul>,
       );
       const items = list.children(); // <li>A</li>, <li>B</li>
       const listB = items.parent(); // <ul>...</ul>

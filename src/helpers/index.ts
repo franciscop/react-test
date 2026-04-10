@@ -1,7 +1,7 @@
-import act from "./act/index.ts";
-import until from "./until/index.ts";
+import act from "./act/index";
+import until from "./until/index";
 
-import normalize from "./normalize.ts";
-import getPlainTag from "./getPlainTag.ts";
+import normalize from "./normalize";
+import getPlainTag from "./getPlainTag";
 
 export { act, until, normalize, getPlainTag };

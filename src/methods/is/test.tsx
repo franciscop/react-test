@@ -11,7 +11,7 @@ describe(".is()", () => {
     const hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect(hello.is("div")).toBe(true);
     expect(hello.is("button")).toBe(false);
@@ -22,7 +22,7 @@ describe(".is()", () => {
     const hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect(hello.is(() => true)).toBe(true);
     expect(hello.is(() => false)).toBe(false);
@@ -32,7 +32,7 @@ describe(".is()", () => {
     const hello = $(
       <div>
         <button>Hello</button>
-      </div>
+      </div>,
     );
     expect(hello.is(hello)).toBe(true);
   });
@@ -42,7 +42,7 @@ describe(".is()", () => {
       <ul>
         <li>A</li>
         <li>B</li>
-      </ul>
+      </ul>,
     );
     const items = hello.children();
     expect(items.is(items)).toBe(true);

@@ -15,7 +15,7 @@ describe(".toHaveText()", () => {
 
   it("rejects in the simple case", () => {
     expect(() => expect(<div>banana</div>).toHaveText("apple")).toThrow(
-      'Expected <div> to have text "apple" but it received "banana"'
+      'Expected <div> to have text "apple" but it received "banana"',
     );
   });
 
@@ -23,7 +23,7 @@ describe(".toHaveText()", () => {
     const text = $(
       <div>
         Hello <br /> world!
-      </div>
+      </div>,
     );
     expect(text).toHaveText("Hello world!");
   });
@@ -34,7 +34,7 @@ describe(".toHaveText()", () => {
 
   it("rejects with the negation", () => {
     expect(() => expect(<div>banana</div>).not.toHaveText("banana")).toThrow(
-      'Expected <div> not to have the text "banana"'
+      'Expected <div> not to have the text "banana"',
     );
   });
 });

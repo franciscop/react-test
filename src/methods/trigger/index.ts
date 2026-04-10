@@ -7,7 +7,7 @@
 // it can and will await properly for the async callbacks!
 import { act } from "react";
 
-import $, { type ReactTest } from "../constructor.ts";
+import $, { type ReactTest } from "../constructor";
 
 const findParents = (node: Node, list: Node[] = []): Node[] => {
   list.push(node); // add current node
@@ -18,7 +18,7 @@ const findParents = (node: Node, list: Node[] = []): Node[] => {
 };
 
 const getEvents = (
-  node: Node
+  node: Node,
 ): Record<string, (...args: any[]) => any> | undefined => {
   const handlers = Object.entries(node)
     .filter(([k]) => /^__reactProps/.test(k))
@@ -59,12 +59,12 @@ const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 $.prototype.trigger = function (
   this: ReactTest,
   type: string,
-  extra: Record<string, unknown> = {}
+  extra: Record<string, unknown> = {},
 ): Promise<void> {
   // TODO: probably whitelist this
   const propName = `on${capitalize(type)}`.replace(
     /(down|up|left|right|in|out|move)$/i,
-    capitalize
+    capitalize,
   );
   return act(async () => {
     await Promise.all(
@@ -105,7 +105,7 @@ $.prototype.trigger = function (
             .map(([cb, target]) => cb(createEvent(type, { target, ...extra })));
           await Promise.all(events);
         }
-      })
+      }),
     );
   }) as unknown as Promise<void>;
 };

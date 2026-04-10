@@ -6,7 +6,7 @@ Checks whether the selected elements have HTML
 const $div = $(
   <div>
     <span>I am a span</span>
-  </div>
+  </div>,
 );
 
 expect($div).toHaveHtml("<span>I am a span</span>");
@@ -18,7 +18,7 @@ Checks whether the selected elements **do not** have HTML
 const $div = $(
   <div>
     <span>I am a span</span>
-  </div>
+  </div>,
 );
 
 expect($div).not.toHaveHtml("<li>I am a list item</li>");
@@ -30,7 +30,7 @@ Trims passed HTML
 const $div = $(
   <div>
     <span>I am a span</span>
-  </div>
+  </div>,
 );
 
 expect($div).toHaveHtml("<span>I am a span</span>        ");
@@ -44,7 +44,7 @@ const $div = $(
     <span>
       I am a <b>span</b>
     </span>
-  </div>
+  </div>,
 );
 
 expect($div).toHaveHtml("<div><span>I am a <b>span</b></span></div>");
@@ -63,7 +63,7 @@ const $body = $(
     <div>
       <span>span text</span>
     </div>
-  </body>
+  </body>,
 );
 
 // PASS
@@ -86,7 +86,7 @@ const $body = $(
     <div>
       <p>text</p>
     </div>
-  </body>
+  </body>,
 );
 
 // PASS

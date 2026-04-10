@@ -12,22 +12,22 @@ const $div = $(<div style={styleObj as React.CSSProperties} />);
 describe(".toHaveStyle()", () => {
   it("requires an HTML element", () => {
     expect(() => expect(null).toHaveStyle(styleObj)).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
     expect(() => expect("abc").toHaveStyle(styleObj)).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
   it("requires a valid instance", () => {
     expect(() => expect(true).toHaveStyle(styleObj)).toThrow(
-      "expect() should receive an HTMLElement or React Test instance"
+      "expect() should receive an HTMLElement or React Test instance",
     );
   });
 
   it("works for a simple case", () => {
     expect(<div style={styleObj as React.CSSProperties} />).toHaveStyle(
-      styleObj
+      styleObj,
     );
     expect($div).toHaveStyle(styleObj);
   });
@@ -60,56 +60,56 @@ describe(".toHaveStyle()", () => {
 
   it("throws the correct error message when a single style is missing", () => {
     expect(() => expect($div).toHaveStyle({ color: "purple" })).toThrow(
-      'Expected <div style="display: none; text-align: center;"> to include style [color: purple]'
+      'Expected <div style="display: none; text-align: center;"> to include style [color: purple]',
     );
     expect(() => expect($div).toHaveStyle({ width: "200px" })).toThrow(
-      'Expected <div style="display: none; text-align: center;"> to include style [width: 200px]'
+      'Expected <div style="display: none; text-align: center;"> to include style [width: 200px]',
     );
     expect(() => expect($div).toHaveStyle("width: 200px")).toThrow(
-      'Expected <div style="display: none; text-align: center;"> to include style [width: 200px]'
+      'Expected <div style="display: none; text-align: center;"> to include style [width: 200px]',
     );
   });
 
   it("throws the correct error message when multiple styles are missing", () => {
     expect(() =>
-      expect($div).toHaveStyle({ color: "purple", width: "200px" })
+      expect($div).toHaveStyle({ color: "purple", width: "200px" }),
     ).toThrow(
-      'Expected <div style="display: none; text-align: center;"> to include styles [color: purple, width: 200px]'
+      'Expected <div style="display: none; text-align: center;"> to include styles [color: purple, width: 200px]',
     );
     expect(() =>
       expect($div).toHaveStyle(
-        "text-align: center; color: purple; width: 200px"
-      )
+        "text-align: center; color: purple; width: 200px",
+      ),
     ).toThrow(
-      'Expected <div style="display: none; text-align: center;"> to include styles [color: purple, width: 200px]'
+      'Expected <div style="display: none; text-align: center;"> to include styles [color: purple, width: 200px]',
     );
   });
 
   it("throws the correct error message when a single style is incorrectly present", () => {
     expect(() => expect($div).not.toHaveStyle({ display: "none" })).toThrow(
-      'Expected <div style="display: none; text-align: center;"> not to include style [display: none]'
+      'Expected <div style="display: none; text-align: center;"> not to include style [display: none]',
     );
     expect(() => expect($div).not.toHaveStyle("text-align: center")).toThrow(
-      'Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]'
+      'Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]',
     );
     expect(() => expect($div).not.toHaveStyle("text-align: center;")).toThrow(
-      'Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]'
+      'Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]',
     );
   });
 
   it("throws the correct error message when multiple styles are incorrectly present", () => {
     expect(() => expect($div).not.toHaveStyle(styleObj)).toThrow(
-      'Expected <div style="display: none; text-align: center;"> not to include styles [display: none, text-align: center]'
+      'Expected <div style="display: none; text-align: center;"> not to include styles [display: none, text-align: center]',
     );
     expect(() =>
-      expect($div).not.toHaveStyle("display: none; text-align: center")
+      expect($div).not.toHaveStyle("display: none; text-align: center"),
     ).toThrow(
-      'Expected <div style="display: none; text-align: center;"> not to include styles [display: none, text-align: center]'
+      'Expected <div style="display: none; text-align: center;"> not to include styles [display: none, text-align: center]',
     );
     expect(() =>
-      expect($div).not.toHaveStyle("text-align: center; color: red")
+      expect($div).not.toHaveStyle("text-align: center; color: red"),
     ).toThrow(
-      'Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]'
+      'Expected <div style="display: none; text-align: center;"> not to include style [text-align: center]',
     );
   });
 });
@@ -120,7 +120,7 @@ const $list = $(
     <li style={styleObj as React.CSSProperties}></li>
     <li style={styleObj as React.CSSProperties}></li>
     <li style={{ ...styleObj, color: "red" } as React.CSSProperties}></li>
-  </ul>
+  </ul>,
 );
 
 describe(".toHaveStyle() - checkmultiple elements", () => {
@@ -138,15 +138,15 @@ describe(".toHaveStyle() - checkmultiple elements", () => {
 
   it("should check styles are present on all elements", () => {
     expect(() => expect($list.find("li")).toHaveStyle("color: red")).toThrow(
-      'Expected <li style="display: none; text-align: center;"> to include style [color: red]'
+      'Expected <li style="display: none; text-align: center;"> to include style [color: red]',
     );
   });
 
   it("should check styles are not present on all elements", () => {
     expect(() =>
-      expect($list.find("li")).not.toHaveStyle("color: red")
+      expect($list.find("li")).not.toHaveStyle("color: red"),
     ).toThrow(
-      'Expected <li style="display: none; text-align: center; color: red;"> not to include style [color: red]'
+      'Expected <li style="display: none; text-align: center; color: red;"> not to include style [color: red]',
     );
   });
 });

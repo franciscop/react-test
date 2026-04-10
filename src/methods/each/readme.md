@@ -13,7 +13,7 @@ it("can iterate over the items", () => {
       <li>A</li>
       <li>B</li>
       <li>C</li>
-    </ul>
+    </ul>,
   );
   const texts = [];
   const out = list.find("li").each((node) => texts.push(node.textContent));
