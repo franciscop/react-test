@@ -104,6 +104,33 @@ describe("until()", () => {
     expect(res).toHaveHtml('<div class="active">Blah</div>');
   });
 
+  it("wraps the first cb() call in act() to avoid React state update warnings", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    let trigger: (val: boolean) => void = () => {};
+    const Component = () => {
+      const [, setState] = useState(false);
+      trigger = setState;
+      return <div />;
+    };
+    $(<Component />);
+
+    // cb immediately returns true (no looping) but triggers a setState,
+    // which requires act() wrapping to avoid the React warning
+    await until(() => {
+      trigger(true);
+      return true;
+    });
+
+    const actWarnings = errorSpy.mock.calls.filter(
+      ([msg]: [unknown]) =>
+        typeof msg === "string" && msg.includes("not wrapped in act"),
+    );
+    expect(actWarnings).toHaveLength(0);
+
+    errorSpy.mockRestore();
+  });
+
   it("works with a checkbox", async () => {
     const Checkbox = () => {
       const [checked, setChecked] = useState(false);
