@@ -3,12 +3,10 @@ import { getPlainTag, normalize } from "../../helpers/index";
 export default function toHaveError(
   this: any,
   frag: any,
-  expectedMessage?: string,
+  expectedMessage?: string | RegExp,
 ): { pass: boolean; message: () => string } {
-  const isAffirmative = !this.isNot;
   frag = normalize(frag);
 
-  // Validate input
   if (
     !frag ||
     typeof frag !== "object" ||
@@ -28,50 +26,33 @@ export default function toHaveError(
   const actualMessage = hasError ? frag.error.message : undefined;
   const nodeTag = frag.nodes[0] ? getPlainTag(frag.nodes[0]) : "component";
 
-  if (isAffirmative) {
-    // expect().toHaveError()
-    if (!hasError) {
-      return {
-        pass: false,
-        message: () => `Expected ${nodeTag} to throw an error, but it did not`,
-      };
-    }
-
-    // No message provided, just check for any error
-    if (expectedMessage === undefined) {
-      return {
-        pass: true,
-        message: () => "Error thrown as expected",
-      };
-    }
-
-    // Match specific message
-    const pass = actualMessage === expectedMessage;
+  if (!hasError) {
     return {
-      pass,
-      message: () =>
-        pass
-          ? "Error message matched"
-          : `Expected ${nodeTag} to throw error with message ${this.utils.printExpected(
-              expectedMessage,
-            )}, but got ${this.utils.printReceived(actualMessage)}`,
-    };
-  } else {
-    // expect().not.toHaveError()
-    if (hasError) {
-      return {
-        pass: false,
-        message: () =>
-          `Expected ${nodeTag} not to throw an error, but it threw: "${actualMessage}"`,
-      };
-    }
-
-    // No error, as expected
-    return {
-      pass: true,
-      message: () => "No error thrown as expected",
+      pass: false,
+      message: () => `Expected ${nodeTag} to throw an error, but it did not`,
     };
   }
+
+  if (expectedMessage === undefined) {
+    return {
+      pass: true,
+      message: () =>
+        `Expected ${nodeTag} not to throw an error, but it threw: "${actualMessage}"`,
+    };
+  }
+
+  const matches =
+    expectedMessage instanceof RegExp
+      ? expectedMessage.test(actualMessage ?? "")
+      : actualMessage === expectedMessage;
+
+  return {
+    pass: matches,
+    message: () =>
+      matches
+        ? `Expected ${nodeTag} not to throw error matching ${this.utils.printExpected(expectedMessage)}`
+        : `Expected ${nodeTag} to throw error matching ${this.utils.printExpected(expectedMessage)}, but got ${this.utils.printReceived(actualMessage)}`,
+  };
 }
 
 // Register with Jest

@@ -1,74 +1,49 @@
 ### .toHaveValue()
 
-- Checks whether the element has the given value.
-- Only works for input, textarea, and select tags.
-- For input types of checkbox and radio, please use .checked instead.
-
-Checks whether the form element has the given value:
+Check whether a form element (`<input>`, `<textarea>`, or `<select>`) has the expected value. Only works on a **single element** at a time.
 
 ```js
-const $input = $(<input type="text" value="textValue" onChange={} />);
-expect($input).toHaveValue('textValue');
+const $text = $(<input type="text" value="hello" readOnly />);
+const $number = $(<input type="number" value="42" readOnly />);
+const $textarea = $(<textarea value="some text" readOnly />);
+
+expect($text).toHaveValue("hello");
+expect($number).toHaveValue(42); // number inputs are compared as numbers
+expect($textarea).toHaveValue("some text");
 ```
 
-Checks defaultValue if set on element:
+Works with `defaultValue` too:
 
 ```js
-const $input = $(<input type="text" defaultValue="initial text" />);
+const $input = $(<input type="text" defaultValue="initial" />);
 const $textarea = $(<textarea defaultValue="initial textarea" />);
 
-expect($input).toHaveValue("initial text");
+expect($input).toHaveValue("initial");
 expect($textarea).toHaveValue("initial textarea");
 ```
 
-It only works on the input, textarea, and select tags:
+For `<select>`, calling `.toHaveValue()` without an argument checks that any option is selected. Pass a string to match the selected option's value:
 
 ```js
-const $textInput = $(<input type="text" value="text" onChange={} />);
-const $numberInput = $(<input type="number" value="10" onChange={} />);
-const $textarea = $(<textarea value="text description" onChange={} />);
 const $select = $(
-  <select value="second" onChange={}>
-    <option value="first">first</option>
-    <option value="second">second</option>
-    <option value="third">third</option>
-  </select>
+  <select defaultValue="second">
+    <option value="first">First</option>
+    <option value="second">Second</option>
+    <option value="third">Third</option>
+  </select>,
 );
 
-// POSITIVE ASSERTIONS
-expect($textInput).toHaveValue('text');
-expect($numberInput).toHaveValue(10);
-expect($textarea).toHaveValue('text description');
-expect($select).toHaveValue('second');
-
-// NEGATIVE ASSERTIONS
-expect($textInput).not.toHaveValue(10);
-expect($numberInput).not.toHaveValue('text');
-expect($textarea).not.toHaveValue('random');
-expect($select).not.toHaveValue('first');
+expect($select).toHaveValue(); // any option is selected
+expect($select).toHaveValue("second"); // "second" is selected
 ```
 
-Please use `.checked` for inputs of type checkbox and radio:
+Negative assertions work as expected:
 
 ```js
-const $checkbox = $(<input type="checkbox" checked readOnly />);
-const $radio = $(<input type="radio" value="something" checked readOnly />);
-
-// ERROR: Cannot check .toHaveValue() for input type="checkbox" or type="radio".
-expect($checkbox).toHaveValue("check");
-expect($radio).toHaveValue("radio");
-
-expect($checkbox.get(0).checked).toBe(true);
-expect($radio.get(0).checked).toBe(true);
+expect($text).not.toHaveValue("world");
+expect($number).not.toHaveValue(0);
+expect($select).not.toHaveValue("first");
+expect(<select />).not.toHaveValue(); // no option selected
 ```
 
-Element that don't contain the value attribute will throw errors:
-
-```js
-const $button = $(<button>click</button>);
-const $link = $(<a href="hello.com">click</a>);
-
-// ERROR: 'Not a valid element that has a value attribute. Please insert an element that has a value.'
-expect($button).toHaveValue("button");
-expect($link).toHaveValue("link");
-```
+`.toHaveValue()` does not support `input[type="checkbox"]` or `input[type="radio"]` — use `.toHaveAttribute("checked")` for those. It also does not work on non-form elements like `<button>` or `<a>`, and will throw if passed multiple elements.

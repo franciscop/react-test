@@ -21,8 +21,8 @@ expect($button).not.toHaveStyle({ display: "none" });
 ```js
 const $list = $(
   <ul>
-    <li style={{ ...styleObj, color: "red" }}></li>
-    <li style={{ ...styleObj, color: "red" }}></li>
+    <li style={{ color: "red", fontWeight: "bold" }}></li>
+    <li style={{ color: "red", fontWeight: "bold" }}></li>
   </ul>,
 );
 

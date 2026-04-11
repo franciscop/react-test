@@ -4,7 +4,7 @@ declare global {
       toBeEnabled(): R;
       toHaveAttribute(attr: string, val?: string | RegExp | boolean): R;
       toHaveClass(...classes: (string | string[])[]): R;
-      toHaveError(message?: string): R;
+      toHaveError(message?: string | RegExp): R;
       toHaveHtml(html: string): R;
       toHaveStyle(styles: string | Record<string, unknown>): R;
       toHaveText(text: string): R;
