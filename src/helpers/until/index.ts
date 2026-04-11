@@ -3,7 +3,7 @@ const delay = (time: number) =>
   new Promise<void>((done) => setTimeout(done, time));
 
 const untilCallback = async (cb: () => unknown) => {
-  let value = await act(() => cb());
+  let value = await act(async () => await cb());
   while (!value) {
     await act(async () => {
       await delay(50);
