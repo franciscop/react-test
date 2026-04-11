@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import $, { until } from "../../";
 
 describe("until()", () => {
@@ -102,6 +102,33 @@ describe("until()", () => {
     const res = await until(timer).find(".active");
     expect(timer.children().is(".active")).toBe(true);
     expect(res).toHaveHtml('<div class="active">Blah</div>');
+  });
+
+  it("doesn't produce act() warnings for async useEffect state updates", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const Component = () => {
+      const [data, setData] = useState<string | null>(null);
+      useEffect(() => {
+        (async () => {
+          const result = await Promise.resolve("done");
+          setData(result);
+        })();
+      }, []);
+      return <div>{data ?? "loading"}</div>;
+    };
+
+    const comp = $(<Component />);
+    expect(comp.text()).toBe("loading");
+    await until(() => comp.text() === "done");
+    expect(comp.text()).toBe("done");
+
+    const actWarnings = errorSpy.mock.calls.filter(
+      ([msg]: [unknown]) =>
+        typeof msg === "string" && msg.includes("not wrapped in act"),
+    );
+    expect(actWarnings).toHaveLength(0);
+    errorSpy.mockRestore();
   });
 
   it("wraps the first cb() call in act() to avoid React state update warnings", async () => {
