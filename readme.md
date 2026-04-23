@@ -77,6 +77,22 @@ Finally run the tests with Jest:
 npm run test
 ```
 
+### TypeScript
+
+React Test ships with type definitions included — no `@types/` package needed. The custom matchers (`toHaveText`, `toHaveError`, etc.) are automatically added to Jest and Vitest's `expect()`. The `ReactTest` type is exported if you need to annotate variables explicitly:
+
+```ts
+import $ from "react-test";
+import type { ReactTest } from "react-test";
+
+it("increments when clicked", async () => {
+  const counter: ReactTest = $(<Counter />);
+  expect(counter).toHaveText("0");
+  await counter.click();
+  expect(counter).toHaveText("1");
+});
+```
+
 ### Basics of testing
 
 React applications are divided in components, and these components can be tested either individually or in group. Self-contained components are easier to test, document and debug.
