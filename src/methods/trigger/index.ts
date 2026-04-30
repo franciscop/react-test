@@ -97,12 +97,38 @@ $.prototype.trigger = function (
             (target as any)[type](createEvent(type, { target, ...extra }));
           }
         } else {
+          const { target: extraTarget, ...restExtra } = extra;
+          const el = target as HTMLInputElement;
+          const isPlainObject =
+            extraTarget !== null &&
+            typeof extraTarget === "object" &&
+            Object.getPrototypeOf(extraTarget) === Object.prototype;
+          const eventTarget = isPlainObject
+            ? {
+                nodeName: el.nodeName,
+                tagName: el.tagName,
+                id: el.id,
+                name: el.name,
+                type: el.type,
+                value: el.value,
+                checked: el.checked,
+                ...(extraTarget as object),
+              }
+            : ((extraTarget as Node | undefined) ?? target);
           const events = parents
             .map((el) => [getEvents(el), el] as const)
             .filter((ev) => ev[0])
             .map((evts) => [evts[0]![propName], evts[1]] as const)
             .filter((evts) => evts[0])
-            .map(([cb, target]) => cb(createEvent(type, { target, ...extra })));
+            .map(([cb, currentTarget]) =>
+              cb(
+                createEvent(type, {
+                  target: eventTarget,
+                  currentTarget,
+                  ...restExtra,
+                }),
+              ),
+            );
           await Promise.all(events);
         }
       }),

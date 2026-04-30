@@ -2,6 +2,30 @@ import React from "react";
 import $ from "../../";
 
 describe(".change()", () => {
+  it("event.target is the DOM element, not a plain object", async () => {
+    const mock = vi.fn();
+    const $test = $(
+      <div>
+        <input onChange={mock} />
+      </div>,
+    );
+    await $test.find("input").change("hello");
+    const event = mock.mock.calls[0][0];
+    expect(event.target.nodeName).toBe("INPUT");
+  });
+
+  it("event.currentTarget is the element with the handler", async () => {
+    const mock = vi.fn();
+    const $test = $(
+      <form onChange={mock}>
+        <input />
+      </form>,
+    );
+    await $test.find("input").change("hello");
+    const event = mock.mock.calls[0][0];
+    expect(event.currentTarget.nodeName).toBe("FORM");
+  });
+
   it("can attach and click on children", async () => {
     const mock = vi.fn();
     const $test = $(
