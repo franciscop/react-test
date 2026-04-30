@@ -98,23 +98,15 @@ $.prototype.trigger = function (
           }
         } else {
           const { target: extraTarget, ...restExtra } = extra;
-          const el = target as HTMLInputElement;
-          const isPlainObject =
+          const eventTarget =
             extraTarget !== null &&
             typeof extraTarget === "object" &&
-            Object.getPrototypeOf(extraTarget) === Object.prototype;
-          const eventTarget = isPlainObject
-            ? {
-                nodeName: el.nodeName,
-                tagName: el.tagName,
-                id: el.id,
-                name: el.name,
-                type: el.type,
-                value: el.value,
-                checked: el.checked,
-                ...(extraTarget as object),
-              }
-            : ((extraTarget as Node | undefined) ?? target);
+            !(extraTarget instanceof Node)
+              ? {
+                  nodeName: (target as Element).nodeName,
+                  ...(extraTarget as object),
+                }
+              : ((extraTarget as Node | undefined) ?? target);
           const events = parents
             .map((el) => [getEvents(el), el] as const)
             .filter((ev) => ev[0])
