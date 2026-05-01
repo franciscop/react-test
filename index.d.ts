@@ -22,7 +22,7 @@ export interface ReactTest {
     selector?: string | ReactTest | ((node: Node, index: number) => boolean),
   ): ReactTest;
   find(selector?: string): ReactTest;
-  get(index?: number): Node | null;
+  get<T extends Node = Node>(index?: number): T | null;
   html(): string;
   is(selector?: string | ReactTest | ((node: Node) => boolean)): boolean;
   map(
@@ -48,12 +48,27 @@ declare const $: {
   prototype: ReactTest;
 };
 /**
- * Wait until the specified condition is fulfilled. There are multiple ways of specifying the conditions:
+ * Wait until the specified condition is fulfilled. Use this whenever a
+ * component updates asynchronously — data fetching, timers, animations, etc.
  *
  * ```js
- * await until(() => new Date() - init > 1000);
- * await until(button).is(".active");
- * await until(list).find("li");
+ * // Wait for a callback to return truthy
+ * await until(() => $demo.text() === "Loaded");
+ *
+ * // Wait for an element to match a CSS selector
+ * await until($button).is(".active");
+ *
+ * // Wait for children to appear
+ * await until($list).find("li");
+ * ```
+ *
+ * Works with components that load data asynchronously:
+ *
+ * ```js
+ * const $demo = $(<UserProfile id={1} />);
+ * expect($demo).toHaveText("Loading...");
+ * await until(() => $demo.text() !== "Loading...");
+ * expect($demo).toHaveText("Alice");
  * ```
  *
  * **[→ Full until() Docs](https://react-test.dev/documentation#until)**

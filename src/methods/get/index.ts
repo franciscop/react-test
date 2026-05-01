@@ -10,19 +10,17 @@ import $, { type ReactTest } from "../constructor";
  *
  * **[→ Full .get() Docs](https://react-test.dev/documentation#get)**
  */
-$.prototype.get = function (this: ReactTest, index = 0): Node | null {
+$.prototype.get = function <T extends Node = Node>(
+  this: ReactTest,
+  index = 0,
+): T | null {
   // Convert it to a plain array
   const nodes = this.array() as Node[];
 
-  // No elements at all; cannot match
-  if (!nodes.length) return null;
+  // Out-of-bounds or empty — returning null surfaces the mistake
+  if (index >= nodes.length || index < -nodes.length || !nodes.length)
+    return null;
 
-  // Wrap around overflowing indexes
-  index = index % nodes.length;
-
-  // Ensure the index is positive
-  index = (nodes.length + index) % nodes.length;
-
-  // Return the correct node
-  return nodes[index];
+  // Support negative indexes
+  return nodes[(nodes.length + index) % nodes.length] as T;
 };

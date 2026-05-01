@@ -25,7 +25,7 @@ export interface ReactTest {
     selector?: string | ReactTest | ((node: Node, index: number) => boolean),
   ): ReactTest;
   find(selector?: string): ReactTest;
-  get(index?: number): Node | null;
+  get<T extends Node = Node>(index?: number): T | null;
   html(): string;
   is(selector?: string | ReactTest | ((node: Node) => boolean)): boolean;
   map(
@@ -58,7 +58,9 @@ function ReactTest(
     ) => ReactTest)(obj, ctx);
 
   this.events = ctx.events || {};
-  const originalAddEventListener = window.addEventListener.bind(window);
+  const originalWindowAddEventListener = window.addEventListener.bind(window);
+  const originalDocumentAddEventListener =
+    document.addEventListener.bind(document);
 
   window.addEventListener = (
     event: string,
@@ -67,7 +69,7 @@ function ReactTest(
   ) => {
     this.events[event] = this.events[event] || [];
     this.events[event].push(callback as EventHandler);
-    originalAddEventListener(
+    originalWindowAddEventListener(
       event,
       callback,
       options as boolean | AddEventListenerOptions,
@@ -80,6 +82,7 @@ function ReactTest(
   ) => {
     this.events[event] = this.events[event] || [];
     this.events[event].push(callback as EventHandler);
+    originalDocumentAddEventListener(event, callback);
   };
 
   try {
@@ -87,6 +90,9 @@ function ReactTest(
   } catch (error) {
     this.nodes = [];
     this.error = error as Error;
+  } finally {
+    window.addEventListener = originalWindowAddEventListener;
+    document.addEventListener = originalDocumentAddEventListener;
   }
 
   // Add a .length that goes to measure the nodes

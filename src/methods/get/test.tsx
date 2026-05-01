@@ -15,8 +15,8 @@ describe(".get()", () => {
     expect(list.find("li").get(1)).toHaveText("B");
     expect(list.find("li").get(-1)).toHaveText("D");
     expect(list.find("li").get(-2)).toHaveText("C");
-    expect(list.find("li").get(-5)).toHaveText("D");
-    expect(list.find("li").get(-9)).toHaveText("D");
+    expect(list.find("li").get(-5)).toBe(null);
+    expect(list.find("li").get(5)).toBe(null);
   });
   it("works with a fragment as well", () => {
     const list = $(
@@ -31,8 +31,8 @@ describe(".get()", () => {
     expect(list.get(1)).toHaveText("B");
     expect(list.get(-1)).toHaveText("D");
     expect(list.get(-2)).toHaveText("C");
-    expect(list.get(-5)).toHaveText("D");
-    expect(list.get(-9)).toHaveText("D");
+    expect(list.get(-5)).toBe(null);
+    expect(list.get(5)).toBe(null);
   });
 
   it("returns null when not found", () => {

@@ -53,6 +53,7 @@ const createCatcher = () => {
 
 const createContainer = (): RenderContainer => {
   const Catcher = createCatcher();
+  window.document.body.querySelector("#root")?.remove();
   const container = window.document.createElement("div") as RenderContainer;
   container.id = "root";
   window.document.body.appendChild(container);
