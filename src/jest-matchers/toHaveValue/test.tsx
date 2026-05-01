@@ -1,7 +1,5 @@
 import "../index";
 
-import React from "react";
-
 import $ from "../../";
 
 // Requires readOnly or onChange when value is set

@@ -22,6 +22,8 @@ jobs:
         run: npm install react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }}
       - name: Install dependencies
         run: npm install
+      - name: Run the linter
+        run: npm run lint
       - name: Run the tests
         run: npm test
         env:

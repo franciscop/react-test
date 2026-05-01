@@ -1,7 +1,5 @@
 import "../index";
 
-import React from "react";
-
 import $ from "../../";
 
 const $div = $(

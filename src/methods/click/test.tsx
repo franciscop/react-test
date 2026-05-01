@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import $ from "../../";
 
 const delay = (time: number) => new Promise((done) => setTimeout(done, time));

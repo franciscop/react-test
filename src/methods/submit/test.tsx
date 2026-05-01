@@ -1,4 +1,3 @@
-import React from "react";
 import $ from "../../";
 
 const CreateUser = ({ onSubmit }: { onSubmit: () => void }) => (

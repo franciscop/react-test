@@ -1,5 +1,4 @@
 // Signup.test.js;
-import React from "react";
 import $ from "../../";
 import Signup from "./Signup";
 

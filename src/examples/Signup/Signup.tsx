@@ -1,5 +1,3 @@
-import React from "react";
-
 const formToObject = (form: HTMLFormElement): Record<string, string> => {
   const values: Record<string, string> = {};
   for (const obj of form.elements as unknown as HTMLInputElement[]) {

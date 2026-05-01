@@ -24,7 +24,7 @@ const execute = (obj: any, chain: [string, unknown[]][]) => {
 // Store the action chain in an object, and execute it when we find '.then'
 const untilObject = (obj: any) => {
   const chain: [string, unknown[]][] = [];
-  const getter = (target: any, key: string) => {
+  const getter = (_target: any, key: string) => {
     if (key === "then") {
       return async (cb: (res: any) => unknown) => {
         let res: any;

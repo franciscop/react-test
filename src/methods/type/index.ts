@@ -16,7 +16,7 @@ $.prototype.type = async function (
   this: ReactTest,
   input: string,
 ): Promise<void> {
-  const strings = input.split("").map((k, i) => input.slice(0, i + 1));
+  const strings = input.split("").map((_, i) => input.slice(0, i + 1));
   for (const value of strings) {
     await this.change(value);
     await this.delay(10);
