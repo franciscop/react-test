@@ -1,6 +1,29 @@
 import { useEffect } from "react";
 import $ from "../";
 
+describe("constructor", () => {
+  it("unmounts the previous root so its effect cleanup runs", () => {
+    let cleaned = false;
+    const WithListener = () => {
+      useEffect(() => {
+        const handler = () => {};
+        document.addEventListener("click", handler);
+        return () => {
+          document.removeEventListener("click", handler);
+          cleaned = true;
+        };
+      }, []);
+      return <div>first</div>;
+    };
+
+    $(<WithListener />);
+    expect(cleaned).toBe(false);
+
+    $(<div>second</div>);
+    expect(cleaned).toBe(true);
+  });
+});
+
 describe("Iterator", () => {
   it("has the correct names", () => {
     const $button = $(<button>Hello</button>);
