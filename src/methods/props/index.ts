@@ -18,7 +18,8 @@ $.prototype.props = function (
     | Record<string, unknown>
     | ((prev: Record<string, unknown>) => Record<string, unknown>),
 ): ReactTest {
-  const container = (this.nodes[0] as Element).closest("#root") as any;
+  const container = this.root;
+  if (!container) return this;
   if (typeof props === "function") {
     props = props(container.component.props);
   }

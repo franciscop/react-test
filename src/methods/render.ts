@@ -9,7 +9,7 @@ declare global {
 
 global.IS_REACT_ACT_ENVIRONMENT = true;
 
-interface RenderContainer extends HTMLDivElement {
+export interface RenderContainer extends HTMLDivElement {
   root: Root;
   render: (component: React.ReactNode) => void;
   component: React.ReactElement;
@@ -51,7 +51,7 @@ const createCatcher = () => {
   return Catcher;
 };
 
-const createContainer = (): RenderContainer => {
+export const createContainer = (): RenderContainer => {
   const Catcher = createCatcher();
   const prev = window.document.body.querySelector(
     "#root",
@@ -80,22 +80,7 @@ const createContainer = (): RenderContainer => {
   return container;
 };
 
-// This takes a react object like <Button /> and returns the DOM tree
-export default (obj?: unknown): Node[] => {
-  if (!obj) return [];
-
-  // A react instance or a plain value, so render it to jsdom:
-  if (
-    (obj as Record<string, unknown>).$$typeof ||
-    ["string", "number", "boolean"].includes(typeof obj)
-  ) {
-    const container = createContainer();
-    container.render(obj as React.ReactNode);
-    return [...container.childNodes];
-  }
-
-  // It's already parsed
-  return (Array.isArray(obj) ? obj : [obj]).filter(
-    (obj) => typeof obj === "object",
-  ) as Node[];
+export default (root: RenderContainer, obj: unknown): Node[] => {
+  root.render(obj as React.ReactNode);
+  return [...root.childNodes];
 };

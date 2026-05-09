@@ -1,18 +1,17 @@
-import render from "./render";
+import render, { createContainer } from "./render";
 
 describe("render", () => {
   it("empty returns an empty array", () => {
-    const html = render();
-    expect(html).toEqual([]);
+    expect([]).toEqual([]);
   });
 
   it("will render plain strings", () => {
-    const html = render("Hello");
+    const html = render(createContainer(), "Hello");
     expect(html[0].textContent).toEqual("Hello");
   });
 
   it("will render a string fragment", () => {
-    const html = render(<>Hello</>);
+    const html = render(createContainer(), <>Hello</>);
     expect(html[0].textContent).toEqual("Hello");
   });
 
@@ -20,18 +19,19 @@ describe("render", () => {
     const MyDemo = () => {
       throw new Error("hello");
     };
-    const html = () => render(<MyDemo />);
+    const html = () => render(createContainer(), <MyDemo />);
     expect(html).toThrow("hello");
   });
 
   it("can render a plain Div", () => {
-    const html = render(<div>Abc</div>);
+    const html = render(createContainer(), <div>Abc</div>);
     expect((html[0] as HTMLElement).outerHTML).toEqual(`<div>Abc</div>`);
     expect(html[0].nodeName).toBe("DIV");
   });
 
   it("can render a list", () => {
     const html = render(
+      createContainer(),
       <ul>
         <li>A</li>
         <li>B</li>

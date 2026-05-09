@@ -1,3 +1,5 @@
+import React from "react";
+import { act } from "react";
 import $, { type ReactTest } from "../constructor";
 
 /**
@@ -13,8 +15,15 @@ import $, { type ReactTest } from "../constructor";
  * **[→ Full .render() Docs](https://react-test.dev/documentation#render)**
  */
 $.prototype.render = function (this: ReactTest, component: unknown): ReactTest {
-  const container = (this.nodes[0] as Element).closest("#root") as any;
-  container.render(component);
-  this.nodes = [...container.childNodes];
+  if (!this.root) return this;
+  if (!component) {
+    act(() => this.root!.root.unmount());
+    this.root.remove();
+    this.root = null;
+    this.nodes = [];
+    return this;
+  }
+  this.root.render(component as React.ReactNode);
+  this.nodes = [...this.root.childNodes];
   return this;
 };

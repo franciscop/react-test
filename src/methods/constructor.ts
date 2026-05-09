@@ -1,8 +1,13 @@
-import render from "./render";
+import render, { createContainer, type RenderContainer } from "./render";
+
+const needsRoot = (obj: unknown): boolean =>
+  ["string", "number", "boolean"].includes(typeof obj) ||
+  Boolean((obj as Record<string, unknown>).$$typeof);
 
 type EventHandler = (event: Event) => void;
 
 export interface ReactTest {
+  root: RenderContainer | null;
   nodes: Node[];
   events: Record<string, EventHandler[]>;
   error?: Error;
@@ -49,7 +54,7 @@ export interface ReactTest {
 function ReactTest(
   this: ReactTest,
   obj: unknown,
-  ctx: Partial<Pick<ReactTest, "events">> = {},
+  ctx: Partial<Pick<ReactTest, "events" | "root">> = {},
 ): ReactTest {
   if (!(this instanceof ReactTest))
     return new (ReactTest as unknown as new (
@@ -57,6 +62,7 @@ function ReactTest(
       ctx?: Partial<Pick<ReactTest, "events">>,
     ) => ReactTest)(obj, ctx);
 
+  this.root = null;
   this.events = ctx.events || {};
   const originalWindowAddEventListener = window.addEventListener.bind(window);
   const originalDocumentAddEventListener =
@@ -86,7 +92,15 @@ function ReactTest(
   };
 
   try {
-    this.nodes = render(obj);
+    if (needsRoot(obj)) {
+      this.root = createContainer();
+      this.nodes = render(this.root, obj);
+    } else {
+      this.root = ctx.root ?? null;
+      this.nodes = (Array.isArray(obj) ? obj : obj ? [obj] : []).filter(
+        (o) => typeof o === "object",
+      ) as Node[];
+    }
   } catch (error) {
     this.nodes = [];
     this.error = error as Error;
@@ -109,8 +123,11 @@ ReactTest.prototype[Symbol.iterator] = function* (this: ReactTest) {
 };
 
 const $ = ReactTest as unknown as {
-  new (obj: unknown, ctx?: Partial<Pick<ReactTest, "events">>): ReactTest;
-  (obj: unknown, ctx?: Partial<Pick<ReactTest, "events">>): ReactTest;
+  new (
+    obj: unknown,
+    ctx?: Partial<Pick<ReactTest, "events" | "root">>,
+  ): ReactTest;
+  (obj: unknown, ctx?: Partial<Pick<ReactTest, "events" | "root">>): ReactTest;
   prototype: ReactTest;
 };
 
