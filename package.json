@@ -4,8 +4,8 @@
   "description": "Expressive testing library for React to make sure your code works as expected. Write better code, ship fewer bugs.",
   "homepage": "https://react-test.dev/",
   "repository": "github:franciscop/react-test",
-  "funding": "https://www.paypal.me/franciscopresencia/19",
   "author": "Francisco Presencia <public@francisco.io> (https://francisco.io/)",
+  "funding": "https://www.paypal.me/franciscopresencia/19",
   "license": "MIT",
   "keywords": [
     "react",
@@ -32,9 +32,22 @@
   "files": [
     "index.d.ts"
   ],
-  "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+  "documentation.page": {
+    "title": "🧯 React Test - Expressive testing library for React",
+    "home": "assets/home.html",
+    "menu": {
+      "Documentation": "/documentation",
+      "Donate": "https://www.paypal.me/franciscopresencia/19",
+      "Author": "https://francisco.io/",
+      "Github": "https://github.com/franciscop/react-test"
+    },
+    "pages": [
+      "readme.md",
+      "src/methods",
+      "src/helpers",
+      "src/jest-matchers",
+      "src/examples"
+    ]
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
@@ -53,21 +66,8 @@
     "vite": "^8.0.3",
     "vitest": "^4.1.2"
   },
-  "documentation": {
-    "title": "🧯 React Test - Expressive testing library for React",
-    "home": "assets/home.html",
-    "menu": {
-      "Documentation": "/documentation",
-      "Donate": "https://www.paypal.me/franciscopresencia/19",
-      "Author": "https://francisco.io/",
-      "Github": "https://github.com/franciscop/form-mate"
-    },
-    "pages": [
-      "readme.md",
-      "src/methods",
-      "src/helpers",
-      "src/jest-matchers",
-      "src/examples"
-    ]
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }
