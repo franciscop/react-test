@@ -39,7 +39,7 @@ This is very useful if you want to use the browser DOM API for testing different
 
 Basically any time that you are would like to fall back to the native DOM API for testing, you can use `.get().`.
 
-> Technically if you want to wrap it again, you can simply do `$(form.get())`, though we wouldn't recommend to use this too much and see the ReactTest instance => Node as one way operation.
+> Treat the ReactTest instance => Node as a one way operation. When you want to keep chaining on a single element, use [`.eq(index)`](#eq) instead, which returns a React Test instance rather than a Node.
 
 #### Examples
 
@@ -66,4 +66,5 @@ expect(first.textContent).toBe("A");
 
 #### Related
 
+- [`.eq(index)`](#eq): the same selection by index, but keeping the node wrapped so it can be chained.
 - [`.array()`](#array): get ALL of the current nodes as a plain array.

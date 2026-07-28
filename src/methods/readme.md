@@ -13,10 +13,13 @@ expect(button.text()).toBe("Hello world");
 | [.children()](#children) | [.array()](#array) | [.change()](#change)   | [.delay()](#delay)   |
 | [.closest()](#closest)   | [.attr()](#attr)   | [.click()](#click)     | [.props()](#props)   |
 | [.each()](#each)         | [.data()](#data)   | [.submit()](#submit)   | [.render()](#render) |
-| [.filter()](#filter)     | [.get()](#get)     | [.trigger()](#trigger) |                      |
-| [.find()](#find)         | [.html()](#html)   | [.type()](#type)       |                      |
-| [.not()](#not)           | [.is()](#is)       |                        |                      |
-| [.parent()](#parent)     | [.text()](#text)   |                        |                      |
+| [.eq()](#eq)             | [.get()](#get)     | [.trigger()](#trigger) |                      |
+| [.filter()](#filter)     | [.html()](#html)   | [.type()](#type)       |                      |
+| [.find()](#find)         | [.is()](#is)       |                        |                      |
+| [.first()](#first)       | [.text()](#text)   |                        |                      |
+| [.last()](#last)         |                    |                        |                      |
+| [.not()](#not)           |                    |                        |                      |
+| [.parent()](#parent)     |                    |                        |                      |
 | [.siblings()](#siblings) |                    |                        |                      |
 
 Since the API is inspired on jQuery we call React Test `$`, but you can call it `render` or anything you prefer.

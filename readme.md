@@ -197,6 +197,14 @@ items.get(1); // <li>B</li>   ~> The second item
 items.get(-1); // <li>B</li>   ~> The last item
 ```
 
+`.get()` returns a native DOM Node, which ends the chain. To narrow the matched nodes down to a single one and keep using React Test, use `.eq()`, `.first()` or `.last()`:
+
+```js
+items.eq(1); // The <li>B</li> item, wrapped
+items.first().text(); // "A"
+items.last().find("a").click(); // Chaining still works
+```
+
 ### FAQ
 
 #### Is this an official Facebook/React library?

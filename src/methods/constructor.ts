@@ -26,13 +26,16 @@ export interface ReactTest {
   data(name: string): string | null;
   delay(time: number): Promise<void>;
   each(callback?: (node: Node, index: number, arr: Node[]) => void): ReactTest;
+  eq(index?: number): ReactTest;
   filter(
     selector?: string | ReactTest | ((node: Node, index: number) => boolean),
   ): ReactTest;
   find(selector?: string): ReactTest;
+  first(): ReactTest;
   get<T extends Node = Node>(index?: number): T | null;
   html(): string;
   is(selector?: string | ReactTest | ((node: Node) => boolean)): boolean;
+  last(): ReactTest;
   map(
     callback?: (node: Node) => Node | NodeList | Node[] | null | undefined,
   ): ReactTest;
