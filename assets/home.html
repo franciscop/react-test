@@ -1,6 +1,215 @@
-<br />
+<style>
+  .hero,
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    margin: 40px 0;
+  }
+  .hero > *,
+  .row > * {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  @media (min-width: 700px) {
+    .hero > *,
+    .row > * {
+      flex-basis: calc(50% - 15px);
+    }
+  }
+  .content {
+    max-width: 520px;
+  }
+  h1 {
+    margin: 0 0 12px;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  p {
+    margin: 0 0 6px;
+    color: var(--text-soft);
+    font-size: 16px;
+  }
+  a {
+    color: var(--primary);
+  }
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .button {
+    display: inline-block;
+    padding: 6px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--primary);
+    color: #fff;
+    border: 1px solid transparent;
+    transition: box-shadow 0.2s;
+  }
+  .button:hover {
+    box-shadow: inset 0 0 0 99em rgba(0, 0, 0, 0.12);
+  }
+  .button.ghost {
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text);
+  }
+  .button.ghost:hover {
+    box-shadow: inset 0 0 0 99em rgba(0, 0, 0, 0.05);
+  }
+  pre {
+    margin: 0;
+    background: var(--code-bg);
+    border-radius: 10px;
+    padding: 9px 11px;
+    overflow-x: auto;
+    font: 13px/1.7 var(--font-mono);
+    color: var(--text);
+  }
+  pre.install {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+  @media (min-width: 600px) {
+    pre {
+      padding: 16px 18px;
+    }
+  }
+  p code {
+    background: var(--code-bg);
+    padding: 0 5px;
+    border-radius: 5px;
+    font: 0.9em/1 var(--font-mono);
+  }
+  pre code .comment {
+    color: #8a94a6;
+  }
+  pre code .keyword {
+    color: var(--primary-dark);
+  }
+  pre code .string {
+    color: var(--color-tip);
+  }
+  pre code .number {
+    color: #905;
+  }
+  pre code .type {
+    color: var(--color-note);
+  }
+  pre code .function {
+    color: #ca0029;
+  }
+  pre code .operator {
+    color: #a67f59;
+  }
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .features > .feature {
+    flex: 1 1 100%;
+  }
+  @media (min-width: 500px) {
+    .features {
+      gap: 30px;
+    }
+    .features > .feature {
+      flex-basis: calc(50% - 15px);
+    }
+  }
+  @media (min-width: 900px) {
+    .features > .feature {
+      flex-basis: calc(33.333% - 20px);
+    }
+  }
+  .feature {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 15px 17px;
+    box-shadow: 0 1px 3px rgba(20, 20, 45, 0.05);
+  }
+  .feature header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .feature header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--text);
+  }
+  .feature header svg,
+  .feature header img {
+    width: 22px;
+    height: 22px;
+    flex: none;
+  }
+  .feature header svg {
+    fill: none;
+    stroke: var(--text);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .feature header svg.filled {
+    fill: var(--text);
+    stroke: none;
+  }
+  .feature p {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 14.5px;
+  }
+  .separator {
+    margin: 52px 0;
+  }
+  .separator svg {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .separator circle {
+    fill: none;
+    stroke: var(--line-strong);
+    stroke-width: 1.5;
+  }
+  .separator line {
+    stroke: var(--line);
+    stroke-width: 2;
+  }
+  .splash img {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(20, 20, 45, 0.05);
+  }
+  footer {
+    margin-top: 8px;
+    text-align: center;
+  }
+</style>
 
-<section class="hero flex center nowrap">
+<section class="hero">
   <div>
     <h1>React Test</h1>
     <p style="max-width: 620px">
@@ -8,17 +217,15 @@
       expected. Simulate user interactions and events asynchronously. Write
       better code, ship fewer bugs.
     </p>
-    <pre class="small">npm install react-test</pre>
+    <pre class="install">npm install react-test</pre>
     <div class="buttons">
       <a class="button" href="/documentation">Documentation</a>
-      <a
-        class="pseudo button"
-        href="https://www.paypal.me/franciscopresencia/19"
+      <a class="button ghost" href="https://www.paypal.me/franciscopresencia/19"
         >Donate</a
       >
     </div>
   </div>
-  <div style="width: 630px; max-width: 100%">
+  <div>
     <pre><code class="language-js">import $ from &quot;react-test&quot;;
 import Counter from &quot;./Counter.js&quot;;
 
@@ -33,150 +240,140 @@ it(&quot;increments when clicked&quot;, async () =&gt; {
 
 <div class="separator">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 20">
-    <circle cx="10" cy="10" r="3" />
+    <circle cx="10" cy="10" r="1" />
     <line x1="20" y1="10" x2="260" y2="10" />
-    <circle cx="270" cy="10" r="3" />
-    <circle class="empty" cx="283" cy="10" r="3" />
-    <circle class="empty" cx="300" cy="10" r="5" />
-    <circle class="empty" cx="317" cy="10" r="3" />
-    <circle cx="330" cy="10" r="3" />
+    <circle cx="270" cy="10" r="2" />
+    <circle cx="283" cy="10" r="3" />
+    <circle cx="300" cy="10" r="5" />
+    <circle cx="317" cy="10" r="3" />
+    <circle cx="330" cy="10" r="2" />
     <line x1="340" y1="10" x2="580" y2="10" />
-    <circle cx="590" cy="10" r="3" />
+    <circle cx="590" cy="10" r="1" />
   </svg>
 </div>
 
-<section class="features flex one two-500 three-900">
-  <div>
-    <div class="feature">
-      <header>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-          <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
-        </svg>
-        <h3>Documented</h3>
-      </header>
-      <p>
-        <a href="/documentation#getting-started">Getting started</a>,
-        <a href="/documentation#library-api">API</a>,
-        <a href="/documentation#jest-matchers">Jest matchers</a> and
-        <a href="/documentation#examples-12">examples</a> for your convenience
-      </p>
-    </div>
+<section class="features">
+  <div class="feature">
+    <header>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+      </svg>
+      <h3>Documented</h3>
+    </header>
+    <p>
+      <a href="/documentation#getting-started">Getting started</a>,
+      <a href="/documentation#library-api">API</a>,
+      <a href="/documentation#jest-matchers">Jest matchers</a> and
+      <a href="/documentation#examples-12">examples</a> for your convenience
+    </p>
   </div>
-  <div>
-    <div class="feature">
-      <header>
-        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-          <path
-            style="fill: black; stroke-width: 0"
-            d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 1 0 1 0V6.435a4.9 4.9 0 0 1 .106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 0 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.035a.5.5 0 0 1-.416-.223l-1.433-2.15a1.5 1.5 0 0 1-.243-.666l-.345-3.105a.5.5 0 0 1 .399-.546L5 8.11V9a.5.5 0 0 0 1 0V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v5.34l-1.2.24a1.5 1.5 0 0 0-1.196 1.636l.345 3.106a2.5 2.5 0 0 0 .405 1.11l1.433 2.15A1.5 1.5 0 0 0 6.035 16h6.385a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"
-          ></path>
-        </svg>
-        <h3>Simulate Events</h3>
-      </header>
-      <p>
-        Trigger a <a href="/documentation#click"><code>.click()</code></a
-        >, <a href="/documentation#type"><code>.type()</code></a> some text, or
-        <a href="/documentation#change"><code>.change()</code></a> some value
-        easily
-      </p>
-    </div>
+  <div class="feature">
+    <header>
+      <svg
+        class="filled"
+        viewBox="0 0 16 16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 1 0 1 0V6.435a4.9 4.9 0 0 1 .106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 0 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.035a.5.5 0 0 1-.416-.223l-1.433-2.15a1.5 1.5 0 0 1-.243-.666l-.345-3.105a.5.5 0 0 1 .399-.546L5 8.11V9a.5.5 0 0 0 1 0V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v5.34l-1.2.24a1.5 1.5 0 0 0-1.196 1.636l.345 3.106a2.5 2.5 0 0 0 .405 1.11l1.433 2.15A1.5 1.5 0 0 0 6.035 16h6.385a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"
+        ></path>
+      </svg>
+      <h3>Simulate Events</h3>
+    </header>
+    <p>
+      Trigger a <a href="/documentation#click"><code>.click()</code></a
+      >, <a href="/documentation#type"><code>.type()</code></a> some text, or
+      <a href="/documentation#change"><code>.change()</code></a> some value
+      easily
+    </p>
   </div>
-  <div>
-    <div class="feature">
-      <header>
-        <img
-          width="22"
-          height="22"
-          src="https://raw.githubusercontent.com/franciscop/react-test/master/assets/jest.svg"
+  <div class="feature">
+    <header>
+      <img
+        width="22"
+        height="22"
+        src="https://raw.githubusercontent.com/franciscop/react-test/master/assets/jest.svg"
+      />
+      <h3>Jest Matchers</h3>
+    </header>
+    <p>Write intuitive test assertions that fail with clear error messages</p>
+  </div>
+  <div class="feature">
+    <header>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <h3>Stable and tested</h3>
+    </header>
+    <p>
+      With
+      <a href="https://github.com/franciscop/react-test/actions" target="_blank"
+        >300+ tests</a
+      >
+      to ensure everything works. We follow semver strictly
+    </p>
+  </div>
+  <div class="feature">
+    <header>
+      <svg
+        class="filled"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 300 300"
+      >
+        <path
+          d="m187.1,205.1l25,0l0,3.8c0,27.3 -22.2,49.4 -49.4,49.4s-49.4,-22.2 -49.4,-49.5l-0.5,-122c15.3,-4.9 26.5,-19.3 26.5,-36.2c0,-21 -17.1,-38.1 -38.1,-38.1c-21,0 -38.1,17.1 -38.1,38.1c0,17 11.2,31.4 26.6,36.3l0.5,121.9c0,39.9 32.5,72.4 72.4,72.4c39.9,0 72.4,-32.5 72.4,-72.4l0,-3.8l0,-42.5l0,-42.5l-47.9,85.1zm-86.1,-169.5c8.3,0 15.1,6.8 15.1,15.1s-6.8,15.1 -15.1,15.1s-15,-6.8 -15,-15.1s6.7,-15.1 15,-15.1z"
         />
-        <h3>Jest Matchers</h3>
-      </header>
-      <p>Write intuitive test assertions that fail with clear error messages</p>
-    </div>
+      </svg>
+      <h3>Modern React</h3>
+    </header>
+    <p>
+      Supports hooks and React 18. Use <code>await</code> for events and DOM
+      updates
+    </p>
   </div>
-  <div>
-    <div class="feature">
-      <header>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        <h3>Stable and tested</h3>
-      </header>
-      <p>
-        With
-        <a
-          href="https://github.com/franciscop/react-test/actions"
-          target="_blank"
-          >300+ tests</a
-        >
-        to ensure everything works. We follow semver strictly
-      </p>
-    </div>
-  </div>
-  <div>
-    <div class="feature">
-      <header>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
-          <path
-            fill="black"
-            d="m187.1,205.1l25,0l0,3.8c0,27.3 -22.2,49.4 -49.4,49.4s-49.4,-22.2 -49.4,-49.5l-0.5,-122c15.3,-4.9 26.5,-19.3 26.5,-36.2c0,-21 -17.1,-38.1 -38.1,-38.1c-21,0 -38.1,17.1 -38.1,38.1c0,17 11.2,31.4 26.6,36.3l0.5,121.9c0,39.9 32.5,72.4 72.4,72.4c39.9,0 72.4,-32.5 72.4,-72.4l0,-3.8l0,-42.5l0,-42.5l-47.9,85.1zm-86.1,-169.5c8.3,0 15.1,6.8 15.1,15.1s-6.8,15.1 -15.1,15.1s-15,-6.8 -15,-15.1s6.7,-15.1 15,-15.1z"
-          />
-        </svg>
-        <h3>Modern React</h3>
-      </header>
-      <p>
-        Supports hooks and React 18. Use <code>await</code> for events and DOM
-        updates
-      </p>
-    </div>
-  </div>
-  <div>
-    <div class="feature">
-      <header>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path
-            d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"
-          />
-        </svg>
-        <h3>Familiar</h3>
-      </header>
-      <p>
-        React Test uses jQuery syntax for rendering and navigating components.
-      </p>
-    </div>
+  <div class="feature">
+    <header>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path
+          d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"
+        />
+      </svg>
+      <h3>Familiar</h3>
+    </header>
+    <p>
+      React Test uses jQuery syntax for rendering and navigating components.
+    </p>
   </div>
 </section>
 
 <div class="separator">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 20">
-    <circle cx="10" cy="10" r="3" />
+    <circle cx="10" cy="10" r="1" />
     <line x1="20" y1="10" x2="260" y2="10" />
-    <circle cx="270" cy="10" r="3" />
-    <circle class="empty" cx="283" cy="10" r="3" />
-    <circle class="empty" cx="300" cy="10" r="5" />
-    <circle class="empty" cx="317" cy="10" r="3" />
-    <circle cx="330" cy="10" r="3" />
+    <circle cx="270" cy="10" r="2" />
+    <circle cx="283" cy="10" r="3" />
+    <circle cx="300" cy="10" r="5" />
+    <circle cx="317" cy="10" r="3" />
+    <circle cx="330" cy="10" r="2" />
     <line x1="340" y1="10" x2="580" y2="10" />
-    <circle cx="590" cy="10" r="3" />
+    <circle cx="590" cy="10" r="1" />
   </svg>
 </div>
 
-<section class="hero flex one two-900 center">
-  <div>
-    <div class="content">
-      <h2>🚂 Render and assert</h2>
-      <p>
-        Allows you to render React components and make assertions against it
-        with Jest or other testing libraries.
-      </p>
-      <p>
-        You can use the library methods to read values like
-        <code>.text()</code>, or get a node with <code>.get(index)</code> and
-        then use the native DOM API.
-      </p>
-    </div>
+<section class="row">
+  <div class="content">
+    <h2>🚂 Render and assert</h2>
+    <p>
+      Allows you to render React components and make assertions against it with
+      Jest or other testing libraries.
+    </p>
+    <p>
+      You can use the library methods to read values like
+      <code>.text()</code>, or get a node with <code>.get(index)</code> and then
+      use the native DOM API.
+    </p>
   </div>
   <div>
     <pre><code class="language-js">import $ from &quot;react-test&quot;;
@@ -191,31 +388,27 @@ it(&quot;renders a simple title&quot;, () =&gt; {
   </div>
 </section>
 
-<br />
-
-<section class="hero flex one two-900 center">
-  <div>
-    <div class="content">
-      <h2>
-        <img
-          width="26"
-          height="26"
-          style="vertical-align: middle"
-          src="https://raw.githubusercontent.com/franciscop/react-test/master/assets/jest.svg"
-        />
-        Clear Jest Matchers
-      </h2>
-      <p>
-        We've also created
-        <a href="/documentation#jest-matchers">a series of Jest Matchers</a>
-        (included by default if you use Jest) that makes the tests more readable
-        and the error messages when a test fails very clear.
-      </p>
-      <p>
-        They can be used in single elements and for a set of elements, both in
-        the affirmative and negative form.
-      </p>
-    </div>
+<section class="row">
+  <div class="content">
+    <h2>
+      <img
+        width="26"
+        height="26"
+        style="vertical-align: middle"
+        src="https://raw.githubusercontent.com/franciscop/react-test/master/assets/jest.svg"
+      />
+      Clear Jest Matchers
+    </h2>
+    <p>
+      We've also created
+      <a href="/documentation#jest-matchers">a series of Jest Matchers</a>
+      (included by default if you use Jest) that makes the tests more readable
+      and the error messages when a test fails very clear.
+    </p>
+    <p>
+      They can be used in single elements and for a set of elements, both in the
+      affirmative and negative form.
+    </p>
   </div>
   <div>
     <pre><code class="language-js">import $ from &quot;react-test&quot;;
@@ -230,24 +423,20 @@ it(&quot;renders a simple title&quot;, () =&gt; {
   </div>
 </section>
 
-<br />
-
-<section class="hero flex one two-900 center">
-  <div>
-    <div class="content">
-      <h2>👆 Simulate user actions</h2>
-      <p>
-        This is where this library gets really valuable! Emulating user
-        interactions is as easy as it could ever be. There's
-        <a href="/documentation#library-api">multiple event helpers</a>
-        available.
-      </p>
-      <p>
-        For example, to <a href="/documentation#counter">test a Counter</a> that
-        increments when clicked: render and assert the initial status, then
-        await for a user click, and finally make more assertions.
-      </p>
-    </div>
+<section class="row">
+  <div class="content">
+    <h2>👆 Simulate user actions</h2>
+    <p>
+      This is where this library gets really valuable! Emulating user
+      interactions is as easy as it could ever be. There's
+      <a href="/documentation#library-api">multiple event helpers</a>
+      available.
+    </p>
+    <p>
+      For example, to <a href="/documentation#counter">test a Counter</a> that
+      increments when clicked: render and assert the initial status, then await
+      for a user click, and finally make more assertions.
+    </p>
   </div>
   <div>
     <pre><code class="language-js">import $ from &quot;react-test&quot;;
@@ -263,27 +452,23 @@ it(&quot;Can increment a counter&quot;, async () =&gt; {
   </div>
 </section>
 
-<br />
-
-<section class="hero flex one two-900 center">
-  <div>
-    <div class="content">
-      <h2>⏱ Timers, async, etc.</h2>
-      <p>
-        There's other helpers for common React workflows: waiting for a network
-        call, for a specific DOM element, or for fixed amount of time before
-        doing assertions.
-      </p>
-      <p>
-        You can use <a href="/documentation#delay"><code>.delay()</code></a> for
-        a simple timer or
-        <a href="/documentation#until"><code>until()</code></a>
-        for more complex DOM behavior.
-      </p>
-    </div>
+<section class="row">
+  <div class="content">
+    <h2>⏱ Timers, async, etc.</h2>
+    <p>
+      There's other helpers for common React workflows: waiting for a network
+      call, for a specific DOM element, or for fixed amount of time before doing
+      assertions.
+    </p>
+    <p>
+      You can use <a href="/documentation#delay"><code>.delay()</code></a> for a
+      simple timer or
+      <a href="/documentation#until"><code>until()</code></a>
+      for more complex DOM behavior.
+    </p>
   </div>
   <div>
-    <pre><code class="language-js">import $, {until } from &quot;react-test&quot;;
+    <pre><code class="language-js">import $, { until } from &quot;react-test&quot;;
 import UserList from &quot;./UserList&quot;;
 
 it(&quot;waits for a DOM change&quot;, async () =&gt; {
@@ -295,23 +480,19 @@ it(&quot;waits for a DOM change&quot;, async () =&gt; {
   </div>
 </section>
 
-<br />
-
-<section class="hero flex one two-900 center">
-  <div>
-    <div class="content">
-      <h2>✨ Magic Autocomplete</h2>
-      <p>
-        Added jsdocs so the expected parameters and return value will be clearly
-        defined in your IDE/Code Editor.
-      </p>
-      <p>
-        We added the <em>description</em>, a representative <em>example</em> and
-        even a <em>link</em> for more information for
-        <strong>every one</strong> of the methods available! We want you to have
-        the best development experience possible with React Test!
-      </p>
-    </div>
+<section class="row">
+  <div class="content">
+    <h2>✨ Magic Autocomplete</h2>
+    <p>
+      Added jsdocs so the expected parameters and return value will be clearly
+      defined in your IDE/Code Editor.
+    </p>
+    <p>
+      We added the <em>description</em>, a representative <em>example</em> and
+      even a <em>link</em> for more information for
+      <strong>every one</strong> of the methods available! We want you to have
+      the best development experience possible with React Test!
+    </p>
   </div>
   <div>
     <div class="splash">
@@ -325,19 +506,19 @@ it(&quot;waits for a DOM change&quot;, async () =&gt; {
 
 <div class="separator">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 20">
-    <circle cx="10" cy="10" r="3" />
+    <circle cx="10" cy="10" r="1" />
     <line x1="20" y1="10" x2="260" y2="10" />
-    <circle cx="270" cy="10" r="3" />
-    <circle class="empty" cx="283" cy="10" r="3" />
-    <circle class="empty" cx="300" cy="10" r="5" />
-    <circle class="empty" cx="317" cy="10" r="3" />
-    <circle cx="330" cy="10" r="3" />
+    <circle cx="270" cy="10" r="2" />
+    <circle cx="283" cy="10" r="3" />
+    <circle cx="300" cy="10" r="5" />
+    <circle cx="317" cy="10" r="3" />
+    <circle cx="330" cy="10" r="2" />
     <line x1="340" y1="10" x2="580" y2="10" />
-    <circle cx="590" cy="10" r="3" />
+    <circle cx="590" cy="10" r="1" />
   </svg>
 </div>
 
-<div style="text-align: center">
+<footer>
   <p>
     Created by <a href="https://francisco.io/" target="_blank">Francisco</a> and
     <a
@@ -349,9 +530,9 @@ it(&quot;waits for a DOM change&quot;, async () =&gt; {
   <p>
     Need help?
     <a
-      href="https://superpeer.com/francisco/-/javascript-and-react-help"
+      href="https://francisco.io/"
       target="_blank"
       >Book a call</a
     >.
   </p>
-</div>
+</footer>
