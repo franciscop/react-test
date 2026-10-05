@@ -178,4 +178,49 @@ describe(".trigger()", () => {
     await $button.click();
     expect($button).toHaveText("done");
   });
+
+  it("creates the native event classes", async () => {
+    const events: Record<string, Event> = {};
+    const $input = $(
+      <input
+        onKeyDown={(e) => (events.key = e.nativeEvent)}
+        onMouseDown={(e) => (events.mouse = e.nativeEvent)}
+        onClick={(e) => (events.click = e.nativeEvent)}
+        onFocus={(e) => (events.focus = e.nativeEvent)}
+        onWheel={(e) => (events.wheel = e.nativeEvent)}
+      />,
+    );
+    await $input.trigger("keydown");
+    await $input.trigger("mousedown");
+    await $input.click();
+    await $input.trigger("focus");
+    await $input.trigger("wheel");
+    expect(events.key).toBeInstanceOf(KeyboardEvent);
+    expect(events.mouse).toBeInstanceOf(MouseEvent);
+    expect(events.click).toBeInstanceOf(MouseEvent);
+    expect(events.focus).toBeInstanceOf(FocusEvent);
+    expect(events.wheel).toBeInstanceOf(WheelEvent);
+  });
+
+  it("keeps the native defaults for fields that are not passed", async () => {
+    let event: any;
+    const $div = $(<div onMouseDown={(e) => (event = e.nativeEvent)} />);
+    await $div.trigger("mousedown", { clientY: 20 });
+    expect(event.clientX).toBe(0);
+    expect(event.clientY).toBe(20);
+    expect(event.button).toBe(0);
+  });
+
+  it("falls back to a plain Event when the DOM lacks the class", async () => {
+    vi.stubGlobal("DragEvent", undefined);
+    try {
+      let event: any;
+      const $div = $(<div onDragStart={(e) => (event = e.nativeEvent)} />);
+      await $div.trigger("dragstart", { clientX: 5 });
+      expect(event).toBeInstanceOf(Event);
+      expect(event.clientX).toBe(5);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
 });

@@ -12,9 +12,25 @@ const ALIASES: Record<string, string> = {
   blur: "focusout",
 };
 
+const CLASSES: Record<string, string> = {
+  key: "KeyboardEvent",
+  mouse: "MouseEvent",
+  click: "MouseEvent",
+  dblclick: "MouseEvent",
+  contextmenu: "MouseEvent",
+  pointer: "PointerEvent",
+  focus: "FocusEvent",
+  wheel: "WheelEvent",
+  touch: "TouchEvent",
+  drag: "DragEvent",
+  drop: "DragEvent",
+  input: "InputEvent",
+};
+
 const createEvent = (type: string, init: Record<string, unknown>) => {
-  // Only a MouseEvent click runs default actions, like checking a checkbox
-  const Ctor = type === "click" ? MouseEvent : Event;
+  // Fall back to a plain Event when the DOM lacks the class, like TouchEvent
+  const prefix = Object.keys(CLASSES).find((p) => type.startsWith(p));
+  const Ctor = (prefix && (globalThis as any)[CLASSES[prefix]]) || Event;
   const event = new Ctor(type, { bubbles: true, cancelable: true });
   for (const key in init) {
     Object.defineProperty(event, key, { value: init[key] });
