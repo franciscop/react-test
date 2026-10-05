@@ -17,9 +17,8 @@ $.prototype.get = function <T extends Node = Node>(
   // Convert it to a plain array
   const nodes = this.array() as Node[];
 
-  // Out-of-bounds or empty — returning null surfaces the mistake
-  if (index >= nodes.length || index < -nodes.length || !nodes.length)
-    return null;
+  // Out of bounds, which includes an empty selection, so the mistake surfaces
+  if (index >= nodes.length || index < -nodes.length) return null;
 
   // Support negative indexes
   return nodes[(nodes.length + index) % nodes.length] as T;

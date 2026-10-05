@@ -26,7 +26,7 @@ const createCatcher = () => {
     constructor(props: { children?: React.ReactNode }) {
       super(props);
       this.state = { error: null };
-      window.addEventListener("error", this.onError.bind(this));
+      window.addEventListener("error", this.onError);
     }
     static getDerivedStateFromError(error: Error) {
       return { error };
@@ -34,12 +34,12 @@ const createCatcher = () => {
     componentWillUnmount() {
       window.removeEventListener("error", this.onError);
     }
-    onError(event: ErrorEvent) {
+    onError = (event: ErrorEvent) => {
       // This elevates the errors from local in the render tree
       // to global in the test level
       event.preventDefault();
       this.componentDidCatch(event.error);
-    }
+    };
     componentDidCatch(error: Error) {
       Catcher.error = error;
     }
@@ -81,9 +81,4 @@ export const createContainer = (): RenderContainer => {
   };
 
   return container;
-};
-
-export default (root: RenderContainer, obj: unknown): Node[] => {
-  root.render(obj as React.ReactNode);
-  return [...root.childNodes];
 };

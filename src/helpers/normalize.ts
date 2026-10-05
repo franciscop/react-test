@@ -10,12 +10,11 @@ export default (frag: any): any => {
     );
   }
 
-  // Convert a raw element to
+  // A React element, so render it first
   if (frag.$$typeof) return [...render(frag)];
 
   if (frag.error) return frag;
 
-  // For now get the first one, consider looping later
   if (frag.array) frag = frag.array();
 
   // It's a single node

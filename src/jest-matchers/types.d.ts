@@ -1,3 +1,5 @@
+export {};
+
 interface ReactTestMatchers<R> {
   toBeEnabled(): R;
   toHaveAttribute(attr: string, val?: string | RegExp | boolean): R;

@@ -1,4 +1,4 @@
-// [INTERNAL USE ONLY
+// [INTERNAL USE ONLY]
 // Retrieves a clear name for the passed element
 
 export default (el: Element | null): string | null => {

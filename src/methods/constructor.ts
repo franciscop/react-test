@@ -1,4 +1,6 @@
-import render, { createContainer, type RenderContainer } from "./render";
+import type { ReactNode } from "react";
+
+import { createContainer, type RenderContainer } from "./render";
 
 const needsRoot = (obj: unknown): boolean =>
   ["string", "number", "boolean"].includes(typeof obj) ||
@@ -66,7 +68,7 @@ function ReactTest(
   try {
     if (needsRoot(obj)) {
       this.root = createContainer();
-      render(this.root, obj);
+      this.root.render(obj as ReactNode);
       // React can replace the top-level elements, so read them from the root
       Object.defineProperty(this, "nodes", {
         get: () => {

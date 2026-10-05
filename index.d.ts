@@ -4,7 +4,7 @@ import React$1 from "react";
 import { act } from "react";
 import { Root } from "react-dom/client";
 
-export interface RenderContainer extends HTMLDivElement {
+interface RenderContainer extends HTMLDivElement {
   root: Root;
   render: (component: React$1.ReactNode) => void;
   component: React$1.ReactElement;
@@ -105,6 +105,8 @@ export declare namespace until {
 export { $ as default, act };
 
 export {};
+export {};
+
 interface ReactTestMatchers<R> {
   toBeEnabled(): R;
   toHaveAttribute(attr: string, val?: string | RegExp | boolean): R;

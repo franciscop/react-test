@@ -10,28 +10,13 @@ export default defineConfig({
       fileName: () => "index.min.js",
     },
     rollupOptions: {
-      external: [
-        "react",
-        "react-dom",
-        "react-dom/client",
-        "react-dom/test-utils",
-      ],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          "react-dom/client": "ReactDOMClient",
-          "react-dom/test-utils": "testUtils",
-        },
-      },
+      external: ["react", "react-dom", "react-dom/client"],
     },
     minify: false,
-    sourcemap: false,
   },
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: ["./src/vitest.setup.ts"],
     // Needed for the plain test.tsx files
     include: ["src/**/*.test.{ts,tsx}", "src/**/test.{ts,tsx}"],
   },

@@ -1,17 +1,20 @@
-import render, { createContainer } from "./render";
+import { act, type ReactNode } from "react";
+import { createContainer } from "./render";
+
+const render = (component: ReactNode) => {
+  const container = createContainer();
+  container.render(component);
+  return [...container.childNodes];
+};
 
 describe("render", () => {
-  it("empty returns an empty array", () => {
-    expect([]).toEqual([]);
-  });
-
   it("will render plain strings", () => {
-    const html = render(createContainer(), "Hello");
+    const html = render("Hello");
     expect(html[0].textContent).toEqual("Hello");
   });
 
   it("will render a string fragment", () => {
-    const html = render(createContainer(), <>Hello</>);
+    const html = render(<>Hello</>);
     expect(html[0].textContent).toEqual("Hello");
   });
 
@@ -19,19 +22,18 @@ describe("render", () => {
     const MyDemo = () => {
       throw new Error("hello");
     };
-    const html = () => render(createContainer(), <MyDemo />);
+    const html = () => render(<MyDemo />);
     expect(html).toThrow("hello");
   });
 
   it("can render a plain Div", () => {
-    const html = render(createContainer(), <div>Abc</div>);
+    const html = render(<div>Abc</div>);
     expect((html[0] as HTMLElement).outerHTML).toEqual(`<div>Abc</div>`);
     expect(html[0].nodeName).toBe("DIV");
   });
 
   it("can render a list", () => {
     const html = render(
-      createContainer(),
       <ul>
         <li>A</li>
         <li>B</li>
@@ -43,5 +45,20 @@ describe("render", () => {
     expect(html[0].nodeName).toBe("UL");
     expect((html[0] as HTMLElement).children).toHaveLength(2);
     expect((html[0] as HTMLElement).children[0].nodeName).toBe("LI");
+  });
+});
+
+describe("createContainer", () => {
+  it("removes its window error listener on unmount", () => {
+    const add = vi.spyOn(window, "addEventListener");
+    const remove = vi.spyOn(window, "removeEventListener");
+    const container = createContainer();
+    container.render(<div>Hello</div>);
+    const listener = add.mock.calls.find(([type]) => type === "error")?.[1];
+    act(() => container.root.unmount());
+    expect(listener).toBeDefined();
+    expect(remove).toHaveBeenCalledWith("error", listener);
+    add.mockRestore();
+    remove.mockRestore();
   });
 });

@@ -1,5 +1,4 @@
-import React from "react";
-import { act } from "react";
+import { act, type ReactNode } from "react";
 import $, { type ReactTest } from "../constructor";
 
 /**
@@ -22,6 +21,6 @@ $.prototype.render = function (this: ReactTest, component: unknown): ReactTest {
     this.root = null;
     return this;
   }
-  this.root.render(component as React.ReactNode);
+  this.root.render(component as ReactNode);
   return this;
 };

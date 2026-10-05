@@ -124,7 +124,7 @@ describe("until()", () => {
     expect(comp.text()).toBe("done");
 
     const actWarnings = errorSpy.mock.calls.filter(
-      ([msg]: [unknown]) =>
+      ([msg]: unknown[]) =>
         typeof msg === "string" && msg.includes("not wrapped in act"),
     );
     expect(actWarnings).toHaveLength(0);
@@ -150,7 +150,7 @@ describe("until()", () => {
     });
 
     const actWarnings = errorSpy.mock.calls.filter(
-      ([msg]: [unknown]) =>
+      ([msg]: unknown[]) =>
         typeof msg === "string" && msg.includes("not wrapped in act"),
     );
     expect(actWarnings).toHaveLength(0);
@@ -194,7 +194,7 @@ describe("until()", () => {
     expect($counter).toHaveText("1");
 
     const overlapping = errorSpy.mock.calls.filter(
-      ([msg]: [unknown]) =>
+      ([msg]: unknown[]) =>
         typeof msg === "string" && msg.includes("overlapping"),
     );
     expect(overlapping).toHaveLength(0);

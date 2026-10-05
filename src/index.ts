@@ -31,6 +31,7 @@ import "./methods/text/index";
 import "./methods/trigger/index";
 import "./methods/type/index";
 
+export type { ReactTest } from "./methods/constructor";
 export { act } from "react";
 export { until } from "./helpers/index";
 
