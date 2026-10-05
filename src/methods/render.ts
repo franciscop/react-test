@@ -13,6 +13,7 @@ export interface RenderContainer extends HTMLDivElement {
   root: Root;
   render: (component: React.ReactNode) => void;
   component: React.ReactElement;
+  snapshot?: Node[];
 }
 
 const createCatcher = () => {
@@ -57,6 +58,8 @@ export const createContainer = (): RenderContainer => {
     "#root",
   ) as RenderContainer | null;
   if (prev) {
+    // Keep its last nodes readable from the instances that rendered it
+    prev.snapshot = [...prev.childNodes];
     act(() => prev.root.unmount());
     prev.remove();
   }

@@ -273,6 +273,16 @@ items.first().text(); // "A"
 items.last().find("a").click(); // Chaining still works
 ```
 
+The matched nodes of a rendered component always follow its latest render, even when React replaces the top-level element, like when navigating to another page. The ones from `.find()`, `.children()` and the like are fixed when you call them, so after a re-render query again from the component:
+
+```js
+const app = $(<App />);
+const link = app.find("a.about");
+await link.click(); // App now renders a different page
+app.text(); // The new page
+link.text(); // Still the old link, query again with app.find()
+```
+
 ### FAQ
 
 #### Is this an official Facebook/React library?

@@ -4,12 +4,9 @@ const needsRoot = (obj: unknown): boolean =>
   ["string", "number", "boolean"].includes(typeof obj) ||
   Boolean((obj as Record<string, unknown>).$$typeof);
 
-type EventHandler = (event: Event) => void;
-
 export interface ReactTest {
   root: RenderContainer | null;
   nodes: Node[];
-  events: Record<string, EventHandler[]>;
   error?: Error;
   length: number;
   [Symbol.iterator](): Generator<Node, void, unknown>;
@@ -57,47 +54,28 @@ export interface ReactTest {
 function ReactTest(
   this: ReactTest,
   obj: unknown,
-  ctx: Partial<Pick<ReactTest, "events" | "root">> = {},
+  ctx: Partial<Pick<ReactTest, "root">> = {},
 ): ReactTest {
   if (!(this instanceof ReactTest))
     return new (ReactTest as unknown as new (
       obj: unknown,
-      ctx?: Partial<Pick<ReactTest, "events">>,
+      ctx?: Partial<Pick<ReactTest, "root">>,
     ) => ReactTest)(obj, ctx);
 
   this.root = null;
-  this.events = ctx.events || {};
-  const originalWindowAddEventListener = window.addEventListener.bind(window);
-  const originalDocumentAddEventListener =
-    document.addEventListener.bind(document);
-
-  window.addEventListener = (
-    event: string,
-    callback: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions,
-  ) => {
-    this.events[event] = this.events[event] || [];
-    this.events[event].push(callback as EventHandler);
-    originalWindowAddEventListener(
-      event,
-      callback,
-      options as boolean | AddEventListenerOptions,
-    );
-  };
-
-  document.addEventListener = (
-    event: string,
-    callback: EventListenerOrEventListenerObject,
-  ) => {
-    this.events[event] = this.events[event] || [];
-    this.events[event].push(callback as EventHandler);
-    originalDocumentAddEventListener(event, callback);
-  };
-
   try {
     if (needsRoot(obj)) {
       this.root = createContainer();
-      this.nodes = render(this.root, obj);
+      render(this.root, obj);
+      // React can replace the top-level elements, so read them from the root
+      Object.defineProperty(this, "nodes", {
+        get: () => {
+          if (!this.root) return [];
+          if (!this.root.isConnected) return this.root.snapshot ?? [];
+          return [...this.root.childNodes];
+        },
+        enumerable: true,
+      });
     } else {
       this.root = ctx.root ?? null;
       this.nodes = (Array.isArray(obj) ? obj : obj ? [obj] : []).filter(
@@ -107,9 +85,6 @@ function ReactTest(
   } catch (error) {
     this.nodes = [];
     this.error = error as Error;
-  } finally {
-    window.addEventListener = originalWindowAddEventListener;
-    document.addEventListener = originalDocumentAddEventListener;
   }
 
   // Add a .length that goes to measure the nodes
@@ -126,11 +101,8 @@ ReactTest.prototype[Symbol.iterator] = function* (this: ReactTest) {
 };
 
 const $ = ReactTest as unknown as {
-  new (
-    obj: unknown,
-    ctx?: Partial<Pick<ReactTest, "events" | "root">>,
-  ): ReactTest;
-  (obj: unknown, ctx?: Partial<Pick<ReactTest, "events" | "root">>): ReactTest;
+  new (obj: unknown, ctx?: Partial<Pick<ReactTest, "root">>): ReactTest;
+  (obj: unknown, ctx?: Partial<Pick<ReactTest, "root">>): ReactTest;
   prototype: ReactTest;
 };
 

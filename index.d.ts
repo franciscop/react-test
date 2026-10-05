@@ -8,12 +8,11 @@ export interface RenderContainer extends HTMLDivElement {
   root: Root;
   render: (component: React$1.ReactNode) => void;
   component: React$1.ReactElement;
+  snapshot?: Node[];
 }
-export type EventHandler = (event: Event) => void;
 export interface ReactTest {
   root: RenderContainer | null;
   nodes: Node[];
-  events: Record<string, EventHandler[]>;
   error?: Error;
   length: number;
   [Symbol.iterator](): Generator<Node, void, unknown>;
@@ -56,11 +55,8 @@ export interface ReactTest {
   type(input: string): Promise<void>;
 }
 declare const $: {
-  new (
-    obj: unknown,
-    ctx?: Partial<Pick<ReactTest, "events" | "root">>,
-  ): ReactTest;
-  (obj: unknown, ctx?: Partial<Pick<ReactTest, "events" | "root">>): ReactTest;
+  new (obj: unknown, ctx?: Partial<Pick<ReactTest, "root">>): ReactTest;
+  (obj: unknown, ctx?: Partial<Pick<ReactTest, "root">>): ReactTest;
   prototype: ReactTest;
 };
 /**

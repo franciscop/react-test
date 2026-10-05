@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import $ from "../";
 import { until } from "../";
 
@@ -70,6 +70,48 @@ describe("constructor", () => {
 
     $(<div>second</div>);
     expect(cleaned).toBe(true);
+  });
+
+  it("follows a replaced top-level element", async () => {
+    const App = () => {
+      const [page, setPage] = useState("home");
+      if (page === "about") return <section>About</section>;
+      return (
+        <main>
+          <button onClick={() => setPage("about")}>Go</button>
+        </main>
+      );
+    };
+    const $app = $(<App />);
+    await $app.find("button").click();
+    expect($app.is("section")).toBe(true);
+    expect($app).toHaveText("About");
+  });
+
+  it("finds content rendered after a first null", async () => {
+    const Late = () => {
+      const [ready, setReady] = useState(false);
+      useEffect(() => {
+        setTimeout(() => setReady(true), 20);
+      }, []);
+      return ready ? <p>Ready</p> : null;
+    };
+    const $late = $(<Late />);
+    expect($late.length).toBe(0);
+    await until($late).is("p");
+    expect($late).toHaveText("Ready");
+  });
+
+  it("keeps earlier instances readable after a new $()", async () => {
+    const Counter = () => {
+      const [count, setCount] = useState(0);
+      return <button onClick={() => setCount(count + 1)}>{count}</button>;
+    };
+    const $counter = $(<Counter />);
+    await $counter.click();
+    const $other = $(<p>Other</p>);
+    expect($counter).toHaveText("1");
+    expect($other).toHaveText("Other");
   });
 });
 

@@ -24,6 +24,5 @@ $.prototype.props = function (
     props = props(container.component.props);
   }
   container.render({ ...container.component, props });
-  this.nodes = [...container.childNodes];
   return this;
 };

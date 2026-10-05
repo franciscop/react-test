@@ -20,10 +20,8 @@ $.prototype.render = function (this: ReactTest, component: unknown): ReactTest {
     act(() => this.root!.root.unmount());
     this.root.remove();
     this.root = null;
-    this.nodes = [];
     return this;
   }
   this.root.render(component as React.ReactNode);
-  this.nodes = [...this.root.childNodes];
   return this;
 };
