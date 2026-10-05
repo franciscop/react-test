@@ -158,6 +158,49 @@ describe("until()", () => {
     errorSpy.mockRestore();
   });
 
+  it("times out a callback", async () => {
+    await expect(until(() => false, { timeout: 100 })).rejects.toThrow(
+      "until(() => false) timed out after 100ms",
+    );
+  });
+
+  it("times out a chain, naming it", async () => {
+    const $list = $(<ul className="list" />);
+    await expect(until($list, { timeout: 100 }).find("li")).rejects.toThrow(
+      'until(<ul class="list">).find("li") timed out after 100ms',
+    );
+  });
+
+  it("uses until.timeout by default", async () => {
+    const original = until.timeout;
+    until.timeout = 100;
+    try {
+      await expect(until(() => false)).rejects.toThrow("timed out after 100ms");
+    } finally {
+      until.timeout = original;
+    }
+  });
+
+  it("leaves act() usable after a timeout", async () => {
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    await expect(until(() => false, { timeout: 100 })).rejects.toThrow();
+
+    const Counter = () => {
+      const [count, setCount] = useState(0);
+      return <button onClick={() => setCount(count + 1)}>{count}</button>;
+    };
+    const $counter = $(<Counter />);
+    await $counter.click();
+    expect($counter).toHaveText("1");
+
+    const overlapping = errorSpy.mock.calls.filter(
+      ([msg]: [unknown]) =>
+        typeof msg === "string" && msg.includes("overlapping"),
+    );
+    expect(overlapping).toHaveLength(0);
+    errorSpy.mockRestore();
+  });
+
   it("works with a checkbox", async () => {
     const Checkbox = () => {
       const [checked, setChecked] = useState(false);

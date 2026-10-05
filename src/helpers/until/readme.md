@@ -1,6 +1,6 @@
 ### until()
 
-Wait until the specified condition is fulfilled. There are multiple ways of specifying the conditions. For example, let's say that you have a timer that changes its class to `active` after 3s:
+Wait until the specified condition is fulfilled. There are multiple ways of specifying the conditions. For example, let's say that you have a timer that changes its class to `active` after 500ms:
 
 ```js
 import $, { until } from "react-test";
@@ -19,6 +19,27 @@ expect(timer).toHaveClass("active");
 - Receiving a callback, that callback returns `true` or a `truthy` value.
 - Receiving a component, we call data methods like `.is('.active')` that will resolve when it's "true".
 - Receiving a component, we can execute actions like `.find('.active')` and it'll be truthy when it finds at least 1 node that matches the query.
+
+`options` (optional): `{ timeout }`, the milliseconds to wait before failing. See [Timeout](#timeout).
+
+#### Timeout
+
+`until()` fails if the condition is not met within 1 second, with an error that names what it was waiting for:
+
+```
+until(<ul class="list">).find("li") timed out after 1000ms
+```
+
+Change the default for all tests with `until.timeout`, or pass a `timeout` option for a single call:
+
+```js
+until.timeout = 2000;
+
+await until(() => timer.is(".active"), { timeout: 3000 });
+await until(list, { timeout: 3000 }).find("li");
+```
+
+Keep it below your test runner's own timeout (5 seconds by default in Vitest, Jest and Bun), so that `until()` reports the failure instead of the runner.
 
 #### Returns
 

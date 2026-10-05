@@ -65,7 +65,7 @@ declare const $: {
 };
 /**
  * Wait until the specified condition is fulfilled. Use this whenever a
- * component updates asynchronously — data fetching, timers, animations, etc.
+ * component updates asynchronously: data fetching, timers, animations, etc.
  *
  * ```js
  * // Wait for a callback to return truthy
@@ -87,9 +87,24 @@ declare const $: {
  * expect($demo).toHaveText("Alice");
  * ```
  *
+ * It fails after `until.timeout` milliseconds (1000 by default), or after the
+ * `timeout` option for a single call:
+ *
+ * ```js
+ * await until(() => $demo.text() === "Loaded", { timeout: 3000 });
+ * ```
+ *
  * **[→ Full until() Docs](https://react-test.dev/documentation#until)**
  */
-export function until(arg?: (() => unknown) | object): any;
+export declare function until(
+  arg?: (() => unknown) | object,
+  options?: {
+    timeout?: number;
+  },
+): any;
+export declare namespace until {
+  var timeout: number;
+}
 
 export { $ as default, act };
 
