@@ -22,12 +22,20 @@
     max-width: 520px;
   }
   h1 {
-    margin: 0 0 12px;
+    margin: 0;
     font-size: 40px;
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--text);
+  }
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .title a {
+    display: flex;
   }
   h2 {
     margin: 0 0 10px;
@@ -37,7 +45,7 @@
     color: var(--text);
   }
   p {
-    margin: 0 0 6px;
+    margin: 6px 0;
     color: var(--text-soft);
     font-size: 16px;
   }
@@ -47,7 +55,7 @@
   .buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
     margin-top: 6px;
   }
   .button {
@@ -81,7 +89,10 @@
     font: 13px/1.7 var(--font-mono);
     color: var(--text);
   }
-  pre.install {
+  .install {
+    margin: 12px 0 16px;
+  }
+  .install code {
     display: inline-block;
     padding: 8px 14px;
     font-size: 14px;
@@ -211,13 +222,20 @@
 
 <section class="hero">
   <div>
-    <h1>React Test</h1>
+    <div class="title">
+      <h1>React Test</h1>
+      <a href="https://github.com/franciscop/react-test/actions"
+        ><img
+          src="https://github.com/franciscop/react-test/workflows/tests/badge.svg"
+          alt="tests"
+      /></a>
+    </div>
     <p style="max-width: 620px">
       Expressive testing library for React to make sure your code works as
       expected. Simulate user interactions and events asynchronously. Write
       better code, ship fewer bugs.
     </p>
-    <pre class="install">npm install react-test</pre>
+    <div class="install"><code>npm install react-test</code></div>
     <div class="buttons">
       <a class="button" href="/documentation">Documentation</a>
       <a class="button ghost" href="https://www.paypal.me/franciscopresencia/19"
