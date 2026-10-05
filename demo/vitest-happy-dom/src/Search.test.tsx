@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import $ from "react-test";
 import Search from "./Search";
 

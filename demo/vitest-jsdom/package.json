@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "pretest": "rm -rf node_modules/react-test && npm install",
-    "test": "tsc && vitest run"
+    "test": "tsc && vitest run --environment jsdom"
   },
   "dependencies": {
     "react": "^19.3.0",

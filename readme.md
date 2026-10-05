@@ -30,19 +30,6 @@ Then install React Test, [Vitest](https://vitest.dev/) and a DOM. They are only 
 npm install --save-dev react-test vitest jsdom
 ```
 
-Configure Vitest to use that DOM. Enabling its globals is optional, and lets the examples below skip importing `describe()`, `it()` and `expect()`:
-
-```ts
-// vite.config.ts
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vitest/config";
-
-export default defineConfig({
-  plugins: [react()],
-  test: { environment: "jsdom", globals: true },
-});
-```
-
 Now you can write tests. Let's say you have this `<Counter />` component:
 
 ```tsx
@@ -60,6 +47,7 @@ To make sure it works as expected, create a test file next to it:
 
 ```tsx
 // src/Counter.test.tsx
+import { describe, expect, it } from "vitest";
 import $ from "react-test";
 import Counter from "./Counter";
 
@@ -85,11 +73,15 @@ describe("Counter", () => {
 });
 ```
 
-Finally run the tests:
+Finally run the tests with that DOM:
 
 ```bash
-npx vitest
+npx vitest --environment jsdom
 ```
+
+To set the DOM in your config instead, add `test: { environment: "jsdom" }` to `vite.config.ts` and import `defineConfig` from `"vitest/config"` instead of `"vite"`.
+
+> There's many ways of configuring Vitest, this is just one example but feel free to customize it to your needs/preferences.
 
 ### Bun
 
@@ -99,29 +91,28 @@ Bun's test runner needs a DOM as well. Install React Test with happy-dom's globa
 bun add --dev react-test @happy-dom/global-registrator
 ```
 
-Then register happy-dom before your tests run:
-
-```ts
-// happydom.ts
-import { GlobalRegistrator } from "@happy-dom/global-registrator";
-
-GlobalRegistrator.register();
-```
+Then preload the registrator for every `bun test` run in your `bunfig.toml`:
 
 ```toml
-# bunfig.toml
 [test]
-preload = ["./happydom.ts"]
+preload = ["@happy-dom/global-registrator/register.js"]
 ```
 
-Now `bun test` runs your tests, and `describe()`, `it()` and `expect()` are available globally.
+The preload adds the DOM to every test file, so server code that checks for `window` will think it runs in a browser. If you also test server code, pass the preload only when running your component tests instead:
+
+```bash
+bun test src/components --preload @happy-dom/global-registrator/register.js
+bun test src/server
+```
+
+> There's many ways of configuring Bun, this is just one example but feel free to customize it to your needs/preferences.
 
 ### Jest
 
 Jest needs the jsdom environment, and Babel to compile your JSX, your TypeScript and React Test itself, since it is published as an ES module:
 
 ```bash
-npm install --save-dev react-test jest jest-environment-jsdom babel-jest @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript
+npm install --save-dev react-test jest jest-environment-jsdom @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript
 ```
 
 ```js
@@ -144,6 +135,8 @@ export default {
 ```
 
 Then run your tests with `npx jest`.
+
+> There's many ways of configuring Jest, this is just one example but feel free to customize it to your needs/preferences.
 
 ### Supported environments
 
@@ -192,6 +185,7 @@ export default function Button({ primary, onClick, children }) {
 Then we can test it with `react-test` by creating a `Button.test.js` file and adding some assertions:
 
 ```js
+import { describe, expect, it, vi } from "vitest";
 import $ from "react-test";
 import Button from "./Button";
 
@@ -217,7 +211,7 @@ describe("Button", () => {
     const $button = $(
       <Button onClick={fn} disabled>
         Hello
-      </Button>
+      </Button>,
     );
     await $button.click();
     expect(fn).not.toHaveBeenCalled(); // ERROR!
@@ -249,7 +243,7 @@ const list = $(
   <ul>
     <li>A</li>
     <li>B</li>
-  </ul>
+  </ul>,
 );
 ```
 
