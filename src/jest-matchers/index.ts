@@ -8,7 +8,13 @@ import toHaveText from "./toHaveText/index";
 import toHaveValue from "./toHaveValue/index";
 import toMatchSelector from "./toMatchSelector/index";
 
-expect.extend({
+// Without `globals: true`, Vitest only exposes expect() through this symbol
+const runner =
+  typeof expect === "undefined"
+    ? (globalThis as any)[Symbol.for("expect-global")]
+    : expect;
+
+runner.extend({
   toBeEnabled,
   toHaveAttribute,
   toHaveClass,

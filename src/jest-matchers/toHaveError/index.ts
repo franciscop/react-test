@@ -7,12 +7,7 @@ export default function toHaveError(
 ): { pass: boolean; message: () => string } {
   frag = normalize(frag);
 
-  if (
-    !frag ||
-    typeof frag !== "object" ||
-    !("nodes" in frag) ||
-    !("error" in frag)
-  ) {
+  if (!("nodes" in frag) || !("error" in frag)) {
     return {
       pass: false,
       message: () =>
@@ -54,6 +49,3 @@ export default function toHaveError(
         : `Expected ${nodeTag} to throw error matching ${this.utils.printExpected(expectedMessage)}, but got ${this.utils.printReceived(actualMessage)}`,
   };
 }
-
-// Register with Jest
-expect.extend({ toHaveError });

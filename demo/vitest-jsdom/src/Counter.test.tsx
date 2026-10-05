@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import $, { act } from "react-test";
 import Counter from "./Counter";
 

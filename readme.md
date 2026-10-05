@@ -30,7 +30,7 @@ Then install React Test, [Vitest](https://vitest.dev/) and a DOM. They are only 
 npm install --save-dev react-test vitest jsdom
 ```
 
-Configure Vitest to use that DOM. Enable its globals as well, since React Test adds its matchers to the global `expect()`:
+Configure Vitest to use that DOM. Enabling its globals is optional, and lets the examples below skip importing `describe()`, `it()` and `expect()`:
 
 ```ts
 // vite.config.ts
