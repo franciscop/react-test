@@ -1,6 +1,6 @@
 import { normalize, getPlainTag, emptySelection } from "../../helpers/index";
 
-export default function (
+export default function toMatchSelector(
   this: any,
   frag: any,
   selectorStr: string,

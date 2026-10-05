@@ -2,7 +2,7 @@ import { normalize, getPlainTag, emptySelection } from "../../helpers/index";
 
 const whitespace = (str: string) => str.replace(/\s+/g, " ");
 
-export default function (
+export default function toHaveText(
   this: any,
   frag: any,
   expected: string,

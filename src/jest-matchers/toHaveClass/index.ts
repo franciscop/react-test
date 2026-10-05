@@ -4,7 +4,7 @@ const toStr = (list: string[]) => {
   return `class${list.length > 1 ? "es" : ""} "${list.join('", "')}"`;
 };
 
-export default function (
+export default function toHaveClass(
   this: any,
   frag: any,
   ...expectedClasses: (string | string[])[]

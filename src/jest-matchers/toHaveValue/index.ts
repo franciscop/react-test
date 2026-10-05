@@ -1,6 +1,6 @@
 import { getPlainTag, normalize, emptySelection } from "../../helpers/index";
 
-export default function (
+export default function toHaveValue(
   this: any,
   frag: any,
   value: string | boolean | number = true,

@@ -26,7 +26,7 @@ const getErrorStr = (incorrectStyles: string[]) =>
     ", ",
   )}]`;
 
-export default function (
+export default function toHaveStyle(
   this: any,
   frag: any,
   styles: string | Record<string, unknown>,

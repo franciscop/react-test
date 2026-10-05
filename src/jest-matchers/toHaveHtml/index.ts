@@ -1,6 +1,6 @@
 import { normalize, emptySelection } from "../../helpers/index";
 
-export default function (
+export default function toHaveHtml(
   this: any,
   frag: any,
   html: unknown,
