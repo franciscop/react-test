@@ -16,10 +16,12 @@ it("can simulate clicking a div in a specific place", async () => {
 });
 ```
 
+The event is a real DOM event, so it reaches React like it would in a browser: `stopPropagation()`, capture handlers and `window` or `document` listeners all work, and the promise also waits for async handlers to finish. As in a browser, `e.target` is the live element and React clears `e.currentTarget` once the handler returns, so read those inside the handler instead of from a stored event.
+
 #### Parameters
 
-- `name`: the event name. It should be in lowercase and without any `on`. Examples: `"click"`, `"keypress"`, `"mousedown"`, `"pointermove"`, etc.
-- `extra = {}`: any data that you want to mock into the `event` that the event handler will receive. This is very useful to mock e.g. `clientX+clientY`, `target`, etc.
+- `name`: the event name without the `on`, like `"click"`, `"keydown"`, `"mouseenter"` or `"pointermove"`.
+- `extra = {}`: properties for the event, like `clientX` and `clientY` or `key`. A `target` can be another element or `window` to dispatch the event there, or a plain object like `{ value: "hello" }` whose fields are set on the element before the event.
 
 #### Returns
 

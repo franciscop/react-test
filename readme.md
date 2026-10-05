@@ -91,8 +91,6 @@ Finally run the tests:
 npx vitest
 ```
 
-The [`demo/`](https://github.com/franciscop/react-test/tree/master/demo) folder has a working project for each of these setups: Vitest with jsdom, Vitest with happy-dom, Bun and Jest.
-
 ### Bun
 
 Bun's test runner needs a DOM as well. Install React Test with happy-dom's global registrator:
@@ -146,6 +144,17 @@ export default {
 ```
 
 Then run your tests with `npx jest`.
+
+### Supported environments
+
+React Test supports React 18 and 19, and is tested with both of them in each of these setups:
+
+- Vitest with jsdom
+- Vitest with happy-dom
+- Bun with happy-dom
+- Jest with jsdom
+
+The [`demo/`](https://github.com/franciscop/react-test/tree/master/demo) folder has a working project for each of them.
 
 ### TypeScript
 

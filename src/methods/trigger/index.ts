@@ -1,53 +1,67 @@
-// [INTERNAL USE ONLY]
-
-// In React 16.9 - https://github.com/facebook/react/issues/15379
-// TEMPORAL
-// This is a fairly experimental implementation, it emulates event propagation
-// but doesn't properly handle `e.stopPropagation()`. The nice thing is that
-// it can and will await properly for the async callbacks!
 import { act } from "react";
 
+import { setNative } from "../../helpers/index";
 import $, { type ReactTest } from "../constructor";
 
-const findParents = (node: Node, list: Node[] = []): Node[] => {
-  list.push(node); // add current node
-  // do recursion until BODY is reached
-  if ((node as Element).tagName !== "BODY")
-    return findParents(node.parentNode!, list);
-  else return list;
+// React listens for these native events instead of the ones named in its props
+const ALIASES: Record<string, string> = {
+  doubleclick: "dblclick",
+  mouseenter: "mouseover",
+  mouseleave: "mouseout",
+  focus: "focusin",
+  blur: "focusout",
 };
 
-// happy-dom hides the own keys of <form>, so take React's key suffix from any node
-const getPropsKey = (nodes: Node[]): string | undefined => {
+const createEvent = (type: string, init: Record<string, unknown>) => {
+  // Only a MouseEvent click runs default actions, like checking a checkbox
+  const Ctor = type === "click" ? MouseEvent : Event;
+  const event = new Ctor(type, { bubbles: true, cancelable: true });
+  for (const key in init) {
+    Object.defineProperty(event, key, { value: init[key] });
+  }
+  return event;
+};
+
+const getPropsKey = (nodes: any[]): string | undefined => {
   for (const node of nodes) {
     const key = Object.keys(node).find((k) => /^__react[A-Za-z]+\$/.test(k));
     if (key) return key.replace(/^__react[A-Za-z]+/, "__reactProps");
   }
 };
 
-const getEvents = (
-  node: Node,
-  propsKey?: string,
-): Record<string, (...args: any[]) => any> | undefined => {
-  const handlers = propsKey && (node as any)[propsKey];
-  if (handlers && Object.keys(handlers).length) {
-    return handlers;
+// Swap the handlers up the tree for ones that record the promises they return
+const dispatch = async (target: any, event: Event) => {
+  const promises: unknown[] = [];
+  const nodes: any[] = [];
+  for (let n = target; n; n = n.parentNode) nodes.push(n);
+  const key = getPropsKey(nodes);
+  const swapped: [any, any, any][] = [];
+  for (const node of key ? nodes : []) {
+    const props = node[key!];
+    if (!props) continue;
+    const copy = { ...props };
+    for (const name in props) {
+      const fn = props[name];
+      if (!/^on[A-Z]/.test(name) || typeof fn !== "function") continue;
+      copy[name] = function (this: unknown, ...args: unknown[]) {
+        const res = fn.apply(this, args);
+        if (res && typeof res.then === "function") promises.push(res);
+        return res;
+      };
+    }
+    node[key!] = copy;
+    swapped.push([node, props, copy]);
   }
-};
-
-const createEvent = (type: string, props: Record<string, unknown>): Event => {
-  const event = new Event(type);
-  for (const key in props) {
-    Object.defineProperty(event, key, {
-      value: props[key],
-      enumerable: true,
-      configurable: true,
-    });
+  try {
+    target.dispatchEvent(event);
+  } finally {
+    // A re-render during the event leaves newer props than ours, keep those
+    for (const [node, props, copy] of swapped) {
+      if (node[key!] === copy) node[key!] = props;
+    }
   }
-  return event;
+  await Promise.all(promises);
 };
-
-const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
 
 /**
  * Simulates an event happening on all the matched elements. It should be awaited for the side effects to run and the component to re-rendered:
@@ -67,72 +81,22 @@ $.prototype.trigger = function (
   type: string,
   extra: Record<string, unknown> = {},
 ): Promise<void> {
-  // TODO: probably whitelist this
-  const propName = `on${capitalize(type)}`.replace(
-    /(down|up|left|right|in|out|move)$/i,
-    capitalize,
-  );
   if (!this.nodes.length) {
     console.warn(`Cannot trigger "${type}" since the selection is empty`);
   }
+  const { target: custom, ...init } = extra as Record<string, any>;
+  const name = ALIASES[type.toLowerCase()] ?? type.toLowerCase();
   return act(async () => {
     await Promise.all(
-      this.nodes.map(async (target) => {
-        const parents = findParents(target);
-
-        // The events manually registered on the root element
-        if (this.events && this.events[type]) {
-          const currentTarget = parents[parents.length - 1];
-          const event = createEvent(type, { target, currentTarget, ...extra });
-          this.events[type].map((cb) => cb(event));
+      this.nodes.map((node) => {
+        let target: any = node;
+        if (custom && typeof custom.dispatchEvent === "function") {
+          target = custom;
+          init.target = custom;
+        } else if (custom && typeof custom === "object") {
+          for (const [k, v] of Object.entries(custom)) setNative(node, k, v);
         }
-
-        // If there's a direct way of calling it e.g. `button.click()`
-        if ((target as any)[type]) {
-          if (type === "click") {
-            const event = new MouseEvent("click", {
-              bubbles: true,
-              cancelable: true,
-              ...(extra as MouseEventInit),
-            });
-            (target as Element).dispatchEvent(event);
-          } else if (type === "submit") {
-            const event = new Event("submit", {
-              bubbles: true,
-              cancelable: true,
-            });
-            (target as Element).dispatchEvent(event);
-          } else {
-            (target as any)[type](createEvent(type, { target, ...extra }));
-          }
-        } else {
-          const { target: extraTarget, ...restExtra } = extra;
-          const eventTarget =
-            extraTarget !== null &&
-            typeof extraTarget === "object" &&
-            !(extraTarget instanceof Node)
-              ? {
-                  nodeName: (target as Element).nodeName,
-                  ...(extraTarget as object),
-                }
-              : ((extraTarget as Node | undefined) ?? target);
-          const propsKey = getPropsKey(parents);
-          const events = parents
-            .map((el) => [getEvents(el, propsKey), el] as const)
-            .filter((ev) => ev[0])
-            .map((evts) => [evts[0]![propName], evts[1]] as const)
-            .filter((evts) => evts[0])
-            .map(([cb, currentTarget]) =>
-              cb(
-                createEvent(type, {
-                  target: eventTarget,
-                  currentTarget,
-                  ...restExtra,
-                }),
-              ),
-            );
-          await Promise.all(events);
-        }
+        return dispatch(target, createEvent(name, init));
       }),
     );
   }) as unknown as Promise<void>;

@@ -14,19 +14,11 @@ describe(".type()", () => {
   });
 
   it("can attach and click on children", async () => {
-    const onChange = vi.fn();
-    const $input = $(<input onChange={onChange} />);
-    expect(onChange).not.toHaveBeenCalled();
+    // e.target is the live input, so read its value inside the handler
+    const values: string[] = [];
+    const $input = $(<input onChange={(e) => values.push(e.target.value)} />);
     await $input.type("Hello");
-    expect(onChange).toHaveBeenCalled();
-    // Only written one letter in the first call
-    expect(onChange.mock.calls[0][0]).toMatchObject({
-      target: { value: "H" },
-    });
-    // Written all of the letters in the last call
-    expect(onChange.mock.calls.pop()![0]).toMatchObject({
-      target: { value: "Hello" },
-    });
+    expect(values).toEqual(["H", "He", "Hel", "Hell", "Hello"]);
   });
 
   const Greeter = () => {

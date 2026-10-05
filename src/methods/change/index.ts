@@ -1,3 +1,4 @@
+import { setNative } from "../../helpers/index";
 import $, { type ReactTest } from "../constructor";
 
 /**
@@ -16,16 +17,22 @@ $.prototype.change = async function (
   this: ReactTest,
   value: string | boolean,
 ): Promise<null> {
-  // This is needed for uncontrolled inputs
-  this.map((node) => {
-    const el = node as HTMLInputElement;
-    if (el.nodeName === "INPUT" && ["checkbox", "radio"].includes(el.type)) {
-      el.checked = value as boolean;
-    } else {
-      el.value = value as string;
-    }
-  });
-
-  await this.trigger("change", { target: { value } });
+  if (!this.nodes.length) {
+    await this.trigger("change");
+    return null;
+  }
+  await Promise.all(
+    this.nodes.map(async (node) => {
+      const el = node as HTMLInputElement;
+      if (el.nodeName === "INPUT" && ["checkbox", "radio"].includes(el.type)) {
+        // A click can never uncheck a radio, so set it directly
+        if (el.type === "radio" && !value) el.checked = false;
+        else if (el.checked !== Boolean(value)) await $(el).click();
+        return;
+      }
+      setNative(el, "value", value);
+      await $(el).trigger(el.nodeName === "SELECT" ? "change" : "input");
+    }),
+  );
   return null;
 };

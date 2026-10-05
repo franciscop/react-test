@@ -14,15 +14,15 @@ describe(".change()", () => {
   });
 
   it("event.currentTarget is the element with the handler", async () => {
-    const mock = vi.fn();
+    // React clears currentTarget after the handler, so read it inside
+    let name = "";
     const $test = $(
-      <form onChange={mock}>
+      <form onChange={(e) => (name = e.currentTarget.nodeName)}>
         <input />
       </form>,
     );
     await $test.find("input").change("hello");
-    const event = mock.mock.calls[0][0];
-    expect(event.currentTarget.nodeName).toBe("FORM");
+    expect(name).toBe("FORM");
   });
 
   it("can attach and click on children", async () => {
@@ -131,6 +131,19 @@ describe(".change()", () => {
     await input.change(false);
     expect((input.get(0) as HTMLInputElement).checked).toBe(false);
     // expect(input).not.toBeChecked();   // NOT YET
+  });
+
+  it("fires onInput as well", async () => {
+    const onInput = vi.fn();
+    await $(<input onInput={onInput} />).change("hello");
+    expect(onInput).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not fire onChange when nothing changes", async () => {
+    const onChange = vi.fn();
+    await $(<input defaultValue="hello" onChange={onChange} />).change("hello");
+    await $(<input type="checkbox" onChange={onChange} />).change(false);
+    expect(onChange).not.toHaveBeenCalled();
   });
 
   it("can test all the input types", async () => {

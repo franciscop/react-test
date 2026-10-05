@@ -118,4 +118,64 @@ describe(".trigger()", () => {
     expect(event.key).toBe("x");
     expect(event.target.nodeName).toBe("BODY");
   });
+
+  it("respects stopPropagation()", async () => {
+    const parent = vi.fn();
+    const $demo = $(
+      <div onClick={parent}>
+        <button onClick={(e) => e.stopPropagation()}>Hello</button>
+      </div>,
+    );
+    await $demo.find("button").click();
+    expect(parent).not.toHaveBeenCalled();
+  });
+
+  it("runs capture handlers first", async () => {
+    const calls: string[] = [];
+    const $demo = $(
+      <div onClickCapture={() => calls.push("capture")}>
+        <button onClick={() => calls.push("click")}>Hello</button>
+      </div>,
+    );
+    await $demo.find("button").click();
+    expect(calls).toEqual(["capture", "click"]);
+  });
+
+  it("fires the events React derives from others", async () => {
+    const enter = vi.fn();
+    const blur = vi.fn();
+    const $demo = $(<input onMouseEnter={enter} onBlur={blur} />);
+    await $demo.trigger("mouseenter");
+    await $demo.trigger("blur");
+    expect(enter).toHaveBeenCalledTimes(1);
+    expect(blur).toHaveBeenCalledTimes(1);
+  });
+
+  it("reaches the document listeners", async () => {
+    let key = "";
+    const Listener = () => {
+      useEffect(() => {
+        const onKey = (e: KeyboardEvent) => (key = e.key);
+        document.addEventListener("keydown", onKey);
+        return () => document.removeEventListener("keydown", onKey);
+      }, []);
+      return <input />;
+    };
+    await $(<Listener />).trigger("keydown", { key: "Escape" });
+    expect(key).toBe("Escape");
+  });
+
+  it("awaits async handlers", async () => {
+    const Async = () => {
+      const [text, setText] = useState("idle");
+      const onClick = async () => {
+        await new Promise((done) => setTimeout(done, 30));
+        setText("done");
+      };
+      return <button onClick={onClick}>{text}</button>;
+    };
+    const $button = $(<Async />);
+    await $button.click();
+    expect($button).toHaveText("done");
+  });
 });
