@@ -149,6 +149,8 @@ React Test supports React 18 and 19, and is tested with both of them in each of 
 
 The [`demo/`](https://github.com/franciscop/react-test/tree/master/demo) folder has a working project for each of them.
 
+For a Vite app, use Vitest. It runs your tests through Vite with your own `vite.config.ts`, so features like `import.meta.glob`, aliases and plugins work as they do in your app. Bun and Jest load your files without Vite, so code that uses those features can't be imported in their tests.
+
 ### TypeScript
 
 React Test ships with its own type definitions, so there is no `@types/` package to install. The matchers (`toHaveText`, `toHaveError`, etc.) are added to the `expect()` of Vitest, Bun and Jest. The `ReactTest` type is exported if you need to annotate variables explicitly:
@@ -281,6 +283,18 @@ const link = app.find("a.about");
 await link.click(); // App now renders a different page
 app.text(); // The new page
 link.text(); // Still the old link, query again with app.find()
+```
+
+#### Portals
+
+A component's matched nodes only include what it renders in place. Content rendered through a portal, like most modals, menus and tooltips, lives elsewhere in the page (usually in `document.body`), so search for it from there:
+
+```js
+const app = $(<App />);
+await app.find("button.menu").click();
+app.find(".menu-list"); // Empty, the list is rendered in a portal
+const list = $(document.body).find(".menu-list");
+await list.find("li").first().click();
 ```
 
 ### FAQ
