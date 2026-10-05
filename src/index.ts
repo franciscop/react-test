@@ -9,6 +9,7 @@ import "./methods/change/index";
 import "./methods/children/index";
 import "./methods/click/index";
 import "./methods/closest/index";
+import "./methods/contains/index";
 import "./methods/data/index";
 import "./methods/delay/index";
 import "./methods/each/index";

@@ -24,6 +24,7 @@ export interface ReactTest {
   children(selector?: string): ReactTest;
   click(): Promise<void>;
   closest(selector?: string): ReactTest;
+  contains(text: string | RegExp): ReactTest;
   data(name: string): string | null;
   delay(time: number): Promise<void>;
   each(callback?: (node: Node, index: number, arr: Node[]) => void): ReactTest;

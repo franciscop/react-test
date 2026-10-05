@@ -12,11 +12,12 @@ expect(button.text()).toBe("Hello world");
 | ------------------------ | ------------------ | ---------------------- | -------------------- |
 | [.children()](#children) | [.array()](#array) | [.change()](#change)   | [.delay()](#delay)   |
 | [.closest()](#closest)   | [.attr()](#attr)   | [.click()](#click)     | [.props()](#props)   |
-| [.each()](#each)         | [.data()](#data)   | [.submit()](#submit)   | [.render()](#render) |
-| [.eq()](#eq)             | [.get()](#get)     | [.trigger()](#trigger) |                      |
-| [.filter()](#filter)     | [.html()](#html)   | [.type()](#type)       |                      |
-| [.find()](#find)         | [.is()](#is)       |                        |                      |
-| [.first()](#first)       | [.text()](#text)   |                        |                      |
+| [.contains()](#contains) | [.data()](#data)   | [.submit()](#submit)   | [.render()](#render) |
+| [.each()](#each)         | [.get()](#get)     | [.trigger()](#trigger) |                      |
+| [.eq()](#eq)             | [.html()](#html)   | [.type()](#type)       |                      |
+| [.filter()](#filter)     | [.is()](#is)       |                        |                      |
+| [.find()](#find)         | [.text()](#text)   |                        |                      |
+| [.first()](#first)       |                    |                        |                      |
 | [.last()](#last)         |                    |                        |                      |
 | [.not()](#not)           |                    |                        |                      |
 | [.parent()](#parent)     |                    |                        |                      |
