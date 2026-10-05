@@ -1,0 +1,101 @@
+# React Test
+
+> Testing library for React with a jQuery-like API: render a component with `$()`, query and interact with it, and assert with the included matchers. Works with Vitest, Bun and Jest, on React 18 and 19.
+
+```js
+import $, { until } from "react-test";
+
+it("increments when clicked", async () => {
+  const $counter = $(<Counter />);
+  expect($counter).toHaveText("0");
+  await $counter.click();
+  expect($counter).toHaveText("1");
+});
+```
+
+Tests need a DOM. With Vitest, install `react-test vitest jsdom` and run `npx vitest --environment jsdom`. With Bun, run `bun test --preload @happy-dom/global-registrator/register.js`. With Jest, use `testEnvironment: "jsdom"` and transform React Test, since it is published as an ES module. For a Vite app, use Vitest, because Bun and Jest can't import code that relies on Vite features like `import.meta.glob`.
+
+Rules for using the API correctly:
+
+- `$(<Component />)` renders the component and returns an instance with its top-level elements as the matched nodes. Use `.find()` to reach descendants.
+- The instance returned by rendering always reflects the latest render. Instances from `.find()`, `.filter()` and the like hold fixed elements, so query again after a re-render.
+- Only one component is mounted at a time: a new `$(<Other />)` unmounts the previous one.
+- Content rendered through a portal is outside the component's elements. Search it with `$(document.body).find(...)`.
+- Event methods (`.click()`, `.change()`, `.type()`, `.submit()`, `.trigger()`) dispatch real DOM events inside `act()`, wait for async handlers, and must be awaited. Read `e.target` and `e.currentTarget` inside the handler, not from a stored event.
+- Methods that read data (`.text()`, `.attr()`, `.html()`, `.get()`) read the first matched node. `.is()` is true only when all of them match. Matchers check every matched node.
+- On an empty selection, event methods log a warning and do nothing, and matchers fail.
+- To wait for something asynchronous, use `until()`, which fails after 1 second by default.
+
+## Rendering
+
+- [$(element | node | node[])](https://react-test.dev/documentation#library-api): Renders a React element, or wraps existing DOM nodes like `document.body`. Returns an instance.
+- [.props(props | (prev) => props)](https://react-test.dev/documentation#props): Re-renders the rendered component with new props.
+- [.render(element?)](https://react-test.dev/documentation#render): Re-renders with another element, or unmounts with no argument.
+
+## Finding and filtering
+
+- [.find(selector)](https://react-test.dev/documentation#find): The descendants that match the CSS selector.
+- [.children(selector?)](https://react-test.dev/documentation#children): The direct children, optionally filtered by a selector.
+- [.parent()](https://react-test.dev/documentation#parent): The parent of each matched node.
+- [.closest(selector)](https://react-test.dev/documentation#closest): The closest ancestor of each node, including itself, that matches.
+- [.siblings(selector?)](https://react-test.dev/documentation#siblings): The siblings of each node, optionally filtered by a selector.
+- [.filter(selector | instance | (node, index) => boolean)](https://react-test.dev/documentation#filter): Keeps the nodes that match.
+- [.not(selector | instance)](https://react-test.dev/documentation#not): Keeps the nodes that don't match.
+- [.contains(text | RegExp)](https://react-test.dev/documentation#contains): Keeps the nodes whose text, read like `.text()`, includes the string or matches the regex. Use `/^Text$/` for an exact match. Ancestors of the text match too, so pair it with a selector: `.find("button").contains("Save")`.
+- [.eq(index)](https://react-test.dev/documentation#eq): The node at that index, as an instance. Negative indexes count from the end.
+- [.first()](https://react-test.dev/documentation#first): The first node, as an instance.
+- [.last()](https://react-test.dev/documentation#last): The last node, as an instance.
+- [.map((node) => Node | Node[] | null)](https://react-test.dev/documentation#map): A new instance with the nodes returned by the callback, without duplicates.
+- [.each((node, index, list) => void)](https://react-test.dev/documentation#each): Calls the callback for each node, and returns the same instance.
+
+## Reading
+
+- [.text()](https://react-test.dev/documentation#text): The text of the first node, nested elements included, with whitespace collapsed.
+- [.html()](https://react-test.dev/documentation#html): The outer HTML of the first node.
+- [.attr(name)](https://react-test.dev/documentation#attr): The attribute of the first node, or `null`.
+- [.data(name)](https://react-test.dev/documentation#data): The `data-name` attribute of the first node, or `null`.
+- [.get(index = 0)](https://react-test.dev/documentation#get): The native DOM node at that index, or `null` when out of range. Negative indexes count from the end.
+- [.is(selector | instance | (node) => boolean)](https://react-test.dev/documentation#is): Whether all the nodes match.
+- [.array(callback? | property)](https://react-test.dev/documentation#array): The nodes as an array, or the values returned by the callback, or each node's property.
+- `.length`, `for...of` and `[...$x]`: the number of matched nodes, and iteration over them.
+- `.error`: the error thrown while rendering, if any.
+
+## Events
+
+- [.click()](https://react-test.dev/documentation#click): Clicks each node, with the browser's default actions like toggling checkboxes and submitting forms.
+- [.change(value)](https://react-test.dev/documentation#change): Sets the value of inputs, textareas and selects, or the checked state of checkboxes and radios, and fires the events React listens for. `onChange` doesn't fire when the value doesn't change.
+- [.type(text)](https://react-test.dev/documentation#type): Types one character at a time through `.change()`, waiting 10 ms between characters. Prefer `.change()` when the individual keystrokes don't matter.
+- [.submit()](https://react-test.dev/documentation#submit): Submits each form.
+- [.trigger(type, extra?)](https://react-test.dev/documentation#trigger): Dispatches a DOM event, like `"keydown"`, `"mouseenter"` or `"blur"`, with extra event properties like `{ key: "Enter" }` or `{ clientX: 10 }`. A `target` option dispatches it on another element or `window`.
+- [.delay(ms)](https://react-test.dev/documentation#delay): Waits inside `act()`, so the component can update meanwhile.
+
+## Helpers
+
+- [until(callback | instance, { timeout }?)](https://react-test.dev/documentation#until): Waits until the callback returns something truthy, or until a chain on the instance returns a non-empty selection or a truthy value, like `until($app).contains("Loaded")` or `until($app).find("li")`. Start the chain from the component: `until($app.find("li"))` runs `.find()` only once. Fails after `until.timeout` milliseconds, 1000 by default.
+- [act(callback)](https://react-test.dev/documentation#act): React's `act()`, for updates that React Test doesn't trigger itself.
+
+## Matchers
+
+Added to `expect()` in Vitest, Bun and Jest, with types for all three. They check every matched node.
+
+- [toHaveText(text)](https://react-test.dev/documentation#tohavetext): The text equals `text` exactly, after collapsing whitespace.
+- [toHaveValue(value?)](https://react-test.dev/documentation#tohavevalue): A single input, textarea or select has that value. With no argument, a select has an option selected.
+- [toHaveAttribute(name, value?)](https://react-test.dev/documentation#tohaveattribute): Has the attribute, optionally with a value, a regex match, or `true` for an empty value.
+- [toHaveClass(...classes)](https://react-test.dev/documentation#tohaveclass): Has all of the classes.
+- [toHaveStyle(styles)](https://react-test.dev/documentation#tohavestyle): Has the inline styles, as a CSS string or an object like `{ color: "red" }`.
+- [toHaveHtml(html)](https://react-test.dev/documentation#tohavehtml): The outer HTML includes `html`.
+- [toMatchSelector(selector)](https://react-test.dev/documentation#tomatchselector): Matches the CSS selector.
+- [toBeEnabled()](https://react-test.dev/documentation#tobeenabled): Is not disabled.
+- [toHaveError(message?)](https://react-test.dev/documentation#tohaveerror): Rendering the component threw, optionally with that message or a message matching the regex.
+
+## Docs
+
+- [Documentation](https://react-test.dev/documentation): The full guide and reference.
+- [Getting Started](https://react-test.dev/documentation#getting-started): Setup with Vitest, Bun and Jest.
+- [Supported environments](https://react-test.dev/documentation#supported-environments): The React versions and test runners that are tested.
+- [Matched nodes](https://react-test.dev/documentation#matched-nodes): How the selection works, re-renders and portals.
+
+## Optional
+
+- [Examples](https://react-test.dev/documentation#examples): Full component tests, like a counter and a signup form.
+- [Source code](https://github.com/franciscop/react-test): The GitHub repository, with working setups in `demo/`.

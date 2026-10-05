@@ -86,3 +86,10 @@ await until(timer).children().filter(".important.active");
 When there is a "DOM Manipulation" method, it'll finish executing when it returns a non-zero collection of items.
 
 When it's reading data, it'll finish executing when it returns truthy.
+
+Start the chain from the component, since only the methods chained after `until()` run again on every check. `until($app.find("h1"))` runs `.find()` once before waiting, so it never sees a heading that appears later:
+
+```js
+await until($app.find("h1")); // Times out if the <h1> appears later
+await until($app).find("h1"); // Finds it once it appears
+```
