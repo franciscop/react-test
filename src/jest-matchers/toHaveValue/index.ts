@@ -3,8 +3,11 @@ import { getPlainTag, normalize, emptySelection } from "../../helpers/index";
 export default function toHaveValue(
   this: any,
   frag: any,
-  value: string | boolean | number = true,
+  value?: string | boolean | number,
 ): { pass: boolean; message: () => string } {
+  // Defaulted here, since Bun prints the parameters in its failure message
+  if (value === undefined) value = true;
+
   // To avoid double negations ¯\_(ツ)_/¯
   this.affirmative = !this.isNot;
 
