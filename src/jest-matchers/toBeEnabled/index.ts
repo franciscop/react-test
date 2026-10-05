@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from "../../helpers/index";
+import { normalize, getPlainTag, emptySelection } from "../../helpers/index";
 
 export default function (
   this: any,
@@ -9,6 +9,7 @@ export default function (
 
   // Convert it into a plain array of nodes
   frag = normalize(frag);
+  if (!frag.length) return emptySelection(this.isNot, "toBeEnabled");
 
   for (const el of frag) {
     // Prepare the message if there's an error. It needs to build this string:

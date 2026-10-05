@@ -1,4 +1,4 @@
-import { getPlainTag, normalize } from "../../helpers/index";
+import { getPlainTag, normalize, emptySelection } from "../../helpers/index";
 
 export default function (
   this: any,
@@ -17,11 +17,7 @@ export default function (
       "Cannot check multiple elements for values. Please pass only one element.",
     );
 
-  if (!frag.length) {
-    const msg =
-      "Expected an element to check its value, but the selection is empty";
-    return { pass: !!this.isNot, message: () => msg };
-  }
+  if (!frag.length) return emptySelection(this.isNot, "toHaveValue");
 
   const el = frag[0] as
     | HTMLInputElement

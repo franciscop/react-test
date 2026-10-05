@@ -31,7 +31,8 @@ import "./methods/text/index";
 import "./methods/trigger/index";
 import "./methods/type/index";
 
-export { act, until } from "./helpers/index";
+export { act } from "react";
+export { until } from "./helpers/index";
 
 // Export the whole thing
 export default $;

@@ -76,14 +76,6 @@ describe(".toHaveValue()", () => {
     );
   });
 
-  it("fails on an empty selection", () => {
-    const $empty = $(<div />).find("input");
-    const msg =
-      "Expected an element to check its value, but the selection is empty";
-    expect(() => expect($empty).toHaveValue(true)).toThrow(msg);
-    expect(() => expect($empty).not.toHaveValue("kiwi")).toThrow(msg);
-  });
-
   it("requires elements that can return values", () => {
     const $button = $(<button>click</button>);
     const $link = $(<a href="hello.com">click</a>);

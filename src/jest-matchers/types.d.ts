@@ -19,3 +19,7 @@ declare global {
 declare module "vitest" {
   interface Matchers<T = any> extends ReactTestMatchers<T> {}
 }
+
+declare module "bun:test" {
+  interface Matchers<T> extends ReactTestMatchers<void> {}
+}

@@ -1,4 +1,4 @@
-import { normalize } from "../../helpers/index";
+import { normalize, emptySelection } from "../../helpers/index";
 
 export default function (
   this: any,
@@ -7,6 +7,7 @@ export default function (
 ): { pass: boolean; message: () => string } {
   this.affirmative = !this.isNot;
   frag = normalize(frag);
+  if (!frag.length) return emptySelection(this.isNot, "toHaveHtml");
   if (typeof html !== "string") {
     const msg = `Second argument of .toHaveHtml() needs to be a string`;
     return { pass: this.isNot, message: () => msg };

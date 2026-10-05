@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from "../../helpers/index";
+import { normalize, getPlainTag, emptySelection } from "../../helpers/index";
 
 export default function (
   this: any,
@@ -11,6 +11,7 @@ export default function (
 
   // Convert it into a plain array of nodes
   frag = normalize(frag);
+  if (!frag.length) return emptySelection(this.isNot, "toHaveAttribute");
 
   for (const el of frag) {
     const attributes = [...(el as Element).attributes];

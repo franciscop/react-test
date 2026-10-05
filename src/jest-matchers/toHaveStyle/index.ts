@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from "../../helpers/index";
+import { normalize, getPlainTag, emptySelection } from "../../helpers/index";
 
 // Parse JS camelCase style properties to lowercase hyphenated strings
 const parseCamelCase = (styleToParse: string) =>
@@ -36,6 +36,7 @@ export default function (
 
   // Convert it into a plain array of nodes
   frag = normalize(frag);
+  if (!frag.length) return emptySelection(this.isNot, "toHaveStyle");
 
   for (const el of frag) {
     // Get the element string for use in error message if test fails

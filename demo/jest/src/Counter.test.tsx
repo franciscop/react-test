@@ -1,4 +1,4 @@
-import $ from "react-test";
+import $, { act } from "react-test";
 import Counter from "./Counter";
 
 describe("Counter", () => {
@@ -11,5 +11,11 @@ describe("Counter", () => {
     await $counter.click();
     await $counter.click();
     expect($counter).toHaveText("2");
+  });
+
+  it("can be incremented with a native click inside act()", () => {
+    const $counter = $(<Counter />);
+    act(() => ($counter.get(0) as HTMLElement).click());
+    expect($counter).toHaveText("1");
   });
 });

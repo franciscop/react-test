@@ -149,7 +149,7 @@ Then run your tests with `npx jest`.
 
 ### TypeScript
 
-React Test ships with its own type definitions, so there is no `@types/` package to install. The matchers (`toHaveText`, `toHaveError`, etc.) are added to the `expect()` of Vitest and Jest, but not to Bun's. The `ReactTest` type is exported if you need to annotate variables explicitly:
+React Test ships with its own type definitions, so there is no `@types/` package to install. The matchers (`toHaveText`, `toHaveError`, etc.) are added to the `expect()` of Vitest, Bun and Jest. The `ReactTest` type is exported if you need to annotate variables explicitly:
 
 ```ts
 import $ from "react-test";

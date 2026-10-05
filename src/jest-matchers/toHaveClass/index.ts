@@ -1,4 +1,4 @@
-import { normalize, getPlainTag } from "../../helpers/index";
+import { normalize, getPlainTag, emptySelection } from "../../helpers/index";
 
 const toStr = (list: string[]) => {
   return `class${list.length > 1 ? "es" : ""} "${list.join('", "')}"`;
@@ -14,6 +14,7 @@ export default function (
 
   // Convert it into a plain array of nodes
   frag = normalize(frag);
+  if (!frag.length) return emptySelection(this.isNot, "toHaveClass");
 
   // All of the expected classes
   const expected = expectedClasses.flat() as string[];
