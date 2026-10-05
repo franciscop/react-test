@@ -1,0 +1,23 @@
+{
+  "name": "react-test-demo-jest",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pretest": "rm -rf node_modules/react-test && npm install",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^8.0.6",
+    "@babel/preset-env": "^8.0.6",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
+    "babel-jest": "^30.5.2",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
+    "react-test": "file:../.."
+  }
+}

@@ -59,6 +59,17 @@ describe(".type()", () => {
     expect(input).toHaveValue("Francisco");
   });
 
+  it("warns once on an empty selection", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const $empty = $(<div />).find("input");
+    await $empty.type("hello");
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn).toHaveBeenCalledWith(
+      'Cannot type "hello" since the selection is empty',
+    );
+    warn.mockRestore();
+  });
+
   describe("readme", () => {
     it("can simulate typing in an input", async () => {
       const input = $(<input />);

@@ -13,28 +13,41 @@ it("increments when clicked", async () => {
 });
 ```
 
-The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. It also adds some Jest and Vite matchers for convenience.
+The `react-test` syntax follows a similar schema to jQuery so it's very easy to write expressive tests. It also adds some matchers to `expect()` for convenience, and works with Vitest, Bun and Jest.
 
 ## Getting Started
 
-First you'll need a working React project. As an example you can start a working React project with [Create React App](https://create-react-app.dev/):
+React Test renders your components into a real DOM, so your test runner needs one. [jsdom](https://github.com/jsdom/jsdom) and [happy-dom](https://github.com/capricorn86/happy-dom) both work. If you don't have a React project yet, create one with [Vite](https://vite.dev/):
 
 ```bash
-npx create-react-app my-app
+npm create vite@latest my-app -- --template react-ts
 cd my-app
 ```
 
-Then install `react-test`. It is only needed for development:
+Then install React Test, [Vitest](https://vitest.dev/) and a DOM. They are only needed for development:
 
 ```bash
-npm install react-test --save-dev
+npm install --save-dev react-test vitest jsdom
 ```
 
-Finally you can write tests. Let's say you have [the `<Counter />` component from this example](/tree/master/src/examples/Counter) and you want to test it to make sure it works as expected:
+Configure Vitest to use that DOM. Enable its globals as well, since React Test adds its matchers to the global `expect()`:
 
-```js
-// src/Counter.js
-import React, { useState } from "react";
+```ts
+// vite.config.ts
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  plugins: [react()],
+  test: { environment: "jsdom", globals: true },
+});
+```
+
+Now you can write tests. Let's say you have this `<Counter />` component:
+
+```tsx
+// src/Counter.tsx
+import { useState } from "react";
 
 export default function Counter() {
   const [counter, setCounter] = useState(0);
@@ -43,43 +56,100 @@ export default function Counter() {
 }
 ```
 
-```js
-// src/Counter.test.js
-import React from "react";
+To make sure it works as expected, create a test file next to it:
+
+```tsx
+// src/Counter.test.tsx
 import $ from "react-test";
 import Counter from "./Counter";
 
-describe("Counter.js", () => {
+describe("Counter", () => {
   it("is initialized to 0", () => {
-    const counter = $(<Counter />);
-    expect(counter.text()).toBe("0");
+    const $counter = $(<Counter />);
+    expect($counter).toHaveText("0");
   });
 
   it("can be incremented with a click", async () => {
-    const counter = $(<Counter />);
-    await counter.click();
-    expect(counter.text()).toBe("1");
+    const $counter = $(<Counter />);
+    await $counter.click();
+    expect($counter).toHaveText("1");
   });
 
   it("can be incremented multiple times", async () => {
-    const counter = $(<Counter />);
-    await counter.click();
-    await counter.click();
-    await counter.click();
-    expect(counter.text()).toBe("3");
+    const $counter = $(<Counter />);
+    await $counter.click();
+    await $counter.click();
+    await $counter.click();
+    expect($counter).toHaveText("3");
   });
 });
 ```
 
-Finally run the tests with Jest:
+Finally run the tests:
 
 ```bash
-npm run test
+npx vitest
 ```
+
+The [`demo/`](https://github.com/franciscop/react-test/tree/master/demo) folder has a working project for each of these setups: Vitest with jsdom, Vitest with happy-dom, Bun and Jest.
+
+### Bun
+
+Bun's test runner needs a DOM as well. Install React Test with happy-dom's global registrator:
+
+```bash
+bun add --dev react-test @happy-dom/global-registrator
+```
+
+Then register happy-dom before your tests run:
+
+```ts
+// happydom.ts
+import { GlobalRegistrator } from "@happy-dom/global-registrator";
+
+GlobalRegistrator.register();
+```
+
+```toml
+# bunfig.toml
+[test]
+preload = ["./happydom.ts"]
+```
+
+Now `bun test` runs your tests, and `describe()`, `it()` and `expect()` are available globally.
+
+### Jest
+
+Jest needs the jsdom environment, and Babel to compile your JSX, your TypeScript and React Test itself, since it is published as an ES module:
+
+```bash
+npm install --save-dev react-test jest jest-environment-jsdom babel-jest @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript
+```
+
+```js
+// jest.config.js
+export default {
+  testEnvironment: "jsdom",
+  transformIgnorePatterns: ["/node_modules/(?!react-test/)"],
+};
+```
+
+```json
+// babel.config.json
+{
+  "presets": [
+    ["@babel/preset-env", { "targets": { "node": "current" } }],
+    ["@babel/preset-react", { "runtime": "automatic" }],
+    "@babel/preset-typescript"
+  ]
+}
+```
+
+Then run your tests with `npx jest`.
 
 ### TypeScript
 
-React Test ships with type definitions included — no `@types/` package needed. The custom matchers (`toHaveText`, `toHaveError`, etc.) are automatically added to Jest and Vitest's `expect()`. The `ReactTest` type is exported if you need to annotate variables explicitly:
+React Test ships with its own type definitions, so there is no `@types/` package to install. The matchers (`toHaveText`, `toHaveError`, etc.) are added to the `expect()` of Vitest and Jest, but not to Bun's. The `ReactTest` type is exported if you need to annotate variables explicitly:
 
 ```ts
 import $ from "react-test";
@@ -100,8 +170,6 @@ React applications are divided in components, and these components can be tested
 For example, a plain button can be defined with a callback function, and change colors depending on the `primary` attribute:
 
 ```js
-import React from "react";
-
 export default function Button({ primary, onClick, children }) {
   const background = primary ? "blue" : "gray";
   return (
@@ -115,36 +183,35 @@ export default function Button({ primary, onClick, children }) {
 Then we can test it with `react-test` by creating a `Button.test.js` file and adding some assertions:
 
 ```js
-import React from "react";
 import $ from "react-test";
 import Button from "./Button";
 
-describe("Button.js", () => {
+describe("Button", () => {
   it("has different backgrounds depending on the props", () => {
     const $button = $(<Button>Hello</Button>);
-    expect($button).toHaveStyle("background", "gray");
+    expect($button).toHaveStyle({ background: "gray" });
     const $primary = $(<Button primary>Hello</Button>);
-    expect($primary).toHaveStyle("background", "blue");
+    expect($primary).toHaveStyle({ background: "blue" });
   });
 
   it("can be clicked", async () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const $button = $(<Button onClick={fn}>Hello</Button>);
-    expect(fn).not.toBeCalled();
+    expect(fn).not.toHaveBeenCalled();
     await $button.click();
-    expect(fn).toBeCalled();
+    expect(fn).toHaveBeenCalled();
   });
 
   // FAILS
   it("cannot be clicked if it's disabled", async () => {
-    const fn = jest.fn();
+    const fn = vi.fn();
     const $button = $(
       <Button onClick={fn} disabled>
         Hello
       </Button>
     );
     await $button.click();
-    expect(fn).not.toBeCalled(); // ERROR!
+    expect(fn).not.toHaveBeenCalled(); // ERROR!
   });
 });
 ```
@@ -152,8 +219,6 @@ describe("Button.js", () => {
 Great! All of our tests are working except for the last one. Now we can go back to our component and fix it:
 
 ```js
-import React from "react";
-
 export default function Button({ primary, onClick, children, ...props }) {
   const background = primary ? "blue" : "gray";
   return (
@@ -213,7 +278,7 @@ No. This follows the community convention of calling a library related to React 
 
 #### How can I contribute?
 
-Thanks! Please read the [Contributing Guide](./Contributing.md) where we explain how to get started with the project. Right now there are [some beginner-friendly issues](https://github.com/franciscop/react-test/labels/good%20first%20issue) so please feel free to implement those!
+Thanks! Right now there are [some beginner-friendly issues](https://github.com/franciscop/react-test/labels/good%20first%20issue) so please feel free to implement those!
 
 I will try to help as much as possible on the PRs.
 

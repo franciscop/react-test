@@ -24,7 +24,8 @@
     "lint": "tsc",
     "size": "echo $(gzip -c index.min.js | wc -c) bytes",
     "start": "vitest",
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "test:demo": "npm run build:library && npm test --prefix demo/vitest-jsdom && npm test --prefix demo/vitest-happy-dom && npm test --prefix demo/bun-test && npm test --prefix demo/jest"
   },
   "main": "index.min.js",
   "type": "module",

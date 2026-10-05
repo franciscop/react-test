@@ -17,13 +17,19 @@ const findParents = (node: Node, list: Node[] = []): Node[] => {
   else return list;
 };
 
+// happy-dom hides the own keys of <form>, so take React's key suffix from any node
+const getPropsKey = (nodes: Node[]): string | undefined => {
+  for (const node of nodes) {
+    const key = Object.keys(node).find((k) => /^__react[A-Za-z]+\$/.test(k));
+    if (key) return key.replace(/^__react[A-Za-z]+/, "__reactProps");
+  }
+};
+
 const getEvents = (
   node: Node,
+  propsKey?: string,
 ): Record<string, (...args: any[]) => any> | undefined => {
-  const handlers = Object.entries(node)
-    .filter(([k]) => /^__reactProps/.test(k))
-    .map((p) => p[1])
-    .shift();
+  const handlers = propsKey && (node as any)[propsKey];
   if (handlers && Object.keys(handlers).length) {
     return handlers;
   }
@@ -66,6 +72,9 @@ $.prototype.trigger = function (
     /(down|up|left|right|in|out|move)$/i,
     capitalize,
   );
+  if (!this.nodes.length) {
+    console.warn(`Cannot trigger "${type}" since the selection is empty`);
+  }
   return act(async () => {
     await Promise.all(
       this.nodes.map(async (target) => {
@@ -107,8 +116,9 @@ $.prototype.trigger = function (
                   ...(extraTarget as object),
                 }
               : ((extraTarget as Node | undefined) ?? target);
+          const propsKey = getPropsKey(parents);
           const events = parents
-            .map((el) => [getEvents(el), el] as const)
+            .map((el) => [getEvents(el, propsKey), el] as const)
             .filter((ev) => ev[0])
             .map((evts) => [evts[0]![propName], evts[1]] as const)
             .filter((evts) => evts[0])

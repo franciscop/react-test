@@ -16,6 +16,10 @@ $.prototype.type = async function (
   this: ReactTest,
   input: string,
 ): Promise<void> {
+  if (!this.nodes.length) {
+    console.warn(`Cannot type "${input}" since the selection is empty`);
+    return;
+  }
   const strings = input.split("").map((_, i) => input.slice(0, i + 1));
   for (const value of strings) {
     await this.change(value);

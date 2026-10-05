@@ -1,0 +1,20 @@
+{
+  "name": "react-test-demo-vitest-jsdom",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pretest": "rm -rf node_modules/react-test && npm install",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "jsdom": "^29.1.1",
+    "react-test": "file:../..",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  }
+}

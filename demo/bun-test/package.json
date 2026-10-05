@@ -1,0 +1,17 @@
+{
+  "name": "react-test-demo-bun-test",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "pretest": "rm -rf node_modules/react-test && npm install",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@happy-dom/global-registrator": "^20.14.5",
+    "react-test": "file:../.."
+  }
+}

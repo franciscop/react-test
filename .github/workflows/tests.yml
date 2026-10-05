@@ -28,3 +28,19 @@ jobs:
         run: npm test
         env:
           CI: true
+
+  demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js latest
+        uses: actions/setup-node@v6
+        with:
+          node-version: "lts/*"
+      - name: Use Bun latest
+        uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Run the demo tests
+        run: npm run test:demo

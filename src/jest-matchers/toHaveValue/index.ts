@@ -17,6 +17,12 @@ export default function (
       "Cannot check multiple elements for values. Please pass only one element.",
     );
 
+  if (!frag.length) {
+    const msg =
+      "Expected an element to check its value, but the selection is empty";
+    return { pass: !!this.isNot, message: () => msg };
+  }
+
   const el = frag[0] as
     | HTMLInputElement
     | HTMLTextAreaElement

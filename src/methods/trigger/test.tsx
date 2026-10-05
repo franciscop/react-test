@@ -12,6 +12,16 @@ describe(".trigger()", () => {
     expect(event).toMatchObject({ clientX: 100, clientY: 200 });
   });
 
+  it("warns on an empty selection", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const $empty = $(<div />).find(".nope");
+    await $empty.click();
+    expect(warn).toHaveBeenCalledWith(
+      'Cannot trigger "click" since the selection is empty',
+    );
+    warn.mockRestore();
+  });
+
   it("can test drawing on a card", async () => {
     const DrawableCard = () => {
       const [active, setActive] = useState(false);
