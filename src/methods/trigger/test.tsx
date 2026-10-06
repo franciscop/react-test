@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import $ from "../../";
 
 describe(".trigger()", () => {
@@ -165,6 +165,26 @@ describe(".trigger()", () => {
     expect(key).toBe("Escape");
   });
 
+  it("lets async handlers that wait for a re-render finish", async () => {
+    // refresh() only resolves from an effect, after the next render
+    const Refresher = () => {
+      const [count, setCount] = useState(0);
+      const resolvers = useRef<(() => void)[]>([]);
+      useEffect(() => {
+        resolvers.current.splice(0).forEach((done) => done());
+      }, [count]);
+      const refresh = () =>
+        new Promise<void>((done) => {
+          resolvers.current.push(done);
+          setCount(count + 1);
+        });
+      return <button onClick={() => refresh()}>{count}</button>;
+    };
+    const $button = $(<Refresher />);
+    await $button.click();
+    expect($button).toHaveText("1");
+  });
+
   it("awaits async handlers", async () => {
     const Async = () => {
       const [text, setText] = useState("idle");
@@ -177,6 +197,15 @@ describe(".trigger()", () => {
     const $button = $(<Async />);
     await $button.click();
     expect($button).toHaveText("done");
+  });
+
+  it("rejects when an async handler throws", async () => {
+    const onClick = async () => {
+      await new Promise((done) => setTimeout(done, 10));
+      throw new Error("Failed to save");
+    };
+    const $button = $(<button onClick={onClick}>Save</button>);
+    await expect($button.click()).rejects.toThrow("Failed to save");
   });
 
   it("creates the native event classes", async () => {

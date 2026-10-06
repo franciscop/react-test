@@ -46,7 +46,7 @@ const getPropsKey = (nodes: any[]): string | undefined => {
 };
 
 // Swap the handlers up the tree for ones that record the promises they return
-const dispatch = async (target: any, event: Event) => {
+const dispatch = (target: any, event: Event): unknown[] => {
   const promises: unknown[] = [];
   const nodes: any[] = [];
   for (let n = target; n; n = n.parentNode) nodes.push(n);
@@ -76,7 +76,7 @@ const dispatch = async (target: any, event: Event) => {
       if (node[key!] === copy) node[key!] = props;
     }
   }
-  await Promise.all(promises);
+  return promises;
 };
 
 /**
@@ -102,9 +102,10 @@ $.prototype.trigger = function (
   }
   const { target: custom, ...init } = extra as Record<string, any>;
   const name = ALIASES[type.toLowerCase()] ?? type.toLowerCase();
-  return act(async () => {
-    await Promise.all(
-      this.nodes.map((node) => {
+  return (async () => {
+    const promises: unknown[] = [];
+    await act(async () => {
+      for (const node of this.nodes) {
         let target: any = node;
         if (custom && typeof custom.dispatchEvent === "function") {
           target = custom;
@@ -112,8 +113,19 @@ $.prototype.trigger = function (
         } else if (custom && typeof custom === "object") {
           for (const [k, v] of Object.entries(custom)) setNative(node, k, v);
         }
-        return dispatch(target, createEvent(name, init));
-      }),
-    );
-  }) as unknown as Promise<void>;
+        promises.push(...dispatch(target, createEvent(name, init)));
+      }
+    });
+    if (!promises.length) return;
+
+    // Short act() calls, since a long one would hold the renders handlers await
+    let done = false;
+    const settled = Promise.allSettled(promises).then(() => (done = true));
+    while (!done) {
+      await act(async () => {
+        await Promise.race([settled, new Promise((r) => setTimeout(r, 20))]);
+      });
+    }
+    await Promise.all(promises);
+  })();
 };
