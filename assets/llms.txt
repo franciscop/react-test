@@ -78,7 +78,7 @@ Rules for using the API correctly:
 
 Added to `expect()` in Vitest, Bun and Jest, with types for all three. They check every matched node.
 
-- [toHaveText(text)](https://react-test.dev/documentation#tohavetext): The text equals `text` exactly, after collapsing whitespace.
+- [toHaveText(text | RegExp)](https://react-test.dev/documentation#tohavetext): The text equals the string exactly, or matches the regex, after collapsing whitespace. Use a regex like `/Loaded/` to match part of the text.
 - [toHaveValue(value?)](https://react-test.dev/documentation#tohavevalue): A single input, textarea or select has that value. With no argument, a select has an option selected.
 - [toHaveAttribute(name, value?)](https://react-test.dev/documentation#tohaveattribute): Has the attribute, optionally with a value, a regex match, or `true` for an empty value.
 - [toHaveClass(...classes)](https://react-test.dev/documentation#tohaveclass): Has all of the classes.

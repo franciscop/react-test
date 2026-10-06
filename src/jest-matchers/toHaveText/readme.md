@@ -1,6 +1,6 @@
 ### .toHaveText()
 
-Check whether the matched elements all contain the text ([see the Counter example](#counter)):
+Check whether the matched elements all have exactly the given text ([see the Counter example](#counter)):
 
 ```js
 it("can be clicked", async () => {
@@ -22,6 +22,13 @@ it("normalizes whitespace", () => {
   );
   expect($text).toHaveText("Hello world!");
 });
+```
+
+To match only part of the text, or to ignore the case, pass a regex instead of a string:
+
+```js
+expect($title).toHaveText(/Tu mano/);
+expect($title).toHaveText(/^tu mano/i);
 ```
 
 For list of items, it checks whether **all of them match** or **none of them match**:

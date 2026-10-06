@@ -7,7 +7,7 @@ interface ReactTestMatchers<R> {
   toHaveError(message?: string | RegExp): R;
   toHaveHtml(html: string): R;
   toHaveStyle(styles: string | Record<string, unknown>): R;
-  toHaveText(text: string): R;
+  toHaveText(text: string | RegExp): R;
   toHaveValue(value?: string | boolean | number): R;
   toMatchSelector(selector: string): R;
 }
