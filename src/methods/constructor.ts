@@ -60,10 +60,12 @@ function ReactTest(
   ctx: Partial<Pick<ReactTest, "root">> = {},
 ): ReactTest {
   if (!(this instanceof ReactTest))
-    return new (ReactTest as unknown as new (
-      obj: unknown,
-      ctx?: Partial<Pick<ReactTest, "root">>,
-    ) => ReactTest)(obj, ctx);
+    return new (
+      ReactTest as unknown as new (
+        obj: unknown,
+        ctx?: Partial<Pick<ReactTest, "root">>,
+      ) => ReactTest
+    )(obj, ctx);
 
   this.root = null;
   try {

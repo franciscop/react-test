@@ -23,9 +23,7 @@ export default function toHaveValue(
   if (!frag.length) return emptySelection(this.isNot, "toHaveValue");
 
   const el = frag[0] as
-    | HTMLInputElement
-    | HTMLTextAreaElement
-    | HTMLSelectElement;
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
   const tagName = el.tagName.toLowerCase();
   if (
