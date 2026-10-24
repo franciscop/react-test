@@ -1,4 +1,4 @@
-# React Test [![react-test](https://img.shields.io/npm/v/react-test?label=react-test&color=greenlime)](https://www.npmjs.com/package/react-test) [![tests](https://github.com/franciscop/react-test/workflows/tests/badge.svg)](https://github.com/franciscop/react-test/actions) [![gzip size](https://img.badgesize.io/franciscop/react-test/master/index.min.js.svg?label=gzip&logo=&compression=gzip)](https://github.com/franciscop/react-test/blob/master/index.min.js) [![dependencies](https://img.shields.io/badge/dependencies-0-limegreen.svg)](https://github.com/franciscop/react-test/blob/master/package.json)
+# React Test [![npm install react-test](https://img.shields.io/badge/npm%20install-react--test-blue.svg)](https://www.npmjs.com/package/react-test) [![tests](https://github.com/franciscop/react-test/workflows/tests/badge.svg)](https://github.com/franciscop/react-test/actions) [![gzip size](https://img.badgesize.io/franciscop/react-test/master/index.min.js.svg?label=gzip&logo=&compression=gzip)](https://github.com/franciscop/react-test/blob/master/index.min.js)
 
 Expressive testing library for React to make sure your code works as expected:
 
